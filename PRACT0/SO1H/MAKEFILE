@@ -1,0 +1,131 @@
+#----------------------------------------------------------------------------#
+#                                                                            #
+#    ejecute el comando make help para ver los objetivos disponibles         #
+#                                                                            #
+#----------------------------------------------------------------------------#
+
+PROGRAMA = SO1H
+
+!include "..\MKFILE0"
+
+!if $(MODEL) == huge
+C0DH     = c0dh.o
+!endif
+
+all: $(PROGRAMA).bin
+
+$(PROGRAMA).bin: $(PROGRAMA).exe                  start.o str_bss.o str_relo.o stop.o
+  PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
+
+jwlink:
+  $(LINKER) $(OPCIONES_LR) \
+    start.o, \
+    ajustes.o, \
+    $(PROGRAMA).o, \
+    str_bss.o, \
+    $(C0DH:.o=.o,) \
+    ..\so1hpub\tipos.o, ..\so1hpub\biosdata.o, \
+    ..\so1hpub\caracter.o, ..\so1hpub\printgen.o, \
+    ..\so1hpub\bios_0.o, ..\so1hpub\telon.o, ..\so1hpub\pantalla.o, \
+    str_relo.o, \
+    stop.o \
+    name $(PROGRAMA).bin
+
+$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o
+  $(CC) $(CFLAGS) ajustes.o $(PROGRAMA).o $(C0DH) \
+    ..\so1hpub\tipos.o ..\so1hpub\biosdata.o \
+    ..\so1hpub\caracter.o ..\so1hpub\printgen.o \
+    ..\so1hpub\bios_0.o ..\so1hpub\telon.o ..\so1hpub\pantalla.o
+# tdump $(PROGRAMA).exe
+
+$(PROGRAMA).o: $(PROGRAMA).c
+  $(CC) -v -$(MODEL) -c $(PROGRAMA).c
+
+ajustes.o: ajustes.c
+# $(CC) -v -$(MODEL) -c ajustes.c
+  $(CC) -v -$(MODEL) -S ajustes.c
+# $(CC) -v -$(MODEL) -c ajustes.asm
+  $(AS) -f elf -l ajustes.lst ajustes.asm
+
+c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
+  $(CC) -v -$(MODEL) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o c0dh.o
+
+start.o: start.c
+  $(CC) -v -$(MODEL) -c start.c
+
+str_bss.o: str_bss.c
+  $(CC) -v -$(MODEL) -c str_bss.c
+
+str_relo.o: str_relo.c
+  $(CC) -v -$(MODEL) -c str_relo.c
+
+stop.o: stop.c
+  $(CC) -v -$(MODEL) -c stop.c
+
+hexdump: $(PROGRAMA).bs
+  $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -u $(PROGRAMA).bs
+# $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -i $(PROGRAMA).bs
+
+build: clean all
+
+clean:
+  @if exist *.bin erase *.bin
+  @if exist *.exe erase *.exe
+  @if exist *.map erase *.map
+  @if exist *.asm erase *.asm
+  @if exist *.lst erase *.lst
+  @if exist *.des erase *.des
+  @if exist *.o   erase *.o
+  @if exist *.TR  erase *.TR
+  @if exist *.TP  erase *.TP
+  @if exist *.TD  erase *.TD
+
+help:
+# echo off & color 07 & title help & msg * "Hola"
+  @"echo."
+  @"echo    relacion de objetivos disponibles:"
+  @"echo."
+  @"echo    make          genera el fichero $(PROGRAMA).bs"
+  @"echo    make pule     borra todo salvo $(PROGRAMA).C, MAKEFILE y $(PROGRAMA).bs"
+  @"echo    make clean    borra todo salvo $(PROGRAMA).C y MAKEFILE"
+  @"echo    make build    borra todo y genera un nuevo fichero $(PROGRAMA).bs"
+  @"echo    make imagen   genera una imagen de disquete fd$(PROGRAMA).img
+  @"echo    make start    arranca la imagen de disquete fd$(PROGRAMA).img con qemu
+  @"echo    make help     muestra esta ayuda sobre los objetivos disponibles"
+
+imagen $(UTMP):\fd$(PROGRAMA).img: ..\..\..\SO\PRACT2\BOOT\BOOT.bs $(PROGRAMA).bin
+  @echo.
+  EXTENDER ..\..\..\SO\PRACT2\BOOT\BOOT.bs 1474560 $(UTMP):\fd$(PROGRAMA).img
+  @echo.
+  PARCHEAR $(UTMP):\fd$(PROGRAMA).img 16896 -f $(PROGRAMA).bin
+
+floppy: $(UTMP):\fd$(PROGRAMA).img
+  @echo.
+  copy $(UTMP):\fd$(PROGRAMA).img $(UTMP):\FLOPPY_0
+
+start: $(UTMP):\fd$(PROGRAMA).img
+# @start $(UUSB):\Interno\qemu-2.7.0\qemu-system-i386w.exe \
+#   -L $(UUSB):\Interno\qemu-2.7.0\Bios \
+  @start $(UUSB):\Interno\qemu-2.8.0\qemu-system-i386w.exe \
+    -L $(UUSB):\Interno\qemu-2.8.0\Bios \
+    -vga std \
+    -soundhw es1370,sb16,adlib,pcspk \
+    -rtc base=localtime,clock=host \
+    -name "qemu" \
+    -fda $(UTMP):\fd$(PROGRAMA).img \
+    -net nic,model=ne2k_pci -net user \
+    -no-acpi -no-hpet -no-reboot \
+    -m 128 -boot a
+
+desensambla: $(PROGRAMA).bin
+  ndisasm -b16 $(PROGRAMA).bin > $(PROGRAMA).des
+  type $(PROGRAMA).des | more
+
+run:
+   mode con cols=80 lines=25
+   cls
+   msdos $(PROGRAMA).exe
+
+rundosbox:
+  $(UUSB):\Interno\dosbox-0.74\dosbox.exe $(PROGRAMA).exe -noconsole 
+

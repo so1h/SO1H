@@ -1,0 +1,34 @@
+#----------------------------------------------------------------------------#
+#                                                                            #
+#    ejecute el comando make help para ver los objetivos disponibles         #
+#                                                                            #
+#----------------------------------------------------------------------------#
+
+all:
+  cd so1hpub
+  make
+  cd ..
+  cd so1h
+  make
+  cd ..
+
+clean:
+  cd so1hpub
+  make clean
+  cd ..
+  cd so1h
+  make clean
+  cd ..
+
+build: clean all
+
+run:
+  cd so1h
+  make run
+  cd ..
+
+rundosbox:
+  cd so1h
+  make rundosbox
+  cd ..
+

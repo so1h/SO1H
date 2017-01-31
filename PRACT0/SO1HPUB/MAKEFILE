@@ -1,0 +1,30 @@
+#----------------------------------------------------------------------------#
+#                                                                            #
+#    ejecute el comando make help para ver los objetivos disponibles         #
+#                                                                            #
+#----------------------------------------------------------------------------#
+
+!include "..\MKFILE0"
+
+OBJS = tipos.o caracter.o printgen.o biosdata.o bios_0.o pantalla.o \
+       puertos.o cmos.o telon.o
+
+all: $(OBJS)
+
+.c.o:
+  $(CC) -v -$(MODEL) -c $&.c
+
+build: clean all
+
+clean:
+  @if exist *.o erase *.o
+
+help:
+# echo off & color 07 & title help & msg * "Hola"
+  @"echo."
+  @"echo    relacion de objetivos disponibles:"
+  @"echo."
+  @"echo    make          genera los ficheros objeto modificados"
+  @"echo    make clean    borra todo salvo los fuentes"
+  @"echo    make build    borra todo y genera de nuevo los ficheros objeto"
+

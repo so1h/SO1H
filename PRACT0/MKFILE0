@@ -1,0 +1,29 @@
+#
+# MKFILE0
+# =======
+# establece las macros: CC, AS, LINKER, CFLAGS, AFLAGS, OPCIONES_L y OPCIONES_LR
+#
+# ajuste posible del ensamblador: AS = TASM32 o AS = JWASM
+
+!include "\SO\MKF0"
+
+# UTMP letra de la unidad temporal %TMP%\-so-
+# UUSB letra de la unidad usb
+
+#.autodepend
+
+CC       = smlrcc
+
+MODEL    = huge
+#MODEL   = dosh
+#MODEL   = dosu
+
+CFLAGS   = -v -$(MODEL) -map $(PROGRAMA).map -o $(PROGRAMA).exe
+
+AS       = nasm
+
+#LINKER     = $(UTMP):\PRGTOOLS\JWLINK\JWLINK.EXE
+LINKER      = JWLINK
+OPCIONES_L  = format dos op v, start=_startExe, map, quiet, stack = 0xFFFE disable 1014 file
+OPCIONES_LR = format dos output raw offset=0x0000 op v, start=_startBin, map, quiet, stack = 0xFFFE disable 1014 file
+
