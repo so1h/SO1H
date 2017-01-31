@@ -23,6 +23,7 @@ accesible en el modo real del 80386+.
 El sistema SO1H está principalmente dirigido a la enseñanza de
 los sistemas operativos en un curso de iniciación en la materia.
 
+
 Pedro Pablo                                      Julio    
 López Rodríguez                                  Lozano Del Pozo
 
