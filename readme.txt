@@ -1,30 +1,29 @@
 
-SO1H es un peque帽o sistema operativo para la arquitectura 80386+.
-Esta escrito en C utilizando el compilador Smaller C de Alexei Frunze
-(http://github.com/alexfru/SmallerC/wiki). Smaller C genera c贸digo de 
-16 bits para NASM que puede ser ensamblado y enlazado para generar 
-ficheros ejecutables binarios propios de SO1H. El modelo de 
-programaci贸n utilizado por esos binarios corresponde al modelo HUGE
-propuesto por Alexei Frunze en su proyecto Smaller C.
+SO1H is a small operating system for the 80386+ architecture.
+It is written in C using the Smaller C compiler of Alexei Frunze
+(Http://github.com/alexfru/SmallerC/wiki). Smaller C generates 16 
+bits code for NASM that can be assembled and linked to generate
+binary executable files of SO1H. The model of programming used 
+by those binaries corresponds to the model HUGE oroposed by 
+Alexei Frunze in his project Smaller C.
 
-SO1H parte de la experiencia en la implementaci贸n del sistema SO1.
-SO1 est谩 programado en C utilizando el compilador Borland C 5.02 de
-manera que se generan ficheros binarios basados en el modelo de 
-programaci贸n cl谩sico conocido como SMALL. El modelo SMALL limita 
-de forma severa el tama帽o del segmento de c贸digo a 64 KBytes. 
-Esta limitaci贸n desaparece en el modelo HUGE en el cual el c贸digo
-de cada funci贸n por separado puede ocupar hasta 64 KBytes.
+SO1H come of the SO1 implementation experience. SO1 is programmed 
+in C using the Borland C 5.02 binary files based on the
+classic programming model known as SMALL. The SMALL model limits
+the size of the code segment to 64 KBytes. This limitation 
+disappears in the HUGE model in which the code of each function 
+separately can occupy up to 64 KBytes.
 
-Otra gran ventaja de utilizar SmallerC es que los punteros toman
-valores correspondientes a direcciones lineales no segmentadas
-en el rango 0x00000 a 0x10FFFE, que es el rango de direccionamiento 
-accesible en el modo real del 80386+.
+Another great advantage of using SmallerC is that pointers take
+values ??corresponding to non-segmented linear directions
+in the range 0x00000 to 0x10FFFE, which is the address range
+accessible in the real mode of the 80386+.
 
-El sistema SO1H est谩 principalmente dirigido a la ense帽anza de
-los sistemas operativos en un curso de iniciaci贸n en la materia.
+The SO1H system is mainly aimed at teaching the operating systems 
+in a course of initiation in the matter.
 
 
-Pedro Pablo                                      Julio    
-L贸pez Rodr铆guez                                  Lozano Del Pozo
+Pedro Pablo                                              Julio
+L髉ez Rodr韌uez                                Lozano Del Pozo
 
-                     -- enero de 2017 --
+                      - January 2017 -
