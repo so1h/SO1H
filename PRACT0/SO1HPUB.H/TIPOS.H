@@ -19,7 +19,11 @@ typedef enum { FALSE, TRUE } bool_t ;
 
 typedef byte_t * pointer_t ;             
 
-#define ref 0x0CD           
+typedef enum {
+  modoSO1_Bin,               /* SO1 se ejecuta como so1.bin (boot)         */
+  modoSO1_Exe,               /* SO1 se ejecuta como so1.exe (MSDOS/NTVDM)  */
+  modoSO1_Bs                 /* SO1 se carga en 0000:7C00   (SYSLINUX)     *//* 2015-06-21 */
+} modoSO1_t ;
 
 typedef struct {
   byte_t lo ;

@@ -29,39 +29,48 @@ void finish ( void ) ;
 
 void segDatos ( void ) ;
 
-//modoSO1_t modoSO1 ( void ) ;  /* modo en que se ejecuta SO1: bin, exe, ... */
+modoSO1_t modoSO1 ( void ) ;  /* modo en que se ejecuta SO1: bin, exe, ... */
 
 //word_t desplCab ( void ) ;  /* desplazam. de la cabecera (cab en startBin) */
 
 byte_t unidadBIOS ( void ) ;       /* numero BIOS de la unidad de arranque */
 
-extern word_t CS_SO1H ;                       /* segmento de codigo de SO1 */
+extern word_t CS_SO1H ;                      /* segmento de codigo de SO1H */
 
-extern word_t DS_SO1H ;                        /* segmento de datos de SO1 */
+extern word_t DS_SO1H ;                       /* segmento de datos de SO1H */
 
-extern word_t BSS_SO1H ;                            /* comienzo BSS de SO1 */
+extern word_t BSS_SO1H ;                           /* comienzo BSS de SO1H */
 
 extern word_t IMRInicial ;     /* mascara de interrupcion inicial del 8259 */
 
                                     /* guardar el segmento de datos de SO1 */
 
-#if defined(TASM32)
-#define guardarDS_SO1()                                           /* macro */\
-  asm mov word ptr cs:[OFFSET segDatos],ds ;                  /* fin macro */
-#else
-#define guardarDS_SO1()                                           /* macro */\
-  asm db 2eh, 8ch, 1eh ; \
-  asm dw OFFSET segDatos ;                                    /* fin macro */
-#endif
+void obtenerMapa ( void ) ;
 
-#if defined(TASM32)
-#define establecerDS_SO1()                                        /* macro */\
-  asm mov ds, word ptr cs:[OFFSET segDatos]                   /* fin macro */
-#else
-#define establecerDS_SO1()                                        /* macro */\
-  asm db 2eh, 8eh, 1eh ; \
-  asm dw OFFSET segDatos ;                                    /* fin macro */
-#endif
+/* las siguientes macros presuponen que cs apunta al principio del codigo  */
+/* de so1h                                                                 */
+
+#define guardarDS_SO1H_0()                                        /* macro */\
+    asm                                                                      \
+    (                                                                        \
+        " extern _segDatos        \n"                                        \
+        "   mov [cs:_segDatos],ds \n"                                        \
+    ) ;                                                       /* fin macro */
+
+#define establecerDS_SO1H_0()                                     /* macro */\
+    asm                                                                      \
+    (                                                                        \
+        " extern _segDatos        \n"                                        \
+        "   mov ds,[cs:_segDatos] \n"                                        \
+    ) ;                                                       /* fin macro */
+
+/* las siguientes macros presuponen el acceso a la variable global DS_SO1H */
+
+#define guardarDS_SO1H_1()                                                   \
+    *(word_t *)((dword_t)segDatos) = DS_SO1H ;
+
+#define valorSegDatos()                                                      \
+    *(word_t *)((dword_t)segDatos)
 
 #endif /* AJUSTES_H */
 
