@@ -31,16 +31,17 @@ void salvarPantallaInicial ( void ) {
   readXYBIOS(&cursorOriginalF, &cursorOriginalC,
              &lineaOriginal1, &lineaOriginal2) ;
   VIDEO_mode = ptrBiosArea->VIDEO_mode ;
-  if (VIDEO_mode != 0x07)
+  if (VIDEO_mode != 0x07) 
     segMemVideo = 0xB800 ;
-  else
+  else 
     segMemVideo = 0xB000 ;
-  ptrPant = (pantalla_t *)(segMemVideo << 4) ;
+  ptrPant = (pantalla_t *) (segMemVideo << 4) ;
 
   /* se ha elegido guardar la copia de la pantalla original a continuacion */
-  /* de la pantalla original (no es seguro que no de puede dar problemas). */
+  /* de la pantalla original (no es seguro que no de problemas).           */
 
   copiaDeLaPantallaOriginal = (pantalla_t *)(&ptrPant->t[maxFilas][0]) ;
+  
   copiarPantalla(ptrPant, copiaDeLaPantallaOriginal, maxFilas) ;
 
   for ( F = 0 ; F < maxFilas ; F++ )                  /* ponemos atrNormal */
@@ -56,7 +57,10 @@ void salvarPantallaInicial ( void ) {
 }
 
 void restaurarPantallaInicial ( void ) {
+	
   copiarPantalla(copiaDeLaPantallaOriginal, ptrPant, maxFilas) ;
+  
   goToXYBIOS(cursorOriginalF, cursorOriginalC) ;
+  
 }
 

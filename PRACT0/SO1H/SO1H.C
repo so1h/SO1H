@@ -30,17 +30,85 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /***************************************************************************/
 
 #include "..\so1hpub.h\tipos.h"                                  /* word_t */
+#include "..\so1hpub.h\colores.h"                                  /* azul */
 #include "..\so1hpub.t\huge_t.c"              /* test_global, test_funcion */
 #include "..\so1hpub.h\bios_0.h"            /* clrScrBIOS, goToXYBIOS, ... */
 #include "..\so1hpub.t\bios_0_t.c"                          /* test_BIOS_0 */
 #include "..\so1hpub.h\biosdata.h"       /* ptrBiosArea, ptrFechaBios, ... */
 #include "..\so1hpub.t\biosdata_t.c"                      /* test_BIOSDATA */
 
-#include "..\so1hpub.h\telon.h"   /*  */
+#include "..\so1hpub.h\telon.h"              /* salvarPantallaInicial, ... */
+
+#include "..\so1h.h\s0.h"                          
 
 #include "..\so1h.h\ajustes.h"        /* unidadBIOS, modoSO1, obtenerMapa, */
                                          /* guardarDS_SO1, IMRInicial, ... */
 #include "..\so1h.t\ajustes_t.c"                           /* test_ajustes */
+
+#include <string.h>                                              /* memset */
+
+#ifdef _DOS 
+#include <stdlib.h>                                  /* exit, EXIT_SUCCESS */
+#endif 
+
+#include "..\so1hpub.t\string_t.c"                          /* test_string */
+
+#include "..\so1hpub.h\msdos.h"                              /* finProgDOS */
+
+void finProgDOS ( int error ) {
+asm
+(
+    "   mov ah,4ch    \n"           /* Llamada a MS-DOS: Terminar Programa */
+    "   mov al,[bp+8] \n"
+    "   int 21h       \n"
+) ;
+}	
+
+bool_t hayMSDOS ( void ) {
+  
+  address_t * ptrVIDos = (address_t *)(nVIntMSDOS*4) ;
+  
+  byte_t * VIDos = (((dword_t)(ptrVIDos->segment)) << 4) + (ptrVIDos->offset) ; 
+
+#if (0) 
+	
+  clrScrBIOS() ; 
+  
+  printStrBIOS("\n ptrVIDos = ") ;
+  printHexBIOS(ptrVIDos, 8) ;
+  printLnBIOS() ;
+  
+  printStrBIOS("\n ptrVIDos = ") ;
+  printHexBIOS(ptrVIDos->segment, 4) ;
+  printCarBIOS(':') ;
+  printHexBIOS(ptrVIDos->offset, 4) ;
+  printLnBIOS() ;
+  
+  printStrBIOS("\n VIDos    = ") ;
+  printLHexBIOS(VIDos, 8) ;
+  printLnBIOS() ;
+  printStrBIOS("\n (((dword_t)VIDos) >> 16) = ") ;
+  printLHexBIOS((((dword_t)VIDos) >> 16), 8) ;
+  printLnBIOS() ;
+  
+  printStrBIOS("\n *VIDos   = ") ;
+  printHexBIOS(*VIDos, 2) ;
+  printLnBIOS() ;
+  printLnBIOS() ;
+
+#endif 
+  
+  if ((*VIDos) == 0xCF)                   /* 0xCF = codigo maquina de IRET */
+    return (FALSE) ;
+	
+  if ((((dword_t)VIDos) >> 16) == 0xF)    /* el vector apunta al BIOS      */
+	                                      /* direccion 0x000Fxxxx          */
+	if (((dword_t)VIDos) > 0x000F14A0)									  
+	  return (FALSE) ;                    
+                                 /* !!!! DOSBox tiene el vector 0x000F14A0 */
+  return (TRUE) ;                     
+
+}
 
 void main ( void ) {
 
@@ -60,9 +128,23 @@ void main ( void ) {
 
     obtenerMapa() ;
     guardarDS_SO1H_1() ;
-    test_ajustes() ;
 
-    test_spin() ;
+    test_string() ;
+
+	if (hayMSDOS()) {
+	    printStrBIOS(" Hay MSDOS \n") ;
+	}
+    else {
+	    printStrBIOS(" No hay MSDOS \n") ;
+	}	
+	
+	if (modoSO1() == modoSO1_Bin) test_spin() ;
+	
+#ifdef _DOS 
+	exit(EXIT_SUCCESS) ;
+#else
+	finProgDOS(0) ;
+#endif 
 
 }
 

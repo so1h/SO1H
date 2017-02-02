@@ -5,30 +5,61 @@
 #----------------------------------------------------------------------------#
 
 all:
+  @echo.
   cd so1hpub
-  make
-  cd ..
+  @make 
+  @cd ..
+  @echo.
   cd so1h
-  make
-  cd ..
+  @make 
+  @cd ..
 
 clean:
+  @echo. 
   cd so1hpub
-  make clean
-  cd ..
+  @make clean > nul
+  @cd ..
   cd so1h
-  make clean
-  cd ..
+  @make clean > nul 
+  @cd ..
 
 build: clean all
 
 run:
+  @echo.
   cd so1h
   make run
-  cd ..
+  @cd ..
 
 rundosbox:
-  cd so1h
+  @echo.
+  cd so1h 
   make rundosbox
-  cd ..
+  @cd ..
+  
+imagen: 
+  @echo.
+  cd so1h
+  make imagen
+  @cd ..
+    
+start: 
+  @echo.
+  cd so1h
+  make start
+  @cd ..
+    
+help:
+# echo off & color 07 & title help & msg * "Hola"
+  @"echo."
+  @"echo    relacion de objetivos disponibles:"
+  @"echo."
+  @"echo    make          genera el fichero $(PROGRAMA).bs"
+  @"echo    make pule     borra todo salvo $(PROGRAMA).C, MAKEFILE y $(PROGRAMA).bs"
+  @"echo    make clean    borra todo salvo $(PROGRAMA).C y MAKEFILE"
+  @"echo    make build    borra todo y genera un nuevo fichero $(PROGRAMA).bs"
+  @"echo    make imagen   genera una imagen de disquete fd$(PROGRAMA).img
+  @"echo    make start    arranca la imagen de disquete fd$(PROGRAMA).img con qemu
+  @"echo    make help     muestra esta ayuda sobre los objetivos disponibles"
 
+  

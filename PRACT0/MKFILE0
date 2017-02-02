@@ -18,7 +18,8 @@ MODEL    = huge
 #MODEL   = dosh
 #MODEL   = dosu
 
-CFLAGS   = -v -$(MODEL) -map $(PROGRAMA).map -o $(PROGRAMA).exe
+//CFLAGS = -v -$(MODEL) 
+CFLAGS   = -$(MODEL) 
 
 AS       = nasm
 

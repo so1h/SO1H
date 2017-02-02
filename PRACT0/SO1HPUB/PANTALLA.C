@@ -17,7 +17,9 @@ void pantallazo ( pantalla_t * pantalla,
                   byte_t esqInfIzF, byte_t esqInfIzC ) {
   int F, C ;
   pos_t pos ;
+  
   if (esqInfIzF >= numFilas) return ;
+  
   if (atr != (char)0) {                   /* si se modifican los atributos */
     pos.car = car ;
     pos.atr = atr ;
@@ -66,16 +68,24 @@ void scrollPantalla ( pantalla_t * pantalla,
   pos_t pos ;
   pos.car = ' ' ;
   pos.atr = atrNormal ;
+  
   numFilas-- ;
+  
   copiarPantalla((pantalla_t *)&pantalla->t[1][0], pantalla, numFilas) ;
+  
   for ( C = 0 ; C < maxColumnas ; C++ ) pantalla->t[numFilas][C] = pos ;
+  
 }
 
 void scrollCPantalla ( pantalla_t * pantalla,
                        word_t numFilas ) {
   byte_t C ;
+  
   numFilas-- ;
+  
   copiarCPantalla((pantalla_t *)&pantalla->t[1][0], pantalla, numFilas) ;
+  
   for ( C = 0 ; C < maxColumnas ; C++ ) pantalla->t[numFilas][C].car = ' ' ;
+  
 }
 

@@ -7,12 +7,12 @@
 !include "..\MKFILE0"
 
 OBJS = tipos.o caracter.o printgen.o biosdata.o bios_0.o pantalla.o \
-       puertos.o cmos.o telon.o
+       puertos.o cmos.o telon.o colores.o 
 
 all: $(OBJS)
 
 .c.o:
-  $(CC) -v -$(MODEL) -c $&.c
+  $(CC) $(CFLAGS) -c $&.c
 
 build: clean all
 
