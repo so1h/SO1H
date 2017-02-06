@@ -7,7 +7,8 @@
 !include "..\MKFILE0"
 
 OBJS = tipos.o caracter.o printgen.o biosdata.o bios_0.o pantalla.o \
-       puertos.o cmos.o telon.o colores.o 
+       puertos.o cmos.o telon.o colores.o \
+	   msdos.o
 
 all: $(OBJS)
 

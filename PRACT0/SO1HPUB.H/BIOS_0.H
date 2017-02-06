@@ -74,9 +74,9 @@ int printDecBIOS ( word_t num, word_t l ) ;
 
 int printLDecBIOS ( dword_t num, word_t l ) ;
 
-int printIntBIOS ( int num, word_t l ) ;
+int printIntBIOS ( short int num, word_t l ) ;
 
-int printLIntBIOS ( long int num, word_t l ) ;
+int printLIntBIOS ( int num, word_t l ) ;
 
 int printHexBIOS ( word_t num, word_t l ) ;
 

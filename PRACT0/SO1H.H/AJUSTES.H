@@ -45,7 +45,7 @@ extern word_t IMRInicial ;     /* mascara de interrupcion inicial del 8259 */
 
                                     /* guardar el segmento de datos de SO1 */
 
-void obtenerMapa ( void ) ;
+void obtenerMapa ( void ) ;         /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
 
 /* las siguientes macros presuponen que cs apunta al principio del codigo  */
 /* de so1h                                                                 */

@@ -260,11 +260,11 @@ int printLDecBIOS ( dword_t num, word_t l ) {
   printGenLDec(num, l, printCarBIOS) ;
 }
 
-int printIntBIOS ( int num, word_t l ) {
+int printIntBIOS ( short int num, word_t l ) {
   printGenInt(num, l, printCarBIOS) ;
 }
 
-int printLIntBIOS ( long int num, word_t l ) {
+int printLIntBIOS ( int num, word_t l ) {
   printGenLInt(num, l, printCarBIOS) ;
 }
 

@@ -114,11 +114,11 @@ int printGenLDec ( dword_t num, word_t l, printCar_t p ) {
   return(0) ;                                                               \
 }
 
-int printGenInt ( int num, word_t l, printCar_t p ) {
+int printGenInt ( short int num, word_t l, printCar_t p ) {
   codigoPrintGenInt(6, 5, 4)
 }
 
-int printGenLInt ( long int num, word_t l, printCar_t p ) {
+int printGenLInt ( int num, word_t l, printCar_t p ) {
   codigoPrintGenInt(11, 10, 9)
 }
 

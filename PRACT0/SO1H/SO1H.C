@@ -45,7 +45,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                          /* guardarDS_SO1, IMRInicial, ... */
 #include "..\so1h.t\ajustes_t.c"                           /* test_ajustes */
 
-#include <string.h>                                              /* memset */
+#include <string.h>                                      /* memset, strcmp */
 
 #ifdef _DOS 
 #include <stdlib.h>                                  /* exit, EXIT_SUCCESS */
@@ -55,62 +55,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "..\so1hpub.h\msdos.h"                              /* finProgDOS */
 
-void finProgDOS ( int error ) {
-asm
-(
-    "   mov ah,4ch    \n"           /* Llamada a MS-DOS: Terminar Programa */
-    "   mov al,[bp+8] \n"
-    "   int 21h       \n"
-) ;
-}	
-
-bool_t hayMSDOS ( void ) {
-  
-  address_t * ptrVIDos = (address_t *)(nVIntMSDOS*4) ;
-  
-  byte_t * VIDos = (((dword_t)(ptrVIDos->segment)) << 4) + (ptrVIDos->offset) ; 
-
-#if (0) 
-	
-  clrScrBIOS() ; 
-  
-  printStrBIOS("\n ptrVIDos = ") ;
-  printHexBIOS(ptrVIDos, 8) ;
-  printLnBIOS() ;
-  
-  printStrBIOS("\n ptrVIDos = ") ;
-  printHexBIOS(ptrVIDos->segment, 4) ;
-  printCarBIOS(':') ;
-  printHexBIOS(ptrVIDos->offset, 4) ;
-  printLnBIOS() ;
-  
-  printStrBIOS("\n VIDos    = ") ;
-  printLHexBIOS(VIDos, 8) ;
-  printLnBIOS() ;
-  printStrBIOS("\n (((dword_t)VIDos) >> 16) = ") ;
-  printLHexBIOS((((dword_t)VIDos) >> 16), 8) ;
-  printLnBIOS() ;
-  
-  printStrBIOS("\n *VIDos   = ") ;
-  printHexBIOS(*VIDos, 2) ;
-  printLnBIOS() ;
-  printLnBIOS() ;
-
-#endif 
-  
-  if ((*VIDos) == 0xCF)                   /* 0xCF = codigo maquina de IRET */
-    return (FALSE) ;
-	
-  if ((((dword_t)VIDos) >> 16) == 0xF)    /* el vector apunta al BIOS      */
-	                                      /* direccion 0x000Fxxxx          */
-	if (((dword_t)VIDos) > 0x000F14A0)									  
-	  return (FALSE) ;                    
-                                 /* !!!! DOSBox tiene el vector 0x000F14A0 */
-  return (TRUE) ;                     
-
-}
-
 void main ( void ) {
+
+  int i ;
+  char str [256] ;
+  pointer_t ptrPSP ;
+  short int df ;
 
 #ifndef TEST
 
@@ -123,21 +73,104 @@ void main ( void ) {
     test_BIOSDATA() ;
     restaurarPantallaInicial() ;
     test_ajustes() ;
+    test_string() ;
 
 #endif
 
     obtenerMapa() ;
     guardarDS_SO1H_1() ;
 
-    test_string() ;
-
 	if (hayMSDOS()) {
+		printStrBIOS("\n") ;
 	    printStrBIOS(" Hay MSDOS \n") ;
+
+		printStrBIOS("\n") ;
+        printStrBIOS(" Version MSDOS: Mayor = ") ;
+        printHexBIOS(versionMSDOS() & 0x00FF, 2) ;
+        printStrBIOS(" Menor = ") ;
+        printHexBIOS(versionMSDOS() >> 8, 2) ;        
+		printStrBIOS("\n") ;
+
+		printStrBIOS("\n") ;
+		printStrBIOS(" segPSP = ") ;
+		printHexBIOS(segPSP(), 4) ;
+		printStrBIOS("\n") ;
+		
+		printStrBIOS("\n") ;
+		ptrPSP = (pointer_t)((segPSP() << 4) + 0x0081) ;
+		printStrBIOS(ptrPSP) ;
+		printStrBIOS("\n") ;
+		
+      	if (hayDOSBox()) {
+     		printStrBIOS("\n") ;
+	        printStrBIOS(" Hay DOSBox \n") ;
+		} 
+		else {
+     		printStrBIOS("\n") ;
+	        printStrBIOS(" No hay DOSBox \n") ;
+		}
+
+      	if (hayWindowsNT()) {
+     		printStrBIOS("\n") ;
+	        printStrBIOS(" Hay WindowsNT \n") ;
+		}
+		else {
+     		printStrBIOS("\n") ;
+	        printStrBIOS(" No hay WindowsNT \n") ;
+		}		
+
+   		printStrBIOS("\n") ;
+        printStrBIOS(" argcMSDOS() = ") ;
+        printHexBIOS(argcMSDOS(), 1) ;
+   		printStrBIOS("\n") ;
+		
+		for ( i = 0 ; i < argcMSDOS() ; i++ ) {
+     		printStrBIOS("\n") ;
+	        printStrBIOS(" argvMSDOS(") ;
+	        printDecBIOS(i, 1) ;
+	        printStrBIOS(") = \"") ;
+			getArgvMSDOS(i, &str) ;
+            printStrBIOS(str) ;
+	        printStrBIOS("\"") ;
+		}
+   		printStrBIOS("\n") ;
+		
+        i = 0 ;		
+		while (getArgvMSDOS(i, &str)) {
+     		printStrBIOS("\n") ;
+	        printStrBIOS(" argvMSDOS(") ;
+	        printDecBIOS(i, 1) ;
+	        printStrBIOS(") = \"") ;
+            printStrBIOS(str) ;
+	        printStrBIOS("\"") ;
+			i++ ;
+     	}	
+
+  		printStrBIOS("\n") ;
+   		printStrBIOS("\n") ;
+        printStrBIOS(" valorMSDOS(\"PATH\") = ") ;
+        printStrBIOS("\"") ;
+        printStrBIOS(valorMSDOS("PATH")) ;
+        printStrBIOS("\"") ;
+   		printStrBIOS("\n") ;
+		
+     	df = openDOS("none.lst", 0) ;
+   		printStrBIOS("\n") ;
+   		printStrBIOS(" openDOS(\"none.lst\", 0) = ") ;
+   		printIntBIOS((short)df, 1) ;
+   		printStrBIOS("\n") ;
+		
+     	df = openDOS("ajustes.lst", 0) ;
+   		printStrBIOS("\n") ;
+   		printStrBIOS(" openDOS(\"ajustes.lst\", 0) = ") ;
+   		printIntBIOS((short)df, 1) ;
+   		printStrBIOS("\n") ;
+		
 	}
     else {
 	    printStrBIOS(" No hay MSDOS \n") ;
 	}	
-	
+
 	if (modoSO1() == modoSO1_Bin) test_spin() ;
 	
 #ifdef _DOS 

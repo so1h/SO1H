@@ -156,7 +156,7 @@ modoSO1_t modoSO1 ( void ) {  /* modo en que se ejecuta SO1: bin, exe, ... */
     ) ;                                                 /* return(modoSO1) */
 }
 
-void obtenerMapa ( void ) {
+void obtenerMapa ( void ) {         /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
 
     word_t reg_AX ;
 
@@ -203,3 +203,4 @@ asm (
     BSS_SO1H = reg_AX ;
 
 }
+

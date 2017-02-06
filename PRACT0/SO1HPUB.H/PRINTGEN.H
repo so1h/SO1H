@@ -26,9 +26,9 @@ int printGenDec ( word_t num, word_t l, printCar_t p ) ;
 
 int printGenLDec ( dword_t num, word_t l, printCar_t p ) ;
 
-int printGenInt ( int num, word_t l, printCar_t p ) ;
+int printGenInt ( short int num, word_t l, printCar_t p ) ;
 
-int printGenLInt ( long int num, word_t l, printCar_t p ) ;
+int printGenLInt ( int num, word_t l, printCar_t p ) ;
 
 int printGenHex ( word_t num, word_t l, printCar_t p ) ;
 

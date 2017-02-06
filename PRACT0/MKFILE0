@@ -3,7 +3,7 @@
 # =======
 # establece las macros: CC, AS, LINKER, CFLAGS, AFLAGS, OPCIONES_L y OPCIONES_LR
 #
-# ajuste posible del ensamblador: AS = TASM32 o AS = JWASM
+# ajuste posible del ensamblador: AS = NASM
 
 !include "\SO\MKF0"
 
