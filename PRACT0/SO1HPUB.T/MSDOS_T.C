@@ -1,5 +1,5 @@
 /***************************************************************************/
-/*                                STRING_T.C                               */
+/*                                 MSDOS_T.C                               */
 /***************************************************************************/
 /*                                                                         */
 /***************************************************************************/
@@ -8,11 +8,12 @@
 
 #ifdef TEST
 
-#include "..\so1hpub.h\tipos.h"                                  
+#include "..\so1hpub.h\tipos.h"
 #include <string.h>                                      /* memset, strcpy */
 
-void test_msdos ( void ) {
-	
+void test_msdos ( void )
+{
+
     int i ;
     char str [256] ;
     pointer_t ptrPSP ;
@@ -20,9 +21,10 @@ void test_msdos ( void ) {
     int err ;
     word_t accion ;
     int nbytes ;
-    dword_t pos ;	
-    
-	if (hayMSDOS()) {
+    dword_t pos ;
+
+    if (hayMSDOS())
+    {
         printStrBIOS("\n") ;
         printStrBIOS(" Hay MSDOS \n") ;
 
@@ -43,20 +45,24 @@ void test_msdos ( void ) {
         printStrBIOS(ptrPSP) ;
         printStrBIOS("\n") ;
 
-        if (hayDOSBox()) {
+        if (hayDOSBox())
+        {
             printStrBIOS("\n") ;
             printStrBIOS(" Hay DOSBox \n") ;
         }
-        else {
+        else
+        {
             printStrBIOS("\n") ;
             printStrBIOS(" No hay DOSBox \n") ;
         }
 
-        if (hayWindowsNT()) {
+        if (hayWindowsNT())
+        {
             printStrBIOS("\n") ;
             printStrBIOS(" Hay WindowsNT \n") ;
         }
-        else {
+        else
+        {
             printStrBIOS("\n") ;
             printStrBIOS(" No hay WindowsNT \n") ;
         }
@@ -66,7 +72,8 @@ void test_msdos ( void ) {
         printHexBIOS(argcMSDOS(), 1) ;
         printStrBIOS("\n") ;
 
-        for ( i = 0 ; i < argcMSDOS() ; i++ ) {
+        for ( i = 0 ; i < argcMSDOS() ; i++ )
+        {
             printStrBIOS("\n") ;
             printStrBIOS(" argvMSDOS(") ;
             printDecBIOS(i, 1) ;
@@ -78,7 +85,8 @@ void test_msdos ( void ) {
         printStrBIOS("\n") ;
 
         i = 0 ;
-        while (getArgvMSDOS(i, &str)) {
+        while (getArgvMSDOS(i, &str))
+        {
             printStrBIOS("\n") ;
             printStrBIOS(" argvMSDOS(") ;
             printDecBIOS(i, 1) ;
@@ -96,7 +104,7 @@ void test_msdos ( void ) {
         printStrBIOS("\"") ;
         printStrBIOS("\n") ;
 
-/* openDOS --------------------------------------------------------------- */		
+        /* openDOS --------------------------------------------------------------- */
 
         df = openDOS("none.lst", 0) ;
         printStrBIOS("\n") ;
@@ -126,16 +134,16 @@ void test_msdos ( void ) {
         printHexBIOS((short)err, 4) ;
         printStrBIOS("\n") ;
 
-/* extendedOpenDOS ------------------------------------------------------- */		
-		
-		accion = 0x0001 ;
+        /* extendedOpenDOS ------------------------------------------------------- */
+
+        accion = 0x0001 ;
         df = extendedOpenDOS("none.lst", 0x0000, 0x0000, &accion, &err) ;
         printStrBIOS("\n") ;
         printStrBIOS(" extendedOpenDOS(\"none.lst\", 0x0000, 0x0000, &accion, &err) = ") ;
         printIntBIOS((short)df, 1) ;
         printStrBIOS("\n") ;
 
-		accion = 0x0001 ;
+        accion = 0x0001 ;
         df = extendedOpenDOS("ajustes.lst", 0x0000, 0x0000, &accion, &err) ;
         printStrBIOS("\n") ;
         printStrBIOS(" extendedOpenDOS(\"ajustes.lst\", 0x0000, 0x0000, &accion, &err) = ") ;
@@ -150,7 +158,7 @@ void test_msdos ( void ) {
         printHexBIOS((short)err, 4) ;
         printStrBIOS("\n") ;
 
-		accion = 0x0001 ;
+        accion = 0x0001 ;
         df = extendedOpenDOS("ajustes.lst", 0x0000, 0x0000, &accion, &err) ;
         printStrBIOS("\n") ;
         printStrBIOS(" extendedOpenDOS(\"ajustes.lst\", 0x0000, 0x0000, &accion, &err) = ") ;
@@ -165,8 +173,8 @@ void test_msdos ( void ) {
         printHexBIOS((short)err, 4) ;
         printStrBIOS("\n") ;
 
-/* createDOS ------------------------------------------------------------- */
-		
+        /* createDOS ------------------------------------------------------------- */
+
         df = createDOS("none.lst", FA_ARCH) ;
         printStrBIOS("\n") ;
         printStrBIOS(" createDOS(\"none.lst\", FA_ARCH) = ") ;
@@ -175,47 +183,47 @@ void test_msdos ( void ) {
         printHexBIOS((short)df, 4) ;
         printStrBIOS("\n") ;
 
-/* readDOS --------------------------------------------------------------- */
-		
-		accion = 0x0001 ;
+        /* readDOS --------------------------------------------------------------- */
+
+        accion = 0x0001 ;
         df = extendedOpenDOS("ajustes.lst", 0x0000, 0x0000, &accion, &err) ;
         nbytes = readDOS(df, &str, 10) ;
         printStrBIOS("\n\n nbytes = ") ;
         printIntBIOS((short)nbytes, 1) ;
         printStrBIOS(" bufer = \"") ;
-		str[9] = (char)0 ;
+        str[9] = (char)0 ;
         printStrBIOS(str) ;
         printStrBIOS("\"") ;
-        closeDOS(df) ; 		
-		
-/* writeDOS -------------------------------------------------------------- */
-		
-		strcpy(str, "patata") ;
+        closeDOS(df) ;
+
+        /* writeDOS -------------------------------------------------------------- */
+
+        strcpy(str, "patata") ;
         printStrBIOS("\n\n bufer = \"") ;
         printStrBIOS(str) ;
         printStrBIOS("\"") ;
 
-		accion = 0x0012 ;
+        accion = 0x0012 ;
         df = extendedOpenDOS("ajustes.lst", 0x0001, 0x0020, &accion, &err) ;
-		nbytes = writeDOS(df, &str, 10) ;
+        nbytes = writeDOS(df, &str, 10) ;
         printStrBIOS("\n\n nbytes = ") ;
         printIntBIOS((short)nbytes, 1) ;
-        closeDOS(df) ; 		
-		
-/* lseekDOS -------------------------------------------------------------- */
+        closeDOS(df) ;
 
-		accion = 0x0001 ;
+        /* lseekDOS -------------------------------------------------------------- */
+
+        accion = 0x0001 ;
         df = extendedOpenDOS("so1h.bin", 0x0000, 0x0000, &accion, &err) ;
         printStrBIOS("\n\n lseekDOS(df, &pos, whence) = ") ;
         printIntBIOS((short)lseekDOS(df, &pos, 2), 1) ;
         printStrBIOS("\n\n pos = ") ;
         printIntBIOS((short)pos, 1) ;
-        closeDOS(df) ; 		
+        closeDOS(df) ;
 
-/* getDiskDOS ------------------------------------------------------------ */
+        /* getDiskDOS ------------------------------------------------------------ */
 
-#if (0)  
-	
+#if (0)
+
         printStrBIOS("\n\n getdiskDOS() = ") ;
         printIntBIOS((short)getdiskDOS(), 1) ;
         printStrBIOS(" unidad = ") ;
@@ -235,24 +243,25 @@ void test_msdos ( void ) {
         printCarBIOS(':') ;
 #endif
 
-/* getcurdirDOS ---------------------------------------------------------- */
-        
+        /* getcurdirDOS ---------------------------------------------------------- */
+
         printStrBIOS("\n\n getcurdirDOS(2, str) = ") ;
         printIntBIOS((short)getcurdirDOS(2, str), 1) ;
         printStrBIOS(" str = ") ;
         printStrBIOS(str) ;
-		
-/* chdirDOS -------------------------------------------------------------- */
-        
+
+        /* chdirDOS -------------------------------------------------------------- */
+
         printStrBIOS("\n\n chdirDOS(\"mio\") = ") ;
         printIntBIOS((short)chdirDOS("mio"), 1) ;
-		
+
     }
-    else {
-		
+    else
+    {
+
         printStrBIOS(" No hay MSDOS \n") ;
-				
+
     }
-}	
+}
 
 #endif

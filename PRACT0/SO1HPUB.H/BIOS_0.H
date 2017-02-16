@@ -46,7 +46,7 @@ word_t leerTeclaBIOS ( void ) ;
 word_t leerTeclaExtBIOS ( void ) ;
 
 word_t teclaListaBIOS ( void ) ;   /* en WXP y DOSBOX deja int. permitidas */
-                                             /* se ve facilmente con el TD */
+/* se ve facilmente con el TD */
 
 #define leerCarBIOS( )                         /* bloqueante en bucle BIOS */\
   ((byte_t)leerTeclaBIOS())
@@ -137,14 +137,14 @@ void readXYBIOS ( byte_t * fila,
                   byte_t * linea1,
                   byte_t * linea2 ) ;
 
-   /* Las siguientes funciones permiten enviar y recibir caracteres por el */
-   /* puerto COM1. Hay que tener en cuenta que el BIOS permite las         */
-   /* interrupciones durante la ejecucion de esas llamadas, por lo que no  */
-   /* deben ser utilizadas desde el sistema operativo propiamente dicho.   */
+/* Las siguientes funciones permiten enviar y recibir caracteres por el */
+/* puerto COM1. Hay que tener en cuenta que el BIOS permite las         */
+/* interrupciones durante la ejecucion de esas llamadas, por lo que no  */
+/* deben ser utilizadas desde el sistema operativo propiamente dicho.   */
 
 /* Memoria (int 12h) */
-                                         /* tambien en BIOS AREA 0000:0413 */
-word_t memBIOS ( void ) ;  /* memoria reportada por el BIOS (en Kilobytes) */
+/* tambien en BIOS AREA 0000:0413 */
+word_t memBIOS ( void ) ;  /* memoria reportada por el BIOS (en KBytes) */
 
 /* Puerto serie COM1 (int 14h) */
 

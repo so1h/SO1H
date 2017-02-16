@@ -17,7 +17,7 @@
 
 void startBin ( void ) ;      /* punto de entrada so1.bin (boot) o so1.com */
 
-//void startExe ( void ) ;                       /* punto de entrada so1.exe */
+//void startExe ( void ) ;                     /* punto de entrada so1.exe */
 
 //void startCommon ( void ) ;
 
@@ -31,7 +31,7 @@ void segDatos ( void ) ;
 
 modoSO1_t modoSO1 ( void ) ;  /* modo en que se ejecuta SO1: bin, exe, ... */
 
-//word_t desplCab ( void ) ;  /* desplazam. de la cabecera (cab en startBin) */
+//word_t desplCab ( void ) ;/* desplazam. de la cabecera (cab en startBin) */
 
 byte_t unidadBIOS ( void ) ;       /* numero BIOS de la unidad de arranque */
 
@@ -43,7 +43,7 @@ extern word_t BSS_SO1H ;                           /* comienzo BSS de SO1H */
 
 extern word_t IMRInicial ;     /* mascara de interrupcion inicial del 8259 */
 
-                                    /* guardar el segmento de datos de SO1 */
+/* guardar el segmento de datos de SO1 */
 
 void obtenerMapa ( void ) ;         /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
 

@@ -61,7 +61,7 @@
 #define PORT_SMB_BASE          0xB100
 #define PORT_BIOS_APM          0x8900
 
-                           /* PORT_SERIAL: desplazamiento de los registros */
+/* PORT_SERIAL: desplazamiento de los registros */
 
 #define SEROFF_DATA  0
 #define SEROFF_THR   0           /* Transmiter Holding Register          W */
@@ -76,7 +76,7 @@
 #define SEROFF_LSR   5           /* Line Status Register               R   */
 #define SEROFF_MSR   6           /* Modem Status Register              R   */
 
-                         /* PORT_PARALLEL: desplazamiento de los registros */
+/* PORT_PARALLEL: desplazamiento de los registros */
 
 #define PAROFF_DATA     0                                           /* R W */
 #define PAROFF_STATUS   1                                           /* R   */
@@ -86,14 +86,14 @@
 
 #define PORT_PIC1_ICW1         0x0020           /* W         ICW1 0001LBS4 */
 #define PORT_PIC1_ICW234       0x0021           /* W         ICW2 VVVVV000 */
-                                                /* W Master  ICW3 SSSSSSSS */
-                                                /* W Slave   ICW3 00000IRQ */
-                                                /* W         ICW4 000NBBE1 */
+/* W Master  ICW3 SSSSSSSS */
+/* W Slave   ICW3 00000IRQ */
+/* W         ICW4 000NBBE1 */
 
-                                                 /* Operation Control Word */
+/* Operation Control Word */
 
 #define PORT_PIC1_OCW23        0x0020           /* W   ICR   OCW2 EEE00IRL */
-                                                /* R/W       OCW3 05S01PAR */
+/* R/W       OCW3 05S01PAR */
 #define PORT_PIC1_OCW1         0x0021           /* R/W IMR   OCW1 MMMMMMMM */
 
 #define PORT_PIC1_IMR          0x0021        /* Interrupt Mask Register    */
@@ -106,14 +106,14 @@
 
 #define PORT_PIC2_ICW1         0x00A0           /* W         ICW1 0001LBS4 */
 #define PORT_PIC2_ICW234       0x00A1           /* W         ICW2 VVVVV000 */
-                                                /* W Master  ICW3 SSSSSSSS */
-                                                /* W Slave   ICW3 00000IRQ */
-                                                /* W         ICW4 000NBBE1 */
+/* W Master  ICW3 SSSSSSSS */
+/* W Slave   ICW3 00000IRQ */
+/* W         ICW4 000NBBE1 */
 
-                                                 /* Operation Control Word */
+/* Operation Control Word */
 
 #define PORT_PIC2_OCW23        0x00A0           /* W   ICR   OCW2 EEE00IRL */
-                                                /* R/W       OCW3 05S01PAR */
+/* R/W       OCW3 05S01PAR */
 #define PORT_PIC2_OCW1         0x00A1           /* R/W IMR   OCW1 MMMMMMMM */
 
 #define PORT_PIC2_IMR          0x00A1        /* Interrupt Mask Register    */

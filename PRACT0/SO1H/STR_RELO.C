@@ -6,16 +6,16 @@
 
 asm
 (
-" section .relot          \n"
-"   global __start__relot \n"
-" __start__relot:         \n"
+    " section .relot          \n"
+    "   global __start__relot \n"
+    " __start__relot:         \n"
 ) ;
 
 asm
 (
-" section .relod          \n"
-"   global __start__relod \n"
-" __start__relod:         \n"
+    " section .relod          \n"
+    "   global __start__relod \n"
+    " __start__relod:         \n"
 ) ;
 
 

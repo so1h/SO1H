@@ -39,7 +39,7 @@ void test_ajustes ( void )
     printLnBIOS() ;
 
     guardarDS_SO1H_1() ;
-   
+
     printStrBIOS("\n CS_SO1H  = ") ;
     printHexBIOS(valorSegDatos(), 4) ;
     printLnBIOS() ;

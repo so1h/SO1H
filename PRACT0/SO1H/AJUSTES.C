@@ -45,7 +45,7 @@ void _start ( void ) ;        /* funcion a la que hay que ceder el control */
 #include "..\so1h.h\main.h"                                        /* main */
 
 void __start__ ( void ) ;       /* al final de _start se llama a __start__ */
-                                  /* al final de __start__ se llama a main */
+/* al final de __start__ se llama a main */
 #endif
 
 void unidadBIOS ( void ) ;    /* guarda el número de la unidad de arranque */
@@ -131,7 +131,7 @@ uint8_t unidadBIOS ( void )        /* numero BIOS de la unidad de arranque */
         " uBIOS: db 0xFF       \n"                  /* valor de unidadBIOS */
         " calculo1:            \n"
         "   mov al,[cs:18]     \n"                           /* uBIOS = 12 */
-                                       /*respecto a (unidadBIOS >> 4) << 4 */
+        /*respecto a (unidadBIOS >> 4) << 4 */
 //      "   mov al,[cs:$ - (_unidadBIOS | 0xFFFF0)] \n"        /* da error */
 //      "   mov al,[cs:$ - ((_unidadBIOS >> 4) << 4)] \n"      /* da error */
 //      "   mov al,[cs:_unidadBIOS] \n"
@@ -144,7 +144,8 @@ uint8_t unidadBIOS ( void )        /* numero BIOS de la unidad de arranque */
 /* manera que IP valga 0x0000 al principio de la función. Es decir         */
 /* CS=((CS0 << 4)+IP0) >> 4 e IP = 0x0000                                  */
 
-modoSO1_t modoSO1 ( void ) {  /* modo en que se ejecuta SO1: bin, exe, ... */
+modoSO1_t modoSO1 ( void )    /* modo en que se ejecuta SO1: bin, exe, ... */
+{
     asm
     (
         "   jmp short calculo2 \n"       /* (modoSO1_t)0x01 == modoSO1_Bin */
@@ -152,53 +153,54 @@ modoSO1_t modoSO1 ( void ) {  /* modo en que se ejecuta SO1: bin, exe, ... */
         " calculo2:            \n"
         "   xor eax,eax        \n"
         "   mov al,[cs:18]     \n"                           /* uBIOS = 12 */
-                                          /*respecto a (modoSO1 >> 4) << 4 */
+        /*respecto a (modoSO1 >> 4) << 4 */
     ) ;                                                 /* return(modoSO1) */
 }
 
-void obtenerMapa ( void ) {         /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
+void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
+{
 
     word_t reg_AX ;
 
 //  while (TRUE) ;
-asm (
-    "   call ret_dir          \n"
-    " ret_dir:                \n"
-    "   mov edx,$             \n"
-    "   mov bx,cs             \n"
-    "   movzx ebx,bx          \n"
-    "   shl ebx,4             \n"   /* ebx = (CS << 4)                     */
-    "   pop ax                \n"
-    "   movzx eax,ax          \n"
-    "   add eax,ebx           \n"   /* eax = direccion absoluta de ret_dir */
-    "   sub eax,edx           \n"
-    "   shr eax,4             \n"
-    "   mov [bp-4],ax         \n"
-) ;
+    asm (
+        "   call ret_dir          \n"
+        " ret_dir:                \n"
+        "   mov edx,$             \n"
+        "   mov bx,cs             \n"
+        "   movzx ebx,bx          \n"
+        "   shl ebx,4             \n"   /* ebx = (CS << 4)                     */
+        "   pop ax                \n"
+        "   movzx eax,ax          \n"
+        "   add eax,ebx           \n"   /* eax = direccion absoluta de ret_dir */
+        "   sub eax,edx           \n"
+        "   shr eax,4             \n"
+        "   mov [bp-4],ax         \n"
+    ) ;
 
     CS_SO1H = reg_AX ;
 
 //  while (TRUE) ;
-asm (
+    asm (
 
-    " extern __start__data    \n"
-    "   mov eax,__start__data \n"
-    "   add eax,0x0000000F    \n"
-    "   shr eax,4             \n"
-    "   mov [bp-4],ax         \n"
-) ;
+        " extern __start__data    \n"
+        "   mov eax,__start__data \n"
+        "   add eax,0x0000000F    \n"
+        "   shr eax,4             \n"
+        "   mov [bp-4],ax         \n"
+    ) ;
 
     DS_SO1H = reg_AX ;
 
 //  while (TRUE) ;
-asm (
+    asm (
 
-    " extern __start__bss     \n"
-    "   mov eax,__start__bss  \n"
-    "   add eax,0x0000000F    \n"
-    "   shr eax,4             \n"
-    "   mov [bp-4],ax         \n"
-) ;
+        " extern __start__bss     \n"
+        "   mov eax,__start__bss  \n"
+        "   add eax,0x0000000F    \n"
+        "   shr eax,4             \n"
+        "   mov [bp-4],ax         \n"
+    ) ;
 
     BSS_SO1H = reg_AX ;
 

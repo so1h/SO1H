@@ -8,8 +8,8 @@
 
 OBJS = tipos.o caracter.o printgen.o biosdata.o bios_0.o pantalla.o \
        puertos.o cmos.o telon.o colores.o \
-	   msdos.o \
-	   c2c.o
+       msdos.o \
+       c2c.o
 
 all: $(OBJS)
 
@@ -17,7 +17,7 @@ all: $(OBJS)
 !if (0)
   @if not exist asm mkdir asm
   $(CC) $(CFLAGS) -S $&.c -o asm\$&.s
-!endif  
+!endif
   $(CC) $(CFLAGS) -c $&.c
 
 build: clean all

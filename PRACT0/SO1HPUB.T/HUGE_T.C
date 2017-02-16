@@ -10,14 +10,16 @@
 
 #include "..\so1hpub.h\tipos.h"                                  /* word_t */
 
-void test_spin ( void ) {
-	
-	word_t * ptr = 0x0B8000 ;
-	
-	while (TRUE) {
+void test_spin ( void )
+{
+
+    word_t * ptr = 0x0B8000 ;
+
+    while (TRUE)
+    {
         ptr[0]++  ;
     }
-}	
+}
 
 char global [ ] =                                       /* variable global */
 
@@ -27,7 +29,7 @@ void test_global ( void )
 {
     word_t * ptrBufer = 0x0B8000 ;
     int i = 0 ;
-	
+
     while (global[i] != '\0')
     {
         *ptrBufer++ = 0x0700 | global[i] ;
@@ -59,21 +61,22 @@ void test_funcion ( void )
 
 }
 
-void test_puntero ( void ) {
+void test_puntero ( void )
+{
 
-/* En el modelo HUGE la dirección a la que se accede con el puntero es:    */
-/*                                                                         */ 
-/*   (((puntero >> 4) & 0x0000FFFFF) << 4) | (puntero & 0x0000000F)        */
+    /* En el modelo HUGE la dirección a la que se accede con el puntero es:    */
+    /*                                                                         */
+    /*   (((puntero >> 4) & 0x0000FFFFF) << 4) | (puntero & 0x0000000F)        */
 
 //byte_t * puntero = 0x0FFFFF ;                 /* el acceso funciona bien */
-  byte_t * puntero = 0x100000 ;                 /* el acceso funciona mal  */
-                                                /* ya que accede a 0x00000 */
-  byte_t byte ;
-  
+    byte_t * puntero = 0x100000 ;                 /* el acceso funciona mal  */
+    /* ya que accede a 0x00000 */
+    byte_t byte ;
+
 //while (TRUE) ;
-  
-  byte = *puntero ;  
- 	
+
+    byte = *puntero ;
+
 }
 
 #endif

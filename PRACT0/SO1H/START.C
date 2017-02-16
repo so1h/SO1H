@@ -6,16 +6,16 @@
 
 asm
 (
-" section .text           \n"
-"   global ___start__     \n"
-" ___start__:             \n"
+    " section .text           \n"
+    "   global ___start__     \n"
+    " ___start__:             \n"
 ) ;
 
 asm
 (
-" section .text           \n"
-"   global _startBin      \n"
-" _startBin:              \n"
+    " section .text           \n"
+    "   global _startBin      \n"
+    " _startBin:              \n"
 ) ;
 
 

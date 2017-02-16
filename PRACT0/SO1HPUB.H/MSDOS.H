@@ -7,7 +7,7 @@
 #ifndef MSDOS_H
 #define MSDOS_H
 
-#include "..\so1hpub.h\tipos.h"                                
+#include "..\so1hpub.h\tipos.h"
 
 #define nVIntMSDOS 0x21     /* numero del vector del interrupcion de MSDOS */
 
@@ -27,13 +27,14 @@ void finProgDOS ( int error ) ;
 
 #pragma pack(push, 1)
 
-struct ffblk {                              /* Disk Transfer Address (DTA) */
-  char     ff_reserved [21] ;
-  char     ff_attrib ;
-  unsigned ff_ftime ;
-  unsigned ff_fdate ;
-  long     ff_fsize ;
-  char     ff_name [13] ;
+struct ffblk                                /* Disk Transfer Address (DTA) */
+{
+    char     ff_reserved [21] ;
+    char     ff_attrib ;
+    unsigned ff_ftime ;
+    unsigned ff_fdate ;
+    long     ff_fsize ;
+    char     ff_name [13] ;
 } ;
 
 #pragma pack(pop)
@@ -55,7 +56,7 @@ struct ffblk {                              /* Disk Transfer Address (DTA) */
 #define O_WRONLY_MSDOS   1
 #define O_RDWR_MSDOS     2
 
-//extern rti_t Old_VI_ErrCritico ;   /* antiguo vector de int. error critico */
+//extern rti_t Old_VI_ErrCritico ; /* antiguo vector de int. error critico */
 
 //void far rti_errCritico ( ) ;
 

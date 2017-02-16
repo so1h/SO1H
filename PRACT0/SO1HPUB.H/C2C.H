@@ -11,16 +11,18 @@
 
 #define NULO ((int)-1)
 
-typedef struct {
-  int sig ;
-  int ant ;
+typedef struct
+{
+    int sig ;
+    int ant ;
 } dobleEnlace_t ;                                          /* enlace doble */
 
-typedef struct {
-  int numElem ;
-  int primero ;
-  int cabecera ;
-  dobleEnlace_t * e ;
+typedef struct
+{
+    int numElem ;
+    int primero ;
+    int cabecera ;
+    dobleEnlace_t * e ;
 } c2c_t ;                /* cola circular doblemente enlazada con cabecera */
 
 #define numElemC2c(c2c)      (c2c.numElem)
@@ -41,7 +43,7 @@ typedef struct {
   e[siguiente].ant = i ;                                                     \
 }
 #define codigoInsertarC2c(i, anterior, c2c) {                                \
-  dobleEnlace_t * e = c2c.e ;                                            \
+  dobleEnlace_t * e = c2c.e ;                                                \
   int siguiente = e[anterior].sig ;                                          \
   codigoInsertar(i, anterior, siguiente)                                     \
   if (c2c.cabecera == anterior)                                              \
@@ -55,7 +57,7 @@ typedef struct {
   e[sig].ant = ant ;                                                         \
 }
 #define codigoEliminarC2c(i, c2c) {            /* supuesto estaC2c(i, c2c) */\
-  dobleEnlace_t * e = c2c.e ;                                            \
+  dobleEnlace_t * e = c2c.e ;                                                \
   codigoEliminar(i) ;                                                        \
   if (i == c2c.primero) c2c.primero = e[i].sig ;                             \
   e[i].sig = NULO ;                                                          \
@@ -63,7 +65,7 @@ typedef struct {
   c2c.numElem-- ;                                                            \
 }
 #define codigoApilarC2c(i, c2c) {                  /* c2c vacia o no vacia */\
-  dobleEnlace_t * e = c2c.e ;                                            \
+  dobleEnlace_t * e = c2c.e ;                                                \
   int anterior = c2c.cabecera ;                                              \
   int siguiente = c2c.primero ;                                              \
   codigoInsertar(i, anterior, siguiente)                                     \
@@ -71,7 +73,7 @@ typedef struct {
   c2c.numElem++ ;                                                            \
 }
 #define codigoEncolarC2c(i, c2c) {                 /* c2c vacia o no vacia */\
-  dobleEnlace_t * e = c2c.e ;                                            \
+  dobleEnlace_t * e = c2c.e ;                                                \
   int siguiente = c2c.cabecera ;                                             \
   int anterior = e[siguiente].ant ;                                          \
   codigoInsertar(i, anterior, siguiente)                                     \
@@ -91,7 +93,7 @@ typedef struct {
   return(-1) ;                                         /* i no esta en c2c */\
 }
 #define codigoPosicionC2c(i, c2c) {                                          \
-  dobleEnlace_t * e = c2c.e ;                                            \
+  dobleEnlace_t * e = c2c.e ;                                                \
   int cabecera = c2c.cabecera ;                                              \
   int primero = c2c.primero ;                                                \
   codigoPosicion(i)                                                          \

@@ -6,22 +6,22 @@
 
 asm
 (
-" section .relot          \n"
-"   global __stop__relot  \n"
-" __stop__relot:          \n"
+    " section .relot          \n"
+    "   global __stop__relot  \n"
+    " __stop__relot:          \n"
 ) ;
 
 asm
 (
-" section .relod          \n"
-"   global __stop__relod  \n"
-" __stop__relod:          \n"
+    " section .relod          \n"
+    "   global __stop__relod  \n"
+    " __stop__relod:          \n"
 ) ;
 
 asm
 (
-" section .bss            \n"
-"   global __stop__bss    \n"
-" __stop__bss:            \n"
+    " section .bss            \n"
+    "   global __stop__bss    \n"
+    " __stop__bss:            \n"
 ) ;
 

@@ -42,7 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1h.h\s0.h"
 
 #include "..\so1h.h\ajustes.h"        /* unidadBIOS, modoSO1, obtenerMapa, */
-                                         /* guardarDS_SO1, IMRInicial, ... */
+/* guardarDS_SO1, IMRInicial, ... */
 #include "..\so1h.t\ajustes_t.c"                           /* test_ajustes */
 
 #include <string.h>                                      /* memset, strcpy */
@@ -56,7 +56,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1hpub.h\msdos.h"                              /* finProgDOS */
 #include "..\so1hpub.t\msdos_t.c"                            /* test_msdos */
 
-void main ( void ) {
+void main ( void )
+{
 
 #ifndef TEST
 
@@ -70,21 +71,23 @@ void main ( void ) {
     restaurarPantallaInicial() ;
     test_ajustes() ;
     test_string() ;
-	test_msdos() ;
-	
+    test_msdos() ;
+
 #endif
 
     obtenerMapa() ;                          /* CS_SO1H, DS_SO1H, BSS_SO1H */
     guardarDS_SO1H_1() ;
 
-	if (hayMSDOS()) {
+    if (hayMSDOS())
+    {
         printStrBIOS("\n") ;
         printStrBIOS(" Hay MSDOS \n") ;
-	}
-    else {
-        printStrBIOS(" No hay MSDOS \n") ;	
     }
-	
+    else
+    {
+        printStrBIOS(" No hay MSDOS \n") ;
+    }
+
     if (modoSO1() == modoSO1_Bin) test_spin() ;
 
 #ifdef _DOS

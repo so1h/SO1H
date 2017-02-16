@@ -6,9 +6,9 @@
 
 asm
 (
-" section .bss            \n"
-"   global __start__bss   \n"
-" __start__bss:           \n"
+    " section .bss            \n"
+    "   global __start__bss   \n"
+    " __start__bss:           \n"
 ) ;
 
 

@@ -7,9 +7,9 @@
 #include "..\so1hpub.h\tipos.h"                                  /* byte_t */
 
 #include "..\so1hpub.h\def_pant.h"                             /* maxFilas */
-#include "..\so1hpub.h\pantalla.h" /* pantalla_t, copiarPantalla, atrNormal */
-#include "..\so1hpub.h\bios_0.h"   /* (read/goTo)XYBIOS, print(Str/Ptr)BIOS */ /* leerTeclaBIOS */
-#include "..\so1hpub.h\biosdata.h"                           /* ptrBiosArea */
+#include "..\so1hpub.h\pantalla.h"/* pantalla_t, copiarPantalla, atrNormal */
+#include "..\so1hpub.h\bios_0.h"  /* (read/goTo)XYBIOS, print(Str/Ptr)BIOS */ /* leerTeclaBIOS */
+#include "..\so1hpub.h\biosdata.h"                          /* ptrBiosArea */
 
 static pantalla_t * ptrPant ;
 
@@ -24,43 +24,45 @@ static pantalla_t * copiaDeLaPantallaOriginal ;
 
 static word_t segMemVideo ;           /* 0xB000 (mono) o 0xB800 (en color) */
 
-void salvarPantallaInicial ( void ) {
+void salvarPantallaInicial ( void )
+{
 
-  byte_t F, C ;
+    byte_t F, C ;
 
-  readXYBIOS(&cursorOriginalF, &cursorOriginalC,
-             &lineaOriginal1, &lineaOriginal2) ;
-  VIDEO_mode = ptrBiosArea->VIDEO_mode ;
-  if (VIDEO_mode != 0x07) 
-    segMemVideo = 0xB800 ;
-  else 
-    segMemVideo = 0xB000 ;
-  ptrPant = (pantalla_t *) (segMemVideo << 4) ;
+    readXYBIOS(&cursorOriginalF, &cursorOriginalC,
+               &lineaOriginal1, &lineaOriginal2) ;
+    VIDEO_mode = ptrBiosArea->VIDEO_mode ;
+    if (VIDEO_mode != 0x07)
+        segMemVideo = 0xB800 ;
+    else
+        segMemVideo = 0xB000 ;
+    ptrPant = (pantalla_t *) (segMemVideo << 4) ;
 
-  /* se ha elegido guardar la copia de la pantalla original a continuacion */
-  /* de la pantalla original (no es seguro que no de problemas).           */
+///* se ha elegido guardar la copia de la pantalla original a continuacion */
+///* de la pantalla original (no es seguro que no de problemas).           */
 
-  copiaDeLaPantallaOriginal = (pantalla_t *)(&ptrPant->t[maxFilas][0]) ;
-  
-  copiarPantalla(ptrPant, copiaDeLaPantallaOriginal, maxFilas) ;
+    copiaDeLaPantallaOriginal = (pantalla_t *)(&ptrPant->t[maxFilas][0]) ;
 
-  for ( F = 0 ; F < maxFilas ; F++ )                  /* ponemos atrNormal */
-    for ( C = 0 ; C < maxColumnas ; C++ )
-      ptrPant->t[F][C].atr = atrNormal ;
+    copiarPantalla(ptrPant, copiaDeLaPantallaOriginal, maxFilas) ;
 
-//printStrBIOS("\n ptrPant = ") ;
-//printPtrBIOS(ptrPant) ;
-//printStrBIOS("\n copiaDeLaPantallaOriginal = ") ;
-//printPtrBIOS(copiaDeLaPantallaOriginal) ;
-//leerTeclaBIOS() ;
+    for ( F = 0 ; F < maxFilas ; F++ )                /* ponemos atrNormal */
+        for ( C = 0 ; C < maxColumnas ; C++ )
+            ptrPant->t[F][C].atr = atrNormal ;
+
+//  printStrBIOS("\n ptrPant = ") ;
+//  printPtrBIOS(ptrPant) ;
+//  printStrBIOS("\n copiaDeLaPantallaOriginal = ") ;
+//  printPtrBIOS(copiaDeLaPantallaOriginal) ;
+//  leerTeclaBIOS() ;
 
 }
 
-void restaurarPantallaInicial ( void ) {
-	
-  copiarPantalla(copiaDeLaPantallaOriginal, ptrPant, maxFilas) ;
-  
-  goToXYBIOS(cursorOriginalF, cursorOriginalC) ;
-  
+void restaurarPantallaInicial ( void )
+{
+
+    copiarPantalla(copiaDeLaPantallaOriginal, ptrPant, maxFilas) ;
+
+    goToXYBIOS(cursorOriginalF, cursorOriginalC) ;
+
 }
 
