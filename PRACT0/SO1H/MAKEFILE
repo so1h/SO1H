@@ -16,7 +16,7 @@ all: $(PROGRAMA).bin
 
 listaOtros = start.o str_bss.o str_relo.o stop.o
 
-$(PROGRAMA).bin: $(PROGRAMA).exe $(listaOtros)                 
+$(PROGRAMA).bin: $(PROGRAMA).exe $(listaOtros)
   PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
 
 jwlink:
@@ -29,20 +29,20 @@ jwlink:
     ..\so1hpub\tipos.o, ..\so1hpub\biosdata.o, \
     ..\so1hpub\caracter.o, ..\so1hpub\printgen.o, \
     ..\so1hpub\bios_0.o, ..\so1hpub\telon.o, ..\so1hpub\pantalla.o, \
-	..\so1hpub\msdos.o, \
+    ..\so1hpub\msdos.o, \
     $(UTMP):\SmallerC\v0100\lib\libch.a, \
     str_relo.o, \
     stop.o \
     name $(PROGRAMA).bin
 
-$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o 
+$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 ajustes.o $(PROGRAMA).o $(C0DH)\
 ..\so1hpub\tipos.o ..\so1hpub\biosdata.o\
 ..\so1hpub\caracter.o ..\so1hpub\printgen.o\
 ..\so1hpub\bios_0.o ..\so1hpub\telon.o ..\so1hpub\pantalla.o\
 ..\so1hpub\colores.o ..\so1hpub\msdos.o \
-$(UTMP):\SmallerC\v0100\lib\lcdh.a 
+$(UTMP):\SmallerC\v0100\lib\lcdh.a
 # tdump $(PROGRAMA).exe
 
 $(PROGRAMA).o: $(PROGRAMA).c
@@ -57,58 +57,58 @@ ajustes.o: ajustes.c
 c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
   $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o c0dh.o
 
-$(listaOtros):  
+$(listaOtros):
   $(CC) $(CFLAGS) -c $&.c
-  
+
 build: clean all
 
 listaClean = bin exe $(listaPule)
 
-listaPule  = map asm lst des hex o TR TP TD 
+listaPule  = map asm lst des hex o TR TP TD
 
 clean: $(listaClean) pule
-  @if exist stderr.txt erase stderr.txt > nul 
+  @if exist stderr.txt erase stderr.txt > nul
   @if exist stdout.txt erase stdout.txt > nul
 
-pule: $(listaPule) 
-  @if exist stderr.txt erase stderr.txt > nul 
+pule: $(listaPule)
+  @if exist stderr.txt erase stderr.txt > nul
   @if exist stdout.txt erase stdout.txt > nul
 
-$(listaClean) $(listaPule): 
+$(listaClean) $(listaPule):
   @if exist *.$& erase *.$& > nul
-   
+
 help:
 # echo off & color 07 & title help & msg * "Hola"
   @"echo."
   @"echo    relacion de objetivos disponibles:"
   @"echo."
   @"echo    make             genera los ficheros $(PROGRAMA).exe y $(PROGRAMA).bin"
-  @"echo    make pule        borra todo salvo fuentes, $(PROGRAMA).exe y $(PROGRAMA).bin"   
+  @"echo    make pule        borra todo salvo fuentes, $(PROGRAMA).exe y $(PROGRAMA).bin"
   @"echo    make clean       borra todo salvo fuentes (y MAKEFILE)"
   @"echo    make build       genera nuevamente desde el principio $(PROGRAMA).exe y $(PROGRAMA).bin"
   @"echo    make run         ejecuta $(PROGRAMA).exe en el interprete de comandos (cmd)"
   @"echo    make runmsdos    ejecuta $(PROGRAMA).exe con msdos (Takeda)"
   @"echo    make rundosbox   ejecuta $(PROGRAMA).exe con DOSBox"
   @"echo    make imagen      genera una imagen de disquete fd$(PROGRAMA).img"
-  @"echo    make start       arranca la imagen de disquete fd$(PROGRAMA).img con qemu"  
-  @"echo    make hexdump     produce $(PROGRAMA).hex, volcado hexadecimal de $(PROGRAMA).bin"  
-  @"echo    make desensambla produce $(PROGRAMA).des, desensamblado de $(PROGRAMA).bin"  
+  @"echo    make start       arranca la imagen de disquete fd$(PROGRAMA).img con qemu"
+  @"echo    make hexdump     produce $(PROGRAMA).hex, volcado hexadecimal de $(PROGRAMA).bin"
+  @"echo    make desensambla produce $(PROGRAMA).des, desensamblado de $(PROGRAMA).bin"
   @"echo    make help        muestra esta ayuda sobre los objetivos disponibles"
 
 hexdump: $(PROGRAMA).bin
   @echo.
-# $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -i $(PROGRAMA).bin $(PROGRAMA).hex 
+# $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -i $(PROGRAMA).bin $(PROGRAMA).hex
   $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -u $(PROGRAMA).bin $(PROGRAMA).hex
   type $(PROGRAMA).hex | more
-  
+
 desensambla: $(PROGRAMA).bin
   @echo.
   ndisasm -b16 $(PROGRAMA).bin > $(PROGRAMA).des
   type $(PROGRAMA).des | more
 
-imagen $(UTMP):\fd$(PROGRAMA).img: ..\..\..\SO\PRACT2\BOOT\BOOT.bs $(PROGRAMA).bin
+imagen $(UTMP):\fd$(PROGRAMA).img: ..\..\PRACT2\BOOT\BOOT.bs $(PROGRAMA).bin
   @echo.
-  EXTENDER ..\..\..\SO\PRACT2\BOOT\BOOT.bs 1474560 $(UTMP):\fd$(PROGRAMA).img
+  EXTENDER ..\..\PRACT2\BOOT\BOOT.bs 1474560 $(UTMP):\fd$(PROGRAMA).img
   @echo.
   PARCHEAR $(UTMP):\fd$(PROGRAMA).img 16896 -f $(PROGRAMA).bin
 
@@ -116,9 +116,11 @@ floppy: $(UTMP):\fd$(PROGRAMA).img
   @echo.
   copy $(UTMP):\fd$(PROGRAMA).img $(UTMP):\FLOPPY_0
 
-helpqemu: 
-  $(UUSB):\Interno\qemu-2.8.0\qemu-system-i386 -h | less
-  
+helpqemu:
+  $(UUSB):\Interno\qemu-2.8.0\qemu-system-i386w -h | less
+# $(UUSB):\Interno\qemu-2.8.0\qemu-system-i386w -M ? | less
+# $(UUSB):\Interno\qemu-2.8.0\qemu-system-i386w -M pc-i440fx-2.8 -cpu ? | less
+
 start: $(UTMP):\fd$(PROGRAMA).img
 # @start $(UUSB):\Interno\qemu-2.7.0\qemu-system-i386w.exe \
 #   -L $(UUSB):\Interno\qemu-2.7.0\Bios \
@@ -131,7 +133,9 @@ start: $(UTMP):\fd$(PROGRAMA).img
     -fda $(UTMP):\fd$(PROGRAMA).img \
     -net nic,model=ne2k_pci -net user \
     -no-acpi -no-hpet -no-reboot \
-    -m 128 -boot a
+    -m 128 -boot a \
+#   -monitor tcp:localhost:9924
+#   -qmp tcp:localhost:9924
 
 run:
   @echo.
@@ -144,5 +148,4 @@ runmsdos:
 
 rundosbox:
   @echo.
-  start $(UUSB):\Interno\dosbox-0.74\dosbox.exe $(PROGRAMA).exe -noconsole 
-
+  start $(UUSB):\Interno\dosbox-0.74\dosbox.exe $(PROGRAMA).exe -noconsole

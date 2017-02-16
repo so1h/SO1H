@@ -7,20 +7,20 @@
 all:
   @echo.
   cd so1hpub
-  @make 
+  @make
   @cd ..
   @echo.
   cd so1h
-  @make 
+  @make
   @cd ..
 
 clean:
-  @echo. 
+  @echo.
   cd so1hpub
   @make clean > nul
   @cd ..
   cd so1h
-  @make clean > nul 
+  @make clean > nul
   @cd ..
 
 build: clean all
@@ -33,22 +33,22 @@ run:
 
 rundosbox:
   @echo.
-  cd so1h 
+  cd so1h
   make rundosbox
   @cd ..
-  
-imagen: 
+
+imagen:
   @echo.
   cd so1h
   make imagen
   @cd ..
-    
-start: 
+
+start:
   @echo.
   cd so1h
   make start
   @cd ..
-    
+
 help:
 # echo off & color 07 & title help & msg * "Hola"
   @"echo."
@@ -62,4 +62,4 @@ help:
   @"echo    make start    arranca la imagen de disquete fd$(PROGRAMA).img con qemu
   @"echo    make help     muestra esta ayuda sobre los objetivos disponibles"
 
-  
+

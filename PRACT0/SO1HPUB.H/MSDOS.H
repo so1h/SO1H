@@ -13,7 +13,21 @@
 
 void finProgDOS ( int error ) ;
 
-struct ffblk {
+#define MAXPATH   80
+#define MAXDRIVE   3
+#define MAXDIR    66
+#define MAXFILE    9
+#define MAXEXT     5
+
+#define WILDCARDS 0x01
+#define EXTENSION 0x02
+#define FILENAME  0x04
+#define DIRECTORY 0x08
+#define DRIVE     0x10
+
+#pragma pack(push, 1)
+
+struct ffblk {                              /* Disk Transfer Address (DTA) */
   char     ff_reserved [21] ;
   char     ff_attrib ;
   unsigned ff_ftime ;
@@ -22,17 +36,7 @@ struct ffblk {
   char     ff_name [13] ;
 } ;
 
-#define WILDCARDS 0x01
-#define EXTENSION 0x02
-#define FILENAME  0x04
-#define DIRECTORY 0x08
-#define DRIVE     0x10
-
-#define MAXPATH   80
-#define MAXDRIVE   3
-#define MAXDIR    66
-#define MAXFILE    9
-#define MAXEXT     5
+#pragma pack(pop)
 
 #define FA_RDONLY       0x01                        /* Read only attribute */
 #define FA_HIDDEN       0x02                        /* Hidden file         */
@@ -92,11 +96,7 @@ int createDOS ( pointer_t nombre, word_t atributo ) ;    /* FA_RDONLY, ... */
 
 int readDOS ( int df, char * buf, int n ) ;
 
-int readDOSFar ( int df, char * buf, int n ) ;
-
 int writeDOS ( int df, char * buf, int n ) ;
-
-int writeDOSFar ( int df, char * buf, int n ) ;
 
 int lseekDOS ( int df, dword_t * pos, int whence ) ;
 
