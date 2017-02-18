@@ -38,7 +38,7 @@ void rebootLegacy ( void )
     (
         " push 0F000h \n"           /* equivalente a call F000:FFF0 reboot */
         " push 0FFF0h \n"
-        " retf        \n"
+//      " retf        \n"
     ) ;
 }
 
@@ -46,82 +46,85 @@ void rebootLegacy ( void )
 
 byte_t tipoTeclado ( void )
 {
-    byte_t res ;
+//  byte_t res ;
     asm
     (
         "  mov ah,09h    \n"
         "  int 16h       \n"
-        "  mov [bp-4],ah \n"
+//      "  mov [bp-4],ah \n"
     ) ;
-    return(res) ;
+//  return(res) ;
 }
 
 #if (FALSE)
+	
 byte_t leerTeclaBIOS ( void )                  /* bloqueante en bucle BIOS */
 {
-    char car ;
+//  char car ;
     asm
     (
-        "  mov ah,00h    \n"                  /* Llamada al BIOS: Leer del teclado */
+        "  mov ah,00h    \n"          /* Llamada al BIOS: Leer del teclado */
         "  int 16h       \n"
-        "  mov [bp-4],ah \n"                       /* ah = codigo scan introducido */
+//      "  mov [bp-4],ah \n"               /* ah = codigo scan introducido */
     ) ;
-    return(car) ;
+//  return(car) ;
 }
 
 byte_t leerTeclaExtBIOS ( void )          /* bloqueante en bucle BIOS [AT] */
 {
-    char car ;
+//  char car ;
     asm
     (
         "  mov ah,10h    \n"  /* Llamada al BIOS: Leer teclado extendido 101 teclas*/
         "  int 16h       \n"
-        "  mov [bp-4],ah \n"                       /* ah = codigo scan introducido */
+//      "  mov [bp-4],ah \n"               /* ah = codigo scan introducido */
     ) ;
-    return(car) ;
+//  return(car) ;
 }
+
 char leerCarBIOS ( void )                      /* bloqueante en bucle BIOS */
 {
-    char car ;
+//  char car ;
     asm
     (
-        "  mov ah,00h    \n"                  /* Llamada al BIOS: Leer del teclado */
+        "  mov ah,00h    \n"          /* Llamada al BIOS: Leer del teclado */
         "  int 16h       \n"
-        "  mov [bp-4],al \n"                    /* al = caracter ascii introducido */
+//      "  mov [bp-4],al \n"            /* al = caracter ascii introducido */
     ) ;
-    return(car) ;     /* al == 0 => a continuacion: caracter ascii extendido */
+//  return(car) ;   /* al == 0 => a continuacion: caracter ascii extendido */
 }
+
 #endif
 
 /* leerTeclaBIOS parece que deja permitidas las interrupciones             */
 
 word_t leerTeclaBIOS ( void )                  /* bloqueante en bucle BIOS */
 {
-    word_t w ;
+//  word_t w ;
     asm
     (
-        "  mov ah,00h    \n"                  /* Llamada al BIOS: Leer del teclado */
+        "  mov ah,00h    \n"          /* Llamada al BIOS: Leer del teclado */
         "  int 16h       \n"
-        "  mov [bp-4],ax \n"   /* ah = codigo scan introducido al = caracter ASCII */
+//      "  mov [bp-4],ax \n"  /* ah = codigo scan introducido al = caracter ASCII */
     ) ;
-    return(w) ;
+//  return(w) ;
 }
 
 word_t leerTeclaExtBIOS ( void )               /* bloqueante en bucle BIOS */
 {
-    word_t w ;
+//  word_t w ;
     asm
     (
         "  mov ah,10h    \n"  /* Llamada al BIOS: Leer teclado extendido 101 teclas*/
         "  int 16h       \n"
-        "  mov [bp-4],ax \n"   /* ah = codigo scan introducido al = caracter ASCII */
+//      "  mov [bp-4],ax \n"   /* ah = codigo scan introducido al = caracter ASCII */
     ) ;
-    return(w) ;
+//  return(w) ;
 }
 
 word_t teclaListaBIOS ( void )              /* no bloqueante en bucle BIOS */
 {
-    word_t w ;
+//  word_t w ;
     asm
     (
         "  mov ah,01h    \n"
@@ -132,9 +135,9 @@ word_t teclaListaBIOS ( void )              /* no bloqueante en bucle BIOS */
     asm
     (
         " hayTecla:      \n"
-        "  mov [bp-4],ax \n"
+//      "  mov [bp-4],ax \n"
     ) ;
-    return(w) ;                             /* al = caracter, ah = scan code */
+//  return(w) ;                           /* al = caracter, ah = scan code */
 }
 
 /* Teclado (Bios Data Area)  (no alteran/permiten el flag de interrupcion) */
@@ -197,7 +200,7 @@ int printCarRawBIOS ( char car, byte_t pag )
         "  mov bl,07h    \n"
         "  mov cx,1      \n"
         "  mov ah,09h    \n" /* Llamada al BIOS: Escribir caracter por pantalla */
-//"  mov ah,0ah  \n" /* Llamada al BIOS: Escribir caracter por pantalla */
+//      "  mov ah,0ah    \n" /* Llamada al BIOS: Escribir caracter por pantalla */
         "  int 10h       \n"
     ) ;
 }
@@ -232,7 +235,7 @@ int printCarPagBIOS ( char car, byte_t pag )
             goToXYPag(++fila, columna, pag) ;
         else
         {
-            scrollPagBDA(1, pag) ;            /* scrollPagBIOS(1, pag) ; */
+            scrollPagBDA(1, pag) ;              /* scrollPagBIOS(1, pag) ; */
             goToXYPag(filaMax, columna, pag) ;
             break ;
         }
@@ -247,7 +250,7 @@ int printCarPagBIOS ( char car, byte_t pag )
                 goToXYPag(++fila, 0, pag) ;
             else
             {
-                scrollPagBDA(1, pag) ;                /* scrollPagBIOS(1, pag) ; */
+                scrollPagBDA(1, pag) ;          /* scrollPagBIOS(1, pag) ; */
                 goToXYPag(filaMax, 0, pag) ;
             }
         }
@@ -312,6 +315,16 @@ int printLHexBIOS ( dword_t num, word_t l )
     printGenLHex(num, l, printCarBIOS) ;
 }
 
+int printBinBIOS ( word_t num, word_t l ) 
+{
+    printGenBin(num, l, printCarBIOS ) ;
+}
+
+int printLBinBIOS ( dword_t num, word_t l ) 
+{
+    printGenLBin( num, l, printCarBIOS ) ;
+}
+
 int printPtrBIOS ( pointer_t ptr )
 {
     printGenPtr(ptr, printCarBIOS) ;
@@ -343,9 +356,9 @@ byte_t modoDeVideo ( void )
     (
         "  mov ah,0fh    \n"
         "  int 10h       \n"
-        "  mov [bp-4],al \n"         /* ah = ancho de pantalla, al = modo de video */
+        "  mov [bp-4],al \n" /* ah = ancho de pantalla, al = modo de video */
     ) ;
-    return(res) ;                                      /* bh = pagina activa */
+    return(res) ;                                    /* bh = pagina activa */
 }
 
 void establecerModoDeVideo ( byte_t modo )
@@ -520,10 +533,10 @@ void scrollBIOS ( byte_t numLineas )
     asm
     (
         "  mov ah,06h       \n"
-        "  mov cx,0000h     \n"                           /* dh = Fila1, dl = Col1 */
+        "  mov cx,0000h     \n"                    /* dh = Fila1, dl = Col1 */
         "  mov dl,[bp-4]    \n"
         "  mov dh,[bp-8]    \n"
-        "  mov al,[bp+8]    \n"                                  /* al = numLineas */
+        "  mov al,[bp+8]    \n"                           /* al = numLineas */
         "  mov bh,0x07      \n" /* atrNormal */
         "  int 10h          \n"
     ) ;
@@ -533,8 +546,8 @@ void goToXYPag ( byte_t fila, byte_t columna, byte_t pag )
 {
     asm
     (
-        "  mov ah,02h     \n"                 /* establecer la posicion del cursor */
-        "  mov bh,[bp+16] \n" /* pag     */                     /* pagina de video */
+        "  mov ah,02h     \n"          /* establecer la posicion del cursor */
+        "  mov bh,[bp+16] \n" /* pag     */              /* pagina de video */
         "  mov dh,[bp+8]  \n" /* fila    */
         "  mov dl,[bp+12] \n" /* columna */
         "  int 10h        \n"
@@ -546,8 +559,8 @@ void goToXYBIOS ( byte_t fila, byte_t columna )
     byte_t numPagActiva = ptrBiosArea->VIDEO_pagActiva ;
     asm
     (
-        "  mov ah,02h     \n"                 /* establecer la posicion del cursor */
-        "  mov bh,[bp-4]  \n" /* numPagActiva */                /* pagina de video */
+        "  mov ah,02h     \n"         /* establecer la posicion del cursor */
+        "  mov bh,[bp-4]  \n" /* numPagActiva */        /* pagina de video */
         "  mov dh,[bp+8]  \n" /* fila */
         "  mov dl,[bp+12] \n" /* columna */
         "  int 10h        \n"
@@ -558,8 +571,8 @@ void setCursorBIOS ( byte_t linea1, byte_t linea2 )
 {
     asm
     (
-        "  mov ah,01h     \n"        /* establecer el tama¤o y la forma del cursor */
-//"  mov al,modo  \n"                              /* modo = modo de video */
+        "  mov ah,01h     \n"/* establecer el tama¤o y la forma del cursor */
+//      "  mov al,modo    \n"                      /* modo = modo de video */
         "  mov ch,[bp+8]  \n" /* linea1 */
         "  mov cl,[bp+12] \n" /* linea2 */
         "  int 10h        \n"
@@ -583,8 +596,8 @@ void readXYPagBIOS ( byte_t * fila,
     byte_t regCL ;
     asm
     (
-        "  mov ah,03h     \n"            /* leer la posicion del cursor y su forma */
-        "  mov bh,[bp+24] \n" /* pag */                         /* pagina de video */
+        "  mov ah,03h     \n"    /* leer la posicion del cursor y su forma */
+        "  mov bh,[bp+24] \n" /* pag */                 /* pagina de video */
         "  int 10h        \n"
         "  mov [bp- 4],dh \n"
         "  mov [bp- 8],dl \n"
@@ -609,8 +622,8 @@ void readXYBIOS ( byte_t * fila,
     byte_t numPagActiva = ptrBiosArea->VIDEO_pagActiva ;
     asm
     (
-        "  mov ah,03h     \n"            /* leer la posicion del cursor y su forma */
-        "  mov bh,[bp-20] \n" /* numPagActiva */                /* pagina de video */
+        "  mov ah,03h     \n"    /* leer la posicion del cursor y su forma */
+        "  mov bh,[bp-20] \n" /* numPagActiva */        /* pagina de video */
         "  int 10h        \n"
         "  mov [bp- 4],dh \n"
         "  mov [bp- 8],dl \n"
@@ -627,10 +640,10 @@ void readXYBIOS ( byte_t * fila,
 /* tambien en BIOS AREA 0000:0413 */
 word_t memBIOS ( void )    /* memoria reportada por el BIOS (en Kilobytes) */
 {
-    word_t numKBytes ;                            /* 1 Kilobyte = 1024 bytes */
+    word_t numKBytes ;                          /* 1 Kilobyte = 1024 bytes */
     asm
     (
-        "  int 12h        \n"                               /* BIOS: memoria total */
+        "  int 12h        \n"                       /* BIOS: memoria total */
         "  jc errMemBIOS  \n"
         "  test ax,ax     \n"
         "  jz errMemBIOS  \n"
@@ -650,10 +663,10 @@ word_t memBIOS ( void )    /* memoria reportada por el BIOS (en Kilobytes) */
 
 /* Puerto serie COM1 (int 14h) */
 
-/* Las siguientes funciones permiten enviar y recibir caracteres por el */
-/* puerto COM1. Hay que tener en cuenta que el BIOS permite las         */
-/* interrupciones durante la ejecucion de esas llamadas, por lo que no  */
-/* deben ser utilizadas desde el sistema operativo propiamente dicho.   */
+// /* Las siguientes funciones permiten enviar y recibir caracteres por el */
+// /* puerto COM1. Hay que tener en cuenta que el BIOS permite las         */
+// /* interrupciones durante la ejecucion de esas llamadas, por lo que no  */
+// /* deben ser utilizadas desde el sistema operativo propiamente dicho.   */
 
 void enviarBIOS ( char car )
 {
@@ -661,7 +674,7 @@ void enviarBIOS ( char car )
     (
         "  mov al,[bp+8] \n" /* car */
         "  mov ah,01h    \n"
-        "  mov dx,0000h  \n"                                  /* puerto serie COM1 */
+        "  mov dx,0000h  \n"                          /* puerto serie COM1 */
         "  int 14h       \n"
     ) ;
 }
@@ -671,10 +684,10 @@ char recibirBIOS ( void )
     char car ;
     asm
     (
-        "  mov ah,02h    \n"
-        "  mov dx,0000h  \n"                                  /* puerto serie COM1 */
-        "  int 14h       \n"
-        "  mov [bp-8],al \n" /* car */
+        "   mov ah,02h    \n"
+        "   mov dx,0000h  \n"                         /* puerto serie COM1 */
+        "   int 14h       \n"
+        "   mov [bp-8],al \n" /* car */
     ) ;
     return(car) ;
 }
@@ -687,22 +700,22 @@ bool_t hayApmBIOS ( word_t * version )
     word_t v ;
     asm
     (
-        "  mov ax,5300h \n"
-        "  mov bx,0000h \n"
-        "  int 15h      \n"
-        "  jnc hayApm   \n"
+        "   mov ax,5300h \n"
+        "   mov bx,0000h \n"
+        "   int 15h      \n"
+        "   jnc hayApm   \n"
     ) ;
     res = TRUE ;
     asm
     (
-        "  jmp comun    \n"
-        " hayApm:       \n"
+        "   jmp comun    \n"
+        " hayApm:        \n"
     ) ;
     res = TRUE ;
     asm
     (
-        " comun:          \n"
-        "  mov [bp-12],ax \n" /* v */
+        " comun:           \n"
+        "   mov [bp-12],ax \n" /* v */
     ) ;
     *version = v ;
     return(res) ;
@@ -713,16 +726,16 @@ int connectApmBIOS ( void )
     byte_t res ;
     asm
     (
-        "  mov ax,5301h       \n"
-        "  mov bx,0000h       \n"
-        "  int 15h            \n"
-        "  jc apmConnectError \n"
+        "   mov ax,5301h       \n"
+        "   mov bx,0000h       \n"
+        "   int 15h            \n"
+        "   jc apmConnectError \n"
     ) ;
     return(0) ;
     asm
     (
-        " apmConnectError:    \n"
-        "  mov [bp-8],ah      \n" /* res */
+        " apmConnectError:     \n"
+        "   mov [bp-8],ah      \n" /* res */
     ) ;
     return(res) ;
 }
@@ -732,16 +745,16 @@ int disconnectApmBIOS ( void )
     byte_t res ;
     asm
     (
-        "  mov ax,5304h          \n"
-        "  mov bx,0000h          \n"
-        "  int 15h               \n"
-        "  jc apmDisconnectError \n"
+        "   mov ax,5304h          \n"
+        "   mov bx,0000h          \n"
+        "   int 15h               \n"
+        "   jc apmDisconnectError \n"
     ) ;
     return(0) ;
     asm
     (
-        " apmDisconnectError: ;   \n"
-        "  mov [bp-8],ah          \n" /* res */
+        " apmDisconnectError:     \n"
+        "   mov [bp-8],ah         \n" /* res */
     ) ;
     return(res) ;
 }
@@ -750,8 +763,8 @@ void cpuIdleBIOS ( void )
 {
     asm
     (
-        "  mov ax,5305h \n"
-        "   int 15h     \n"
+        "   mov ax,5305h \n"
+        "   int 15h      \n"
     ) ;
 }
 
@@ -759,8 +772,8 @@ void cpuBusyBIOS ( void )
 {
     asm
     (
-        "  mov ax,5306h \n"
-        "   int 15h     \n"
+        "   mov ax,5306h \n"
+        "   int 15h      \n"
     ) ;
 }
 

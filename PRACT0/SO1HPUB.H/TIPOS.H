@@ -19,6 +19,12 @@ typedef enum { FALSE, TRUE } bool_t ;
 
 typedef byte_t * pointer_t ;
 
+#define interrupt __interrupt
+
+typedef void interrupt (* rti_t) ( void ) ;      /* rutina de trat. de int */
+
+typedef rti_t * ptrTVI_t ;            /* tabla de vectores de interrupcion */
+
 typedef enum
 {
     modoSO1_Bin,             /* SO1 se ejecuta como so1.bin (boot)         */

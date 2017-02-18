@@ -20,6 +20,8 @@ void finProgDOS ( int exitCode )
     ) ;
 }
 
+#if (0) 
+	
 void mostrarVIMSDOS ( void )
 {
 
@@ -53,6 +55,11 @@ void mostrarVIMSDOS ( void )
 
 }
 
+#endif
+
+/* !!!! Se ha observado que DOSBox tiene el vector 0x000F14A0 cuando se    */
+/* !!!! ejecuta directamente, y 0x000F1060 cuando arranca de disquete.     */
+
 bool_t hayMSDOS ( void )
 {
 
@@ -69,7 +76,7 @@ bool_t hayMSDOS ( void )
 
     if ((((dword_t)VIDos) >> 16) == 0xF)  /* el vector apunta al BIOS      */
 //                                        /* direccion 0x000Fxxxx          */
-        if (((dword_t)VIDos) > 0x000F14A0)
+        if (((dword_t)VIDos) != 0x000F14A0)
             return (FALSE) ;
 //                               /* !!!! DOSBox tiene el vector 0x000F14A0 */
     return (TRUE) ;
@@ -141,15 +148,18 @@ pointer_t valorMSDOS ( char * str )
 
 }
 
+/* !!!! Se ha observado que DOSBox tiene el vector 0x000F14A0 cuando se    */
+/* !!!! ejecuta directamente, y 0x000F1060 cuando arranca de disquete.     */
+
 bool_t hayDOSBox ( void )
 {
-
     address_t * ptrVIDos = (address_t *)(nVIntMSDOS*4) ;
 
     byte_t * VIDos = (((dword_t)(ptrVIDos->segment)) << 4) + (ptrVIDos->offset) ;
 
-    if (((dword_t)VIDos) == 0x000F14A0)
-        return (TRUE) ;          /* !!!! DOSBox tiene el vector 0x000F14A0 */
+    if ((((dword_t)VIDos) == 0x000F14A0) ||
+        (((dword_t)VIDos) == 0x000F1060))	
+        return (TRUE) ;          
     if (!hayMSDOS()) return(FALSE) ;
     return (strcmp((char *)valorMSDOS("DOSBOX"), "DOSBOX") == 0) ;
 

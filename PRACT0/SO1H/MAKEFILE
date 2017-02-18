@@ -14,7 +14,7 @@ C0DH     = c0dh.o
 
 all: $(PROGRAMA).bin
 
-listaOtros = start.o str_bss.o str_relo.o stop.o
+listaOtros = so1dbg.o s0.o start.o str_bss.o str_relo.o stop.o
 
 $(PROGRAMA).bin: $(PROGRAMA).exe $(listaOtros)
   PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
@@ -29,19 +29,20 @@ jwlink:
     ..\so1hpub\tipos.o, ..\so1hpub\biosdata.o, \
     ..\so1hpub\caracter.o, ..\so1hpub\printgen.o, \
     ..\so1hpub\bios_0.o, ..\so1hpub\telon.o, ..\so1hpub\pantalla.o, \
-    ..\so1hpub\msdos.o, \
+    ..\so1hpub\msdos.o, ..\so1hpub\debug.o, \
     $(UTMP):\SmallerC\v0100\lib\libch.a, \
     str_relo.o, \
     stop.o \
     name $(PROGRAMA).bin
 
-$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o
+$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o 
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 ajustes.o $(PROGRAMA).o $(C0DH)\
 ..\so1hpub\tipos.o ..\so1hpub\biosdata.o\
 ..\so1hpub\caracter.o ..\so1hpub\printgen.o\
 ..\so1hpub\bios_0.o ..\so1hpub\telon.o ..\so1hpub\pantalla.o\
-..\so1hpub\colores.o ..\so1hpub\msdos.o \
+..\so1hpub\colores.o ..\so1hpub\msdos.o s0.o so1dbg.o\
+..\so1hpub\debug.o ..\so1hpub\pic.o ..\so1hpub\puertos.o\
 $(UTMP):\SmallerC\v0100\lib\lcdh.a
 # tdump $(PROGRAMA).exe
 
@@ -54,11 +55,26 @@ ajustes.o: ajustes.c
 # $(CC) $(CFLAGS) -c ajustes.asm
   $(AS) -f elf -l ajustes.lst ajustes.asm
 
+#s0.o: s0.c
+## $(CC) $(CFLAGS) -c s0.c
+#  $(CC) $(CFLAGS) -S s0.c
+## $(CC) $(CFLAGS) -c s0.asm
+#  $(AS) -f elf -l s0.lst s0.asm
+   
+#so1dbg.o: so1dbg.c
+## $(CC) $(CFLAGS) -c so1dbg.c
+#  $(CC) $(CFLAGS) -S so1dbg.c
+## $(CC) $(CFLAGS) -c so1dbg.asm
+#  $(AS) -f elf -l s0.lst so1dbg.asm
+     
 c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
   $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o c0dh.o
 
 $(listaOtros):
-  $(CC) $(CFLAGS) -c $&.c
+# $(CC) $(CFLAGS) -c $&.c
+  $(CC) $(CFLAGS) -S $&.c
+# $(CC) $(CFLAGS) -c $&.asm
+  $(AS) -f elf -l $&.lst $&.asm
 
 build: clean all
 

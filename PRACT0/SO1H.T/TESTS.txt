@@ -1,0 +1,26 @@
+Test realizados en SO1H.C (17-02-2017)
+
+#ifndef TEST
+#include "..\so1hpub.h\colores.h"                                  /* azul */
+#include "..\so1hpub.t\huge_t.c"              /* test_global, test_funcion */
+#include "..\so1hpub.t\bios_0_t.c"                          /* test_BIOS_0 */
+#include "..\so1hpub.t\biosdata_t.c"                      /* test_BIOSDATA */
+#include "..\so1h.t\ajustes_t.c"                           /* test_ajustes */
+#include "..\so1hpub.t\string_t.c"                          /* test_string */
+#include "..\so1hpub.t\msdos_t.c"                            /* test_msdos */
+#include <string.h>                                      /* memset, strcpy */
+
+
+//  test_spin() ;
+    test_global() ;
+    test_funcion() ;
+    test_puntero() ;
+    salvarPantallaInicial() ;
+    test_BIOS_0() ;
+    test_BIOSDATA() ;
+    restaurarPantallaInicial() ;
+    test_ajustes() ;
+    test_string() ;
+    test_msdos() ;
+
+#endif

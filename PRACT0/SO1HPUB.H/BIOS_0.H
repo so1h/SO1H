@@ -22,9 +22,7 @@ byte_t tipoOrdenador ( void ) ;
 
 void rebootLegacy ( void ) ;
 
-#define rebootBIOS( ) { \
-  asm int 19h ; \
-}
+#define rebootBIOS( ) { asm("int 19h") ; }
 
 /* E/S BIOS */
 
@@ -46,12 +44,12 @@ word_t leerTeclaBIOS ( void ) ;
 word_t leerTeclaExtBIOS ( void ) ;
 
 word_t teclaListaBIOS ( void ) ;   /* en WXP y DOSBOX deja int. permitidas */
-/* se ve facilmente con el TD */
+//                                           /* se ve facilmente con el TD */
 
 #define leerCarBIOS( )                         /* bloqueante en bucle BIOS */\
   ((byte_t)leerTeclaBIOS())
 
-#define leerCarListoBDA() ((char)leerTeclaLista())
+#define leerCarListoBDA() ((char)leerTeclaListaBDA())
 
 word_t leerTeclaListaBDA ( void ) ;
 
@@ -81,6 +79,10 @@ int printLIntBIOS ( int num, word_t l ) ;
 int printHexBIOS ( word_t num, word_t l ) ;
 
 int printLHexBIOS ( dword_t num, word_t l ) ;
+
+int printBinBIOS ( word_t num, word_t l ) ;
+
+int printLBinBIOS ( dword_t num, word_t l ) ;
 
 int printPtrBIOS ( pointer_t ptr ) ;
 
@@ -144,6 +146,7 @@ void readXYBIOS ( byte_t * fila,
 
 /* Memoria (int 12h) */
 /* tambien en BIOS AREA 0000:0413 */
+
 word_t memBIOS ( void ) ;  /* memoria reportada por el BIOS (en KBytes) */
 
 /* Puerto serie COM1 (int 14h) */

@@ -7,44 +7,18 @@
 #include "..\so1hpub.h\tipos.h"                                  /* word_t */
 #include "..\so1h.h\ajustes.h"                                  /* modoSO1 */
 #include "..\so1hpub.h\biosdata.h"                         /* ptrFechaBios */
-#include <so1pub.h\msdos.h>                    /* finProgDOS, hayWindowsNT */
-
-
-if (0)
-
-#include <so1pub.h\ll_s_exc.h>  /* createProcess, waitpid, exit, open, ... */
-#include <so1pub.h\strings.h>                /* copiarStr, igualesHastaFar */
-#include <so1pub.h\escribir.h>     /* escribirStr, escribirInt, escribirLn */
-#include <so1pub.h\pic.h>                       /* valorIMR, establecerIMR */
-#include <so1pub.h\telon.h>           /* (salvar/restaurar)PantallaInicial */
-#include <so1pub.h\debug.h>            /* assert, mostrarFlags, valorFlags */
-#include <so1.h\bios.h>                   /* print(Ln/Str/Hex/Dec/Ptr)BIOS */
-#include <so1.h\interrup.h>         /* inicTVI, (redirigir/restablecer)Int */
-#include <so1.h\llamadas.h>                                     /* isr_SO1 */
-#include <so1.h\gm.h>          /* inicGM, k_buscarBloque, k_devolverBloque */
-//#include <so1.h\gp.h>                                        /* k_inicGP */
-#include <so1.h\recursos.h>                   /* inicRecursos, destruirRec */
-#include <so1.h\procesos.h>      /* descProceso, descRecurso, inicProcesos */ /* c2cPFR */
-#include <so1.h\main.h>     /* miraLoQueHay, mostrarLoQueHay, tirarSistema */
-#include <so1.h\minifs.h>              /* inicMinisfMSDOS, inicMinisfFAT12 */
-#include <so1.h\sf.h>        /* inicSF, inicTablaFichAbiertos, segBuferSO1 */
-#include <so1.h\plot.h>                                         /* finPlot */
-#include <so1.h\ajustes.h>   /* modoSO1, guardarDS_SO1, IMRInicial, CS_SO1 */
-#include <so1.h\so1dbg.h>    /* inicTeclado, leerScancode, esperarScancode */
-#include <so1.h\s0.h>                    /* mirarLoQueHay, MostrarLoQueHay */
-//       /* hayDOS, hayNT, hayQemu, hayBochs, hayDBox, hayNTVDM, hayFake86 */
-
+#include "..\so1hpub.h\msdos.h"                /* finProgDOS, hayWindowsNT */
+#include "..\so1hpub.h\bios_0.h"                             /* rebootBIOS */
+#include "..\so1h.h\so1dbg.h"                           /* esperarScancode */
+#include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
+//                                     /* hayDOS, hayNT, hayQemu, hayBochs */
+//                                         /* hayDBox, hayNTVDM, hayFake86 */
+#ifdef _DOS
+#include <stdlib.h>                                  /* exit, EXIT_SUCCESS */
 #endif
 
-#define CON_PROCESO_INICIAL TRUE
 
-#if (!CON_PROCESO_INICIAL)
-#include <so1pub.h\interpre.h>                      /* interpretarComandos */
-#include <so1.h\iniccode.h>                                        /* init */
-#include <so1pub.h\saludos.h>                             /* mostrarSaludo */
-#endif
-
-    word_t fechaCompactada ( char * ptrFecha )
+word_t fechaCompactada ( char * ptrFecha )
 {
 
     word_t mes, dia, anio ;
@@ -83,7 +57,7 @@ void mirarLoQueHay ( word_t * loQueHay )
         assert(FALSE, "\a\n SO1() ERROR: modoSO1() = ");
         printHexBIOS(modoSO1(), 4) ;
         esperarScancode() ;
-        finProgDOS () ;                                         /* int 21h */
+        finProgDOS (1) ;                                        /* int 21h */
         rebootBIOS() ;                                          /* int 19h */
         rebootLegacy() ;                                /* callf ffff:0000 */
     }
@@ -110,9 +84,6 @@ void mirarLoQueHay ( word_t * loQueHay )
         *loQueHay |= hayVDos   ;
         break ;
     default  :
-        ;
-#if (FALSE)
-//#if (TRUE)
         if ((modoSO1() == modoSO1_Bin) || (modoSO1() == modoSO1_Exe))
         {
             int i ;
@@ -127,7 +98,6 @@ void mirarLoQueHay ( word_t * loQueHay )
                          " presione una tecla para continuar ") ;
             esperarScancode() ;
         }
-#endif
     }
 }
 
@@ -147,19 +117,11 @@ void mostrarLoQueHay ( word_t loQueHay )
     goToXYBIOS(1, 0) ;
     switch (modoSO1())
     {
-    case modoSO1_Cmd :
-        return ;
     case modoSO1_Bin :
         printStrBIOS(" so1.bin") ;
         break ;
-    case modoSO1_Com :
-        printStrBIOS(" so1.com") ;
-        break ;
     case modoSO1_Exe :
         printStrBIOS(" so1.exe") ;
-        break ;
-    case modoSO1_Bs  :
-        printStrBIOS(" so1 slx") ;
         break ;
     }
     printStrBIOS("   ") ;
@@ -194,27 +156,28 @@ void mostrarLoQueHay ( word_t loQueHay )
 void tirarS0 ( word_t loQueHay )
 {
 
-    if (loQueHay & hayDOS)
+    if (modoSO1() == modoSO1_Exe)
     {
-        finProgDOS () ;                                         /* int 21h */
-        rebootBIOS() ;                                          /* int 19h */
-        rebootLegacy() ;                                /* callf ffff:0000 */
+#ifdef _DOS
+        exit(EXIT_SUCCESS) ;
+#else
+        finProgDOS(0) ;                                         /* int 21h */
+#endif
     }
-    else if (!(loQueHay & (hayDBox || hayVDos)))
-    {
-        rebootBIOS() ;                                          /* int 19h */
-        rebootLegacy() ;                                /* callf ffff:0000 */
-    }
-    else               /* DOSBox con boot da algun problema al reiniciarse */
-    {
+    else if (loQueHay & (hayDBox | hayVDos))   /* DOSBox con boot da algun */
+    {                                           /* problema al reiniciarse */
         clrScrBIOS() ;
         goToXYBIOS(11, 14) ;
         ocultaCursorBIOS() ;
         printStrBIOS(" puede apagar la maquina virtual DOSBox (Ctrl+F9) o VDos") ;
-        asm
-        {
-            sti ;
-            hlt ;
-        }
+        asm(" cli \n hlt \n") ;
+    }
+    else               
+    {
+        clrScrBIOS() ;
+        goToXYBIOS(1, 1) ;
+        ocultaCursorBIOS() ;
+        rebootBIOS() ;                                          /* int 19h */
+//      rebootLegacy() ;                                /* callf ffff:0000 */
     }
 }
