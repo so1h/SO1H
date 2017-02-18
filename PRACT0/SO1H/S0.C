@@ -118,13 +118,13 @@ void mostrarLoQueHay ( word_t loQueHay )
     switch (modoSO1())
     {
     case modoSO1_Bin :
-        printStrBIOS(" so1.bin") ;
+        printStrBIOS(" so1h.bin") ;
         break ;
     case modoSO1_Exe :
-        printStrBIOS(" so1.exe") ;
+        printStrBIOS(" so1h.exe") ;
         break ;
     }
-    printStrBIOS("   ") ;
+    printStrBIOS("  ") ;
     ponerMuescaX("MSDOS", (bool_t)(loQueHay & hayDOS)) ;
     ponerMuescaX("WinNT", (bool_t)(loQueHay & hayNT)) ;
     switch (loQueHay & 0xFFFC)
