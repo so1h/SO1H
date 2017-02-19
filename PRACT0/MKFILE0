@@ -23,8 +23,6 @@ CFLAGS   = -$(MODEL)
 
 AS       = nasm
 
-#LINKER     = $(UTMP):\PRGTOOLS\JWLINK\JWLINK.EXE
-LINKER      = JWLINK
-OPCIONES_L  = format dos op v, start=_startExe, map, quiet, stack = 0xFFFE disable 1014 file
-OPCIONES_LR = format dos output raw offset=0x0000 op v, start=_startBin, map, quiet, stack = 0xFFFE disable 1014 file
-
+#VIA_ASM = TRUE	   
+VIA_ASM  = FALSE	   
+	   

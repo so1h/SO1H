@@ -7,24 +7,44 @@
 !include "..\MKFILE0"
 
 OBJS = tipos.o caracter.o printgen.o biosdata.o bios_0.o pantalla.o \
-       puertos.o cmos.o telon.o colores.o \
-       msdos.o \
-       c2c.o debug.o pic.o 
+       puertos.o cmos.o telon.o colores.o msdos.o c2c.o debug.o \
+	   pic.o 
 
-all: $(OBJS)
+.path.o   = .\obj	   
+.path.asm = .\asm	   
+.path.c   = .	   
+	   
+all: crearDirs $(OBJS)
+
+!if ($(VIA_ASM) == TRUE)  
+
+.c.asm:
+  $(CC) $(CFLAGS) -S $&.c -o asm\$&.asm
+
+.asm.o:  
+# $(CC) $(CFLAGS) -c asm\$&.asm -o obj\$&.o
+  $(AS) -f elf -o obj\$&.o -l lst\$&.lst asm\$&.asm 
+  
+!else 
 
 .c.o:
-!if (0)
-  @if not exist asm mkdir asm
-  $(CC) $(CFLAGS) -S $&.c -o asm\$&.s
+  $(CC) $(CFLAGS) -c $&.c -o obj\$&.o
+
 !endif
-  $(CC) $(CFLAGS) -c $&.c
+    
+LISTADIRS = obj.dir asm.dir lst.dir 
+
+crearDirs: $(LISTADIRS) 
+
+$(LISTADIRS):  
+  @if not exist $* mkdir $*
 
 build: clean all
 
 clean:
-  @if exist *.o erase *.o
-  @if exist asm\*.s erase asm\*.s
+  @if exist obj\*.o erase obj\*.o
+  @if exist asm\*.asm erase asm\*.asm
+  @if exist lst\*.lst erase lst\*.lst
 
 help:
 # echo off & color 07 & title help & msg * "Hola"

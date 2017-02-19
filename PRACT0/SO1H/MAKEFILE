@@ -9,88 +9,79 @@ PROGRAMA = SO1H
 !include "..\MKFILE0"
 
 !if $(MODEL) == huge
-C0DH     = c0dh.o
+C0DH     = obj\c0dh.o
 !endif
 
-all: $(PROGRAMA).bin
+.path.o   = .\obj;..\so1pub\obj	   
+.path.asm = .\asm	   
+.path.c   = .	   
 
-listaOtros = so1dbg.o s0.o start.o str_bss.o str_relo.o stop.o
+all: crearDirs $(PROGRAMA).exe $(PROGRAMA).bin 
 
-$(PROGRAMA).bin: $(PROGRAMA).exe $(listaOtros)
+LISTAPUBS =\ 
+..\so1hpub\obj\tipos.o ..\so1hpub\obj\biosdata.o ..\so1hpub\obj\caracter.o\
+..\so1hpub\obj\printgen.o ..\so1hpub\obj\bios_0.o ..\so1hpub\obj\telon.o\
+..\so1hpub\obj\pantalla.o ..\so1hpub\obj\colores.o ..\so1hpub\obj\msdos.o\
+..\so1hpub\obj\debug.o ..\so1hpub\obj\pic.o ..\so1hpub\obj\puertos.o
+	
+$(PROGRAMA).bin: $(PROGRAMA).exe
   PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
-
-jwlink:
-  $(LINKER) $(OPCIONES_LR) \
-    start.o, \
-    ajustes.o, \
-    $(PROGRAMA).o, \
-    str_bss.o, \
-    $(C0DH:.o=.o,) \
-    ..\so1hpub\tipos.o, ..\so1hpub\biosdata.o, \
-    ..\so1hpub\caracter.o, ..\so1hpub\printgen.o, \
-    ..\so1hpub\bios_0.o, ..\so1hpub\telon.o, ..\so1hpub\pantalla.o, \
-    ..\so1hpub\msdos.o, ..\so1hpub\debug.o, \
-    $(UTMP):\SmallerC\v0100\lib\libch.a, \
-    str_relo.o, \
-    stop.o \
-    name $(PROGRAMA).bin
 
 $(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o 
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
-ajustes.o $(PROGRAMA).o $(C0DH)\
-..\so1hpub\tipos.o ..\so1hpub\biosdata.o\
-..\so1hpub\caracter.o ..\so1hpub\printgen.o\
-..\so1hpub\bios_0.o ..\so1hpub\telon.o ..\so1hpub\pantalla.o\
-..\so1hpub\colores.o ..\so1hpub\msdos.o s0.o so1dbg.o\
-..\so1hpub\debug.o ..\so1hpub\pic.o ..\so1hpub\puertos.o\
+obj\ajustes.o\
+obj\$(PROGRAMA).o\
+$(C0DH)\
+obj\s0.o\
+obj\so1dbg.o\
+$(LISTAPUBS)\
 $(UTMP):\SmallerC\v0100\lib\lcdh.a
 # tdump $(PROGRAMA).exe
 
-$(PROGRAMA).o: $(PROGRAMA).c
-  $(CC) $(CFLAGS) -c $(PROGRAMA).c
-
-ajustes.o: ajustes.c
-# $(CC) $(CFLAGS) -c ajustes.c
-  $(CC) $(CFLAGS) -S ajustes.c
-# $(CC) $(CFLAGS) -c ajustes.asm
-  $(AS) -f elf -l ajustes.lst ajustes.asm
-
-#s0.o: s0.c
-## $(CC) $(CFLAGS) -c s0.c
-#  $(CC) $(CFLAGS) -S s0.c
-## $(CC) $(CFLAGS) -c s0.asm
-#  $(AS) -f elf -l s0.lst s0.asm
-   
-#so1dbg.o: so1dbg.c
-## $(CC) $(CFLAGS) -c so1dbg.c
-#  $(CC) $(CFLAGS) -S so1dbg.c
-## $(CC) $(CFLAGS) -c so1dbg.asm
-#  $(AS) -f elf -l s0.lst so1dbg.asm
-     
 c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
-  $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o c0dh.o
+  $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o obj\c0dh.o
+ 
+!if ($(VIA_ASM) == TRUE)  
 
-$(listaOtros):
-# $(CC) $(CFLAGS) -c $&.c
-  $(CC) $(CFLAGS) -S $&.c
-# $(CC) $(CFLAGS) -c $&.asm
-  $(AS) -f elf -l $&.lst $&.asm
+.c.asm:
+  $(CC) $(CFLAGS) -S $&.c -o asm\$&.asm
 
+.asm.o:  
+# $(CC) $(CFLAGS) -c asm\$&.asm -o obj\$&.o
+  $(AS) -f elf -o obj\$&.o -l lst\$&.lst asm\$&.asm 
+  
+!else 
+
+.c.o:
+  $(CC) $(CFLAGS) -c $&.c -o obj\$&.o
+
+!endif
+    
+LISTADIRS = obj.dir asm.dir lst.dir 
+
+crearDirs: $(LISTADIRS) 
+
+$(LISTADIRS):  
+  @if not exist $* mkdir $*
+	
 build: clean all
 
-listaClean = bin exe $(listaPule)
+LISTACLEAN = bin exe $(LISTAPULE)
 
-listaPule  = map asm lst des hex o TR TP TD
+LISTAPULE  = map asm lst des hex o TR TP TD
 
-clean: $(listaClean) pule
+clean: $(LISTACLEAN) pule
   @if exist stderr.txt erase stderr.txt > nul
   @if exist stdout.txt erase stdout.txt > nul
 
-pule: $(listaPule)
+pule: $(LISTAPULE)
+  @if exist obj\*.o erase obj\*.o
+  @if exist asm\*.asm erase asm\*.asm
+  @if exist lst\*.lst erase lst\*.lst
   @if exist stderr.txt erase stderr.txt > nul
   @if exist stdout.txt erase stdout.txt > nul
 
-$(listaClean) $(listaPule):
+$(LISTACLEAN) $(LISTAPULE):
   @if exist *.$& erase *.$& > nul
 
 help:
