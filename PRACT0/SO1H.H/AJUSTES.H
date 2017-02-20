@@ -39,6 +39,8 @@ extern word_t CS_SO1H ;                      /* segmento de codigo de SO1H */
 
 extern word_t DS_SO1H ;                       /* segmento de datos de SO1H */
 
+extern word_t SS_SO1H ;                       /* segmento de datos de SO1H */
+
 extern word_t BSS_SO1H ;                           /* comienzo BSS de SO1H */
 
 extern word_t IMRInicial ;     /* mascara de interrupcion inicial del 8259 */

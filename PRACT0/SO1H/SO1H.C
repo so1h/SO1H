@@ -92,8 +92,14 @@ void main ( void )
 	} 
 	printLnBIOS() ; 
 	
-    obtenerMapa() ;                          /* CS_SO1H, DS_SO1H, BSS_SO1H */
+    obtenerMapa() ;                 /* CS_SO1H, DS_SO1H, SS_SO1H, BSS_SO1H */
     guardarDS_SO1H_1() ;                             /* segDatos = DS_SO1H */
+	
+	printStrBIOS("\n CS_SO1H = ") ; printHexBIOS(CS_SO1H, 4) ; /* Ok */
+	printStrBIOS("  DS_SO1H = ") ; printHexBIOS(DS_SO1H, 4) ;
+	printStrBIOS("  BSS_SO1H = ") ; printHexBIOS(BSS_SO1H, 4) ;
+	printStrBIOS("  SS_SO1H = ") ; printHexBIOS(SS_SO1H, 4) ; /* Ok */
+	while (TRUE) ;
 
 //	/* aqui hay que meter el codigo correspondiente a las inicializaciones */
 //	/* y a la creacion del proceso inicial.                                */

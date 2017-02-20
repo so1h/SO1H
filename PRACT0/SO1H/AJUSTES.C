@@ -100,6 +100,8 @@ word_t CS_SO1H ;                             /* segmento de codigo de SO1H */
 
 word_t DS_SO1H ;                              /* segmento de datos de SO1H */
 
+word_t SS_SO1H ;                               /* segmento de pila de SO1H */
+
 word_t BSS_SO1H ;                                  /* comienzo BSS de SO1H */
 
 word_t IMRInicial ;            /* mascara de interrupcion inicial del 8259 */
@@ -163,7 +165,8 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     word_t reg_AX ;
 
 //  while (TRUE) ;
-    asm (
+    asm 
+	(
         "   call ret_dir          \n"
         " ret_dir:                \n"
         "   mov edx,$             \n"
@@ -181,8 +184,8 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     CS_SO1H = reg_AX ;
 
 //  while (TRUE) ;
-    asm (
-
+    asm 
+	(
         " extern __start__data    \n"
         "   mov eax,__start__data \n"
         "   add eax,0x0000000F    \n"
@@ -193,8 +196,17 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     DS_SO1H = reg_AX ;
 
 //  while (TRUE) ;
-    asm (
+    asm 
+	(
+        "   mov ax,ss             \n"
+        "   mov [bp-4],ax         \n"
+    ) ;
 
+    SS_SO1H = reg_AX ;
+
+//  while (TRUE) ;
+    asm 
+	(
         " extern __start__bss     \n"
         "   mov eax,__start__bss  \n"
         "   add eax,0x0000000F    \n"

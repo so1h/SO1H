@@ -23,6 +23,6 @@ CFLAGS   = -$(MODEL)
 
 AS       = nasm
 
-#VIA_ASM = TRUE	   
-VIA_ASM  = FALSE	   
+VIA_ASM = TRUE	   
+#VIA_ASM  = FALSE	   
 	   
