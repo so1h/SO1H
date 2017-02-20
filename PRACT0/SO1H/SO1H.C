@@ -99,7 +99,7 @@ void main ( void )
 	printStrBIOS("  DS_SO1H = ") ; printHexBIOS(DS_SO1H, 4) ;
 	printStrBIOS("  BSS_SO1H = ") ; printHexBIOS(BSS_SO1H, 4) ;
 	printStrBIOS("  SS_SO1H = ") ; printHexBIOS(SS_SO1H, 4) ; /* Ok */
-	while (TRUE) ;
+//	while (TRUE) ;
 
 //	/* aqui hay que meter el codigo correspondiente a las inicializaciones */
 //	/* y a la creacion del proceso inicial.                                */
