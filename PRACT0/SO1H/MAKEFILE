@@ -27,13 +27,14 @@ LISTAPUBS =\
 $(PROGRAMA).bin: $(PROGRAMA).exe
   PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
 
-$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o 
+$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 obj\ajustes.o\
 obj\$(PROGRAMA).o\
 $(C0DH)\
 obj\s0.o\
 obj\so1dbg.o\
+obj\gm.o\
 $(LISTAPUBS)\
 $(UTMP):\SmallerC\v0100\lib\lcdh.a
 # tdump $(PROGRAMA).exe

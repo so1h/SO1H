@@ -43,6 +43,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1h.h\so1dbg.h"             /* leerScancode, esperarScancode */
 #include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
 
+#include "..\so1h.h\gm.h"                                        /* inicGM */
+
 void main ( void )
 {
     word_t loQueHay ;
@@ -95,15 +97,36 @@ void main ( void )
     obtenerMapa() ;                 /* CS_SO1H, DS_SO1H, SS_SO1H, BSS_SO1H */
     guardarDS_SO1H_1() ;                             /* segDatos = DS_SO1H */
 	
-	printStrBIOS("\n CS_SO1H = ") ; printHexBIOS(CS_SO1H, 4) ; /* Ok */
-	printStrBIOS("  DS_SO1H = ") ; printHexBIOS(DS_SO1H, 4) ;
-	printStrBIOS("  BSS_SO1H = ") ; printHexBIOS(BSS_SO1H, 4) ;
-	printStrBIOS("  SS_SO1H = ") ; printHexBIOS(SS_SO1H, 4) ; /* Ok */
-//	while (TRUE) ;
-
+	printStrBIOS(
+	  "\n"
+	  " CS_SO1H  RO_SO1H  DS_SO1H  BSS_SO1H  SS_SO1H  \n"
+	  " -------- -------- -------- --------- -------- \n" 
+      "   ") ; 
+	printHexBIOS(CS_SO1H, 4) ; printStrBIOS("     ") ; 
+	printHexBIOS(RO_SO1H, 4) ; printStrBIOS("     ") ; 
+	printHexBIOS(DS_SO1H, 4) ; printStrBIOS("     ") ;
+	printHexBIOS(BSS_SO1H, 4) ; printStrBIOS("      ") ;
+	printHexBIOS(SS_SO1H, 4) ; 	
+	
 //	/* aqui hay que meter el codigo correspondiente a las inicializaciones */
 //	/* y a la creacion del proceso inicial.                                */
 	
+	inicGM() ;
+	printStrBIOS(
+	  "\n"
+	  "\n"
+      " tamBloqueMax = ") ;	
+	printDecBIOS(tamBloqueMax, 1) ; 	
+	printStrBIOS(" paragrafos (") ;
+	printHexBIOS(tamBloqueMax, 4) ;
+	printCarBIOS(')') ;
+	
+	// Funciona mal sobre MSDOS ya que al parecer la información
+	// que consta en el PSP relativa al último segmento libre 
+    // es incorrecta. (Con SO1 funcionaba bien).	
+	
+//	while (TRUE) ;
+	  	  
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 

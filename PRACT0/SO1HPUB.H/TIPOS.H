@@ -50,4 +50,28 @@ typedef union
     address_t adr ;
 } uPtrAdr_t ;                                   /* union pointer y address */
 
+typedef int pid_t ;                            /* identificador de proceso */
+
+typedef int uid_t ;                            /* identificador de usuario */
+
+typedef int gid_t ;                              /* identificador de grupo */
+
+typedef int pindx_t ;         /* indice de proceso en la tabla de procesos */
+
+#define NIL (pindx_t)(-1)      /* fin de una lista de procesos (campo sig) */
+
+typedef int df_t ;        /* indice en la tabla de descriptores de fichero */
+
+typedef int dfs_t ;      /* indice en la tabla de descriptores del sistema */
+
+typedef int rindx_t ;         /* indice de recurso en la tabla de recursos */
+
+#define MK_P_SEG(seg) (((dword_t)seg) << 4) 
+
+#define MK_P(seg, off) (MK_P_SEG(seg) + (dword_t)off) 
+
+#define SEG(dir_lineal) ((word_t)((dword_t)dir_lineal >> 4))  
+
+#define OFF(dir_lineal) (((word_t)dir_lineal) & 0x000F)  
+
 #endif /* TIPOS_H */

@@ -35,11 +35,13 @@ modoSO1_t modoSO1 ( void ) ;  /* modo en que se ejecuta SO1: bin, exe, ... */
 
 byte_t unidadBIOS ( void ) ;       /* numero BIOS de la unidad de arranque */
 
-extern word_t CS_SO1H ;                      /* segmento de codigo de SO1H */
+extern word_t CS_SO1H ;               /* segmento de codigo (text) de SO1H */
 
-extern word_t DS_SO1H ;                       /* segmento de datos de SO1H */
+extern word_t RO_SO1H ;              /* segmento de datos (rodata) de SO1H */
 
-extern word_t SS_SO1H ;                       /* segmento de datos de SO1H */
+extern word_t DS_SO1H ;                /* segmento de datos (data) de SO1H */
+
+extern word_t SS_SO1H ;                        /* segmento de pila de SO1H */
 
 extern word_t BSS_SO1H ;                           /* comienzo BSS de SO1H */
 

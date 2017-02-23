@@ -647,7 +647,7 @@ word_t memBIOS ( void )    /* memoria reportada por el BIOS (en Kilobytes) */
         "  jc errMemBIOS  \n"
         "  test ax,ax     \n"
         "  jz errMemBIOS  \n"
-        "  mov [bp-8],ax  \n" /* numKBytes */
+        "  mov [bp-4],ax  \n" /* numKBytes */
         "  jmp finMemBIOS \n"
         " errMemBIOS:     \n"
     ) ;

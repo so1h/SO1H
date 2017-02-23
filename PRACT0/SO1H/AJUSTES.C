@@ -96,9 +96,11 @@ void __start__ ( void )                           /* se llama desde _start */
 }
 #endif
 
-word_t CS_SO1H ;                             /* segmento de codigo de SO1H */
+word_t CS_SO1H ;                      /* segmento de codigo (text) de SO1H */
 
-word_t DS_SO1H ;                              /* segmento de datos de SO1H */
+word_t RO_SO1H ;                     /* segmento de datos (rodata) de SO1H */
+
+word_t DS_SO1H ;                       /* segmento de datos (data) de SO1H */
 
 word_t SS_SO1H ;                               /* segmento de pila de SO1H */
 
@@ -186,14 +188,35 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
 //  while (TRUE) ;
     asm 
 	(
-        " extern __start__data    \n"
-        "   mov eax,__start__data \n"
-        "   add eax,0x0000000F    \n"
+        " extern __stop__relot    \n"
+        "   mov eax,__stop__relot \n"
         "   shr eax,4             \n"
         "   mov [bp-4],ax         \n"
     ) ;
 
-    DS_SO1H = reg_AX ;
+    RO_SO1H = CS_SO1H + reg_AX ;
+
+	//  while (TRUE) ;
+    asm 
+	(
+        " extern __start__data    \n"
+        "   mov eax,__start__data \n"
+        "   shr eax,4             \n"
+        "   mov [bp-4],ax         \n"
+    ) ;
+
+    DS_SO1H = CS_SO1H + reg_AX ;
+
+//  while (TRUE) ;
+    asm 
+	(
+        " extern __start__bss     \n"
+        "   mov eax,__start__bss  \n"
+        "   shr eax,4             \n"
+        "   mov [bp-4],ax         \n"
+    ) ;
+
+    BSS_SO1H = CS_SO1H + reg_AX ;
 
 //  while (TRUE) ;
     asm 
@@ -203,18 +226,6 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     ) ;
 
     SS_SO1H = reg_AX ;
-
-//  while (TRUE) ;
-    asm 
-	(
-        " extern __start__bss     \n"
-        "   mov eax,__start__bss  \n"
-        "   add eax,0x0000000F    \n"
-        "   shr eax,4             \n"
-        "   mov [bp-4],ax         \n"
-    ) ;
-
-    BSS_SO1H = reg_AX ;
 
 }
 
