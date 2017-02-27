@@ -19,6 +19,8 @@ typedef enum { FALSE, TRUE } bool_t ;
 
 typedef byte_t * pointer_t ;
 
+#define NULL (pointer_t)0x00000000 
+
 #define interrupt __interrupt
 
 typedef void interrupt (* rti_t) ( void ) ;      /* rutina de trat. de int */

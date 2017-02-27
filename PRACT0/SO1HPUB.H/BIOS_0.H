@@ -86,6 +86,8 @@ int printLBinBIOS ( dword_t num, word_t l ) ;
 
 int printPtrBIOS ( pointer_t ptr ) ;
 
+int printByteBIOS ( byte_t b ) ;
+
 int printWordBIOS ( word_t w ) ;
 
 int printCadBIOS ( char * cad ) ;

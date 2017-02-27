@@ -36,6 +36,7 @@
 /* En todos los casos, al final __start__ cede el control a main.          */
 
 #include "..\so1hpub.h\tipos.h"
+#include "..\so1h.h\ajustsp.h"                                 /* SP0_SO1H */
 
 void _start ( void ) ;        /* funcion a la que hay que ceder el control */
 //                       /* ya que se encarga de la reubicación (estática) */
@@ -71,7 +72,7 @@ asm
     "   shr bx,4           \n"
     "   add ax,bx          \n"
     "   mov ss,ax          \n"
-    "   mov sp,0x8000      \n"
+    "   mov sp,0x8000      \n" /* SP0_SO1H (AJUSTSP.H) */
     "                      \n"
     "   mov [cs:_unidadBIOS+8],dl \n"                        /* uBIOS = dl */
     "                      \n"
@@ -202,7 +203,7 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
         " extern __start__data    \n"
         "   mov eax,__start__data \n"
         "   shr eax,4             \n"
-        "   mov [bp-4],ax         \n"
+        "   mov [bp-4],ax         \n" /* reg_AX */
     ) ;
 
     DS_SO1H = CS_SO1H + reg_AX ;

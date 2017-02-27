@@ -22,12 +22,17 @@ LISTAPUBS =\
 ..\so1hpub\obj\tipos.o ..\so1hpub\obj\biosdata.o ..\so1hpub\obj\caracter.o\
 ..\so1hpub\obj\printgen.o ..\so1hpub\obj\bios_0.o ..\so1hpub\obj\telon.o\
 ..\so1hpub\obj\pantalla.o ..\so1hpub\obj\colores.o ..\so1hpub\obj\msdos.o\
-..\so1hpub\obj\debug.o ..\so1hpub\obj\pic.o ..\so1hpub\obj\puertos.o
+..\so1hpub\obj\debug.o ..\so1hpub\obj\pic.o ..\so1hpub\obj\puertos.o \
+..\so1hpub\obj\memvideo.o ..\so1hpub\obj\memvideo.o ..\so1hpub\obj\bios_crt.o \
+..\so1hpub\obj\printvid.o ..\so1hpub\obj\c2c.o ..\so1hpub\obj\ptrc2c.o \
+..\so1hpub\obj\ccb.o
+
 	
 $(PROGRAMA).bin: $(PROGRAMA).exe
+  @echo.
   PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
 
-$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o
+$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o blockpr.o procesos.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 obj\ajustes.o\
 obj\$(PROGRAMA).o\
@@ -35,8 +40,30 @@ $(C0DH)\
 obj\s0.o\
 obj\so1dbg.o\
 obj\gm.o\
+obj\blockpr.o\
+obj\procesos.o\
 $(LISTAPUBS)\
 $(UTMP):\SmallerC\v0100\lib\lcdh.a
+# para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente 
+# reservar la mayor cantidad de memoria posible, ver la palabra en dirPSP + 2) 
+  @echo.
+  EXE2BIN -c $(PROGRAMA).exe 
+  @echo.
+  PARCHEAR $(PROGRAMA).exe 12 FFFF
+  @echo.
+  EXE2BIN -c $(PROGRAMA).exe 
+  @copy &&|  
+mode con cols=80 lines=25  
+$(UTMP):\BC5\BIN\msdos $(PROGRAMA).exe
+| $(PROGRAMA).cmd > nul
+  @echo.
+  @echo ------- creado el fichero $(PROGRAMA).cmd
+  @copy &&|  
+mode con cols=80 lines=25  
+$(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
+| $(PROGRAMA).bat > nul
+  @echo.
+  @echo ------- creado el fichero $(PROGRAMA).bat
 # tdump $(PROGRAMA).exe
 
 c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
@@ -153,6 +180,10 @@ run:
 runmsdos:
   @echo.
   start cmd /K "mode con cols=80 lines=25 & cls & msdos $(PROGRAMA).exe "
+
+rundebug:
+  @echo.
+  start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug $(PROGRAMA).exe "
 
 rundosbox:
   @echo.

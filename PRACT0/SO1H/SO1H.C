@@ -44,15 +44,27 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
 
 #include "..\so1h.h\gm.h"                                        /* inicGM */
+#include "..\so1hpub.h\memvideo.h"           /* goToXYVideo, printCarVideo */
+#include "..\so1hpub.h\bios_crt.h"                          /* inicBiosCrt */
+#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
+
+#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
+
+
+#define pSV(x) printStrVideo(x)                                   /* macro */
+//#define E(x) x
+#define E(x) { pSV("\n ") ; pSV(#x) ; pSV(" ... ") ; x ; }        /* macro */
 
 void main ( void )
 {
-    word_t loQueHay ;
-	int i ;
-	
+    word_t loQueHay ;	
+
     asm("cli") ;                          /* se inhiben las interrupciones */
-    
+
 	if (modoSO1() == modoSO1_Exe) salvarPantallaInicial() ;
+	
+	inicBiosCrt() ; 
+    ocultaCursorBIOS() ;  /* parece que no funciona bien en msdos (Takeda) */
 	
     mirarLoQueHay((word_t *)&loQueHay) ;
     mostrarLoQueHay(loQueHay) ;	
@@ -60,22 +72,28 @@ void main ( void )
 //  leerScancode() ;                          /* para detener la ejecucion */
 //  leerScancode() ;                            /* con las ints. inhibidas */
 
+    printStrVideo("\n printHexVideo(0x1234, 4) = ") ; printHexVideo(0x1234, 4) ; /************************/
+    printStrVideo("\n printWordVideo(0x1234) = ") ; printWordVideo(0x1234) ; /************************/
+
     switch (modoSO1())
     {
     case modoSO1_Bin : /* SO1.BIN arrancado desde un disco/disquete (BIOS) */
     case modoSO1_Exe :                                          /* SO1.EXE */
         mostrarFlags() ;
-        printStrBIOS("=> SO1H v0.1.0 (C) P.P.Lopez.R. & J.Lozano.D.P.") ;
-        printLnBIOS() ;
+        printStrVideo("=> SO1H v 0.1.0 (C) P.P.Lopez.R. & J.Lozano.D.P.") ;
+        printLnVideo() ;
         assert((valorFlags() & 0x0200) == 0x0000,
                "\a\n so1(): ERROR ints. no inhibidas") ;    /* '\a' == BEL */
     }
 	
+//  leerScancode() ;                          /* para detener la ejecucion */
+//  leerScancode() ;                            /* con las ints. inhibidas */
+
     if ((modoSO1() == modoSO1_Bin) || (modoSO1() == modoSO1_Bs))
     {
-        printStrBIOS("\n unidadBIOS = 0x") ;
-        printHexBIOS(unidadBIOS(), 2) ;
-        printLnBIOS() ;		
+        printStrVideo("\n unidadBIOS = 0x") ;
+        printHexVideo(unidadBIOS(), 2) ;
+        printLnVideo() ;		
 //      inicSF(unidadBIOS()) ;  /* asigna memoria a segBuferSO1 y FAT (GM) */
 //      assert(inicMinisfFAT() == 0, "\a\n so1(): ERROR minisfFAT") ;
 //      inicTablaFichAbiertos() ;
@@ -85,45 +103,79 @@ void main ( void )
 	
     IMRInicial = valorIMR() ;          /* tomamos nota del IMR (pic 8259A) */
 	
-	printStrBIOS("\n valorIMR() = ") ; 
-	printHexBIOS(valorIMR(), 4) ; 
-	printStrBIOS(" = ") ; 
-	for ( i = 0 ; i < 4 ; i++ ) {
-	  printBinBIOS((valorIMR() >> 12-i*4) & 0x000F , 4) ; 
-	  printStrBIOS(" ") ; 
-	} 
-	printLnBIOS() ; 
+	printStrVideo("\n valorIMR() = ") ; 
+	printHexVideo(valorIMR(), 4) ; 
+	printStrVideo(" = ") ; 
 	
+	for ( int i = 0 ; i < 4 ; i++ ) {
+	  printBinVideo((valorIMR() >> 12-i*4) & 0x000F , 4) ; 
+	  printStrVideo(" ") ; 
+	} 
+	printLnVideo() ; 
+	
+//  leerScancode() ;                          /* para detener la ejecucion */
+//  leerScancode() ;                            /* con las ints. inhibidas */
+
     obtenerMapa() ;                 /* CS_SO1H, DS_SO1H, SS_SO1H, BSS_SO1H */
     guardarDS_SO1H_1() ;                             /* segDatos = DS_SO1H */
 	
-	printStrBIOS(
+	printStrVideo(
 	  "\n"
 	  " CS_SO1H  RO_SO1H  DS_SO1H  BSS_SO1H  SS_SO1H  \n"
 	  " -------- -------- -------- --------- -------- \n" 
       "   ") ; 
-	printHexBIOS(CS_SO1H, 4) ; printStrBIOS("     ") ; 
-	printHexBIOS(RO_SO1H, 4) ; printStrBIOS("     ") ; 
-	printHexBIOS(DS_SO1H, 4) ; printStrBIOS("     ") ;
-	printHexBIOS(BSS_SO1H, 4) ; printStrBIOS("      ") ;
-	printHexBIOS(SS_SO1H, 4) ; 	
+	printHexVideo(CS_SO1H, 4) ; printStrVideo("     ") ; 
+	printHexVideo(RO_SO1H, 4) ; printStrVideo("     ") ; 
+	printHexVideo(DS_SO1H, 4) ; printStrVideo("     ") ;
+	printHexVideo(BSS_SO1H, 4) ; printStrVideo("      ") ;
+	printHexVideo(SS_SO1H, 4) ; printLnVideo() ;	
 	
 //	/* aqui hay que meter el codigo correspondiente a las inicializaciones */
 //	/* y a la creacion del proceso inicial.                                */
 	
-	inicGM() ;
-	printStrBIOS(
+//  leerScancode() ;                          /* para detener la ejecucion */
+//  leerScancode() ;                            /* con las ints. inhibidas */
+
+	E(inicGM()) ;
+	printStrVideo(
 	  "\n"
 	  "\n"
       " tamBloqueMax = ") ;	
-	printDecBIOS(tamBloqueMax, 1) ; 	
-	printStrBIOS(" paragrafos (") ;
-	printHexBIOS(tamBloqueMax, 4) ;
-	printCarBIOS(')') ;
+	printDecVideo(tamBloqueMax, 1) ; 	
+	printStrVideo(" paragrafos (") ;
+	printHexVideo(tamBloqueMax, 4) ;
+	printStrVideo(") = ") ;
+	printDecVideo(tamBloqueMax/(1024/16), 1) ; 	
+	printStrVideo(" KBytes") ;
 	
-	// Funciona mal sobre MSDOS ya que al parecer la información
-	// que consta en el PSP relativa al último segmento libre 
-    // es incorrecta. (Con SO1 funcionaba bien).	
+    mostrarListaLibres() ;
+
+    leerScancode() ;                          /* para detener la ejecucion */
+    leerScancode() ;                            /* con las ints. inhibidas */
+
+#if (0) 
+	
+	{
+		
+        word_t seg = k_buscarBloque(0x20) ;
+	
+     	mostrarListaLibres() ;
+
+	    k_devolverBloque(seg, 0x20) ;
+	
+    	mostrarListaLibres() ;
+	
+	}
+	
+#endif	
+	
+/*	pasos siguientes:
+	  PROCESOS.C 
+	  implementar la llamada al sistema fork() 
+	  y las llamadas de drivers
+	  crear con fork() un proceso (thread) driver del disco/disquete
+	  implementar exec
+*/	  
 	
 //	while (TRUE) ;
 	  	  

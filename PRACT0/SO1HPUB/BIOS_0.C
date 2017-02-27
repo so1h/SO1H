@@ -5,7 +5,6 @@
 /* ----------------------------------------------------------------------- */
 
 #include "..\so1hpub.h\tipos.h"
-#include "..\so1hpub.h\carsctrl.h"
 #include "..\so1hpub.h\caracter.h"                                  /* dig */
 #include "..\so1hpub.h\printgen.h"
 #include "..\so1hpub.h\biosdata.h"
@@ -223,14 +222,14 @@ int printCarPagBIOS ( char car, byte_t pag )
     byte_t filaMax = ptrBiosArea->VIDEO_lastrow ;
     switch (car)
     {
-    case BS :
+    case '\b' :                                               /* backspace */
         if (fila > 0)
             goToXYPag(fila, --columna, pag) ;
         break ;
-    case CR :
+    case '\r' :                                         /* carriage return */
         goToXYPag(fila, 0, pag) ;
         break ;
-    case LF :
+    case '\n' :                                     /* newline (line feed) */
         if (fila < filaMax)
             goToXYPag(++fila, columna, pag) ;
         else
@@ -271,8 +270,8 @@ int printCarAtrPagBIOS ( char car, byte_t atr, byte_t pag )
 
 int printLnBIOS ()
 {
-    printCarBIOS(CR) ;
-    printCarBIOS(LF) ;
+    printCarBIOS('\r') ;
+    printCarBIOS('\n') ;
 }
 
 int printStrBIOS ( char * str )
@@ -330,12 +329,16 @@ int printPtrBIOS ( pointer_t ptr )
     printGenPtr(ptr, printCarBIOS) ;
 }
 
+int printByteBIOS ( byte_t b )
+{
+    printCarBIOS(dig[b >> 4]) ;
+    printCarBIOS(dig[b & 0x0F]) ;
+}
+
 int printWordBIOS ( word_t w )
 {
-    printCarBIOS(dig[((lh_t *)&w)->hi >> 4]) ;
-    printCarBIOS(dig[((lh_t *)&w)->hi & 0x0F]) ;
-    printCarBIOS(dig[((lh_t *)&w)->lo >> 4]) ;
-    printCarBIOS(dig[((lh_t *)&w)->lo & 0x0F]) ;
+    printByteBIOS((byte_t)(w >> 8)) ;
+    printByteBIOS((byte_t)w) ;
 }
 
 int printCadBIOS ( char * cad )

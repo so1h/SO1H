@@ -8,7 +8,8 @@
 #include "..\so1h.h\ajustes.h"                                  /* modoSO1 */
 #include "..\so1hpub.h\biosdata.h"                         /* ptrFechaBios */
 #include "..\so1hpub.h\msdos.h"                /* finProgDOS, hayWindowsNT */
-#include "..\so1hpub.h\bios_0.h"                             /* rebootBIOS */
+#include "..\so1hpub.h\bios_0.h"         /* rebootBIOS, ocultaCursorBIOS */
+#include "..\so1hpub.h\printvid.h"                   /* printStrVideo, ... */
 #include "..\so1h.h\so1dbg.h"                           /* esperarScancode */
 #include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
 //                                     /* hayDOS, hayNT, hayQemu, hayBochs */
@@ -16,6 +17,7 @@
 #ifdef _DOS
 #include <stdlib.h>                                  /* exit, EXIT_SUCCESS */
 #endif
+
 
 
 word_t fechaCompactada ( char * ptrFecha )
@@ -68,6 +70,8 @@ void mirarLoQueHay ( word_t * loQueHay )
         *loQueHay |= hayQemu   ;
         break ;
     case  5706L : ;                                          /* "02/10/11" */
+
+
     case  7578L :                                            /* "12/26/14" */
         *loQueHay |= hayBochs  ;
         break ;
@@ -83,48 +87,55 @@ void mirarLoQueHay ( word_t * loQueHay )
     case 50721L :                                            /* "01/01/99" */
         *loQueHay |= hayVDos   ;
         break ;
-    default  :
+    case  3158L :                                            /* "02/22/06" */
+        *loQueHay |= hayMsdos  ;
+        break ;
+    default  : ;
+#if (0)	
         if ((modoSO1() == modoSO1_Bin) || (modoSO1() == modoSO1_Exe))
         {
-            int i ;
-            printLnBIOS() ;
-            printStrBIOS("\a\n so1(): fecha del BIOS = ") ;
-            for ( i = 0 ; i < 8 ; i++ )
-                printCarBIOS(ptrFechaBios[i]) ;
-            printStrBIOS("\n\n fecha compactada = ") ;
-            printLDecBIOS(fechaCompactada(ptrFechaBios), 1) ;
-            printStrBIOS(" ==> Maquina (virtual) inexplorada\n"
-                         "\n"
-                         " presione una tecla para continuar ") ;
+            printLnVideo() ;
+            printStrVideo("\a\n so1(): fecha del BIOS = ") ;
+            for ( int i = 0 ; i < 8 ; i++ )
+                printCarVideo(ptrFechaBios[i]) ;
+            printStrVideo("\n\n fecha compactada = ") ;
+            printLDecVideo(fechaCompactada(ptrFechaBios), 1) ;
+            printStrVideo(" ==> Maquina (virtual) inexplorada\n"
+                          "\n"
+                          " presione una tecla para continuar ") ;
             esperarScancode() ;
         }
+#endif
     }
+
 }
 
 void ponerMuescaX ( char * nombreSistema, bool_t hayEseSistema )
 {
-    printStrBIOS(nombreSistema) ;
-    printCarBIOS('[') ;
-    if (hayEseSistema) printCarBIOS('X') ;
-    else printCarBIOS(' ') ;
-    printStrBIOS("]  ") ;
+    printStrVideo(nombreSistema) ;
+    printCarVideo('[') ;
+    if (hayEseSistema) printCarVideo('X') ;
+    else printCarVideo(' ') ;
+    printStrVideo("]  ") ;
 }
 
 void mostrarLoQueHay ( word_t loQueHay )
 {
 
-    clrScrBIOS() ;
-    goToXYBIOS(1, 0) ;
+    printCarVideo('\f') ;
+	
+	goToXYVideo(1,0) ;
+	
     switch (modoSO1())
     {
     case modoSO1_Bin :
-        printStrBIOS(" so1h.bin") ;
+        printStrVideo(" so1h.bin") ;
         break ;
     case modoSO1_Exe :
-        printStrBIOS(" so1h.exe") ;
+        printStrVideo(" so1h.exe") ;
         break ;
     }
-    printStrBIOS("  ") ;
+    printStrVideo("  ") ;
     ponerMuescaX("MSDOS", (bool_t)(loQueHay & hayDOS)) ;
     ponerMuescaX("WinNT", (bool_t)(loQueHay & hayNT)) ;
     switch (loQueHay & 0xFFFC)
@@ -147,8 +158,11 @@ void mostrarLoQueHay ( word_t loQueHay )
     case hayVDos   :
         ponerMuescaX("VDos", TRUE) ;
         break ;
+    case hayMsdos  :
+        ponerMuescaX("msdos", TRUE) ;
+        break ;
     default :
-        printStrBIOS("\aMaquina (virtual) inexplorada ") ;
+        printStrVideo("\aMaquina (virtual) inexplorada ") ;
     }
     printLnBIOS() ;
 }
@@ -166,16 +180,16 @@ void tirarS0 ( word_t loQueHay )
     }
     else if (loQueHay & (hayDBox | hayVDos))   /* DOSBox con boot da algun */
     {                                           /* problema al reiniciarse */
-        clrScrBIOS() ;
-        goToXYBIOS(11, 14) ;
+	    printCarVideo('\f') ;
+        goToXYVideo(11, 14) ;
         ocultaCursorBIOS() ;
-        printStrBIOS(" puede apagar la maquina virtual DOSBox (Ctrl+F9) o VDos") ;
+        printStrVideo(" puede apagar la maquina virtual DOSBox (Ctrl+F9) o VDos") ;
         asm(" cli \n hlt \n") ;
     }
-    else               
+    else
     {
-        clrScrBIOS() ;
-        goToXYBIOS(1, 1) ;
+	    printCarVideo('\f') ;
+        goToXYVideo(1, 1) ;
         ocultaCursorBIOS() ;
         rebootBIOS() ;                                          /* int 19h */
 //      rebootLegacy() ;                                /* callf ffff:0000 */

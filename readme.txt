@@ -7,12 +7,13 @@ binary executable files of SO1H. The model of programming used
 by those binaries corresponds to the model HUGE proposed by 
 Alexei Frunze as part of his Smaller C project.
 
-SO1H arises from the SO1 implementation experience. SO1 is programmed 
-in C using the Borland C 5.02 binary files based on the
-classic programming model known as SMALL. The SMALL model limits
-the size of the code segment to 64 KBytes. This limitation 
-disappears in the HUGE model because the code of each function 
-separately can occupy up to 64 KBytes.
+SO1H arises from the project SO1 (https://github.com/so1h/so1,
+https://sourceforge.net/projects/so1) implementation experience. 
+SO1 is programmed in C using the Borland C 5.02 binary files 
+based on the classic programming model known as SMALL. The SMALL 
+model limits the size of the code segment to 64 KBytes. This 
+limitation disappears in the HUGE model because the code of each 
+function separately can occupy up to 64 KBytes.
 
 Another great advantage of using SmallerC is that pointers take
 values corresponding to non-segmented linear directions

@@ -7,7 +7,8 @@ ficheros ejecutables binarios propios de SO1H. El modelo de
 programación utilizado por esos binarios corresponde al modelo HUGE
 propuesto por Alexei Frunze como parte de su proyecto Smaller C.
 
-SO1H parte de la experiencia en la implementación del sistema SO1.
+SO1H parte de la experiencia en la implementación del sistema SO1
+(https://github.com/so1h/so1, https://sourceforge.net/projects/so1).
 SO1 está programado en C utilizando el compilador Borland C 5.02 de
 manera que se generan ficheros binarios basados en el modelo de 
 programación clásico conocido como SMALL. El modelo SMALL limita 
