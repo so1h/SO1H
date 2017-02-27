@@ -153,7 +153,7 @@ void main ( void )
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
-#if (0) 
+#if (1) 
 	
 	{
 		

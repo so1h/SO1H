@@ -19,7 +19,8 @@ typedef struct {
   word_t out ;                    /* indice de la primera componente libre */
   word_t max ;                               /* numero máximo de callBacks */
   void * arg ;                                       /* argumento devuelto */
-  callBack_t callBack [0xFFFF] ;            /* array circular de callBacks */
+  callBack_t callBack [10] ;                /* array circular de callBacks */
+//callBack_t callBack [0xFFFF] ;            /* array circular de callBacks */
 //callBack_t callBack [ ] ;                 /* array circular de callBacks */
 //callBack_t * callBack ;                   /* array circular de callBacks */
 } descCcb_t ;

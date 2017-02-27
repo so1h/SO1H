@@ -90,8 +90,9 @@ void mirarLoQueHay ( word_t * loQueHay )
     case  3158L :                                            /* "02/22/06" */
         *loQueHay |= hayMsdos  ;
         break ;
-    default  : ;
-#if (0)	
+    default  :
+        ;
+#if (0)
         if ((modoSO1() == modoSO1_Bin) || (modoSO1() == modoSO1_Exe))
         {
             printLnVideo() ;
@@ -123,9 +124,9 @@ void mostrarLoQueHay ( word_t loQueHay )
 {
 
     printCarVideo('\f') ;
-	
-	goToXYVideo(1,0) ;
-	
+
+    goToXYVideo(1,0) ;
+
     switch (modoSO1())
     {
     case modoSO1_Bin :
@@ -179,8 +180,9 @@ void tirarS0 ( word_t loQueHay )
 #endif
     }
     else if (loQueHay & (hayDBox | hayVDos))   /* DOSBox con boot da algun */
-    {                                           /* problema al reiniciarse */
-	    printCarVideo('\f') ;
+    {
+        /* problema al reiniciarse */
+        printCarVideo('\f') ;
         goToXYVideo(11, 14) ;
         ocultaCursorBIOS() ;
         printStrVideo(" puede apagar la maquina virtual DOSBox (Ctrl+F9) o VDos") ;
@@ -188,7 +190,7 @@ void tirarS0 ( word_t loQueHay )
     }
     else
     {
-	    printCarVideo('\f') ;
+        printCarVideo('\f') ;
         goToXYVideo(1, 1) ;
         ocultaCursorBIOS() ;
         rebootBIOS() ;                                          /* int 19h */

@@ -643,6 +643,12 @@ void readXYBIOS ( byte_t * fila,
 /* tambien en BIOS AREA 0000:0413 */
 word_t memBIOS ( void )    /* memoria reportada por el BIOS (en Kilobytes) */
 {
+#if (1)	
+    asm
+    (
+        "  int 12h        \n"                       /* BIOS: memoria total */
+    ) ;
+#else	
     word_t numKBytes ;                          /* 1 Kilobyte = 1024 bytes */
     asm
     (
@@ -662,6 +668,7 @@ word_t memBIOS ( void )    /* memoria reportada por el BIOS (en Kilobytes) */
         " finMemBIOS:      \n"
     ) ;
     return(numKBytes) ;
+#endif
 }
 
 /* Puerto serie COM1 (int 14h) */
