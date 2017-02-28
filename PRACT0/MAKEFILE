@@ -31,6 +31,18 @@ run:
   make run
   @cd ..
 
+runmsdos:
+  @echo.
+  cd so1h
+  make runmsdos
+  @cd ..
+
+rundebug:
+  @echo.
+  cd so1h
+  make rundebug
+  @cd ..
+
 rundosbox:
   @echo.
   cd so1h

@@ -46,7 +46,7 @@ void _start ( void ) ;        /* funcion a la que hay que ceder el control */
 #include "..\so1h.h\main.h"                                        /* main */
 
 void __start__ ( void ) ;       /* al final de _start se llama a __start__ */
-/* al final de __start__ se llama a main */
+//                                /* al final de __start__ se llama a main */
 #endif
 
 void unidadBIOS ( void ) ;    /* guarda el número de la unidad de arranque */
@@ -74,10 +74,10 @@ asm
     "   mov ss,ax          \n"
     "   mov sp,0x8000      \n" /* SP0_SO1H (AJUSTSP.H) */
     "                      \n"
-    "   mov [cs:_unidadBIOS+8],dl \n"                        /* uBIOS = dl */
+    "   mov [cs:_unidadBIOS+9],dl \n"                        /* uBIOS = dl */
     "                      \n"
     "   mov al,0x00        \n"           /* (modoSO1_t)0x00 == modoSO1_Bin */
-    "   mov [cs:_modoSO1+8],al \n"                /* modoSO1 = modoSO1_Bin */
+    "   mov [cs:_modoSO1+9],al \n"                /* modoSO1 = modoSO1_Bin */
     "                      \n"
     "   mov ax,cs          \n"              /* cedemos el control a _start */
     "   mov cx,__start     \n"                     /* CS = _start >> 4     */
@@ -121,27 +121,14 @@ asm
     " _segDatos: db 'DS'  \n" /* datos (DS) de SO1H (dentro del codigo)    */
 ) ;
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Cuidado !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-/*                                                                         */
-/* En las funciones unidadBIOS y modoSO1 la dirección relativa al segmento */
-/* de código que aparece (mov al,[cs:18] puede cambiar si se modifican las */
-/* funciones anteriores. Así que tras cualquier cambio en una función      */
-/* anterior deberán revisarse esas instrucciones.                          */
-
 uint8_t unidadBIOS ( void )        /* numero BIOS de la unidad de arranque */
 {
     asm
     (
-        "   jmp short calculo1 \n"
-        " uBIOS: db 0xFF       \n"                  /* valor de unidadBIOS */
-        " calculo1:            \n"
-        "   mov al,[cs:18]     \n"                           /* uBIOS = 12 */
-        /*respecto a (unidadBIOS >> 4) << 4 */
-//      "   mov al,[cs:$ - (_unidadBIOS | 0xFFFF0)] \n"        /* da error */
-//      "   mov al,[cs:$ - ((_unidadBIOS >> 4) << 4)] \n"      /* da error */
-//      "   mov al,[cs:_unidadBIOS] \n"
-//      "   mov al,[cs:$]      \n"
-//      "   mov al,[cs:$$]     \n"
+        "   call $+4           \n"       
+		" uBIOS: db 0xFF       \n"                  /* valor de unidadBIOS */
+		"   pop bx             \n"
+        "   mov al,[cs:bx]     \n" /* uBIOS */
     ) ;                                                   /* return(uBIOS) */
 }
 
@@ -153,12 +140,11 @@ modoSO1_t modoSO1 ( void )    /* modo en que se ejecuta SO1: bin, exe, ... */
 {
     asm
     (
-        "   jmp short calculo2 \n"       /* (modoSO1_t)0x01 == modoSO1_Bin */
+        "   call $+4           \n"       /* (modoSO1_t)0x01 == modoSO1_Exe */
         " mSO1: db 0x01        \n"    /* valor de modoSO1, por defecto exe */
-        " calculo2:            \n"
-        "   xor eax,eax        \n"
-        "   mov al,[cs:18]     \n"                           /* uBIOS = 12 */
-        /*respecto a (modoSO1 >> 4) << 4 */
+		"   pop bx             \n"
+		"   xor eax,eax        \n"
+        "   mov al,[cs:bx]     \n" /* mSO1 */
     ) ;                                                 /* return(modoSO1) */
 }
 
@@ -175,13 +161,13 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
         "   mov edx,$             \n"
         "   mov bx,cs             \n"
         "   movzx ebx,bx          \n"
-        "   shl ebx,4             \n"   /* ebx = (CS << 4)                     */
+        "   shl ebx,4             \n" /* ebx = (CS << 4)                   */
         "   pop ax                \n"
         "   movzx eax,ax          \n"
-        "   add eax,ebx           \n"   /* eax = direccion absoluta de ret_dir */
+        "   add eax,ebx           \n" /* eax = direccion absoluta ret_dir  */
         "   sub eax,edx           \n"
         "   shr eax,4             \n"
-        "   mov [bp-4],ax         \n"
+        "   mov [bp-4],ax         \n" /* reg_AX */
     ) ;
 
     CS_SO1H = reg_AX ;
@@ -192,7 +178,7 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
         " extern __stop__relot    \n"
         "   mov eax,__stop__relot \n"
         "   shr eax,4             \n"
-        "   mov [bp-4],ax         \n"
+        "   mov [bp-4],ax         \n" /* reg_AX */
     ) ;
 
     RO_SO1H = CS_SO1H + reg_AX ;
@@ -214,7 +200,7 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
         " extern __start__bss     \n"
         "   mov eax,__start__bss  \n"
         "   shr eax,4             \n"
-        "   mov [bp-4],ax         \n"
+        "   mov [bp-4],ax         \n" /* reg_AX */
     ) ;
 
     BSS_SO1H = CS_SO1H + reg_AX ;
@@ -223,7 +209,7 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     asm 
 	(
         "   mov ax,ss             \n"
-        "   mov [bp-4],ax         \n"
+        "   mov [bp-4],ax         \n" /* reg_AX */
     ) ;
 
     SS_SO1H = reg_AX ;

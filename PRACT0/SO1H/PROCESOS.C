@@ -10,19 +10,20 @@
 //#include "..\so1hpub.h\strings.h"
 #include <string.h>                                              /* strcpy */
 #include "..\so1hpub.h\fcntl.h"
-//#include "..\so1hpub.h\startbss.h"
-//#include "..\so1hpub.h\finbss.h"
 #include "..\so1h.h\ajustes.h"
 #include "..\so1h.h\blockpr.h"
 #include "..\so1h.h\gm.h"
 #include "..\so1h.h\procesos.h"
-//#include "..\so1h.h\plot.h"
 
 #include "..\so1hpub.h\bios_0.h"                       /* printStrBIOS ... */
 //#include "..\so1h.h\dbgword.h"                              /* debugWord *//********************/
 
+#include "..\so1hpub.h\printvid.h"                    /* printStrVideo ... */
+
 
 descProcesoExt_t descProceso [ maxProcesos ] ;        /* tabla de procesos */
+
+descThreadExt_t descThread [ maxProcesos ] ;           /* tabla de threads */
 
 descFichero_t descFichero [ dfsMax ] ;                /* tabla de ficheros */
                                                    /* abiertos del sistema */

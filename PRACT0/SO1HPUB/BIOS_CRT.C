@@ -289,9 +289,11 @@ asm
   pdc_video_ofs = regs.x.di;
 */
 
+#if (0)
   printStrBIOS("DCC = 0x") ; printHexBIOS(DCC, 4) ;
   printStrBIOS(" CRTC = 0x") ; printHexBIOS(CRTC_base, 4) ;
   printStrBIOS(" segmento = 0x") ; printHexBIOS(segMemVideo, 4) ;
+#else
 
   return comprobarAdaptador((tipoAdaptador_t)res) ;
 

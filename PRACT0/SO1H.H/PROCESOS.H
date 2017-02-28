@@ -11,11 +11,19 @@
 
 typedef struct {
 
-  camposPublicos /* campos publicos del descriptor de proceso (DEF_PROC.H) */
+  camposPubProceso /* campos publicos del descriptor de proceso DEF_PROC.H */
 
   /* añadir a partir de aqui nuevos campos */
 
 } descProcesoExt_t ;                    /* descriptor de proceso extendido */
+
+typedef struct {
+
+  camposPubThread   /* campos publicos del descriptor de thread DEF_PROC.H */
+
+  /* añadir a partir de aqui nuevos campos */
+
+} descThreadExt_t ;                      /* descriptor de thread extendido */
 
 extern descProcesoExt_t descProceso [ maxProcesos ] ; /* tabla de procesos */
 

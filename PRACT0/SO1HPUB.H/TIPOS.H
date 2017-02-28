@@ -54,11 +54,15 @@ typedef union
 
 typedef int pid_t ;                            /* identificador de proceso */
 
+typedef int tid_t ;                             /* identificador de thread */
+
 typedef int uid_t ;                            /* identificador de usuario */
 
 typedef int gid_t ;                              /* identificador de grupo */
 
 typedef int pindx_t ;         /* indice de proceso en la tabla de procesos */
+
+typedef int tindx_t ;           /* indice de thread en la tabla de threads */
 
 #define NIL (pindx_t)(-1)      /* fin de una lista de procesos (campo sig) */
 

@@ -10,6 +10,9 @@ PROGRAMA = SO1H
 
 !if $(MODEL) == huge
 C0DH     = obj\c0dh.o
+LCDH     = $(UTMP):\SmallerC\v0100\lib\lcdh.a
+!elif $(MODEL) == dosh
+!elif $(MODEL) == dosu
 !endif
 
 .path.o   = .\obj;..\so1pub\obj	   
@@ -43,7 +46,7 @@ obj\gm.o\
 obj\blockpr.o\
 obj\procesos.o\
 $(LISTAPUBS)\
-$(UTMP):\SmallerC\v0100\lib\lcdh.a
+$(LCDH)
 # para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente 
 # reservar la mayor cantidad de memoria posible, ver la palabra en dirPSP + 2) 
   @echo.
@@ -184,7 +187,8 @@ runmsdos:
 rundebug:
   @echo.
   start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug $(PROGRAMA).exe "
-
+  $(UUSB):\Utilidades\teraterm.exe
+  
 rundosbox:
   @echo.
   start $(UUSB):\Interno\dosbox-0.74\dosbox.exe $(PROGRAMA).exe -noconsole

@@ -35,7 +35,10 @@ typedef struct {
   dword_t  pos ;                                               /* posicion */
 } dfa_t ;                  /* descriptor de fichero abierto por un proceso */
 
-#define camposPublicos        /* campos publicos del descriptor de proceso */\
+#define camposPubThread        /* campos publicos del descriptor de thread */\
+  tid_t        tid ;                                                         \
+
+#define camposPubProceso      /* campos publicos del descriptor de proceso */\
                                                          /*------CPU------ */\
   pid_t        pid ;                                                         \
   estado_t     estado ;                                                      \
@@ -65,8 +68,12 @@ typedef struct {
   /* dword_t      tCPU ; */   /* tiempo de CPU consumido (en tics*(2**16)) */
 
 typedef struct {
-  camposPublicos
+  camposPubProceso
 } descProceso_t ;                                 /* descriptor de proceso */
+
+typedef struct {
+  camposPubThread
+} descThread_t ;                                   /* descriptor de thread */
 
 typedef enum {
   flibre, fRegular, fedBloques, fedCaracteres, tuberia

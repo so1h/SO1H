@@ -300,16 +300,16 @@ void mostrarListaLibres ( void ) {
     ptrBloque = (ptrBloque_t)MK_P_SEG(listaLibres->sig) ;
 
 	printStrVideo(
-	    "\n"
 		"\n"
-		"  ind   tam    sig    ant    aux            relleno          \n"
-		" ----- ------ ------ ------ ------ ------------------------- \n") ;
+		"  ind   dir    tam    sig    ant    aux            relleno          \n"
+		" ----- ------ ------ ------ ------ ------ ------------------------- \n") ;
 	
 	i = 0 ;
 	
     do 
 	{
 		printDecVideo(i, 4) ; printStrVideo("    ") ;
+		printHexVideo(SEG(ptrBloque), 4) ; printStrVideo("   ") ;
 		printHexVideo(ptrBloque->tam, 4) ; printStrVideo("   ") ;
 		printHexVideo(ptrBloque->sig, 4) ; printStrVideo("   ") ;
 		printHexVideo(ptrBloque->ant, 4) ; printStrVideo("   ") ;

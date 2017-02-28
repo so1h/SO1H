@@ -45,7 +45,6 @@ void mirarLoQueHay ( word_t * loQueHay )
 {
 
     *loQueHay = 0x0000 ;                         /* de partida no hay nada */
-
     switch (modoSO1())
     {
     case modoSO1_Bin :                                  /* so1h.bin (boot) */
@@ -57,7 +56,7 @@ void mirarLoQueHay ( word_t * loQueHay )
         break ;
     default :                                                     /* error */
         assert(FALSE, "\a\n SO1() ERROR: modoSO1() = ");
-        printHexBIOS(modoSO1(), 4) ;
+        printHexVideo(modoSO1(), 2) ;
         esperarScancode() ;
         finProgDOS (1) ;                                        /* int 21h */
         rebootBIOS() ;                                          /* int 19h */
@@ -165,7 +164,7 @@ void mostrarLoQueHay ( word_t loQueHay )
     default :
         printStrVideo("\aMaquina (virtual) inexplorada ") ;
     }
-    printLnBIOS() ;
+    printLnVideo() ;
 }
 
 void tirarS0 ( word_t loQueHay )

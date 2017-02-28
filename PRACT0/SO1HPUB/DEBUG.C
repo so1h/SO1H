@@ -44,7 +44,7 @@ void mostrarFlags ( void ) {
         "   pop ax        \n"
         "   mov [bp-4],ax \n" /* flags */
     ) ;
-    printStrVideo("\n\n flags = ") ;
+    printStrVideo("\n flags = ") ;
     printHexVideo(flags, 4) ;
     if (flags & 0x0200) printStrVideo(" ints permitidas ") ;
     else printStrVideo(" ints inhibidas ") ;

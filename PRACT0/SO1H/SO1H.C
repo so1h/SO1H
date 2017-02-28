@@ -63,7 +63,7 @@ void main ( void )
 
 	if (modoSO1() == modoSO1_Exe) salvarPantallaInicial() ;
 	
-	inicBiosCrt() ; 
+	inicMemVideo() ; 
     ocultaCursorBIOS() ;  /* parece que no funciona bien en msdos (Takeda) */
 	
     mirarLoQueHay((word_t *)&loQueHay) ;
@@ -71,9 +71,6 @@ void main ( void )
 	
 //  leerScancode() ;                          /* para detener la ejecucion */
 //  leerScancode() ;                            /* con las ints. inhibidas */
-
-    printStrVideo("\n printHexVideo(0x1234, 4) = ") ; printHexVideo(0x1234, 4) ; /************************/
-    printStrVideo("\n printWordVideo(0x1234) = ") ; printWordVideo(0x1234) ; /************************/
 
     switch (modoSO1())
     {
@@ -148,6 +145,7 @@ void main ( void )
 	printDecVideo(tamBloqueMax/(1024/16), 1) ; 	
 	printStrVideo(" KBytes") ;
 	
+    printLnVideo() ;
     mostrarListaLibres() ;
 
     leerScancode() ;                          /* para detener la ejecucion */

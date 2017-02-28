@@ -7,14 +7,15 @@
 #include "..\so1hpub.h\tipos.h"
 #include "..\so1hpub.h\bios_0.h"                           /* printCarBIOS */
 #include "..\so1hpub.h\pantalla.h"         /* numFilas, borrarPantalla ... */
-#include "..\so1hpub.h\bios_crt.h"                              /* ptrPant */
+#include "..\so1hpub.h\bios_crt.h"                          /* inicBiosCrt */
+                                         /* ptrPant, numFilas, numColumnas */
 
 byte_t cursorF ;
 
 byte_t cursorC ;
 
 void inicMemVideo ( void ) {
-
+  inicBiosCrt() ;
 }
 
 int finMemVideo ( void ) {

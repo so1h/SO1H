@@ -7,8 +7,9 @@
 #ifndef CONST_H
 #define CONST_H
 
-//#define maxProcesos 20                      /* numero maximo de procesos */
 #define maxProcesos 16                        /* numero maximo de procesos */
+
+#define maxThreads 16                          /* numero maximo de threads */
 
 #define dfMax 10   /* numero maximo de descriptores de fichero del proceso */
 

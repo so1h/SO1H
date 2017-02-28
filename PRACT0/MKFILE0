@@ -14,7 +14,7 @@
 
 CC       = smlrcc
 
-MODEL    = huge
+MODEL   = huge
 #MODEL   = dosh
 #MODEL   = dosu
 

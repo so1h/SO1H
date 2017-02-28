@@ -6,8 +6,10 @@
 
 #include "..\so1hpub.h\tipos.h"
 #include "..\so1hpub.h\caracter.h"                                  /* dig */
-#include "..\so1hpub.h\memvideo.h"                        /* printCarVideo */
+#include "..\so1hpub.h\memvideo.h"          /* inicMemVideo, printCarVideo */
 #include "..\so1hpub.h\printgen.h" /* printGen(Ln|Str|StrHasta|Dec|Int|..) */
+
+/* para llamar a estas funciones se requiere ejecutar antes inicMemVideo   */
 
 int printLnVideo ( ) {
   return(printGenLn(printCarVideo)) ;
