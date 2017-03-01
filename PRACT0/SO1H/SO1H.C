@@ -35,7 +35,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1hpub.h\tipos.h"                                  /* word_t */
 #include "..\so1hpub.h\bios_0.h"            /* clrScrBIOS, goToXYBIOS, ... */
 #include "..\so1hpub.h\biosdata.h"       /* ptrBiosArea, ptrFechaBios, ... */
-#include "..\so1hpub.h\telon.h"              /* salvarPantallaInicial, ... */
+#include "..\so1hpub.h\telon.h"                   /* salvarPantallaInicial */
 #include "..\so1hpub.h\debug.h"        /* assert, mostrarFlags, valorFlags */
 #include "..\so1hpub.h\pic.h"                   /* valorIMR, establecerIMR */
 #include "..\so1h.h\ajustes.h"        /* unidadBIOS, modoSO1, obtenerMapa, */
@@ -62,6 +62,7 @@ void main ( void )
     asm("cli") ;                          /* se inhiben las interrupciones */
 
 	if (modoSO1() == modoSO1_Exe) salvarPantallaInicial() ;
+	else if (modoSO1() == modoSO1_Bin) clrScrBIOS() ;
 	
 	inicMemVideo() ; 
     ocultaCursorBIOS() ;  /* parece que no funciona bien en msdos (Takeda) */
@@ -175,19 +176,12 @@ void main ( void )
 	  implementar exec
 */	  
 	
-//	while (TRUE) ;
-	  	  
+//	while (TRUE) ; 	  
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
     establecerIMR(IMRInicial) ;        /* mascara de interrupcion del 8259 */
 
-    if (modoSO1() == modoSO1_Exe) {
-		restaurarPantallaInicial() ;
-        leerScancode() ;                      /* para detener la ejecucion */
-        leerScancode() ;                        /* con las ints. inhibidas */
-    }
-	
     tirarS0(loQueHay) ;
 	
 }

@@ -7,8 +7,10 @@
 #include "..\so1hpub.h\tipos.h"                                  /* word_t */
 #include "..\so1h.h\ajustes.h"                                  /* modoSO1 */
 #include "..\so1hpub.h\biosdata.h"                         /* ptrFechaBios */
+#include "..\so1hpub.h\telon.h"                /* restaurarPantallaInicial */
 #include "..\so1hpub.h\msdos.h"                /* finProgDOS, hayWindowsNT */
 #include "..\so1hpub.h\bios_0.h"         /* rebootBIOS, ocultaCursorBIOS */
+#include "..\so1hpub.h\bios_crt.h"                          /* inicBiosCrt */
 #include "..\so1hpub.h\printvid.h"                   /* printStrVideo, ... */
 #include "..\so1h.h\so1dbg.h"                           /* esperarScancode */
 #include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
@@ -172,6 +174,8 @@ void tirarS0 ( word_t loQueHay )
 
     if (modoSO1() == modoSO1_Exe)
     {
+		restaurarPantallaInicial() ;
+		setCursorVisibilidad(1) ;
 #ifdef _DOS
         exit(EXIT_SUCCESS) ;
 #else
@@ -189,8 +193,10 @@ void tirarS0 ( word_t loQueHay )
     }
     else
     {
-        printCarVideo('\f') ;
-        goToXYVideo(1, 1) ;
+//		printCarVideo('\f') ;
+//      goToXYVideo(1, 1) ;
+        clrScrBIOS() ;
+		goToXYBIOS(1, 1) ;
         ocultaCursorBIOS() ;
         rebootBIOS() ;                                          /* int 19h */
 //      rebootLegacy() ;                                /* callf ffff:0000 */
