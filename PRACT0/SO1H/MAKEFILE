@@ -15,22 +15,22 @@ LCDH     = $(UTMP):\SmallerC\v0100\lib\lcdh.a
 !elif $(MODEL) == dosu
 !endif
 
-.path.o   = .\obj;..\so1pub\obj	   
-.path.asm = .\asm	   
-.path.c   = .	   
+.path.o   = .\obj;..\so1pub\obj
+.path.asm = .\asm
+.path.c   = .
 
-all: crearDirs $(PROGRAMA).exe $(PROGRAMA).bin 
+all: crearDirs $(PROGRAMA).exe $(PROGRAMA).bin
 
-LISTAPUBS =\ 
+LISTAPUBS =\
 ..\so1hpub\obj\tipos.o ..\so1hpub\obj\biosdata.o ..\so1hpub\obj\caracter.o\
 ..\so1hpub\obj\printgen.o ..\so1hpub\obj\bios_0.o ..\so1hpub\obj\telon.o\
 ..\so1hpub\obj\pantalla.o ..\so1hpub\obj\colores.o ..\so1hpub\obj\msdos.o\
 ..\so1hpub\obj\debug.o ..\so1hpub\obj\pic.o ..\so1hpub\obj\puertos.o \
 ..\so1hpub\obj\memvideo.o ..\so1hpub\obj\memvideo.o ..\so1hpub\obj\bios_crt.o \
 ..\so1hpub\obj\printvid.o ..\so1hpub\obj\c2c.o ..\so1hpub\obj\ptrc2c.o \
-..\so1hpub\obj\ccb.o
+..\so1hpub\obj\ccb.o ..\so1hpub\obj\seccion.o
 
-	
+
 $(PROGRAMA).bin: $(PROGRAMA).exe
   @echo.
   PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
@@ -47,22 +47,22 @@ obj\blockpr.o\
 obj\procesos.o\
 $(LISTAPUBS)\
 $(LCDH)
-# para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente 
-# reservar la mayor cantidad de memoria posible, ver la palabra en dirPSP + 2) 
+# para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente
+# reservar la mayor cantidad de memoria posible, ver la palabra en dirPSP + 2)
   @echo.
-  EXE2BIN -c $(PROGRAMA).exe 
+  EXE2BIN -c $(PROGRAMA).exe
   @echo.
   PARCHEAR $(PROGRAMA).exe 12 FFFF
   @echo.
-  EXE2BIN -c $(PROGRAMA).exe 
-  @copy &&|  
-mode con cols=80 lines=25  
+  EXE2BIN -c $(PROGRAMA).exe
+  @copy &&|
+mode con cols=80 lines=25
 $(UTMP):\BC5\BIN\msdos $(PROGRAMA).exe
 | $(PROGRAMA).cmd > nul
   @echo.
   @echo ------- creado el fichero $(PROGRAMA).cmd
-  @copy &&|  
-mode con cols=80 lines=25  
+  @copy &&|
+mode con cols=80 lines=25
 $(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
 | $(PROGRAMA).bat > nul
   @echo.
@@ -71,30 +71,30 @@ $(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
 
 c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
   $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o obj\c0dh.o
- 
-!if ($(VIA_ASM) == TRUE)  
+
+!if ($(VIA_ASM) == TRUE)
 
 .c.asm:
   $(CC) $(CFLAGS) -S $&.c -o asm\$&.asm
 
-.asm.o:  
+.asm.o:
 # $(CC) $(CFLAGS) -c asm\$&.asm -o obj\$&.o
-  $(AS) -f elf -o obj\$&.o -l lst\$&.lst asm\$&.asm 
-  
-!else 
+  $(AS) -f elf -o obj\$&.o -l lst\$&.lst asm\$&.asm
+
+!else
 
 .c.o:
   $(CC) $(CFLAGS) -c $&.c -o obj\$&.o
 
 !endif
-    
-LISTADIRS = obj.dir asm.dir lst.dir 
 
-crearDirs: $(LISTADIRS) 
+LISTADIRS = obj.dir asm.dir lst.dir
 
-$(LISTADIRS):  
+crearDirs: $(LISTADIRS)
+
+$(LISTADIRS):
   @if not exist $* mkdir $*
-	
+
 build: clean all
 
 LISTACLEAN = bin exe $(LISTAPULE)
@@ -188,7 +188,7 @@ rundebug:
   @echo.
   start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug $(PROGRAMA).exe "
   $(UUSB):\Utilidades\teraterm.exe
-  
+
 rundosbox:
   @echo.
   start $(UUSB):\Interno\dosbox-0.74\dosbox.exe $(PROGRAMA).exe -noconsole

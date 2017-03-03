@@ -1,3 +1,7 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
 /* ----------------------------------------------------------------------- */
 /*                                   s0.c                                  */
 /* ----------------------------------------------------------------------- */
@@ -174,8 +178,8 @@ void tirarS0 ( word_t loQueHay )
 
     if (modoSO1() == modoSO1_Exe)
     {
-		restaurarPantallaInicial() ;
-		setCursorVisibilidad(1) ;
+        restaurarPantallaInicial() ;
+        setCursorVisibilidad(1) ;
 #ifdef _DOS
         exit(EXIT_SUCCESS) ;
 #else
@@ -193,10 +197,10 @@ void tirarS0 ( word_t loQueHay )
     }
     else
     {
-//		printCarVideo('\f') ;
+//      printCarVideo('\f') ;
 //      goToXYVideo(1, 1) ;
         clrScrBIOS() ;
-		goToXYBIOS(1, 1) ;
+        goToXYBIOS(1, 1) ;
         ocultaCursorBIOS() ;
         rebootBIOS() ;                                          /* int 19h */
 //      rebootLegacy() ;                                /* callf ffff:0000 */

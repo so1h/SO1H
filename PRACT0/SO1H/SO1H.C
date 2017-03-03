@@ -6,22 +6,22 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, 
+1. Redistributions of source code must retain the above copyright notice,
    this list of conditions and the following disclaimer.
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 */
@@ -49,6 +49,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
 
 #include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
+#include "..\so1hpub.h\seccion.h"                      /* mostrarSecciones */
 
 
 #define pSV(x) printStrVideo(x)                                   /* macro */
@@ -57,19 +58,19 @@ POSSIBILITY OF SUCH DAMAGE.
 
 void main ( void )
 {
-    word_t loQueHay ;	
+    word_t loQueHay ;
 
     asm("cli") ;                          /* se inhiben las interrupciones */
 
-	if (modoSO1() == modoSO1_Exe) salvarPantallaInicial() ;
-	else if (modoSO1() == modoSO1_Bin) clrScrBIOS() ;
-	
-	inicMemVideo() ; 
+    if (modoSO1() == modoSO1_Exe) salvarPantallaInicial() ;
+    else if (modoSO1() == modoSO1_Bin) clrScrBIOS() ;
+
+    inicMemVideo() ;
     ocultaCursorBIOS() ;  /* parece que no funciona bien en msdos (Takeda) */
-	
+
     mirarLoQueHay((word_t *)&loQueHay) ;
-    mostrarLoQueHay(loQueHay) ;	
-	
+    mostrarLoQueHay(loQueHay) ;
+
 //  leerScancode() ;                          /* para detener la ejecucion */
 //  leerScancode() ;                            /* con las ints. inhibidas */
 
@@ -83,7 +84,7 @@ void main ( void )
         assert((valorFlags() & 0x0200) == 0x0000,
                "\a\n so1(): ERROR ints. no inhibidas") ;    /* '\a' == BEL */
     }
-	
+
 //  leerScancode() ;                          /* para detener la ejecucion */
 //  leerScancode() ;                            /* con las ints. inhibidas */
 
@@ -91,97 +92,97 @@ void main ( void )
     {
         printStrVideo("\n unidadBIOS = 0x") ;
         printHexVideo(unidadBIOS(), 2) ;
-        printLnVideo() ;		
+        printLnVideo() ;
 //      inicSF(unidadBIOS()) ;  /* asigna memoria a segBuferSO1 y FAT (GM) */
 //      assert(inicMinisfFAT() == 0, "\a\n so1(): ERROR minisfFAT") ;
 //      inicTablaFichAbiertos() ;
     }
 //  else
-//      assert(inicMinisfMSDOS() == 0, "\a\n so1(): ERROR minisfMSDOS") ;	
-	
+//      assert(inicMinisfMSDOS() == 0, "\a\n so1(): ERROR minisfMSDOS") ;
+
     IMRInicial = valorIMR() ;          /* tomamos nota del IMR (pic 8259A) */
-	
-	printStrVideo("\n valorIMR() = ") ; 
-	printHexVideo(valorIMR(), 4) ; 
-	printStrVideo(" = ") ; 
-	
-	for ( int i = 0 ; i < 4 ; i++ ) {
-	  printBinVideo((valorIMR() >> 12-i*4) & 0x000F , 4) ; 
-	  printStrVideo(" ") ; 
-	} 
-	printLnVideo() ; 
-	
+
+    printStrVideo("\n valorIMR() = ") ;
+    printHexVideo(valorIMR(), 4) ;
+    printStrVideo(" = ") ;
+
+    for ( int i = 0 ; i < 4 ; i++ )
+    {
+        printBinVideo((valorIMR() >> 12-i*4) & 0x000F, 4) ;
+        printStrVideo(" ") ;
+    }
+    printLnVideo() ;
+
 //  leerScancode() ;                          /* para detener la ejecucion */
 //  leerScancode() ;                            /* con las ints. inhibidas */
 
     obtenerMapa() ;                 /* CS_SO1H, DS_SO1H, SS_SO1H, BSS_SO1H */
     guardarDS_SO1H_1() ;                             /* segDatos = DS_SO1H */
-	
-	printStrVideo(
-	  "\n"
-	  " CS_SO1H  RO_SO1H  DS_SO1H  BSS_SO1H  SS_SO1H  \n"
-	  " -------- -------- -------- --------- -------- \n" 
-      "   ") ; 
-	printHexVideo(CS_SO1H, 4) ; printStrVideo("     ") ; 
-	printHexVideo(RO_SO1H, 4) ; printStrVideo("     ") ; 
-	printHexVideo(DS_SO1H, 4) ; printStrVideo("     ") ;
-	printHexVideo(BSS_SO1H, 4) ; printStrVideo("      ") ;
-	printHexVideo(SS_SO1H, 4) ; printLnVideo() ;	
-	
-//	/* aqui hay que meter el codigo correspondiente a las inicializaciones */
-//	/* y a la creacion del proceso inicial.                                */
-	
-//  leerScancode() ;                          /* para detener la ejecucion */
-//  leerScancode() ;                            /* con las ints. inhibidas */
 
-	E(inicGM()) ;
-	printStrVideo(
-	  "\n"
-	  "\n"
-      " tamBloqueMax = ") ;	
-	printDecVideo(tamBloqueMax, 1) ; 	
-	printStrVideo(" paragrafos (") ;
-	printHexVideo(tamBloqueMax, 4) ;
-	printStrVideo(") = ") ;
-	printDecVideo(tamBloqueMax/(1024/16), 1) ; 	
-	printStrVideo(" KBytes") ;
-	
+    printStrVideo(
+        "\n"
+        " CS_SO1H  RO_SO1H  DS_SO1H  BSS_SO1H  SS_SO1H  \n"
+        " -------- -------- -------- --------- -------- \n"
+        "   ") ;
+    printHexVideo(CS_SO1H, 4) ; printStrVideo("     ") ;
+    printHexVideo(RO_SO1H, 4) ; printStrVideo("     ") ;
+    printHexVideo(DS_SO1H, 4) ; printStrVideo("     ") ;
+    printHexVideo(BSS_SO1H, 4) ; printStrVideo("      ") ;
+    printHexVideo(SS_SO1H, 4) ; printLnVideo() ;
+
+    mostrarSecciones() ;
+
+//  /* aqui hay que meter el codigo correspondiente a las inicializaciones */
+//  /* y a la creacion del proceso inicial.                                */
+
+    leerScancode() ;                          /* para detener la ejecucion */
+    leerScancode() ;                            /* con las ints. inhibidas */
+
+    E(inicGM()) ;
+
+    printStrVideo(
+        "\n"
+        "\n"
+        " tamBloqueMax = ") ;
+    printDecVideo(tamBloqueMax, 1) ;
+    printStrVideo(" paragrafos (") ;
+    printHexVideo(tamBloqueMax, 4) ;
+    printStrVideo(") = ") ;
+    printDecVideo(tamBloqueMax/(1024/16), 1) ;
+    printStrVideo(" KBytes") ;
+
     printLnVideo() ;
     mostrarListaLibres() ;
 
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
-#if (1) 
-	
-	{
-		
-        word_t seg = k_buscarBloque(0x20) ;
-	
-     	mostrarListaLibres() ;
+#if (1)
 
-	    k_devolverBloque(seg, 0x20) ;
-	
-    	mostrarListaLibres() ;
-	
-	}
-	
-#endif	
-	
-/*	pasos siguientes:
-	  PROCESOS.C 
-	  implementar la llamada al sistema fork() 
-	  y las llamadas de drivers
-	  crear con fork() un proceso (thread) driver del disco/disquete
-	  implementar exec
-*/	  
-	
-//	while (TRUE) ; 	  
+    {
+        word_t seg = k_buscarBloque(0x20) ;
+        mostrarListaLibres() ;
+        k_devolverBloque(seg, 0x20) ;
+        mostrarListaLibres() ;
+    }
+
+#endif
+
+/*  pasos siguientes:
+      PROCESOS.C
+      implementar la llamada al sistema fork()
+      y las llamadas de drivers
+      crear con fork() un proceso (thread) driver del disco/disquete
+      implementar exec
+*/
+
+//  while (TRUE) ;
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
     establecerIMR(IMRInicial) ;        /* mascara de interrupcion del 8259 */
 
     tirarS0(loQueHay) ;
-	
+
 }
+

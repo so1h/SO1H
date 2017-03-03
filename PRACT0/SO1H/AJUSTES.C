@@ -80,13 +80,12 @@ asm
     "   mov [cs:_modoSO1+9],al \n"                /* modoSO1 = modoSO1_Bin */
     "                      \n"
     "   mov ax,cs          \n"              /* cedemos el control a _start */
-    "   mov cx,__start     \n"                     /* CS = _start >> 4     */
-    "   mov bx,cx          \n"                     /* IP = _start | 0x000F */
-    "   shr bx,4           \n"
-    "   add ax,bx          \n"         /* _start es la funcion que reubica */
-    "   push ax            \n"                             /* ver c0dh.asm */
-    "   and bx,0x000F      \n"
-    "   push 0x0000        \n"
+    "   mov ebx,__start    \n"         /* _start es la funcion que reubica */
+    "   ror ebx,4          \n"                             /* ver c0dh.asm */
+    "   add ax,bx          \n"
+    "   push ax            \n"
+    "   shr ebx,28         \n"                     /* CS = _start >> 4     */
+    "   push bx            \n"                     /* IP = _start & 0x000F */
     "   retf               \n"
 ) ;
 
@@ -94,6 +93,18 @@ asm
 void __start__ ( void )                           /* se llama desde _start */
 {
     main() ;
+}
+#endif
+
+#if (0)
+void startCabecera ( void ) {
+    startUserCode ;                    /* establece nueva pila */
+asm
+(
+    "   mov bx,OFFSET main "                              /* jmp near main */
+    "   push bx "                                              /* apilamos */
+    "   mov dx,OFFSET finish " /* solo para que figure finish en la cabecera */
+) ;
 }
 #endif
 
@@ -121,18 +132,7 @@ asm
     " _segDatos: db 'DS'  \n" /* datos (DS) de SO1H (dentro del codigo)    */
 ) ;
 
-uint8_t unidadBIOS ( void )        /* numero BIOS de la unidad de arranque */
-{
-    asm
-    (
-        "   call $+4           \n"       
-		" uBIOS: db 0xFF       \n"                  /* valor de unidadBIOS */
-		"   pop bx             \n"
-        "   mov al,[cs:bx]     \n" /* uBIOS */
-    ) ;                                                   /* return(uBIOS) */
-}
-
-/* Cuando se llama a una función como unidadBIOS el CS:IP se normaliza de  */
+/* Cuando se llama a una función como modoSO1 el CS:IP se normaliza de     */
 /* manera que IP valga 0x0000 al principio de la función. Es decir         */
 /* CS=((CS0 << 4)+IP0) >> 4 e IP = 0x0000                                  */
 
@@ -142,10 +142,32 @@ modoSO1_t modoSO1 ( void )    /* modo en que se ejecuta SO1: bin, exe, ... */
     (
         "   call $+4           \n"       /* (modoSO1_t)0x01 == modoSO1_Exe */
         " mSO1: db 0x01        \n"    /* valor de modoSO1, por defecto exe */
-		"   pop bx             \n"
-		"   xor eax,eax        \n"
+        "   pop bx             \n"
+        "   xor eax,eax        \n"
         "   mov al,[cs:bx]     \n" /* mSO1 */
     ) ;                                                 /* return(modoSO1) */
+}
+
+uint8_t unidadBIOS ( void )        /* numero BIOS de la unidad de arranque */
+{
+    asm
+    (
+        "   call $+4           \n"
+        " uBIOS: db 0xFF       \n"                  /* valor de unidadBIOS */
+        "   pop bx             \n"
+        "   mov al,[cs:bx]     \n" /* uBIOS */
+    ) ;                                                   /* return(uBIOS) */
+}
+
+uint8_t despCab ( void )    /* desplazam. de la cabecera (cab en startBin) */
+{
+    asm
+    (
+        "   call $+5           \n"
+        " dCab: dw 0x0000      \n"                    /* valor de desplCab */
+        "   pop bx             \n"
+        "   mov al,[cs:bx]     \n" /* dCab */
+    ) ;                                                    /* return(dCab) */
 }
 
 void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
@@ -154,8 +176,8 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     word_t reg_AX ;
 
 //  while (TRUE) ;
-    asm 
-	(
+    asm
+    (
         "   call ret_dir          \n"
         " ret_dir:                \n"
         "   mov edx,$             \n"
@@ -173,8 +195,8 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     CS_SO1H = reg_AX ;
 
 //  while (TRUE) ;
-    asm 
-	(
+    asm
+    (
         " extern __stop__relot    \n"
         "   mov eax,__stop__relot \n"
         "   shr eax,4             \n"
@@ -183,9 +205,9 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
 
     RO_SO1H = CS_SO1H + reg_AX ;
 
-	//  while (TRUE) ;
-    asm 
-	(
+    //  while (TRUE) ;
+    asm
+    (
         " extern __start__data    \n"
         "   mov eax,__start__data \n"
         "   shr eax,4             \n"
@@ -195,8 +217,8 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     DS_SO1H = CS_SO1H + reg_AX ;
 
 //  while (TRUE) ;
-    asm 
-	(
+    asm
+    (
         " extern __start__bss     \n"
         "   mov eax,__start__bss  \n"
         "   shr eax,4             \n"
@@ -206,8 +228,8 @@ void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
     BSS_SO1H = CS_SO1H + reg_AX ;
 
 //  while (TRUE) ;
-    asm 
-	(
+    asm
+    (
         "   mov ax,ss             \n"
         "   mov [bp-4],ax         \n" /* reg_AX */
     ) ;

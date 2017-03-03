@@ -8,35 +8,36 @@
 
 OBJS = tipos.o caracter.o printgen.o biosdata.o bios_0.o pantalla.o \
        puertos.o cmos.o telon.o colores.o msdos.o c2c.o debug.o \
-	   pic.o bios_crt.o memvideo.o printvid.o ptrc2c.o ccb.o
+       pic.o bios_crt.o memvideo.o printvid.o ptrc2c.o ccb.o \
+       seccion.o
 
-.path.o   = .\obj	   
-.path.asm = .\asm	   
-.path.c   = .	   
-	   
+.path.o   = .\obj
+.path.asm = .\asm
+.path.c   = .
+
 all: crearDirs $(OBJS)
 
-!if ($(VIA_ASM) == TRUE)  
+!if ($(VIA_ASM) == TRUE)
 
 .c.asm:
   $(CC) $(CFLAGS) -S $&.c -o asm\$&.asm
 
-.asm.o:  
+.asm.o:
 # $(CC) $(CFLAGS) -c asm\$&.asm -o obj\$&.o
-  $(AS) -f elf -o obj\$&.o -l lst\$&.lst asm\$&.asm 
-  
-!else 
+  $(AS) -f elf -o obj\$&.o -l lst\$&.lst asm\$&.asm
+
+!else
 
 .c.o:
   $(CC) $(CFLAGS) -c $&.c -o obj\$&.o
 
 !endif
-    
-LISTADIRS = obj.dir asm.dir lst.dir 
 
-crearDirs: $(LISTADIRS) 
+LISTADIRS = obj.dir asm.dir lst.dir
 
-$(LISTADIRS):  
+crearDirs: $(LISTADIRS)
+
+$(LISTADIRS):
   @if not exist $* mkdir $*
 
 build: clean all
