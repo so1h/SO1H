@@ -23,7 +23,7 @@ En la cabecera EXE (comparando con so1h.map) aparecen los campos:
   [SS0:SP0]    dirección (sin reubicar) de la pila (SS0+(0x20 >> 4)) SP0
 
 La cabecera no esta disponible para el programa SO1H.exe, pero si para
-SO1H.bin. Por lo tanto en elo programas de usuario va a poder utilizarse
+SO1H.bin. Por lo tanto en los programas de usuario va a poder utilizarse
 esa información.
 
 #endif
@@ -32,24 +32,36 @@ esa información.
                                 /* pero siempre es necesario como cabecera */\
 asm                                                                          \
 (                                                                            \
-    "   mov ebx,_start__rodata \n"       /* hacemos figurar _start__rodata */\
-    "   mov ebx,_start__data   \n"       /* hacemos figurar _start__data   */\
-    "   mov ebx,_start__bss    \n"       /* hacemos figurar _start__bss    */\
-    "   mov ebx,_stop__bss     \n"       /* hacemos figurar _stop__bss     */\
-    "   add ebx,0x0F           \n"                                           \
-    "   shr ebx,4              \n"                                           \
-    "   mov ax,cs              \n"                                           \
-    "   add bx,ax              \n"                                           \
-    "   mov ss,bx              \n"   /* inic. segmento de pila del proceso */\
-    "   mov sp,SPInicial       \n"   /* inic. puntero  de pila del proceso */\
+    " extern __start__rodata    \n"                                          \
+    " extern __start__data      \n"                                          \
+    " extern __start__bss       \n"                                          \
+    " extern __stop__bss        \n"                                          \
+                                                                             \
+    " extern __start            \n"   /* funcion a la que ceder el control */\
+                                                                             \
+    "   jmp $+26                \n"     \
+    "   dd __start__rodata      \n"     \
+    "   dd __start__data        \n"     \
+    "   dd __start__bss         \n"     \
+    "   dd __stop__bss          \n"     \
+    "   dd __start              \n"     \
+    "   dd _finish              \n"     \
+    "   dw SPInicial            \n"     \
+    "   mov ebx,__stop__bss     \n"      /* hacemos figurar _stop__bss     */\
+    "   add ebx,0x0F            \n"                                          \
+    "   shr ebx,4               \n"                                          \
+    "   mov ax,cs               \n"                                          \
+    "   add bx,ax               \n"                                          \
+    "   mov ss,bx               \n"  /* inic. segmento de pila del proceso */\
+    "   mov sp,SPInicial        \n"  /* inic. puntero  de pila del proceso */\
                                             /* cedemos el control a _start */\
-    "   mov ebx,__start        \n"     /* _start es la funcion que reubica */\
-    "   ror ebx,4              \n"                         /* ver c0dh.asm */\
-    "   add ax,bx              \n"                                           \
-    "   push ax                \n"                                           \
-    "   shr ebx,28             \n"                 /* CS = _start >> 4     */\
-    "   push bx                \n"                 /* IP = _start & 0x000F */\
-    "   retf                   \n"                                           \
+    "   mov ebx,__start         \n"    /* _start es la funcion que reubica */\
+    "   ror ebx,4               \n"                        /* ver c0dh.asm */\
+    "   add ax,bx               \n"                                          \
+    "   push ax                 \n"                                          \
+    "   shr ebx,28              \n"                /* CS = _start >> 4     */\
+    "   push bx                 \n"                /* IP = _start & 0x000F */\
+    "   retf                    \n"                                          \
 ) ;
 
 #if (0)

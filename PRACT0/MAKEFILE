@@ -13,6 +13,10 @@ all:
   cd so1h
   @make
   @cd ..
+  @echo.
+  cd progusr
+  @make
+  @cd ..
 
 clean:
   @echo.
@@ -21,6 +25,15 @@ clean:
   @cd ..
   cd so1h
   @make clean > nul
+  @cd ..
+  cd progusr
+  @make clean > nul
+  @cd ..
+  cd disquete
+  @if exist *.bin erase *.bin
+  @if exist *.exe erase *.exe
+  @if exist stderr.txt erase stderr.txt
+  @if exist stdout.txt erase stdout.txt
   @cd ..
 
 build: clean all

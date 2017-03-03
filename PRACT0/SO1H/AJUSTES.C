@@ -9,6 +9,10 @@
 /*                                                                         */
 /***************************************************************************/
 
+/* primer codigo presente al principio de so1h.bin y so1h.exe tras la      */
+/* cabecera EXE (modificada en el caso de SO1h.bin). En el caso de         */
+/* so1h.bin es el primer codigo que se ejecuta.                            */     
+/*
 /* so1h puede ejecutarse de dos maneras:                                   */
 /*                                                                         */
 /* 1) como so1h.bin siendo cargado en memoria por el sector de arranque    */
@@ -36,76 +40,60 @@
 /* En todos los casos, al final __start__ cede el control a main.          */
 
 #include "..\so1hpub.h\tipos.h"
+#include "..\so1hpub.h\ajustusr.h"                        /* startUserCode */
 #include "..\so1h.h\ajustsp.h"                                 /* SP0_SO1H */
-
-void _start ( void ) ;        /* funcion a la que hay que ceder el control */
-//                       /* ya que se encarga de la reubicación (estática) */
 
 #ifndef _DOS
 
-#include "..\so1h.h\main.h"                                        /* main */
+#include "..\so1hpub.h\main.h"          /* _start, __start__, main, finish */
 
-void __start__ ( void ) ;       /* al final de _start se llama a __start__ */
-//                                /* al final de __start__ se llama a main */
 #endif
 
-void unidadBIOS ( void ) ;    /* guarda el número de la unidad de arranque */
+modoSO1_t modoSO1 ( void ) ;  /* modo en que se ejecuta SO1: bin, exe, ... */
 
-asm
-(
-    " extern __stop__bss   \n"
-    " extern __start       \n" /* funcion a donde hay que ceder el control */
-) ;
+void unidadBIOS ( void ) ;    /* guarda el número de la unidad de arranque */
 
 void startBin ( void ) ;                    /* implementada a continuacion */
 asm
 (
-    " section .text        \n"
-    "   global _startBin   \n"
-    " _startBin:           \n"
-    "                      \n"
-    "   cli                \n"             /* inhibimos las interrupciones */
-    "                      \n"
-    "   mov ax,cs          \n"                     /* establecemos la pila */
-    "   mov bx,__stop__bss \n"         /* SS = (__stop__bss + 0x000F) >> 4 */
-    "   add bx,0x000F      \n"         /* SP = 0x8000                      */
-    "   shr bx,4           \n"
-    "   add ax,bx          \n"
-    "   mov ss,ax          \n"
-    "   mov sp,0x8000      \n" /* SP0_SO1H (AJUSTSP.H) */
-    "                      \n"
-    "   mov [cs:_unidadBIOS+9],dl \n"                        /* uBIOS = dl */
-    "                      \n"
-    "   mov al,0x00        \n"           /* (modoSO1_t)0x00 == modoSO1_Bin */
-    "   mov [cs:_modoSO1+9],al \n"                /* modoSO1 = modoSO1_Bin */
-    "                      \n"
-    "   mov ax,cs          \n"              /* cedemos el control a _start */
-    "   mov ebx,__start    \n"         /* _start es la funcion que reubica */
-    "   ror ebx,4          \n"                             /* ver c0dh.asm */
-    "   add ax,bx          \n"
-    "   push ax            \n"
-    "   shr ebx,28         \n"                     /* CS = _start >> 4     */
-    "   push bx            \n"                     /* IP = _start & 0x000F */
-    "   retf               \n"
+    " section .text               \n"
+    "   global _startBin          \n"
+    " _startBin:                  \n"
+
+    "   cli                       \n"      /* inhibimos las interrupciones */
+
+    "   mov [cs:_unidadBIOS+9],dl \n"                   /* unidadBIOS = dl */
+
+    "   mov al,0x00               \n"    /* (modoSO1_t)0x00 == modoSO1_Bin */
+    "   mov [cs:_modoSO1+9],al    \n"             /* modoSO1 = modoSO1_Bin */
+
+    " extern __stop__bss          \n"
+    "   mov ebx,__stop__bss       \n"    /* hacemos figurar _stop__bss     */
+    "   add ebx,0x0F              \n"
+    "   shr ebx,4                 \n"
+    "   mov ax,cs                 \n"
+    "   add bx,ax                 \n"
+    "   mov ss,bx                 \n"/* inic. segmento de pila del proceso */
+    "   mov sp,SPInicial          \n"/* inic. puntero  de pila del proceso */
+
+    " extern __start              \n" /* funcion a la que ceder el control */
+                                            /* cedemos el control a _start */
+    "   mov ebx,__start           \n"  /* _start es la funcion que reubica */
+    "   ror ebx,4                 \n"                      /* ver c0dh.asm */
+    "   add ax,bx                 \n"
+    "   push ax                   \n"
+    "   shr ebx,28                \n"              /* CS = _start >> 4     */
+    "   push bx                   \n"              /* IP = _start & 0x000F */
+    "   retf                      \n"
 ) ;
 
 #ifndef _DOS
+
 void __start__ ( void )                           /* se llama desde _start */
 {
     main() ;
 }
-#endif
 
-#if (0)
-void startCabecera ( void ) {
-    startUserCode ;                    /* establece nueva pila */
-asm
-(
-    "   mov bx,OFFSET main "                              /* jmp near main */
-    "   push bx "                                              /* apilamos */
-    "   mov dx,OFFSET finish " /* solo para que figure finish en la cabecera */
-) ;
-}
 #endif
 
 word_t CS_SO1H ;                      /* segmento de codigo (text) de SO1H */

@@ -4,8 +4,6 @@
 /*             Operaciones relacionadas con el bloqueo de procesos         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\ajustusr.h"                        /* startUserCode */
-#include "..\so1h.h\main.h"
 #include "..\so1h.h\ajustsp.h"
 #include "..\so1h.h\ajustes.h"                      /* establecerDS_SO1H_1 */
 #include "..\so1h.h\blockpr.h"
