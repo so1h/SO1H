@@ -42,10 +42,10 @@ obj\$(PROGRAMA).o\
 $(C0DH)\
 $(LISTAPUBS)\
 $(LCDH)
-# para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente
-# reservar la mayor cantidad de memoria posible, ver la palabra en dirPSP + 2)
   @echo.
   EXE2BIN -c $(PROGRAMA).exe
+# para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente
+# reservar la mayor cantidad de memoria posible, ver la palabra en dirPSP + 2)
   @echo.
   PARCHEAR $(PROGRAMA).exe 12 FFFF
   @echo.
@@ -83,7 +83,7 @@ c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
 
 !endif
 
-LISTADIRS = obj.dir asm.dir lst.dir
+LISTADIRS = obj.dir asm.dir lst.dir ..\..\DISQUETE.dir
 
 crearDirs: $(LISTADIRS)
 
@@ -173,28 +173,21 @@ start: $(UTMP):\fd$(PROGRAMA).img
 run:
   @echo.
 # cmd /C "mode con cols=80 lines=25 & $(PROGRAMA).exe "
-  @cd ..
-  @cd DISQUETE
+  @cd ..\DISQUETE
   SO1H.exe
 
 runmsdos:
   @echo.
-  @cd ..
-  @cd ..
-  @cd DISQUETE
+  @cd ..\..\DISQUETE
   start cmd /K "mode con cols=80 lines=25 & cls & msdos SO1H.exe "
 
 rundebug:
   @echo.
-  @cd ..
-  @cd ..
-  @cd DISQUETE
+  @cd ..\..\DISQUETE
   start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug SO1H.exe "
   $(UUSB):\Utilidades\teraterm.exe
 
 rundosbox:
   @echo.
-  @cd ..
-  @cd ..
-  @cd DISQUETE
+  @cd ..\..\DISQUETE
   start $(UUSB):\Interno\dosbox-0.74\dosbox.exe SO1H.exe -noconsole

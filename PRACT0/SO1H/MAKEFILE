@@ -8,6 +8,9 @@ PROGRAMA = SO1H
 
 !include "..\MKFILE0"
 
+# valor del puntero de pila inicial del proceso SO1H
+SP0_SO1H = 6000
+
 !if $(MODEL) == huge
 C0DH     = obj\c0dh.o
 LCDH     = $(UTMP):\SmallerC\v0100\lib\lcdh.a
@@ -33,7 +36,8 @@ LISTAPUBS =\
 
 $(PROGRAMA).bin: $(PROGRAMA).exe
   @echo.
-  PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
+# PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
+  EXTRAER $(PROGRAMA).exe 32 0 $(PROGRAMA).bin
   @echo.
   copy $(PROGRAMA).bin ..\DISQUETE > nul
 
@@ -55,6 +59,10 @@ $(LCDH)
   EXE2BIN -c $(PROGRAMA).exe
   @echo.
   PARCHEAR $(PROGRAMA).exe 12 FFFF
+# para hacer SP0 = SP0_SO1H en los desplazamientos 0x0010 y 0x004B
+  @echo.
+  PARCHEAR $(PROGRAMA).exe 16 $(SP0_SO1H)
+  PARCHEAR $(PROGRAMA).exe 75 $(SP0_SO1H)
   @echo.
   EXE2BIN -c $(PROGRAMA).exe
   @copy &&|
@@ -92,7 +100,7 @@ c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
 
 !endif
 
-LISTADIRS = obj.dir asm.dir lst.dir
+LISTADIRS = obj.dir asm.dir lst.dir ..\DISQUETE.dir
 
 crearDirs: $(LISTADIRS)
 
@@ -182,25 +190,21 @@ start: $(UTMP):\fd$(PROGRAMA).img
 run:
   @echo.
 # cmd /C "mode con cols=80 lines=25 & $(PROGRAMA).exe "
-  @cd .. 
-  @cd DISQUETE
+  @cd ..\DISQUETE
   ..\DISQUETE\$(PROGRAMA).exe
 
 runmsdos:
   @echo.
-  @cd ..
-  @cd DISQUETE
+  @cd ..\DISQUETE
   start cmd /K "mode con cols=80 lines=25 & cls & msdos $(PROGRAMA).exe "
 
 rundebug:
   @echo.
-  @cd ..
-  @cd DISQUETE
+  @cd ..\DISQUETE
   start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug $(PROGRAMA).exe "
   $(UUSB):\Utilidades\teraterm.exe
 
 rundosbox:
   @echo.
-  @cd ..
-  @cd DISQUETE
+  @cd ..\DISQUETE
   start $(UUSB):\Interno\dosbox-0.74\dosbox.exe $(PROGRAMA).exe -noconsole

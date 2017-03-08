@@ -49,7 +49,8 @@ void prepararDesbloqueadosUrgentes ( void ) {
 
 void buscarNuevoProcesoActual ( void ) {                    /* nivel 1 o 2 */
 
-  establecerDS_SO1H_0() ;        /* establecer el segmento de datos de SO1 */
+//establecerDS_SO1H_0() ;        /* establecer el segmento de datos de SO1 */
+//establecerDS_Kernel_0() ;      /* establecer el segmento de datos de SO1 */
                            /* esta funcion puede ser llamada por un driver */
 /*
 printStrWin(win_so, "\n nivelActivacionSO1 = ") ;
@@ -70,8 +71,8 @@ printDecWin(win_so, nivelActivacionSO1, 1) ;
   /* pero vamos a contemplar bloqueos incluso desde una rti                */
 
 void bloquearProcesoActual ( rindx_t rindx ) {            /* nivel 1 (o 2) */
-
-  establecerDS_SO1H_0() ;        /* establecer el segmento de datos de SO1 */
+ 
+//establecerDS_Kernel_0() ;      /* establecer el segmento de datos de SO1 */
                            /* esta funcion puede ser llamada por un driver */
   descProceso[indProcesoActual].trama = tramaProceso ;
   descProceso[indProcesoActual].estado = bloqueado ;

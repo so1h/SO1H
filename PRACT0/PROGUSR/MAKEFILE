@@ -33,6 +33,8 @@ $(DIRS:help=):
   $(MAKE)
   cd ..  
     
+build: clean do 
+
 clean: $(DIRS.clean)
 
 $(DIRS.clean):

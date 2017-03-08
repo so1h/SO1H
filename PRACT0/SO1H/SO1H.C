@@ -38,6 +38,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1hpub.h\telon.h"                   /* salvarPantallaInicial */
 #include "..\so1hpub.h\debug.h"        /* assert, mostrarFlags, valorFlags */
 #include "..\so1hpub.h\pic.h"                   /* valorIMR, establecerIMR */
+#include "..\so1h.h\ajustsp.h"                               /* SP0_Kernel */
 #include "..\so1h.h\ajustes.h"        /* unidadBIOS, modoSO1, obtenerMapa, */
 //                                       /* guardarDS_SO1, IMRInicial, ... */
 #include "..\so1h.h\so1dbg.h"             /* leerScancode, esperarScancode */
@@ -56,9 +57,9 @@ POSSIBILITY OF SUCH DAMAGE.
 //#define E(x) x
 #define E(x) { pSV("\n ") ; pSV(#x) ; pSV(" ... ") ; x ; }        /* macro */
 
-void main ( void )
+void main ( void )  
 {
-    word_t loQueHay ;
+    word_t loQueHay ; 
 
     asm("cli") ;                          /* se inhiben las interrupciones */
 
@@ -117,7 +118,8 @@ void main ( void )
 //  leerScancode() ;                            /* con las ints. inhibidas */
 
     obtenerMapa() ;                 /* CS_SO1H, DS_SO1H, SS_SO1H, BSS_SO1H */
-    guardarDS_SO1H_1() ;                             /* segDatos = DS_SO1H */
+
+//  guardarDS_SO1H_1() ;                            /* DS_Kernel = DS_SO1H */
 
     printStrVideo(
         "\n"
@@ -154,6 +156,21 @@ void main ( void )
     printLnVideo() ;
     mostrarListaLibres() ;
 
+//  /* Reservamos SP0_Kernel bytes de memoria para la pila del nucleo y    */
+	/* guardamos en SS_Kernel el segmento de la pila correspondiente.      */
+	
+    *((word_t *)SS_Kernel) = k_buscarBloque((SP0_Kernel + 15)/16) ;
+	
+    printStrVideo(
+        "\n"
+        " SS_Kernel = ") ;
+    printHexVideo(*((word_t *)SS_Kernel), 4) ;
+    printStrVideo(" SP0_Kernel = ") ;
+    printHexVideo(SP0_Kernel, 4) ;
+    printLnVideo() ;
+
+    mostrarListaLibres() ;
+    
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
@@ -167,6 +184,8 @@ void main ( void )
     }
 
 #endif
+
+    
 
 /*  pasos siguientes:
       PROCESOS.C

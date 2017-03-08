@@ -61,6 +61,12 @@ asm
     " _startBin:                  \n"
 
     "   cli                       \n"      /* inhibimos las interrupciones */
+    
+    "   mov ax,cs                 \n"      /* ajustamos cs con el fin de   */
+    "   sub ax,2                  \n"      /* que cs apunte a la cabecera  */
+    "   push ax                   \n"      /* y cedemos el control a la    */
+    "   push $+4                  \n"      /* siguiente instrucción tras   */
+    "   retf                      \n"      /* el retorno lejano (retf)     */
 
     "   mov [cs:_unidadBIOS+9],dl \n"                   /* unidadBIOS = dl */
 
@@ -74,7 +80,7 @@ asm
     "   mov ax,cs                 \n"
     "   add bx,ax                 \n"
     "   mov ss,bx                 \n"/* inic. segmento de pila del proceso */
-    "   mov sp,SPInicial          \n"/* inic. puntero  de pila del proceso */
+    "   mov sp,SP0_SO1H           \n"/* inic. puntero  de pila del proceso */ /* desplazamiento 004B */
 
     " extern __start              \n" /* funcion a la que ceder el control */
                                             /* cedemos el control a _start */
@@ -96,15 +102,32 @@ void __start__ ( void )                           /* se llama desde _start */
 
 #endif
 
-word_t CS_SO1H ;                      /* segmento de codigo (text) de SO1H */
+word_t CS_SO1H ;                     /* segmento de codigo (text)  de SO1H */
 
 word_t RO_SO1H ;                     /* segmento de datos (rodata) de SO1H */
 
-word_t DS_SO1H ;                       /* segmento de datos (data) de SO1H */
+word_t DS_SO1H ;                     /* segmento de datos (data)   de SO1H */
 
-word_t SS_SO1H ;                               /* segmento de pila de SO1H */
+word_t BSS_SO1H ;                    /* segmento de datos (bss)    de SO1H */
 
-word_t BSS_SO1H ;                                  /* comienzo BSS de SO1H */
+word_t SS_SO1H ;                     /* segmento de pila           de SO1H */
+
+/* Funcion SS_Kernel que sirve de variable en el segmento de codigo para   */
+/* guardar el SS del sistema SO1H. El acceso a esa variables puede hacerse */
+/* de la siguiente manera:                                                 */
+/*                                                                         */
+/*    variable = *(word_t *)SS_Kernel ;                                    */
+/*    *(word_t *)SS_Kernel = valor ;                                       */
+/*    mov ax,[cs:_SS_Kernel] ;                                             */ 
+/*    mov [cs:_SS_Kernel],ax ;                                             */
+
+void SS_Kernel ( void ) ;        /* guarda el valor del SS del kernel SO1H */
+asm
+(
+    " section .text       \n"
+    "   global _SS_Kernel \n" /* aqui se guardara el valor del segmento de */
+    " _SS_Kernel: db 'SS' \n" /* pila (SS) del nucleo                      */
+) ;
 
 word_t IMRInicial ;            /* mascara de interrupcion inicial del 8259 */
 
@@ -113,12 +136,6 @@ void finish ( void )                            /* main debe retornar aqui */
     /* exit(0) ; */           /* esta función no se usa, pero por simetria */
 }                                                            /* ver atexit */
 
-asm
-(
-    " section .text       \n"
-    "   global _segDatos  \n" /* aqui se guardara el valor del segmento de */
-    " _segDatos: db 'DS'  \n" /* datos (DS) de SO1H (dentro del codigo)    */
-) ;
 
 /* Cuando se llama a una función como modoSO1 el CS:IP se normaliza de     */
 /* manera que IP valga 0x0000 al principio de la función. Es decir         */
