@@ -18,7 +18,10 @@ all:
   @make
   @cd ..
 
-clean:
+crearDir: 
+  @if not exist DISQUETE mkdir DISQUETE  
+  
+clean: crearDir
   @echo.
   cd so1hpub
   @make clean > nul
