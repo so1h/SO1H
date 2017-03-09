@@ -28,7 +28,6 @@
 #define SEEK_CUR   1           /* lseek posiciona desde la posicion actual */
 #define SEEK_END   2           /* lseek posiciona desde el final           */
 
-
 typedef enum {
   libre, preparado, ejecutandose, bloqueado        /* estados de un thread */
 } estado_t ;
@@ -46,11 +45,12 @@ typedef struct {
   trama_t      * trama ;                                  /* trama = SS:SP */\
   bool_t       noStatus ;              /* TRUE => puede morir directamente */\
   int          status ;        /* estado de terminacion si se queda zombie */\
-  pindx_t      pindx ;                                /* pindx del proceso */\
+  pindx_t      pindx ;               /* pindx del proceso al que pertenece */\
                                                          /*----Memoria---- */\
-  word_t       SSThread ;                    /* segmento de pila del thread */
+  word_t       SSThread ;                              /* segmento de pila */\
+  word_t       SP0 ;                            /* puntero de pila inicial */\
                                                                              \
-  /* dword_t      tCPU ; */   /* tiempo de CPU consumido (en tics*(2**16)) */
+///* dword_t      tCPU ; */   /* tiempo de CPU consumido (en tics*(2**16)) */
 
 #define camposPubProceso      /* campos publicos del descriptor de proceso */\
                                                          /*------CPU------ */\
@@ -71,7 +71,7 @@ typedef struct {
   word_t       tam ;              /* tamanio de la particion en paragrafos */\
   dword_t      tamFichero ;      /* tamanio del fichero ejecutable cargado */\
   char         programa[12] ;     /* nombre del fichero ejecutable cargado */\
-/*char         comando[tamComando] ; */                         /* comando */\
+  char         comando[tamComando] ;                            /* comando */\
                                                          /*------E/S------ */\
   word_t       nfa ;         /* numero de ficheros abiertos por el proceso */\
   dfa_t        tfa [dfMax] ;   /* tabla de ficheros abiertos (del proceso) */\
@@ -79,7 +79,7 @@ typedef struct {
   uid_t        uid ;                                                         \
   gid_t        gid ;                                                         \
                                                                              \
-  /* dword_t      tCPU ; */   /* tiempo de CPU consumido (en tics*(2**16)) */
+///* dword_t      tCPU ; */   /* tiempo de CPU consumido (en tics*(2**16)) */
 
 typedef struct {
   camposPubProceso
@@ -166,6 +166,26 @@ typedef struct {                                    /* informacion variada */
   word_t * ptrDebugWord ;         /* puntero a debugWord (so1.h\dbgword.h) */
 } info_t ;
 
+typedef struct {
+  word_t  signatura ;
+  word_t  bytesUltSector ;
+  word_t  sectores ;
+  word_t  numDirReub ;
+  word_t  numParCabecera ;
+  word_t  minAlloc ;
+  word_t  maxAlloc ;
+  word_t  SS0 ;
+  word_t  SP0 ;
+  word_t  checkSum ;
+  word_t  IP0 ;
+  word_t  CS0 ;
+  word_t  offTablaReub ;
+  word_t  numOverlay ;
+  dword_t relleno ;
+} cabecera_t ;
+
+#if (0) 
+	
 typedef struct {                        /* ver startUserCode en AJUSTUSR.C */
   byte_t magicbyte[3] ;            /* deben ser los bytes 0x8C 0xC8 y 0xBB */
   word_t segDatosSR ;  /* segmento DS (sin reubicar) del proceso (fichero) */
@@ -182,6 +202,8 @@ typedef struct {                        /* ver startUserCode en AJUSTUSR.C */
   byte_t relleno3[2] ;                    /* deben ser los bytes 0x53 0xBA */
   word_t desplFinish ;
 } cabecera_t ;                           /* cabecera de fichero ejecutable */
+
+#endif
 
 typedef struct {
   union {

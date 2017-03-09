@@ -13,6 +13,7 @@
 #define AJUSTSP_H
 
 #include "..\so1hpub.h\seccion.h"                          /* _start__text */
+#include "..\so1hpub.h\def_proc.h"                           /* cabecera_t */
 
 /* SO1H se ejecuta como si fuera un proceso que se ocupa de todas las      */
 /* inicializaciones y de crear el proceso inicial. La pila de este proceso */
@@ -26,7 +27,7 @@
 
 #define SP0_SO1H               /* puntero de pila inicial del proceso SO1H */\
                                                                              \
-    *((word_t *)(&_start__text - 0x0020 + 0x004B)) 
+    *((word_t *)(&_start__text - sizeof(cabecera_t) + 0x004B)) 
 
 /* La siguiente definicion es simplemente para que en ajustes.c SP0_SO1H   */
 /* tenga un valor por defecto, aunque el valor real se establecera en el   */

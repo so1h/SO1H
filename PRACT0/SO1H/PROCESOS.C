@@ -24,7 +24,8 @@
 //#include "..\so1h.h\dbgword.h"                              /* debugWord *//********************/
 
 #include "..\so1hpub.h\printvid.h"                    /* printStrVideo ... */
-
+#include "..\so1hpub.h\seccion.h"             /* _start__text, _stop__text */
+#include "..\so1h.h\ajustsp.h"                                 /* SP0_SO1H */
 
 descProcesoExt_t descProceso [ maxProcesos ] ;        /* tabla de procesos */
 
@@ -54,7 +55,7 @@ int indThreadActual = 0 ;                /* indice del thread en ejecucion */
 
 int indProcesoActual = 0 ;     /* ind. del proceso del thread en ejecucion */
 
-int indTreadDeSuperficie = 0 ;
+int indThreadDeSuperficie = 0 ;
 
 dword_t contRodajas ;                               /* contador de rodajas */
 
@@ -360,11 +361,11 @@ pindx_t crearProceso (       word_t    segmento,
             (cabecera->magicbyte[ 8] != ptrMagicByteUsr[ 8]) ||
             (cabecera->magicbyte[11] != ptrMagicByteUsr[11]))
         return(-1) ;                                    /* cabecera incorrecta */
-#endif
-    despl = (16*cabecera->segDatosSR) + cabecera->startData ;
+
+//    despl = (16*cabecera->segDatosSR) + cabecera->startData ;
     if (despl & 0x0001) despl++ ;                     /* alineamos a palabra */
     SS_NuevoProceso = segmento + (despl >> 4) ;                  /* SS=DS=ES */
-    SP_NuevoProceso = cabecera->SP0 ;
+//    SP_NuevoProceso = cabecera->SP0 ;
     offDATADS = despl & 0x000F ;                      /* 0 <= offDATADS < 16 */
 
     tamCodigo = (despl >> 4) ;                              /* en paragrafos */
@@ -375,6 +376,7 @@ pindx_t crearProceso (       word_t    segmento,
 
     if ((tamCodigo + tamPila) != tam)
         return(-1) ;
+#endif
 
     if (pindx >= 0) i = pindx ;                      /* exec ==> mismo pindx */
     else
@@ -384,10 +386,10 @@ pindx_t crearProceso (       word_t    segmento,
     }
 
     descProceso[i].CSProc = segmento ;
-    descProceso[i].tamCodigo = (16*cabecera->segDatosSR) + cabecera->startData ;
+//    descProceso[i].tamCodigo = (16*cabecera->segDatosSR) + cabecera->startData ;
     descProceso[i].tamFichero = tamFich ;
 //descProceso[i].desplBSS = tamFich - 16*(SS_NuevoProceso-segmento) ;
-    descProceso[i].desplBSS = cabecera->finData ;               /* mas facil */
+//    descProceso[i].desplBSS = cabecera->finData ;               /* mas facil */
 
     descProceso[i].tam = tam ;
 
@@ -428,7 +430,7 @@ pindx_t crearProceso (       word_t    segmento,
 
     *(--ptrPila) = offArgv ;                         /* apilo parametro argv */
     *(--ptrPila) = argc ;                            /* apilo parametro argc */
-    *(--ptrPila) = cabecera->desplFinish ; /* apilo dir. de retorno a finish */
+//    *(--ptrPila) = cabecera->desplFinish ; /* apilo dir. de retorno a finish */
 
     SP_NuevoProceso = off((pointer_t)ptrPila) - sizeof(trama_t) ;
 
@@ -448,7 +450,7 @@ pindx_t crearProceso (       word_t    segmento,
     descThread[i].trama->DX = 0x0000 ;
     descThread[i].trama->CX = 0x0000 ;
     descThread[i].trama->AX = 0x0000 ;
-    descThread[i].trama->IP = cabecera->desplMain ;
+//    descThread[i].trama->IP = cabecera->desplMain ;
     descThread[i].trama->CS = segmento ;
 #if (0)
     asm
@@ -497,41 +499,48 @@ pindx_t crearProceso (       word_t    segmento,
 }
 
 char strSo1 [4][12] = { "SO1.BIN", "SO1.COM", "SO1.EXE", "SO1.SLX" } ;
-#if (0)
+
 char comandoSo1a [tamComando] = "boot de disquete" ;
-char comandoSo1b [tamComando] = "SO1 (desde MSDOS)" ;
+char comandoSo1b [tamComando] = "SO1H (desde MSDOS)" ;
 //char comandoSo1c [tamComando] = "SO1 (desde SYSLINUX)" ;
-#endif
 
 void inicProcesos ( void )
 {
 
     pindx_t i ;
-    cabecera_t * cabecera /* = (cabecera_t *)pointer(CS_SO1H, desplCab()) */ ;
-
-    /*  rec_hijo = crearRec("HIJO", rOtro, sinInt) ;  */
 
     ccbAlEpilogo = (ccb_t)MK_P(DS_SO1H, (word_t)&descCcbAlEpilogo) ;
 
-    /* inicializamos colas: */
+//  /* inicializamos las colas: */
 
     inicPC2c(&c2cPFR[DPLibres],    &e2PFR.e2DescProceso.Libres,   maxProcesos,     TRUE) ;
     inicPC2c(&c2cPFR[DPOcupados],  &e2PFR.e2DescProceso.Ocupados, maxProcesos + 1, TRUE) ;
+    inicPC2c(&c2cPFR[DTLibres],    &e2PFR.e2DescThread.Libres,    maxThreads,      TRUE) ;
+    inicPC2c(&c2cPFR[DTOcupados],  &e2PFR.e2DescThread.Ocupados,  maxThreads + 1,  TRUE) ;
     inicPC2c(&c2cPFR[TPreparados], &e2PFR.e2Preparados,           maxProcesos,     FALSE) ;
     inicPC2c(&c2cPFR[TUrgentes],   &e2PFR.e2Urgentes,             maxProcesos,     FALSE) ;
     inicPC2c(&c2cPFR[POrdenados],  &e2PFR.e2POrdenados,           maxProcesos,     FALSE) ;
     inicPC2c(&c2cPFR[TDormidos],   &e2PFR.e2TDormidos,            maxProcesos,     FALSE) ;
 
-    for ( i = maxProcesos-1 ; i > 0 ; i-- )
+    for ( i = maxThreads-1 ; i > 0 ; i-- )      /* todos menos el trhead 0 */
     {
+        descThread[i].tid = -1 ;
         descThread[i].estado = libre ;
+        descThread[i].trama = (trama_t *)NULL ;
+        descThread[i].noStatus = TRUE ;        /* puede morir directamente */
+        descThread[i].pindx = -1 ;
+		descThread[i].SSThread = 0x0000 ;
+		descThread[i].SP0 = 0x0000 ;
+	}
+
+    for ( i = maxProcesos-1 ; i > 0 ; i-- )    /* todos menos el proceso 0 */
+    {
         descProceso[i].pid = -1 ;
         descProceso[i].uid = -1 ;
         descProceso[i].gid = -1 ;
-        descProceso[i].noStatus = TRUE ;           /* puede morir directamente */
+        descProceso[i].noStatus = TRUE ;       /* puede morir directamente */
         inicPC2c(&descProceso[i].c2cHijos, &e2PFR.e2Hijos, maxProcesos + i, TRUE) ;
-        apilarPC2c(i, (ptrC2c_t)&c2cPFR[DPLibres]) ;             /* apilamos i */
-        descThread[i].trama = (trama_t *)NULL ;
+        apilarPC2c(i, (ptrC2c_t)&c2cPFR[DPLibres]) ;         /* apilamos i */
         descProceso[i].CSProc = 0x0000 ;
         descProceso[i].tamCodigo = 0x0000 ;
         descProceso[i].desplBSS = 0x0000 ;
@@ -539,39 +548,49 @@ void inicProcesos ( void )
         descProceso[i].tam = 0 ;
         descProceso[i].tamFichero = 0 ;
         descProceso[i].programa[0] = (char)0 ;
-        /* descProceso[i].tCPU = 0 ; */       /* tiempo de CPU en (tics/2**16) */
+//      /* descProceso[i].tCPU = 0 ; */   /* tiempo de CPU en (tics/2**16) */
     }
 
-    descThread[0].estado = ejecutandose ;
-    descProceso[0].pid = nuevoPid() ;          /* el proceso 0 es la consola */
-    descProceso[0].noStatus = TRUE ;             /* puede morir directamente */
-    descProceso[0].ppindx = -1 ;                           /* no tiene padre */
+//	SS_Kernel = SS_SO1H + ((SP0_SO1H + 15)/16) ;/* se inicializa en inicGM */
+	
+//  descThread[0].SSThread = SS_SO1H ;          /* se inicializa en inicGM */
+//  descThread[0].SP0 = SP0_SO1H ;              /* se inicializa en inicGM */
+    descThread[0].tid = 0 ;
+	descThread[0].estado = ejecutandose ;
+    descThread[0].trama = (trama_t *)&_stop__bss + SP0_SO1H - sizeof(trama_t) ;
+    descThread[0].noStatus = TRUE ;            /* puede morir directamente */
+    descThread[0].pindx = 0 ;
+	
+//  descProceso[0].CSProc = CS_SO1H ; */        /* se inicializa en inicGM */
+//  descProceso[0].tam = SS_SO1H - CS_SO1H ; */ /* se inicializa en inicGM */
+    descProceso[0].pid = nuevoPid() ;              /* el proceso 0 es SO1H */
+    descProceso[0].noStatus = TRUE ;           /* puede morir directamente */
+    descProceso[0].ppindx = -1 ;                         /* no tiene padre */
     descProceso[0].hpindx = -1 ;
     inicPC2c(&descProceso[0].c2cHijos, &e2PFR.e2Hijos, maxProcesos + 0, TRUE) ;
-    apilarPC2c(0, (ptrC2c_t)&c2cPFR[DPOcupados]) ;             /* apilamos 0 */
-    apilarPC2c(0, (ptrC2c_t)&c2cPFR[POrdenados]) ;             /* apilamos 0 */
-    descThread[0].trama = (trama_t *)pointer(DS_SO1H, cabecera->SP0-sizeof(trama_t)) ;
-    descProceso[0].CSProc = CS_SO1H ;
-    descProceso[0].tamCodigo = (16*cabecera->segDatosSR) + cabecera->startData ;
-#if (0)
-    descProceso[0].desplBSS = off((pointer_t)startBSS) ;
-//  printStrBIOS(" descProceso[0].desplBSS = ") ;
-//  printHexBIOS(descProceso[0].desplBSS, 4) ;
-    descProceso[0].desplPila = off((pointer_t)finBSS) ;
-//  printStrBIOS(" descProceso[0].desplPila = ") ;
-//  printHexBIOS(descProceso[0].desplPila, 4) ;
-    descProceso[0].tamFichero =
-
-        16 * (dword_t)(DS_SO1H - CS_SO1H) + off((pointer_t)startBSS) ;
+    apilarPC2c(0, (ptrC2c_t)&c2cPFR[DPOcupados]) ;           /* apilamos 0 */
+    apilarPC2c(0, (ptrC2c_t)&c2cPFR[POrdenados]) ;           /* apilamos 0 */
+    descProceso[0].tamCodigo = &_stop__text - &_start__text + sizeof(cabecera_t) ;
+    descProceso[0].desplBSS = &_start__bss - ((dword_t)&_start__data & 0xFFFFFFF0) ;
+    descProceso[0].desplPila = &_stop__bss - ((dword_t)&_start__data & 0xFFFFFFF0) ;
+    descProceso[0].tamFichero = &_stop__data - &_start__text + sizeof(cabecera_t) ;
+	
+#if (1)
+    printStrVideo("\n sizeof(cabecera_t) = ") ;
+    printDecVideo(sizeof(cabecera_t), 1) ;                           /* Ok */
+    printStrVideo("\n descProceso[0].CSProc = ") ;
+    printHexVideo(descProceso[0].CSProc, 4) ;                        /* Ok */
+    printStrVideo("\n descProceso[0].tamCodigo = ") ;
+    printHexVideo(descProceso[0].tamCodigo, 4) ;                     /* Ok */
+    printStrVideo("\n descProceso[0].desplBSS = ") ;
+    printHexVideo(descProceso[0].desplBSS, 4) ;                      /* Ok */
+    printStrVideo("\n descProceso[0].desplPila = ") ;
+    printHexVideo(descProceso[0].desplPila, 4) ;                     /* Ok */
+    printStrVideo("\n descProceso[0].tamFichero = ") ;
+    printLDecVideo(descProceso[0].tamFichero, 1) ;                   /* Ok */
 #endif
-//  printStrBIOS(" descProceso[0].tamFichero = ") ;
-//  printLDecBIOS(descProceso[0].tamFichero, 8) ;
 
-    /* descProceso[0].tCPU = 0 ; */              /* expresado en tics/(2**16) */
-
-    /* descProceso[0].tam                        se inicializa en inicMemoria */
-    /* descProceso[0].win                        se inicializa en inicMemoria */
-    /* descProceso[0].teclado                    se inicializa en inicMemoria */
+//  /* descProceso[0].tCPU = 0 ; */           /* expresado en tics/(2**16) */
 
     descProceso[0].nfa = 0 ;
     for ( i = 0 ; i < dfMax ; i++ )                  /* inicializacion de tfa */
@@ -581,39 +600,27 @@ void inicProcesos ( void )
         descProceso[0].tfa[i].modoAp = O_RDONLY ;
     }
 
-#if (FALSE)
-    descProceso[0].nfa = 3 ;  /* entrada (0), salida (1) y error (2) estandar */
-    for ( i = STDIN ; i <= STDERR ; i++ )            /* inicializacion de tfa */
-    {
-        descProceso[0].tfa[i].dfs = ( i ? 1 : 0) ;  /* 0 = TECLADO, 1 = VENTANA */
-        descProceso[0].tfa[i].pos = 0 ;
-        descProceso[0].tfa[i].modoAp = ( i ? O_WRONLY : O_RDONLY ) ;
-    }                      /* posteriormente se redirigen a dfs = 2 = CONSOLA */
-    for ( i = STDERR + 1 ; i < dfMax ; i++ )
-        descProceso[0].tfa[i].dfs = -1 ;
-#endif
-
     for ( i = 0 ; i < dfsMax ; i++ )        /* inicializacion de descFichero */
         descFichero[i].tipo = flibre ;
 
     switch (modoSO1())
     {
-    case modoSO1_Bin:                                      /* so1.bin (boot) */
-//    strcpy(descProceso[0].comando, comandoSo1a) ;
+    case modoSO1_Bin:                                    /* so1.bin (boot) */
+        strcpy(descProceso[0].comando, comandoSo1a) ;
         break ;
     case modoSO1_Exe:
-//    strcpy(descProceso[0].comando, comandoSo1b) ;
+        strcpy(descProceso[0].comando, comandoSo1b) ;
         break ;
-//case modoSO1_Bs :                             /* so1.bin (boot) SYSLINUX */
-//  strcpy(descProceso[0].comando, comandoSo1c) ;
-//  break ;
+//  case modoSO1_Bs :                           /* so1.bin (boot) SYSLINUX */
+//      strcpy(descProceso[0].comando, comandoSo1c) ;
+//      break ;
     default :
         ;
     }
     strcpy(descProceso[0].programa, strSo1[modoSO1()-1]) ;
 
     indProcesoActual = 0 ;
-//  indProcesoDeSuperficie = 0 ;
+    indThreadDeSuperficie = 0 ;
 
     nivelActivacionSO1H = 0 ;
 

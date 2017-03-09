@@ -39,19 +39,16 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1hpub.h\debug.h"        /* assert, mostrarFlags, valorFlags */
 #include "..\so1hpub.h\pic.h"                   /* valorIMR, establecerIMR */
 #include "..\so1h.h\ajustsp.h"                               /* SP0_Kernel */
-#include "..\so1h.h\ajustes.h"        /* unidadBIOS, modoSO1, obtenerMapa, */
-//                                       /* guardarDS_SO1, IMRInicial, ... */
+#include "..\so1h.h\ajustes.h"         /* modoSO1, unidadBIOS, IMRInicial, */
+//                                                          /* obtenerMapa */
 #include "..\so1h.h\so1dbg.h"             /* leerScancode, esperarScancode */
 #include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
 
-#include "..\so1h.h\gm.h"                                        /* inicGM */
+#include "..\so1h.h\gm.h"                        /* inicGM, k_buscarBloque */
 #include "..\so1hpub.h\memvideo.h"           /* goToXYVideo, printCarVideo */
 #include "..\so1hpub.h\bios_crt.h"                          /* inicBiosCrt */
 #include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
-
-#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
 #include "..\so1hpub.h\seccion.h"                      /* mostrarSecciones */
-
 
 #define pSV(x) printStrVideo(x)                                   /* macro */
 //#define E(x) x
@@ -140,8 +137,8 @@ void main ( void )
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
-    E(inicGM()) ;
-
+    E(inicGM()) ;                  /* inicialización del gestor de memoria */
+//               /* (asigna memoria al proceso 0, al thread 0 y al kernel) */
     printStrVideo(
         "\n"
         "\n"
@@ -159,12 +156,10 @@ void main ( void )
 //  /* Reservamos SP0_Kernel bytes de memoria para la pila del nucleo y    */
 	/* guardamos en SS_Kernel el segmento de la pila correspondiente.      */
 	
-    *((word_t *)SS_Kernel) = k_buscarBloque((SP0_Kernel + 15)/16) ;
-	
     printStrVideo(
         "\n"
         " SS_Kernel = ") ;
-    printHexVideo(*((word_t *)SS_Kernel), 4) ;
+    printHexVideo(SS_Kernel, 4) ;
     printStrVideo(" SP0_Kernel = ") ;
     printHexVideo(SP0_Kernel, 4) ;
     printLnVideo() ;
@@ -174,7 +169,7 @@ void main ( void )
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
-#if (1)
+#if (0)
 
     {
         word_t seg = k_buscarBloque(0x20) ;
@@ -183,10 +178,13 @@ void main ( void )
         mostrarListaLibres() ;
     }
 
+    leerScancode() ;                          /* para detener la ejecucion */
+    leerScancode() ;                            /* con las ints. inhibidas */
+
 #endif
 
-    
-
+	E(inicProcesos()) ;           /* inicializacion del gestor de procesos */
+	
 /*  pasos siguientes:
       PROCESOS.C
       implementar la llamada al sistema fork()

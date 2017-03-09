@@ -112,22 +112,7 @@ word_t BSS_SO1H ;                    /* segmento de datos (bss)    de SO1H */
 
 word_t SS_SO1H ;                     /* segmento de pila           de SO1H */
 
-/* Funcion SS_Kernel que sirve de variable en el segmento de codigo para   */
-/* guardar el SS del sistema SO1H. El acceso a esa variables puede hacerse */
-/* de la siguiente manera:                                                 */
-/*                                                                         */
-/*    variable = *(word_t *)SS_Kernel ;                                    */
-/*    *(word_t *)SS_Kernel = valor ;                                       */
-/*    mov ax,[cs:_SS_Kernel] ;                                             */ 
-/*    mov [cs:_SS_Kernel],ax ;                                             */
-
-void SS_Kernel ( void ) ;        /* guarda el valor del SS del kernel SO1H */
-asm
-(
-    " section .text       \n"
-    "   global _SS_Kernel \n" /* aqui se guardara el valor del segmento de */
-    " _SS_Kernel: db 'SS' \n" /* pila (SS) del nucleo                      */
-) ;
+word_t SS_Kernel ;                   /* segmento de pila del kernel   SO1H */
 
 word_t IMRInicial ;            /* mascara de interrupcion inicial del 8259 */
 

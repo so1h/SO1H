@@ -191,102 +191,108 @@ static descCcb_t descCcbGM = { 0, 0, 0, maxCbGM, NULL } ;
 
 #endif
 
+/* inicGM inicializa la memoria disponible tras la carga de SO1H, y asigna */
+/* memoria al proceso 0 (codigo y datos) y a su tread 0 (pila) que se      */
+/* corresponde con SO1H, todo ello sin modificar esas zonas de memoria.    */
+
 void inicGM ( void ) {                           /* 1 paragrafo = 16 bytes */
 
 #if (0)
-  descRecurso_t dR ;
+    descRecurso_t dR ;
 #endif
-  word_t memDisponible ;               /* memoria disponible en paragrafos */
-  word_t primerSegLibre ;
-//word_t far * ptrWord ;
-  ptrBloque_t ptrBloque ;
-  word_t sigSeg ;
+    word_t primerSegLibre ;                 /* tras asignar memoria a SO1H */       
+    word_t sigSeg ;        /* primer segmento inaccesible según MSDOS/BIOS */
+    word_t memDisponible ;             /* memoria disponible en paragrafos */
+    ptrBloque_t ptrBloque ;
 
-  /* SO1H requiere espacio para su segmento de codigo (DS_SO1H-CS_SO1H) y  */
-  /* para su segmento de datos, los cuales son compartidos con el proceso  */
-  /* inicial. Luego vienen las pila del proceso inicial y del sistema.     */
+//  /* asignacion de memoria para el proceso 0 (codigo y datos)            */
 
-  primerSegLibre = SS_SO1H + ((SP0_SO1H + 15)/16) ;  /* 1er seg. post pila */
+    descProceso[0].CSProc = CS_SO1H ;
+//  descProceso[0].CSProc = ((int)&_start__text - (int)sizeof(cabecera_t)) / 16 ;
+    descProceso[0].tam = SS_SO1H - CS_SO1H ;           /* (codigo y datos) */
 
-  printStrVideo(" primerSegLibre = ") ;
-  printHexVideo(primerSegLibre, 4) ;
+//  /* asignacion de memoria para el thread 0 (pila)                       */
 
-#if (1)
+    descThread[0].SSThread = SS_SO1H ;
+    descThread[0].SP0 = SP0_SO1H ;                               /* (pila) */
+	
+//  /* asignacion de memoria para la pila del nucleo                       */	
+	
+	SS_Kernel = SS_SO1H + ((SP0_SO1H + 15)/16) ;       /* pila del nucleo) */
+	
+	primerSegLibre = SS_Kernel + ((SP0_Kernel + 15)/16) ;
 
-  descProceso[0].tam = primerSegLibre - CS_SO1H ;
+    printStrVideo(" primerSegLibre = ") ;
+    printHexVideo(primerSegLibre, 4) ;
 
-#endif
+//  /* inicGM se ocuparse de descontar de la memoria libre la memoria      */
+//  /* ocupada por SO1H, ya que si no, las escrituras en los nodos de la   */
+//  /* lista de bloques libres podrían modificar los primeros bytes de     */
+//  /* codigo de SO1.                                                      */
 
+//  /* sigSeg = segmento siguiente al ultimo disponible por SO1H           */
 
+    switch (modoSO1()) {
+    case modoSO1_Bin :                                   /* so1.bin (boot) */
+      sigSeg = memBIOS()*(1024/16) ;
+      break ;
+    case modoSO1_Exe :                                           /* hayDOS */
+      sigSeg = *((word_t *)MK_P(segPSP(), 0x0002)) ;
+      break ;
+    default :
+      printStrVideo("\n inicGM() ERROR: modoSO1() = ") ;
+      printHexVideo(modoSO1(), 4) ;
+      leerTeclaBIOS() ;
+    }
 
-  /* inicGM debe ocuparse de descontar de la memoria libre la memoria      */
-  /* ocupada por SO1, ya que si no, las escrituras en los nodos de la      */
-  /* lista de bloques libres podrían modificar los primeros bytes de       */
-  /* codigo de SO1.                                                        */
+    memDisponible = sigSeg - primerSegLibre ;                  /* sin SO1H */
 
-        /* sigSeg = segmento siguiente al ultimo disponible por el proceso */
+    printStrVideo(" sigSeg = ") ;
+    printHexVideo(sigSeg, 4) ;
 
-  switch (modoSO1()) {
-  case modoSO1_Bin :                                     /* so1.bin (boot) */
-    sigSeg = memBIOS()*(1024/16) ;
-    break ;
-  case modoSO1_Exe :                                             /* hayDOS */
-    sigSeg = *((word_t *)MK_P(segPSP(), 0x0002)) ;
-    break ;
-  default :
-    printStrVideo("\n inicGM() ERROR: modoSO1() = ") ;
-    printHexVideo(modoSO1(), 4) ;
-    leerTeclaBIOS() ;
-  }
+    printStrVideo(" memDisponible = ") ;
+    printHexVideo(memDisponible, 4) ;
 
-  memDisponible = sigSeg - primerSegLibre ;                    /* sin SO1H */
+//  /* unico bloque libre inicial */
 
-  printStrVideo(" sigSeg = ") ;
-  printHexVideo(sigSeg, 4) ;
+    ptrBloque = (ptrBloque_t)MK_P_SEG(primerSegLibre) ;
+    ptrBloque->tam = memDisponible-1 ;   /* descontamos el bloque cabecera */
+    ptrBloque->sig = SEG(ptrBloque) + ptrBloque->tam ;
+    ptrBloque->ant = ptrBloque->sig ;
 
-  printStrVideo(" memDisponible = ") ;
-  printHexVideo(memDisponible, 4) ;
+//  /* bloque cabecera de la lista doblemente enlazada */
 
-  /* unico bloque libre inicial */
+    listaLibres = (ptrBloque_t)MK_P_SEG(ptrBloque->sig) ;
+    listaLibres->tam = 1 ;                                     /* 16 Bytes */
+    listaLibres->sig = SEG(ptrBloque) ;
+    listaLibres->ant = listaLibres->sig ;
 
-  ptrBloque = (ptrBloque_t)MK_P_SEG(primerSegLibre) ;
-  ptrBloque->tam = memDisponible-1 ;
-  ptrBloque->sig = SEG(ptrBloque) + ptrBloque->tam ;
-  ptrBloque->ant = ptrBloque->sig ;
+    tamBloqueMax = ptrBloque->tam ;
 
-  /* cabecera */
-
-  listaLibres = (ptrBloque_t)MK_P_SEG(ptrBloque->sig) ;
-  listaLibres->tam = 1 ;                                       /* 16 Bytes */
-  listaLibres->sig = SEG(ptrBloque) ;
-  listaLibres->ant = listaLibres->sig ;
-
-  tamBloqueMax = ptrBloque->tam ;
-
-//printStrVideo(" \n inicGM: ptrBloque = ") ;
-//printPtrVideo((pointer_t)ptrBloque) ;
+//  printStrVideo(" \n inicGM: ptrBloque = ") ;
+//  printPtrVideo((pointer_t)ptrBloque) ;
 
 #if (0)
 
-  dR.tipo = rGM ;
-  copiarStr("GM", dR.nombre) ;
-  dR.ccb = (ccb_t)&descCcbGM ;
-  dR.pindx = indProcesoActual ;
-  dR.numVI = 0 ;
+    dR.tipo = rGM ;
+    copiarStr("GM", dR.nombre) ;
+    dR.ccb = (ccb_t)&descCcbGM ;
+    dR.pindx = indProcesoActual ;
+    dR.numVI = 0 ;
 
-  dR.open      = (open_t)pointer(_CS, (word_t)openGM) ;
-  dR.release   = (release_t)pointer(_CS, (word_t)releaseGM) ;
-  dR.read      = (read_t)pointer(_CS, (word_t)readGM) ;
-  dR.aio_read  = (aio_read_t)pointer(_CS, (word_t)aio_readGM) ;
-  dR.write     = (write_t)pointer(_CS, (word_t)writeGM) ;
-  dR.aio_write = (aio_write_t)pointer(_CS, (word_t)aio_writeGM) ;
-  dR.lseek     = (lseek_t)pointer(_CS, (word_t)lseekGM) ;
-  dR.fcntl     = (fcntl_t)pointer(_CS, (word_t)fcntlGM) ;
-  dR.ioctl     = (ioctl_t)pointer(_CS, (word_t)ioctlGM) ;
+    dR.open      = (open_t)pointer(_CS, (word_t)openGM) ;
+    dR.release   = (release_t)pointer(_CS, (word_t)releaseGM) ;
+    dR.read      = (read_t)pointer(_CS, (word_t)readGM) ;
+    dR.aio_read  = (aio_read_t)pointer(_CS, (word_t)aio_readGM) ;
+    dR.write     = (write_t)pointer(_CS, (word_t)writeGM) ;
+    dR.aio_write = (aio_write_t)pointer(_CS, (word_t)aio_writeGM) ;
+    dR.lseek     = (lseek_t)pointer(_CS, (word_t)lseekGM) ;
+    dR.fcntl     = (fcntl_t)pointer(_CS, (word_t)fcntlGM) ;
+    dR.ioctl     = (ioctl_t)pointer(_CS, (word_t)ioctlGM) ;
 
-  rec_gm = crearRec(&dR) ;
+    rec_gm = crearRec(&dR) ;
 
-  dfs_gm = crearFich("GM", rec_gm, 0, fedCaracteres) ;
+    dfs_gm = crearFich("GM", rec_gm, 0, fedCaracteres) ;
 
 #endif
 

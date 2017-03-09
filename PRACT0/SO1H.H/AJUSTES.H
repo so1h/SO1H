@@ -32,7 +32,7 @@ extern word_t BSS_SO1H ;             /* segmento de datos (bss)    de SO1H */
 
 extern word_t SS_SO1H ;              /* segmento de pila           de SO1H */
 
-void SS_Kernel ( void ) ;        /* guarda el valor del SS del kernel SO1H */
+extern word_t SS_Kernel ;            /* segmento de pila del kernel   SO1H */
 
 extern word_t IMRInicial ;     /* mascara de interrupcion inicial del 8259 */
 
