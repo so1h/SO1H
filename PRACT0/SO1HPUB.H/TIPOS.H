@@ -1,8 +1,13 @@
-/***************************************************************************/
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
+/* ----------------------------------------------------------------------- */
 /*                                 tipos.h                                 */
-/***************************************************************************/
+/* ----------------------------------------------------------------------- */
 /*                                                                         */
-/***************************************************************************/
+/* ----------------------------------------------------------------------- */
 
 #ifndef TIPOS_H
 #define TIPOS_H
@@ -23,7 +28,15 @@ typedef byte_t * pointer_t ;
 
 #define interrupt __interrupt
 
-typedef void interrupt (* rti_t) ( void ) ;      /* rutina de trat. de int */
+typedef void ( * manejador_t) ( void ) ;/* manejador de llamada al sistema */
+
+typedef void interrupt ( * rti_t) ( void ) ;     /* rutina de trat. de int */
+
+typedef void ( * isr_t ) ( void ) ;          /* rutina de servicio de int. */
+
+typedef void ( * handler_t ) ( void ) ;                         /* handler */
+
+typedef int ( * retardarThread_t ) ( void ) ;
 
 typedef rti_t * ptrTVI_t ;            /* tabla de vectores de interrupcion */
 

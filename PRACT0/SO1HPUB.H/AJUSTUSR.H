@@ -1,3 +1,8 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                                ajustusr.h                               */
 /* ----------------------------------------------------------------------- */
@@ -28,69 +33,6 @@ esa información.
 
 #endif
 
-#define startUserCode             /* solo se ejecuta en so1h.bin y so1.exe */\
-                                /* pero siempre es necesario como cabecera */\
-asm                                                                          \
-(                                                                            \
-    " extern __start__rodata    \n"                                          \
-    " extern __start__data      \n"                                          \
-    " extern __start__bss       \n"                                          \
-    " extern __stop__bss        \n"                                          \
-                                                                             \
-    " extern __start            \n"   /* funcion a la que ceder el control */\
-                                                                             \
-    "   jmp $+26                \n"     \
-    "   dd __start__rodata      \n"     \
-    "   dd __start__data        \n"     \
-    "   dd __start__bss         \n"     \
-    "   dd __stop__bss          \n"     \
-    "   dd __start              \n"     \
-    "   dd _finish              \n"     \
-    "   dw SPInicial            \n"     \
-    "   mov ebx,__stop__bss     \n"      /* hacemos figurar _stop__bss     */\
-    "   add ebx,0x0F            \n"                                          \
-    "   shr ebx,4               \n"                                          \
-    "   mov ax,cs               \n"                                          \
-    "   add bx,ax               \n"                                          \
-    "   mov ss,bx               \n"  /* inic. segmento de pila del proceso */\
-    "   mov sp,SPInicial        \n"  /* inic. puntero  de pila del proceso */\
-                                            /* cedemos el control a _start */\
-    "   mov ebx,__start         \n"    /* _start es la funcion que reubica */\
-    "   ror ebx,4               \n"                        /* ver c0dh.asm */\
-    "   add ax,bx               \n"                                          \
-    "   push ax                 \n"                                          \
-    "   shr ebx,28              \n"                /* CS = _start >> 4     */\
-    "   push bx                 \n"                /* IP = _start & 0x000F */\
-    "   retf                    \n"                                          \
-) ;
-
-#if (0)
-
-#define startUserCode     /* solo se ejecuta en so1.bin, so1.com y so1.exe */\
-                                /* pero siempre es necesario como cabecera */\
-  asm {                                                                      \
-    mov ax,cs ;                                                              \
-    mov bx,SEG(startData) ;  /* valor del segmento de datos (sin reubicar) */\
-    mov cx,OFFSET(finData) ;                           /* tam. del la DATA */\
-    mov dx,OFFSET(finBSS) ;                            /* tam. del BSS     */\
-    mov dx,OFFSET(startData) ;          /* ultimos bytes de codigo tras DS */\
-    add ax,bx ;        /* ax contiene ahora el valor del segmento de datos */\
-    pushf ;                                                                  \
-    pop bx ;                                                 /* bx = flags */\
-    cli ;                                                                    \
-    mov ds,ax ;                              /* segmento de datos: DS */     \
-    mov es,ax ;                              /* segmento extra:    ES = DS */\
-    mov ss,ax ;                              /* segmento de pila:  SS = DS */\
-    mov sp,SPInicial ;       /* Inicializacion puntero de pila del proceso */\
-    mov bp,sp ;                                                              \
-    push bx ;                                     /* restauramos los flags */\
-    popf ;                                                                   \
-  }
-
-#define offset_SPInicial 0x001A
-
-#define valor_SPInicial *((word_t far *)pointer(_CS, offset_SPInicial))
-
 #define atexit( finish ) {                                                   \
   manejador_t far * manejador =                                              \
     (manejador_t far *)pointer(                                              \
@@ -99,8 +41,6 @@ asm                                                                          \
     ) ;                                                                      \
   *manejador = finish ;                                                      \
 }
-
-#endif
 
 #endif /* AJUSTUSR_H */
 

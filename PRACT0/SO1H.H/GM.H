@@ -1,3 +1,8 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                                   gm.h                                  */
 /* ----------------------------------------------------------------------- */
@@ -11,7 +16,7 @@
 #include "..\so1hpub.h\def_mem.h"                           /* ptrBloque_t */
 
 #define tamParagrafo 16          /* un paragrafo son 16 bytes consecutivos */
-                             /* comenzando en una direccion multiplo de 16 */
+//                           /* comenzando en una direccion multiplo de 16 */
 
 extern word_t tamBloqueMax ;   /* mayor bloque de memoria libre disponible */
 

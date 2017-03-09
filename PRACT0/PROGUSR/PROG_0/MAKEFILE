@@ -33,7 +33,8 @@ LISTAPUBS =\
 
 $(PROGRAMA).bin: $(PROGRAMA).exe
   @echo.
-  PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
+# PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
+  copy $(PROGRAMA).exe $(PROGRAMA).bin
 
 $(PROGRAMA).exe: $(PROGRAMA).o c0dh.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\

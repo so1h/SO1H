@@ -1,7 +1,12 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                               procesos.h                                */
 /* ----------------------------------------------------------------------- */
-/*                           Gestion de procesos                           */
+/*                      Gestion de procesos y threads                      */
 /* ----------------------------------------------------------------------- */
 
 #ifndef PROCESOS_H
@@ -9,26 +14,28 @@
 
 #include "..\so1hpub.h\def_proc.h"
 
-typedef struct {
-
-  camposPubProceso /* campos publicos del descriptor de proceso DEF_PROC.H */
-
-  /* añadir a partir de aqui nuevos campos */
+typedef struct
+{
+    camposPubProceso        /* campos publicos de un descriptor de proceso */
+	
+    /* añadir a partir de aqui nuevos campos */
 
 } descProcesoExt_t ;                    /* descriptor de proceso extendido */
 
-typedef struct {
+typedef struct
+{
+    camposPubThread          /* campos publicos de un descriptor de thread */
 
-  camposPubThread   /* campos publicos del descriptor de thread DEF_PROC.H */
-
-  /* añadir a partir de aqui nuevos campos */
+    /* añadir a partir de aqui nuevos campos */
 
 } descThreadExt_t ;                      /* descriptor de thread extendido */
 
 extern descProcesoExt_t descProceso [ maxProcesos ] ; /* tabla de procesos */
 
+extern descThreadExt_t descThread [ maxThreads ] ;     /* tabla de threads */
+
 extern descFichero_t descFichero [ dfsMax ] ;         /* tabla de ficheros */
-                                                   /* abiertos del sistema */
+//                                                 /* abiertos del sistema */
 extern descRecurso_t descRecurso [ maxRecursos ] ;
 
 extern c2c_t c2cPFR [ numColasPFR ] ;                    /* indices cPFR_t */
@@ -37,7 +44,7 @@ extern e2PFR_t e2PFR ;
 
 extern ccb_t ccbAlEpilogo ;    /* cola de callBacks al epilogo de las int. */
 
-extern trama_t * tramaProceso ;
+extern trama_t * tramaThread ;
 
 extern trama_t * tramaTarea ;
 
@@ -51,9 +58,11 @@ extern trama_t * tramaTarea ;
 /* proceso que hizo la llamada al sistema (SS_Proceso) como la del sistema */
 /* (SS_ProcInt).                                                           */
 
-extern int indProcesoActual ;           /* indice del proceso en ejecucion */
+extern int indThreadActual ;             /* indice del thread en ejecucion */
 
-extern int indProcesoDeSuperficie ;
+extern int indProcesoActual ;  /* ind. del proceso del thread en ejecucion */
+
+extern int indThreadDeSuperficie ;
 
 extern dword_t contRodajas ;                        /* contador de rodajas */
 
@@ -69,31 +78,21 @@ extern dobleEnlace_t e2BloqueadosRaton [ maxProcesos + 1 ] ;
 
 pid_t nuevoPid ( void ) ;
 
-pindx_t indice ( pid_t pid ) ;
+tid_t nuevoTid ( void ) ;
 
-pindx_t sigProceso ( void ) ;                  /* planificador de procesos */
+tindx_t indice ( tid_t tid ) ;
 
-//void encolar ( cola_t * cola, int pindx ) ;
+tindx_t sigThread ( void ) ;                    /* planificador de threads */
 
-//void encolarAlt ( cola_t * cola, int pindx ) ;
-
-//void encolarFar ( cola_t * cola, int pindx ) ;
-
-//void eliminar ( cola_t * cola, int pindx ) ;
-
-//void eliminarAlt ( cola_t * cola, int pindx ) ;
-
-//void eliminarFar ( cola_t * cola, int pindx ) ;
-
-int activarProceso ( pindx_t pindx ) ;
+int activarThread ( tindx_t tindx ) ;
 
 void registrarEnPOrdenados ( pindx_t pindx ) ;
 
 pindx_t crearProceso (       word_t    segmento,
                              word_t    tam,
                              dword_t   tamFich,
-                       const char    * programa,
-                       const char    * comando,
+                             const char    * programa,
+                             const char    * comando,
                              pindx_t   pindx ) ;
 
 #define crearProcesoMacro(segmento, tam, tamFich, programa, comando, pindx)  \
@@ -102,6 +101,8 @@ pindx_t crearProceso (       word_t    segmento,
 void inicProcesos ( void ) ;
 
 void resetPids ( void ) ;
+
+void resetTids ( void ) ;
 
 int terminarProcIndx ( pindx_t pindx ) ;          /* termina proceso pindx */
 

@@ -1,7 +1,12 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                                def_proc.h                               */
 /* ----------------------------------------------------------------------- */
-/*                           Gestion de procesos                           */
+/*                      Gestion de procesos y threads                      */
 /* ----------------------------------------------------------------------- */
 
 #ifndef DEF_PROC_H
@@ -12,7 +17,6 @@
 #include "..\so1hpub.h\fcntl.h"                                /* modoAp_t */
 #include "..\so1hpub.h\def_trm.h"                               /* trama_t */
 #include "..\so1hpub.h\def_mem.h"
-//#include "..\so1hpub.h\scanner.h"                          /* tamComando */
 #include "..\so1hpub.h\ptrc2c.h"
 #include "..\so1hpub.h\ccb.h"
 
@@ -26,7 +30,7 @@
 
 
 typedef enum {
-  libre, preparado, ejecutandose, bloqueado       /* estados de un proceso */
+  libre, preparado, ejecutandose, bloqueado        /* estados de un thread */
 } estado_t ;
 
 typedef struct {
@@ -37,18 +41,28 @@ typedef struct {
 
 #define camposPubThread        /* campos publicos del descriptor de thread */\
   tid_t        tid ;                                                         \
-
-#define camposPubProceso      /* campos publicos del descriptor de proceso */\
-                                                         /*------CPU------ */\
-  pid_t        pid ;                                                         \
   estado_t     estado ;                                                      \
   rindx_t      esperandoPor ;      /* recurso por el que se esta esperando */\
   trama_t      * trama ;                                  /* trama = SS:SP */\
   bool_t       noStatus ;              /* TRUE => puede morir directamente */\
   int          status ;        /* estado de terminacion si se queda zombie */\
+  pindx_t      pindx ;                                /* pindx del proceso */\
+                                                         /*----Memoria---- */\
+  word_t       SSThread ;                    /* segmento de pila del thread */
+                                                                             \
+  /* dword_t      tCPU ; */   /* tiempo de CPU consumido (en tics*(2**16)) */
+
+#define camposPubProceso      /* campos publicos del descriptor de proceso */\
+                                                         /*------CPU------ */\
+  pid_t        pid ;                                                         \
+  bool_t       noStatus ;              /* TRUE => puede morir directamente */\
+  int          status ;        /* estado de terminacion si se queda zombie */\
   pindx_t      ppindx ;                         /* pindx del proceso padre */\
   pindx_t      hpindx ;     /* pindx del hijo por el que se esta esperando */\
   c2c_t        c2cHijos ;                        /* cola de procesos hijos */\
+                                                              /* (threads) */\
+  int          numTids ;      /* numero de tids asignados hasta el momento */\
+  c2c_t        c2cThreads ;                             /* cola de threads */\
                                                          /*----Memoria---- */\
   word_t       CSProc ;     /* segmento de codigo = inicio de la particion */\
   word_t       tamCodigo ;                   /* tamaño del codigo en bytes */\
@@ -57,7 +71,7 @@ typedef struct {
   word_t       tam ;              /* tamanio de la particion en paragrafos */\
   dword_t      tamFichero ;      /* tamanio del fichero ejecutable cargado */\
   char         programa[12] ;     /* nombre del fichero ejecutable cargado */\
-/*  char         comando[tamComando] ; */                           /* comando */\
+/*char         comando[tamComando] ; */                         /* comando */\
                                                          /*------E/S------ */\
   word_t       nfa ;         /* numero de ficheros abiertos por el proceso */\
   dfa_t        tfa [dfMax] ;   /* tabla de ficheros abiertos (del proceso) */\
@@ -115,13 +129,13 @@ typedef struct {
 
   char          nombre[12] ;                         /* nombre del recurso */
   tipoRecurso_t tipo ;
-//  ccb_t         ccb ;                    /* cola de funciones de call back */
-  pindx_t       pindx ;                /* identificador del proceso driver */
+  ccb_t         ccb ;                    /* cola de funciones de call back */
+  tindx_t       tindx ;                 /* identificador del thread driver */
   c2c_t         c2cFichRec ;    /* cola de ficheros que dan paso al driver */
   byte_t        numVI ;             /* numero de vectores de int. 0, 1 o 2 */
   byte_t        nVInt[2] ;           /* tabla de numeros de vector de int. */
-  byte_t        irq[2] ;   /* tabla irqs. 0<= irq[i] < 16 => int. hardware */
-//  isr_t         isr[2] ;   /* tabla de rutinas de servicio de interrupcion */
+  byte_t        irq[2] ;  /* tabla irqs. 0 <= irq[i] < 16 => int. hardware */
+  isr_t         isr[2] ;   /* tabla de rutinas de servicio de interrupcion */
 
   open_t        open ;
   release_t     release ;
@@ -149,7 +163,7 @@ typedef struct {                                    /* informacion variada */
   word_t SP0_So1 ;
   word_t IMR ;
   word_t modoSO1 ;                         /* modoSO1_(Cmd,Bin,Com,Exe,Bs) */
-  word_t * ptrDebugWord ;     /* puntero a debugWord (so1.h\dbgword.h) */
+  word_t * ptrDebugWord ;         /* puntero a debugWord (so1.h\dbgword.h) */
 } info_t ;
 
 typedef struct {                        /* ver startUserCode en AJUSTUSR.C */
@@ -175,6 +189,10 @@ typedef struct {
     dobleEnlace_t Ocupados [maxProcesos + 2 ] ;         /* Pila + Eliminar */
   } e2DescProceso ;
   union {
+    dobleEnlace_t Libres [ maxThreads + 1 ] ;                      /* Pila */
+    dobleEnlace_t Ocupados [maxThreads + 2 ] ;          /* Pila + Eliminar */
+  } e2DescThread ;
+  union {
     dobleEnlace_t Libres [ dfsMax + 1 ] ;                             /* P */
     dobleEnlace_t Ocupados [ dfsMax + 2 ] ;                       /* P + E */
   } e2DescFichero ;
@@ -183,53 +201,55 @@ typedef struct {
     dobleEnlace_t Ocupados [ maxRecursos + 2 ] ;                  /* P + E */
   } e2DescRecurso ;
   dobleEnlace_t e2Hijos [ maxProcesos + maxProcesos ] ;    /* P+E de hijos */
-  dobleEnlace_t e2Preparados [ maxProcesos + 1 ] ;   /* Cola de preparados */  /* unir en una sola cola */
-  dobleEnlace_t e2Urgentes [ maxProcesos + 1 ] ; /* Desbloqueados urgentes */  /* ver prepararDesbloqueadosUrgentes */
+  dobleEnlace_t e2Preparados [ maxThreads + 1 ] ;    /* Cola de preparados */  /* unir en una sola cola */
+  dobleEnlace_t e2Urgentes [ maxThreads + 1 ] ;  /* Desbloqueados urgentes */  /* ver prepararDesbloqueadosUrgentes */
   dobleEnlace_t e2POrdenados [ maxProcesos + 1 ] ;          /* Particiones */
-  dobleEnlace_t e2PDormidos [ maxProcesos + 1 ] ;              /* Dormidos */
+  dobleEnlace_t e2TDormidos [ maxThreads + 1 ] ;               /* Dormidos */
   dobleEnlace_t e2FichRec [ dfsMax + maxRecursos ] ;      /* Fich. de Rec. */
 } e2PFR_t ;
 
 typedef enum {
-  DPLibres, DPOcupados, PPreparados, PUrgentes, POrdenados, PDormidos,
+  DPLibres, DPOcupados, DTLibres, DTOcupados, TPreparados, TUrgentes, POrdenados, TDormidos,
   DFLibres, DFOcupados,
   DRLibres, DROcupados,
   numColasPFR
-} cPFR_t ;
+} cPFR_t ;                       /* colas de Procesos, Ficheros y Recursos */ /* igual mejor cTPFR_t */
 
-typedef pindx_t ( * sigProceso_t ) ( ) ;
+typedef tindx_t ( * sigThread_t ) ( ) ;
 
-typedef void ( * activarProceso_t ) ( pindx_t pindx ) ;
+typedef void ( * activarThread_t ) ( tindx_t tindx ) ;
 
-typedef void ( * buscarNuevoProcesoActual_t ) ( void ) ;
+typedef void ( * buscarNuevoThreadActual_t ) ( void ) ;
 
-typedef void ( * bloquearProcesoActual_t ) ( rindx_t rindx ) ;
+typedef void ( * bloquearThreadActual_t ) ( rindx_t rindx ) ;
 
 typedef struct {
   pindx_t                  * ptrIndProcesoActual ;
-  trama_t *                * ptrTramaProceso ;
+  tindx_t                  * ptrIndThreadActual ;
+  trama_t *                * ptrTramaThread ;
   bool_t                   * ptrActivarAlEpilogo ;
   descProceso_t            * ptrDescProceso ;         /* tabla de procesos */
   word_t                     tamDescProceso ;
+  descThread_t             * ptrDescThread ;           /* tabla de threads */
+  word_t                     tamDescThread ;
   descFichero_t            * ptrDescFichero ;         /* tabla de ficheros */
   descRecurso_t            * ptrDescRecurso ;         /* tabla de recursos */
   c2c_t                    * ptrC2cPFR ;
-  int                      * ptrNivelActivacionSO1 ;
+  int                      * ptrNivelActivacionSO1H ;
   bool_t                   * ptrEnHalt ;
   bool_t                   * ptrHayTic ;
-//  ccb_t                    * ptrCcbAlEpilogo ;
-  word_t                   * ptrSS_Proceso ;
-  word_t                   * ptrSP_Proceso ;
-  word_t                     SP0_So1 ;        /* SP0 del sistema operativo */
+  ccb_t                    * ptrCcbAlEpilogo ;
+  word_t                   * ptrSS_Thread ;
+  word_t                   * ptrSP_Thread ;
+  word_t                     SP0_So1h ;       /* SP0 del sistema operativo */
   dword_t                  * ptrContRodajas ;
   int                      * ptrContTicsRodaja ;
   rti_t                    * ptrVIOrg ;
 
-  sigProceso_t               sigProceso ;
-  activarProceso_t           activarProceso ;
-//  buscarNuevoProcesoActual_t buscarNuevoProcesoActual ;
-  bloquearProcesoActual_t    bloquearProcesoActual ;         /* no retorna */
-} descSO1_t ;
+  sigThread_t                sigThread ;
+  activarThread_t            activarThread ;
+  buscarNuevoThreadActual_t  buscarNuevoThreadActual ;
+  bloquearThreadActual_t     bloquearThreadActual ;          /* no retorna */
+} descSO1H_t ;                              /* descriptor del sistema SO1H */
 
 #endif /* DEF_PROC_H */
-

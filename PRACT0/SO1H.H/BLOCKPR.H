@@ -1,7 +1,12 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                                blockpr.h                                */
 /* ----------------------------------------------------------------------- */
-/*             Operaciones relacionadas con el bloqueo de procesos         */
+/*             Operaciones relacionadas con el bloqueo de threads          */
 /* ----------------------------------------------------------------------- */
 
 #ifndef BLOCKPR_H
@@ -12,40 +17,40 @@
 
 #include "..\so1h.h\ajustes.h"                      /* establecerDS_SO1H_0 */
 
-extern word_t SS_Proceso ;    /* pila proceso que hace una llamada al s.o. */
+extern word_t SS_Thread ;      /* pila thread que hace una llamada al s.o. */
 
-extern word_t SP_Proceso ;                   /* o que ha sido interrumpido */
+extern word_t SP_Thread ;                    /* o que ha sido interrumpido */
 
 extern word_t SS_Tarea ;            /* pila tarea que ha sido interrumpida */
 
 extern word_t SP_Tarea ;
 
-extern int nivelActivacionSO1 ;                /* 0 => proceso, 1 => tarea */
+extern int nivelActivacionSO1H ;               /* 0 => proceso, 1 => tarea */
 
-extern bool_t enHalt ;           /* se interrumpio en el hlt de SigProceso */
+extern bool_t enHalt ;            /* se interrumpio en el hlt de sigThread */
 
 extern bool_t activarAlEpilogo1 ;
 
-            /* activar al epilogo (de nivel 1) el primer proceso preparado */
+//           /* activar al epilogo (de nivel 1) el primer thread preparado */
 
 extern bool_t hayTic ;             /* se acaba de producir un tic de reloj */
 
-    /* hayTic se utiliza en activarProceso para determinar mejor la rodaja */
+//   /* hayTic se utiliza en activarThread para determinar mejor la rodaja */
 
-                 /* prologo de una rti o llamada al sistema (int nVIntSO1) */
+//               /* prologo de una rti o llamada al sistema (int nVIntSO1) */
 
 #define prologo_rti_sin_PUSHA()                                   /* macro */\
                                                                              \
   asm push es ;                                                              \
   asm push ds ;                                                              \
                                                                              \
-  establecerDS_SO1H_0() ;        /* establecer el segmento de datos de SO1 */\
+  establecerDS_SO1H_0() ;       /* establecer el segmento de datos de SO1H */\
                                                                              \
-  if (++nivelActivacionSO1 == 1) {                                           \
-    asm mov SS_Proceso,ss ;                /* salvamos la pila del proceso */\
-    asm mov SP_Proceso,sp ;                                                  \
-    asm mov ss,DS_SO1 ;                     /* establecemos la pila de SO1 */\
-    asm mov sp,SP0_SO1 ;                                                     \
+  if (++nivelActivacionSO1H == 1) {                                          \
+    asm mov SS_Thread,ss ;                 /* salvamos la pila del proceso */\
+    asm mov SP_Thread,sp ;                                                   \
+    asm mov ss,DS_SO1H ;                    /* establecemos la pila de SO1 */\
+    asm mov sp,SP0_SO1H ;                                                    \
   }                                /* en otro caso la pila es ya la de SO1 */\
                                                               /* fin macro */
 
@@ -58,20 +63,20 @@ extern bool_t hayTic ;             /* se acaba de producir un tic de reloj */
 
 #define epilogo_rti()                                             /* macro */\
                                                                              \
-  if ((nivelActivacionSO1 == 1) || enHalt) {                                 \
+  if ((nivelActivacionSO1H == 1) || enHalt) {                                \
     if (ccbAlEpilogo->num > 0) atenderCcb(ccbAlEpilogo) ;                    \
     if (c2cPFR[PUrgentes].numElem > 0)                                       \
       prepararDesbloqueadosUrgentes() ;                                      \
     if (activarAlEpilogo1) {                                                 \
       activarAlEpilogo1 = FALSE ;                                            \
-      activarProceso(sigProceso()) ;                                         \
+      activarProceso(sigThread()) ;                                          \
     }                                                                        \
   }                                                                          \
-  if (nivelActivacionSO1-- == 1) {                                           \
-    asm mov ss,SS_Proceso ;            /* establecemos la pila del proceso */\
-    asm mov sp,SP_Proceso ;                                                  \
+  if (nivelActivacionSO1H-- == 1) {                                          \
+    asm mov ss,SS_Thread ;              /* establecemos la pila del thread */\
+    asm mov sp,SP_Thread ;                                                   \
   }                                                                          \
-  asm pop ds ;             /* restauramos el segmento de datos del proceso */\
+  asm pop ds ;              /* restauramos el segmento de datos del thread */\
   asm pop es ;                                                               \
                                                                              \
   asm popa ;        /* restauramos todos los registros del proceso (80286) */\
@@ -79,7 +84,7 @@ extern bool_t hayTic ;             /* se acaba de producir un tic de reloj */
   asm iret ;                                                                 \
                                                               /* fin macro */
 
-void prepararDesbloqueadosUrgentes ( void ) ;                                \
+void prepararDesbloqueadosUrgentes ( void ) ;
 
   /* un proceso puede terminar durante una llamada o durante una rti       */
   /* o ser expulsado */
