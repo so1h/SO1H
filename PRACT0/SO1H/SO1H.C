@@ -26,11 +26,11 @@ POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-/***************************************************************************/
+/* ----------------------------------------------------------------------- */
 /*                                  SO1H.c                                 */
-/***************************************************************************/
+/* ----------------------------------------------------------------------- */
 /*                                                                         */
-/***************************************************************************/
+/* ----------------------------------------------------------------------- */
 
 #include "..\so1hpub.h\tipos.h"                                  /* word_t */
 #include "..\so1hpub.h\bios_0.h"            /* clrScrBIOS, goToXYBIOS, ... */
@@ -49,14 +49,17 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1hpub.h\bios_crt.h"                          /* inicBiosCrt */
 #include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
 #include "..\so1hpub.h\seccion.h"                      /* mostrarSecciones */
+#include "..\so1h.h\interrup.h"                   /* inicTVI, redirigirInt */
+#include "..\so1hpub.h\ll_s_exc.h"                            /* nVIntSO1H */
+
 
 #define pSV(x) printStrVideo(x)                                   /* macro */
 //#define E(x) x
 #define E(x) { pSV("\n ") ; pSV(#x) ; pSV(" ... ") ; x ; }        /* macro */
 
-void main ( void )  
+void main ( void )
 {
-    word_t loQueHay ; 
+    word_t loQueHay ;
 
     asm("cli") ;                          /* se inhiben las interrupciones */
 
@@ -123,11 +126,16 @@ void main ( void )
         " CS_SO1H  RO_SO1H  DS_SO1H  BSS_SO1H  SS_SO1H  \n"
         " -------- -------- -------- --------- -------- \n"
         "   ") ;
-    printHexVideo(CS_SO1H, 4) ; printStrVideo("     ") ;
-    printHexVideo(RO_SO1H, 4) ; printStrVideo("     ") ;
-    printHexVideo(DS_SO1H, 4) ; printStrVideo("     ") ;
-    printHexVideo(BSS_SO1H, 4) ; printStrVideo("      ") ;
-    printHexVideo(SS_SO1H, 4) ; printLnVideo() ;
+    printHexVideo(CS_SO1H, 4) ;
+    printStrVideo("     ") ;
+    printHexVideo(RO_SO1H, 4) ;
+    printStrVideo("     ") ;
+    printHexVideo(DS_SO1H, 4) ;
+    printStrVideo("     ") ;
+    printHexVideo(BSS_SO1H, 4) ;
+    printStrVideo("      ") ;
+    printHexVideo(SS_SO1H, 4) ;
+    printLnVideo() ;
 
     mostrarSecciones() ;
 
@@ -154,8 +162,8 @@ void main ( void )
     mostrarListaLibres() ;
 
 //  /* Reservamos SP0_Kernel bytes de memoria para la pila del nucleo y    */
-	/* guardamos en SS_Kernel el segmento de la pila correspondiente.      */
-	
+    /* guardamos en SS_Kernel el segmento de la pila correspondiente.      */
+
     printStrVideo(
         "\n"
         " SS_Kernel = ") ;
@@ -165,7 +173,7 @@ void main ( void )
     printLnVideo() ;
 
     mostrarListaLibres() ;
-    
+
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
@@ -183,15 +191,26 @@ void main ( void )
 
 #endif
 
-	E(inicProcesos()) ;           /* inicializacion del gestor de procesos */
+    E(inicProcesos()) ;           /* inicializacion del gestor de procesos */ /* igual deberia estar antes de inicGM */
+
+    E(inicTVI()) ;    /* inicializamos la tabla de vectores de interrucion */
 	
-/*  pasos siguientes:
-      PROCESOS.C
-      implementar la llamada al sistema fork()
-      y las llamadas de drivers
-      crear con fork() un proceso (thread) driver del disco/disquete
-      implementar exec
-*/
+//	/* establecemos el vector de interrupcion de llamadas al sistema SO1   */
+
+    printStrVideo("\n redirigirInt(nVIntSO1H, ") ;
+//  printLHexVideo(pointer(CS_SO1, (word_t)isr_SO1)) ;
+    printStrVideo(")") ;
+//  redirigirInt(nVIntSO1H, (isr_t)pointer(CS_SO1, (word_t)isr_SO1)) ;
+    printStrVideo(" nVIntSO1H = 0x") ;
+    printHexVideo(nVIntSO1H, 2) ;
+
+    /*  pasos siguientes:
+          PROCESOS.C
+          implementar la llamada al sistema fork()
+          y las llamadas de drivers
+          crear con fork() un proceso (thread) driver del disco/disquete
+          implementar exec
+    */
 
 //  while (TRUE) ;
     leerScancode() ;                          /* para detener la ejecucion */

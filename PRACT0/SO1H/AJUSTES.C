@@ -3,25 +3,22 @@
   2-clause BSD license.
 */
 
-/***************************************************************************/
+/* ----------------------------------------------------------------------- */
 /*                                ajustes.c                                */
-/***************************************************************************/
-/*                                                                         */
-/***************************************************************************/
+/* ----------------------------------------------------------------------- */
+/*            Ajuste inicial del modelo de programacion de so1h            */
+/* ----------------------------------------------------------------------- */
 
-/* primer codigo presente al principio de so1h.bin y so1h.exe tras la      */
-/* cabecera EXE (modificada en el caso de SO1h.bin). En el caso de         */
-/* so1h.bin es el primer codigo que se ejecuta.                            */     
-/*
-/* so1h puede ejecutarse de dos maneras:                                   */
+/* codigo presente al principio de so1h.exe (tras su cabecera EXE) y al    */
+/* principio de so1h.bin (que no tiene cabecera). De hecho so1h.bin es     */
+/* igual so1h.exe sin la cabecera. so1h puede ejecutarse de dos maneras:   */
 /*                                                                         */
 /* 1) como so1h.bin siendo cargado en memoria por el sector de arranque    */
 /*                                                                         */
 /* 2) como so1h.exe siendo cargado desde MSDOS, NTVDM, DOSBox, ...         */
 /*                                                                         */
-/* so1h.exe y so1h.bin son iguales salvo que en so1h.bin los dos primeros  */
-/* bytes de la cabecera EXE ("MZ") se han parcheado con los bytes EB 1E    */
-/* (jmp _startBin) para que tome el control la función startBin.           */
+/* so1h.bin toma el control en la función startBin, que es a donde le      */
+/* cede el control el sector de arranque.                                  */
 /*                                                                         */
 /* En el caso de so1h.exe el cargador cede el control directamente a la    */
 /* función _start que es una función contenida en el fichero c0dh.asm de   */
@@ -49,19 +46,19 @@
 
 #endif
 
-modoSO1_t modoSO1 ( void ) ;  /* modo en que se ejecuta SO1: bin, exe, ... */
+modoSO1_t modoSO1 ( void ) ;     /* modo en que se ejecuta SO1H: bin o exe */
 
 void unidadBIOS ( void ) ;    /* guarda el número de la unidad de arranque */
 
-void startBin ( void ) ;                    /* implementada a continuacion */
-asm
+void startBin ( void ) ;          /* punto de entrada para so1h.bin (boot) */                     
+asm                                                      /* implementacion */
 (
     " section .text               \n"
     "   global _startBin          \n"
     " _startBin:                  \n"
 
     "   cli                       \n"      /* inhibimos las interrupciones */
-    
+
     "   mov ax,cs                 \n"      /* ajustamos cs con el fin de   */
     "   sub ax,2                  \n"      /* que cs apunte a la cabecera  */
     "   push ax                   \n"      /* y cedemos el control a la    */
@@ -83,7 +80,7 @@ asm
     "   mov sp,SP0_SO1H           \n"/* inic. puntero  de pila del proceso */ /* desplazamiento 004B */
 
     " extern __start              \n" /* funcion a la que ceder el control */
-                                            /* cedemos el control a _start */
+    /* cedemos el control a _start */
     "   mov ebx,__start           \n"  /* _start es la funcion que reubica */
     "   ror ebx,4                 \n"                      /* ver c0dh.asm */
     "   add ax,bx                 \n"

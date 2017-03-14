@@ -17,7 +17,7 @@
 typedef struct
 {
     camposPubProceso        /* campos publicos de un descriptor de proceso */
-	
+
     /* añadir a partir de aqui nuevos campos */
 
 } descProcesoExt_t ;                    /* descriptor de proceso extendido */
@@ -87,6 +87,13 @@ tindx_t sigThread ( void ) ;                    /* planificador de threads */
 int activarThread ( tindx_t tindx ) ;
 
 void registrarEnPOrdenados ( pindx_t pindx ) ;
+
+tid_t crearThread ( word_t  IP0,
+                    word_t  SSThread,
+                    word_t  SP0,
+                    void * arg,
+                    pindx_t pindx,
+                    tid_t   tid ) ;
 
 pindx_t crearProceso (       word_t    segmento,
                              word_t    tam,

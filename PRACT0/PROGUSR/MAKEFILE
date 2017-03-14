@@ -250,18 +250,29 @@ $(DIRS.delsrc):
 
 run:
   cd ..\disquete
-  start so1.exe
+  start so1h.exe
 # so1.exe
+
+runmsdos:
+  @echo.
+  @cd ..\DISQUETE
+  start cmd /K "mode con cols=80 lines=25 & cls & msdos so1h.exe "
+
+rundebug:
+  @echo.
+  @cd ..\DISQUETE
+  start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug so1h.exe "
+  $(UUSB):\Utilidades\teraterm.exe
 
 rundosbox:
   cd ..\disquete
-  start $(UUSB):\Interno\dosbox-0.74\dosbox.exe so1.exe -noconsole -exit
+  start $(UUSB):\Interno\dosbox-0.74\dosbox.exe so1h.exe -noconsole -exit
   exit
 
 rundosboxdbg:
   @echo.
   cd ..\disquete
-  start $(UUSB):\Interno\dosbox-0.74\dosbox-74-debug.exe so1.exe -noconsole -exit
+  start $(UUSB):\Interno\dosbox-0.74\dosbox-74-debug.exe so1h.exe -noconsole -exit
   exit
 
 

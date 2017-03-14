@@ -6,7 +6,7 @@
 /* ----------------------------------------------------------------------- */
 /*                                ajustusr.h                               */
 /* ----------------------------------------------------------------------- */
-/*    Ajuste de los registros de segmento y salto al programa principal    */
+/*       Ajuste inicial del modelo de programacion para los procesos       */
 /* ----------------------------------------------------------------------- */
 
 #ifndef AJUSTUSR_H

@@ -186,7 +186,7 @@ rundebug:
   @echo.
   @cd ..\..\DISQUETE
   start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug SO1H.exe "
-  $(UUSB):\Utilidades\teraterm.exe
+  $(UUSB):\Utilidades\teraterm.exe telnet://localhost:23 /T=1
 
 rundosbox:
   @echo.

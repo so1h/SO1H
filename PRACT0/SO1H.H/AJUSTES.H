@@ -6,7 +6,7 @@
 /* ----------------------------------------------------------------------- */
 /*                                ajustes.h                                */
 /* ----------------------------------------------------------------------- */
-/*    Ajuste de los registros de segmento y salto al programa principal    */
+/*            Ajuste inicial del modelo de programacion de so1h            */
 /* ----------------------------------------------------------------------- */
 
 #ifndef AJUSTES_H
@@ -14,11 +14,11 @@
 
 #include "..\so1hpub.h\tipos.h"
 
-void startBin ( void ) ;      /* punto de entrada so1.bin (boot) o so1.com */
+void startBin ( void ) ;          /* punto de entrada para so1h.bin (boot) */
 
 void finish ( void ) ;
 
-modoSO1_t modoSO1 ( void ) ;  /* modo en que se ejecuta SO1: bin, exe, ... */
+modoSO1_t modoSO1 ( void ) ;     /* modo en que se ejecuta SO1H: bin o exe */
 
 byte_t unidadBIOS ( void ) ;       /* numero BIOS de la unidad de arranque */
 

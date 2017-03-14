@@ -1,3 +1,7 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
 /* ----------------------------------------------------------------------- */
 /*                                  so1dbg.c                               */
 /* ----------------------------------------------------------------------- */
@@ -18,12 +22,13 @@
 /* como uno de los primeros ficheros objeto la direccion de                */
 /* puntoDeParadaSO1 normalmente no variara al recompilar.                  */
 
-void puntoDeParadaSO1 ( void ) {
-asm 
-(
-    "   retf                      \n"
-	"   db 'Punto De Parada SO1'  \n"
-) ;
+void puntoDeParadaSO1 ( void )
+{
+    asm
+    (
+        "   retf                      \n"
+        "   db 'Punto De Parada SO1'  \n"
+    ) ;
 }
 
 /* leerScancodeListo devuelve el codigo de scan de la ultima tecla         */
@@ -38,27 +43,28 @@ asm                                                                          \
 ) ;                                                                          \
 
 #if (1)
-	
-asm 
+
+asm
 (
     " section .text               \n"
     "   global _leerScancodeListo \n"
     " _leerScancodeListo:         \n"
 ) ;
-        codigoLeerScanCodeListo() 
-asm 
+codigoLeerScanCodeListo()
+asm
 (
     " section .text               \n"
-	"   retf                      \n"
+    "   retf                      \n"
 ) ;
 
 #else
-	
-byte_t leerScancodeListo ( void ) {
-    codigoLeerScanCodeListo() ;            
+
+byte_t leerScancodeListo ( void )
+{
+    codigoLeerScanCodeListo() ;
 }
 
-#endif 
+#endif
 
 #define codigoLeerScanCode( )                                                \
 asm                                                                          \
@@ -77,24 +83,25 @@ asm                                                                          \
 /* devuelve como resultado.                                                */
 
 #if (1)
-	
-asm 
+
+asm
 (
     " section .text          \n"
     "   global _leerScancode \n"
     " _leerScancode:         \n"
 ) ;
-        codigoLeerScanCode() 
-asm 
+codigoLeerScanCode()
+asm
 (
     " section .text          \n"
-	"   retf                 \n"
+    "   retf                 \n"
 ) ;
 
 #else
-	
-byte_t leerScancode ( void ) {
-  codigoLeerScanCode() ;
+
+byte_t leerScancode ( void )
+{
+    codigoLeerScanCode() ;
 }
 
-#endif 
+#endif

@@ -1,8 +1,28 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                                ajustusr.c                               */
 /* ----------------------------------------------------------------------- */
-/*                                                                         */
+/*       Ajuste inicial del modelo de programacion para los procesos       */
 /* ----------------------------------------------------------------------- */
+
+/* Los ficheros ejecutables correspondientes a los procesos son ficheros   */
+/* EXE estandar de msdos, aunque renombrados con la extension BIN.         */
+/* El punto de entrada de estos ficheros es una funcion _start que es una  */
+/* función contenida en el fichero c0dh.asm de Smaller C. c0dh.asm se      */
+/* encarga de la reubicación.                                              */
+
+/* La función _start tras reubicar las variables globales cede el control  */
+/* a una función llamada __start__. Dependiendo del modelo de programacion */
+/* seleccionado en el fichero X:\SO1H\PRACT0\MKFILE0 mediante la macro     */
+/* MODEL (huge, dosh o dosu) la función __start__ se proporciona en este   */
+/* mismo fichero (en el caso de huge) o se toma de la biblioteca lcdh.a    */
+/* (en el caso de dosh o dosu).                                            */
+/*                                                                         */
+/* En todos los casos, al final __start__ cede el control a main.          */
 
 #include "..\so1hpub.h\main.h"
 
@@ -61,21 +81,5 @@ void finish ( void ) {                          /* main debe retornar aqui */
 /* El truco es que dichos argumentos argc y (char * *)&argv los va a       */
 /* colocar el sistema operativo en el momento de la creación del proceso   */
 /* es decir en la función preEjecutar del fichero EJECUTAR.C.              */
-
-#if   (__TURBOC__ == 0x0200)                         /* compilador TCC 2.0 */
-/* #error __TURBOC__ == 0x0200 */
-#elif (__TURBOC__ == 0x0401)                         /* compilador TCC 3.0 */
-/* #error __TURBOC__ == 0x0401 */
-#elif (__TURBOC__ == 0x0520)                         /* compilador BCC 5.2 */
-/* #error __TURBOC__ == 0x0520 */
-#else
-/* #error __TURBOC__ == 0x???? */
-#endif
-
-#if (__TURBOC__ == 0x0401) || (__TURBOC__ == 0x0520)
-void _setargv__ ( void ) {          /* el compilador requiere este símbolo */
-                                            /* cuando main usa argc y argv */
-}
-#endif
 
 #endif

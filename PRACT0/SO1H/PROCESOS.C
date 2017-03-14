@@ -73,7 +73,7 @@ trama_t * tramaTarea ;
 
 void resetPids ( void )
 {
-    numPids = 1 ;                        /* primer pid de un proceso usuario */
+    numPids = 1 ;                      /* primer pid de un proceso usuario */
 }
 
 pid_t nuevoPid ( void )
@@ -110,11 +110,11 @@ pindx_t sigThread ( void )                     /* planificador (scheduler) */
     {
 //    if (indProcesoActual != -1)
 //      plot('e', 0, contadorTimer0()) ;
-        indProcesoActual = -1 ;                  /* printStrWin(win_so, "h") ; */
+        indProcesoActual = -1 ;              /* printStrWin(win_so, "h") ; */
 //    enHalt = TRUE ;
 #if (0)
         asm sti
-        asm hlt                                     /* detenemos el procesador */
+        asm hlt                                 /* detenemos el procesador */
         asm cli
 #endif
     }
@@ -184,32 +184,32 @@ int activarThread ( tindx_t tindx )
 
 //  plot('e', 0, contadorTimer0()) ;
 
-    contRodajas++ ;                                                      /*T0*/
+    contRodajas++ ;                                                    /*T0*/
 #if (0)
-    if (hayTic)                 /* se llamo a activarProceso desde rti_timer */
+    if (hayTic)               /* se llamo a activarProceso desde rti_timer */
         contTicsRodaja = 0 ;
     else
-        contTicsRodaja = -1 ; /* ya que un tic puede estar a punto de llegar */
+        contTicsRodaja = -1 ;      /* un tic puede estar a punto de llegar */
     hayTic = FALSE ;
 #endif
     SS_Thread = seg((pointer_t)(descThread[indThreadActual].trama)) ;
     SP_Thread = off((pointer_t)(descThread[indThreadActual].trama)) ;
 
-    /* SS_Proceso y SP_Proceso son variables globales. Si fueran variables   */
-    /* locales habria que tener cuidado en el orden de las 3 instrucciones   */
-    /* ya que se modifica la pila y el orden de las instrucciones seria      */
-    /* critico                                                               */
+    /* SS_Proceso y SP_Proceso son variables globales. Si fueran variables */
+    /* locales habria que tener cuidado en el orden de las 3 instrucciones */
+    /* ya que se modifica la pila y el orden de las instrucciones seria    */
+    /* critico                                                             */
 
 //  enHalt = FALSE ;
 
-    nivelActivacionSO1H = 0 ;                /* esta ejecutandose un proceso */
+    nivelActivacionSO1H = 0 ;              /* esta ejecutandose un proceso */
 
 #if (0)
 
-    asm mov ss,SS_Proceso ;              /* establecemos la pila del proceso */
+    asm mov ss,SS_Proceso ;            /* establecemos la pila del proceso */
     asm mov sp,SP_Proceso ;
 
-    asm pop ds              /* establecemos el segmento de datos del proceso */
+    asm pop ds            /* establecemos el segmento de datos del proceso */
     asm pop es
 
     asm popa                      /* restauramos los registros del proceso */
@@ -275,7 +275,7 @@ static int ponerArgs ( pindx_t pindx, word_t DSProc, word_t offDATADS, word_t * 
     pointer_t ptrCmdLine ;
     char * * ptrArgv ;
     ptrCmdLine = pointer(DSProc, offDATADS + 1) ;
-//  *offArgv = offDATADS + 1 + tamComando ;      /* offset respecto DS pindx */
+//  *offArgv = offDATADS + 1 + tamComando ;    /* offset respecto DS pindx */
 //  ptrArgv = (char * far *)pointer(DSProc, offDATADS + 1 + tamComando) ;
 //  copiaLarga((pointer_t)&descProceso[pindx].comando, ptrCmdLine, tamComando) ;
     while ((car = ptrCmdLine[i]) != (char)0)
@@ -285,7 +285,7 @@ static int ponerArgs ( pindx_t pindx, word_t DSProc, word_t offDATADS, word_t * 
         case TRUE  :
             if (car != ' ')
             {
-                if (argc >= 20) return(-1) ;           /* 20 == maxArgs */
+                if (argc >= 20) return(-1) ;              /* 20 == maxArgs */
                 estadoBlanco = FALSE ;
                 ptrArgv[argc] = (char *)off((pointer_t)&ptrCmdLine[i]) ;
                 argc++ ;
@@ -344,31 +344,31 @@ pindx_t crearProceso (       word_t    segmento,
     int dfs ;
     modoAp_t modoAp ;
 
-    /* createProcess (pindx = -1) o exec (pindx = indProcesoActual) */
+//         /* createProcess (pindx = -1) o exec (pindx = indProcesoActual) */
 
     if ((pindx < 0) && (c2cPFR[DPOcupados].numElem == maxProcesos)) return(-1) ;
     cabecera = (cabecera_t *)pointer(segmento, 0x0000) ;
 #if (0)
     if (!igualesHasta((char *)cabecera->magicbyte,
-                      (char *)ptrMagicByteUsr, 3))            /* AJUSTES */
+                      (char *)ptrMagicByteUsr, 3))              /* AJUSTES */
     {
         if (!igualesHasta((char *)cabecera->magicbyte,
                           (char *)ptrMagicByteSO1, 3))
-            return(-1) ;                                  /* cabecera incorrecta */
+            return(-1) ;                            /* cabecera incorrecta */
 //    cabecera = (cabecera_t *)pointer(segmento, desplCab()) ;
     }
-    if ((cabecera->magicbyte[ 5] != ptrMagicByteUsr[ 5]) ||   /* ver AJUSTES.H */
+    if ((cabecera->magicbyte[ 5] != ptrMagicByteUsr[ 5]) ||   /* AJUSTES.H */
             (cabecera->magicbyte[ 8] != ptrMagicByteUsr[ 8]) ||
             (cabecera->magicbyte[11] != ptrMagicByteUsr[11]))
-        return(-1) ;                                    /* cabecera incorrecta */
+        return(-1) ;                                /* cabecera incorrecta */
 
 //    despl = (16*cabecera->segDatosSR) + cabecera->startData ;
-    if (despl & 0x0001) despl++ ;                     /* alineamos a palabra */
-    SS_NuevoProceso = segmento + (despl >> 4) ;                  /* SS=DS=ES */
+    if (despl & 0x0001) despl++ ;                   /* alineamos a palabra */
+    SS_NuevoProceso = segmento + (despl >> 4) ;                /* SS=DS=ES */
 //    SP_NuevoProceso = cabecera->SP0 ;
-    offDATADS = despl & 0x000F ;                      /* 0 <= offDATADS < 16 */
+    offDATADS = despl & 0x000F ;                    /* 0 <= offDATADS < 16 */
 
-    tamCodigo = (despl >> 4) ;                              /* en paragrafos */
+    tamCodigo = (despl >> 4) ;                            /* en paragrafos */
     if (cabecera->SP0 <= 0xFFF0)
         tamPila = (cabecera->SP0+15)/16 ;
     else
@@ -378,7 +378,7 @@ pindx_t crearProceso (       word_t    segmento,
         return(-1) ;
 #endif
 
-    if (pindx >= 0) i = pindx ;                      /* exec ==> mismo pindx */
+    if (pindx >= 0) i = pindx ;                    /* exec ==> mismo pindx */
     else
     {
         i = desencolarPC2c((ptrC2c_t)&c2cPFR[DPLibres]) ;
@@ -389,24 +389,24 @@ pindx_t crearProceso (       word_t    segmento,
 //    descProceso[i].tamCodigo = (16*cabecera->segDatosSR) + cabecera->startData ;
     descProceso[i].tamFichero = tamFich ;
 //descProceso[i].desplBSS = tamFich - 16*(SS_NuevoProceso-segmento) ;
-//    descProceso[i].desplBSS = cabecera->finData ;               /* mas facil */
+//    descProceso[i].desplBSS = cabecera->finData ;           /* mas facil */
 
     descProceso[i].tam = tam ;
 
     strcpy(descProceso[i].programa, programa) ;
 
-    if (pindx == -1)                                        /* createProcess */
+    if (pindx == -1)                                      /* createProcess */
     {
         descProceso[i].pid = nuevoPid() ;
-        descProceso[i].noStatus = FALSE ;          /* puede morir directamente */
+        descProceso[i].noStatus = FALSE ;      /* puede morir directamente */
         descProceso[i].ppindx = indProcesoActual ;
         descProceso[i].hpindx = -1 ;
         inicPC2c(&descProceso[i].c2cHijos, &e2PFR.e2Hijos, maxProcesos + i, TRUE) ;
         encolarPC2c(i, (ptrC2c_t)&descProceso[indProcesoActual].c2cHijos) ;
-        /* descProceso[i].tCPU = 0 ; */         /* tiempo de CPU en (tics/2**16) */
+        /* descProceso[i].tCPU = 0 ; */   /* tiempo de CPU en (tics/2**16) */
     }
     else
-        eliminarPC2c(i, (ptrC2c_t)&c2cPFR[POrdenados]) ;        /* 12/07/2015 */
+        eliminarPC2c(i, (ptrC2c_t)&c2cPFR[POrdenados]) ;     /* 12/07/2015 */
 
     descThread[i].estado = preparado ;
     registrarEnPOrdenados(i) ;
@@ -415,9 +415,9 @@ pindx_t crearProceso (       word_t    segmento,
 #if (0)
     for ( j = 0 ; (j < tamComando) &&
             ((carCmd = comando[j]) != (char)0) &&
-            (carCmd != '&') &&                           /* background */
-            (carCmd != '>') && (carCmd != '<') &&     /* redirecciones */
-            (carCmd != '|')                                   /* pipes */
+            (carCmd != '&') &&                               /* background */
+            (carCmd != '>') && (carCmd != '<') &&         /* redirecciones */
+            (carCmd != '|')                                       /* pipes */
             ; j++ )
         descProceso[i].comando[j] = carCmd ;
     descProceso[i].comando[j] = (char)0 ;
@@ -428,8 +428,8 @@ pindx_t crearProceso (       word_t    segmento,
 
     ptrPila = (word_t *)pointer(SS_NuevoProceso, SP_NuevoProceso) ;
 
-    *(--ptrPila) = offArgv ;                         /* apilo parametro argv */
-    *(--ptrPila) = argc ;                            /* apilo parametro argc */
+    *(--ptrPila) = offArgv ;                       /* apilo parametro argv */
+    *(--ptrPila) = argc ;                          /* apilo parametro argc */
 //    *(--ptrPila) = cabecera->desplFinish ; /* apilo dir. de retorno a finish */
 
     SP_NuevoProceso = off((pointer_t)ptrPila) - sizeof(trama_t) ;
@@ -444,8 +444,8 @@ pindx_t crearProceso (       word_t    segmento,
     descThread[i].trama->ES = SS_NuevoProceso ;
     descThread[i].trama->DI = 0x0000 ;
     descThread[i].trama->SI = 0x0000 ;
-    descThread[i].trama->BP = ((cabecera->SP0) - 6) ;       /* IP, CS, Flags */
-    descThread[i].trama->SP = ((cabecera->SP0) - 6) ;       /* IP, CS, Flags */
+    descThread[i].trama->BP = ((cabecera->SP0) - 6) ;     /* IP, CS, Flags */
+    descThread[i].trama->SP = ((cabecera->SP0) - 6) ;     /* IP, CS, Flags */
     descThread[i].trama->BX = 0x0000 ;
     descThread[i].trama->DX = 0x0000 ;
     descThread[i].trama->CX = 0x0000 ;
@@ -457,17 +457,17 @@ pindx_t crearProceso (       word_t    segmento,
     {
         pushf ;
         pop ax ;
-        mov SR,ax ;                                               /* SR = Flags */
+        mov SR,ax ;                                          /* SR = Flags */
     }
 #endif
     descThread[i].trama->Flags =
-        (SR & 0xF000) | 0x0202 ;                   /* interrupciones permitidas */
+        (SR & 0xF000) | 0x0202 ;              /* interrupciones permitidas */
 
-    /*  descThread[i].trama->Flags = 0x7302 ; */                      /* traza */
+    /*  descThread[i].trama->Flags = 0x7302 ; */                  /* traza */
 
 //  descThread[i].desplPila = cabecera->finBSS ;
 
-    if (pindx == -1)                                         /* createProcess */
+    if (pindx == -1)                                      /* createProcess */
     {
         descProceso[i].uid = descProceso[indProcesoActual].uid ;
         descProceso[i].gid = descProceso[indProcesoActual].gid ;
@@ -490,7 +490,7 @@ pindx_t crearProceso (       word_t    segmento,
             }
         }
     }
-    else                                                             /* exec */
+    else                                                           /* exec */
     {
         /* es innecesario todo lo anterior ya que i = pindx = indProcesoActual */
     }
@@ -529,9 +529,9 @@ void inicProcesos ( void )
         descThread[i].trama = (trama_t *)NULL ;
         descThread[i].noStatus = TRUE ;        /* puede morir directamente */
         descThread[i].pindx = -1 ;
-		descThread[i].SSThread = 0x0000 ;
-		descThread[i].SP0 = 0x0000 ;
-	}
+        descThread[i].SSThread = 0x0000 ;
+        descThread[i].SP0 = 0x0000 ;
+    }
 
     for ( i = maxProcesos-1 ; i > 0 ; i-- )    /* todos menos el proceso 0 */
     {
@@ -551,16 +551,16 @@ void inicProcesos ( void )
 //      /* descProceso[i].tCPU = 0 ; */   /* tiempo de CPU en (tics/2**16) */
     }
 
-//	SS_Kernel = SS_SO1H + ((SP0_SO1H + 15)/16) ;/* se inicializa en inicGM */
-	
+//  SS_Kernel = SS_SO1H + ((SP0_SO1H + 15)/16) ;/* se inicializa en inicGM */
+
 //  descThread[0].SSThread = SS_SO1H ;          /* se inicializa en inicGM */
 //  descThread[0].SP0 = SP0_SO1H ;              /* se inicializa en inicGM */
     descThread[0].tid = 0 ;
-	descThread[0].estado = ejecutandose ;
+    descThread[0].estado = ejecutandose ;
     descThread[0].trama = (trama_t *)&_stop__bss + SP0_SO1H - sizeof(trama_t) ;
     descThread[0].noStatus = TRUE ;            /* puede morir directamente */
     descThread[0].pindx = 0 ;
-	
+
 //  descProceso[0].CSProc = CS_SO1H ; */        /* se inicializa en inicGM */
 //  descProceso[0].tam = SS_SO1H - CS_SO1H ; */ /* se inicializa en inicGM */
     descProceso[0].pid = nuevoPid() ;              /* el proceso 0 es SO1H */
@@ -574,7 +574,7 @@ void inicProcesos ( void )
     descProceso[0].desplBSS = &_start__bss - ((dword_t)&_start__data & 0xFFFFFFF0) ;
     descProceso[0].desplPila = &_stop__bss - ((dword_t)&_start__data & 0xFFFFFFF0) ;
     descProceso[0].tamFichero = &_stop__data - &_start__text + sizeof(cabecera_t) ;
-	
+
 #if (1)
     printStrVideo("\n sizeof(cabecera_t) = ") ;
     printDecVideo(sizeof(cabecera_t), 1) ;                           /* Ok */
@@ -593,14 +593,14 @@ void inicProcesos ( void )
 //  /* descProceso[0].tCPU = 0 ; */           /* expresado en tics/(2**16) */
 
     descProceso[0].nfa = 0 ;
-    for ( i = 0 ; i < dfMax ; i++ )                  /* inicializacion de tfa */
+    for ( i = 0 ; i < dfMax ; i++ )               /* inicializacion de tfa */
     {
         descProceso[0].tfa[i].dfs = -1 ;
         descProceso[0].tfa[i].pos = 0 ;
         descProceso[0].tfa[i].modoAp = O_RDONLY ;
     }
 
-    for ( i = 0 ; i < dfsMax ; i++ )        /* inicializacion de descFichero */
+    for ( i = 0 ; i < dfsMax ; i++ )      /* inicializacion de descFichero */
         descFichero[i].tipo = flibre ;
 
     switch (modoSO1())
@@ -641,13 +641,13 @@ int terminarProcIndx ( pindx_t pindx )            /* termina proceso pindx */
     modoAp_t modoAp ;
     int j, dfs ;
 
-    if (pindx == 0) return(-1) ;                          /* proceso inicial */
-    if ((pindx < 0) || (pindx >= maxProcesos)) return(-2) ;         /* error */
+    if (pindx == 0) return(-1) ;                        /* proceso inicial */
+    if ((pindx < 0) || (pindx >= maxProcesos)) return(-2) ;       /* error */
     if (descThread[pindx].estado == libre) return(-3) ;
     if (descThread[pindx].estado == preparado)
         eliminarPC2c(pindx, (ptrC2c_t)&c2cPFR[TPreparados]) ;
 
-    for ( j = 0 ; j < dfMax ; j++ )              /* cerrar ficheros abiertos */
+    for ( j = 0 ; j < dfMax ; j++ )            /* cerrar ficheros abiertos */
     {
         dfs = descProceso[pindx].tfa[j].dfs ;
         if (dfs > 0)
@@ -680,7 +680,7 @@ int matarProcIndx ( pindx_t pindx )                  /* mata proceso pindx */
 {
     int err = 0 ;
     rindx_t rindx ;
-    if (descThread[pindx].estado == libre) return(-1) ;         /* ya libre */
+    if (descThread[pindx].estado == libre) return(-1) ;        /* ya libre */
     if (descThread[pindx].estado == bloqueado)
     {
         rindx = descThread[pindx].esperandoPor ;

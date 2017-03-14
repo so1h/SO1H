@@ -41,7 +41,8 @@ $(PROGRAMA).bin: $(PROGRAMA).exe
   @echo.
   copy $(PROGRAMA).bin ..\DISQUETE > nul
 
-$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o blockpr.o procesos.o
+$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o blockpr.o procesos.o \
+                 interrup.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 obj\ajustes.o\
 obj\$(PROGRAMA).o\
@@ -51,6 +52,7 @@ obj\so1dbg.o\
 obj\gm.o\
 obj\blockpr.o\
 obj\procesos.o\
+obj\interrup.o\
 $(LISTAPUBS)\
 $(LCDH)
 # para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente
@@ -202,7 +204,7 @@ rundebug:
   @echo.
   @cd ..\DISQUETE
   start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug $(PROGRAMA).exe "
-  $(UUSB):\Utilidades\teraterm.exe
+  $(UUSB):\Utilidades\teraterm.exe telnet://localhost:23 /T=1
 
 rundosbox:
   @echo.

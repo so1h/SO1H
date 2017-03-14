@@ -30,7 +30,7 @@ typedef byte_t * pointer_t ;
 
 typedef void ( * manejador_t) ( void ) ;/* manejador de llamada al sistema */
 
-typedef void interrupt ( * rti_t) ( void ) ;     /* rutina de trat. de int */
+typedef void interrupt ( * rti_t ) ( void ) ;    /* rutina de trat. de int */
 
 typedef void ( * isr_t ) ( void ) ;          /* rutina de servicio de int. */
 
@@ -92,5 +92,7 @@ typedef int rindx_t ;         /* indice de recurso en la tabla de recursos */
 #define SEG(dir_lineal) ((word_t)((dword_t)dir_lineal >> 4))  
 
 #define OFF(dir_lineal) (((word_t)dir_lineal) & 0x000F)  
+
+#define MK_FP(seg,ofs)  (((dword_t)(seg) << 16) | (word_t)(ofs))
 
 #endif /* TIPOS_H */
