@@ -42,7 +42,7 @@ $(PROGRAMA).bin: $(PROGRAMA).exe
   copy $(PROGRAMA).bin ..\DISQUETE > nul
 
 $(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o blockpr.o procesos.o \
-                 interrup.o
+                 interrup.o llamadas.o matrix.o manej_0b.o manej_0f.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 obj\ajustes.o\
 obj\$(PROGRAMA).o\
@@ -53,6 +53,10 @@ obj\gm.o\
 obj\blockpr.o\
 obj\procesos.o\
 obj\interrup.o\
+obj\llamadas.o\
+obj\matrix.o\
+obj\manej_0b.o\
+obj\manej_0f.o\
 $(LISTAPUBS)\
 $(LCDH)
 # para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente

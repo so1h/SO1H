@@ -11,6 +11,7 @@
 #include "..\so1h.h\procesos.h"
 #include "..\so1h.h\blockpr.h"
 #include "..\so1h.h\interrup.h"
+#include "..\so1hpub.h\printvid.h"
 
 rti_t VIOrg [ nVIntMax ] ;          /* vectores de interrupcion originales */
 
@@ -51,15 +52,15 @@ asm
     " _rti_00:                             \n"
     " RTIF 0 \n RTIF 1 \n RTIF 2 \n RTIF 3 \n"
     " RTIF 4 \n RTIF 5 \n RTIF 6 \n RTIF 7 \n"
-    " RTIF 8 \n RTIF 9 \n RTIF a \n RTIF b \n"
-    " RTIF c \n RTIF d \n RTIF e \n RTIF f \n"
+//  " RTIF 8 \n RTIF 9 \n RTIF a \n RTIF b \n"
+//  " RTIF c \n RTIF d \n RTIF e \n RTIF f \n"
 	"fin:                                  \n"
 ) ;
    
-    prologo_rti_sin_PUSHA() ;                                  /* AH en BL */
+    prologo_rti_sin_PUSHA() ;                               /* nVInt en BL */
 
     isr[reg_BL()]() ;/* llamada a la rutina de servicio de la interrupcion */
-//                                     /* (se apila la dir. de ret. CS:IP) */
+//                                     /* (se apila la dir. de ret. CS:IP) */	
     epilogo_rti() ;
   
 }
@@ -75,9 +76,22 @@ void inicTVI ( void ) {
 
 }
 
-void redirigirInt ( byte_t nVInt, isr_t isrx ) {
-    ptrTVI[nVInt] = (rti_t)MK_FP(CS_SO1H, (((word_t)&envolvente_00)+6)+nVInt*tamCodigoRTI) ;
-    isr[nVInt] = isrx ;
+void redirigirInt ( byte_t nVInt, isr_t isr_x ) {
+    ptrTVI[nVInt] = 
+	    (rti_t)MK_FP(CS_SO1H, 
+	                 (((dword_t)&envolvente_00)+6)+(dword_t)(nVInt*tamCodigoRTI)-((dword_t)CS_SO1H << 4)) ;
+    isr[nVInt] = isr_x ;
+	
+	printStrVideo("\n ptrTVI[0x") ;
+	printHexVideo((word_t)nVInt, 2) ;
+	printStrVideo("] = ") ;
+	printPtrVideo((pointer_t)ptrTVI[nVInt]) ;
+
+	printStrVideo("\n isr[0x") ;
+	printHexVideo((word_t)nVInt, 2) ;
+	printStrVideo("] = 0x") ;
+	printLHexVideo((dword_t)isr[nVInt], 5) ;
+	
 }
 
 void redirigirIntHardware ( byte_t irq, isr_t isr ) {

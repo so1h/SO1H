@@ -13,17 +13,24 @@
 #include "..\so1hpub.h\tipos.h"                          /* byte_t, word_t */
 #include "..\so1hpub.h\pic.h"
 #include "..\so1h.h\ajustes.h"
-#include "..\so1.h\procesos.h"
-#include "..\so1.h\blockpr.h"
-#include "..\so1.h\bios.h"                                 /* printStrBIOS */
-#include "..\so1.h\plot.h"
-#include "..\so1.h\llamadas.h"
+#include "..\so1h.h\procesos.h"
+#include "..\so1h.h\blockpr.h"                      /* nivelActivacionSO1H */
+#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
+//#include "..\so1h.h\bios.h"                              /* printStrBIOS */
+//#include "..\so1h.h\plot.h"
+#include "..\so1h.h\llamadas.h"
 
-#include "..\so1.h\matrix.h"                              /* NUM_MATRICULA */
+#include "..\so1h.h\matrix.h"                             /* NUM_MATRICULA */
 
 /* ----------------------------------------------------------------------- */
 /*        manejadores de las diferentes llamadas al sistema de SO1         */
 /* ----------------------------------------------------------------------- */
+
+extern void so1_manejador_0b ( void ) ;  
+
+extern void so1_manejador_0f ( void ) ;  
+
+#if (0)
 
 extern void so1_manejador_00 ( void ) ;        /* 0: createProcess 1: fork */
 //                                           /* 2: exec 3: waitpid 4: exit */
@@ -47,77 +54,70 @@ extern void so1_manejador_03 ( void ) ;                      /* 0: retardo */
 extern void so1_manejador_04 ( void ) ;                 /* 0: activarTraza */
 //                                                  /* 1: analizarProcesos */
 
+#endif
+
 void so1_manejador_Nulo ( void )
 {
 }
 
-manejador_t manejador [ ] =                          /* tabla de manejadores */
+#define m(x) /* nada */
+
+manejador_t manejador [ ] =                        /* tabla de manejadores */
 {
-    so1_manejador_00,                                 /* gestion de procesos */
-    so1_manejador_01,                                  /* manejo de ficheros */
-    so1_manejador_02,                                /* soporte para drivers */
-    so1_manejador_03,                                           /* obtenInfo */
-    so1_manejador_04,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo,
-    so1_manejador_Nulo
+m(0) so1_manejador_Nulo,
+m(1) so1_manejador_Nulo,                               
+m(2) so1_manejador_Nulo,                               
+m(3) so1_manejador_Nulo,                               
+m(4) so1_manejador_Nulo,                                      
+m(5) so1_manejador_Nulo,
+m(6) so1_manejador_Nulo,
+m(7) so1_manejador_Nulo,
+m(8) so1_manejador_Nulo,
+m(9) so1_manejador_Nulo,
+m(a) so1_manejador_Nulo,
+m(b) so1_manejador_0b,                                     /* para pruebas */
+m(c) so1_manejador_Nulo,
+m(d) so1_manejador_Nulo,
+m(e) so1_manejador_Nulo,
+m(f) so1_manejador_0f                                      /* para pruebas */
 } ;
+
+#undef m(x)
 
 #define maxLlamadas sizeof(manejador)/sizeof(manejador_t)
 
-byte_t codOp ;
-
-word_t dirDestino ;
-
-/* Punto de entrada del S.O. */
-
-void far isr_SO1 ( void )
+void isr_SO1H ( void )                        /* Punto de entrada del S.O. */
 {
-
+	
 #ifdef NUM_MATRICULA
     macroEmboscada() ;
 #endif
 
-    if (nivelActivacionSO1 > 1)
+    if (nivelActivacionSO1H > 1)
     {
-        printStrBIOS("\n llamada al sistema desde el nivel ") ;
-        printDecBIOS(nivelActivacionSO1-1, 1) ;
-        printStrBIOS(" (0: usuario, 1: tarea) pindx = ") ;
-        printIntBIOS(indProcesoActual, 1) ;
-        printStrBIOS(" AX = ") ;
-        printHexBIOS(tramaProceso->AX, 4) ;
+        printStrVideo("\n llamada al sistema desde el nivel ") ;
+        printDecVideo(nivelActivacionSO1H-1, 1) ;
+        printStrVideo(" (0: usuario, 1: tarea) pindx = ") ;
+        printIntVideo(indProcesoActual, 1) ;
+        printStrVideo(" tid = ") ;
+        printIntVideo(indThreadActual, 1) ;
+        printStrVideo(" AX = ") ;
+        printHexVideo(tramaThread->AX, 4) ;
         /* while (TRUE) ; */
-        asm cli ;
-        asm hlt ;                                        /* paramos la CPU */
+        asm("cli") ;
+        asm("hlt") ;                                     /* paramos la CPU */
     }
 
 //       /* los parametros de entrada de la llamada al sistema estan en la */
 //                                                     /* trama de la pila */
 
-    tramaProceso = (trama_t far *)pointer(SS_Proceso, SP_Proceso) ;
+    tramaThread = (trama_t *)MK_P(SS_Thread, SP_Thread) ;
 
-    plot('s', tramaProceso->AX, contadorTimer0()) ;
-
-#if (FALSE)                                             /* para depuracion */
-    printStrWin(win_so, "\n pindx = ") ;
-    printIntWin(win_so, indProcesoActual, 1) ;
-    printStrWin(win_so, " AX = ") ;
-    printHexWin(win_so, tramaProceso->AX, 4) ;
-#endif
-
-    codOp = tramaProceso->AH ;                                       /* ah */
+    static byte_t codOp ;
+	
+	codOp = tramaThread->AH ;                                        /* ah */
 
     if (codOp < maxLlamadas) manejador[codOp]() ;
-
-    plot('e', 0, contadorTimer0()) ;
 
     /* los parametros de salida de la llamada al sistema estan en la trama */
 

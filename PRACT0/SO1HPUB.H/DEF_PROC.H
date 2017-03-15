@@ -223,6 +223,7 @@ typedef struct {
     dobleEnlace_t Ocupados [ maxRecursos + 2 ] ;                  /* P + E */
   } e2DescRecurso ;
   dobleEnlace_t e2Hijos [ maxProcesos + maxProcesos ] ;    /* P+E de hijos */
+  dobleEnlace_t e2Threads [ maxThreads + maxProcesos ] ; /* P+E de threads */
   dobleEnlace_t e2Preparados [ maxThreads + 1 ] ;    /* Cola de preparados */  /* unir en una sola cola */
   dobleEnlace_t e2Urgentes [ maxThreads + 1 ] ;  /* Desbloqueados urgentes */  /* ver prepararDesbloqueadosUrgentes */
   dobleEnlace_t e2POrdenados [ maxProcesos + 1 ] ;          /* Particiones */

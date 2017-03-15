@@ -16,12 +16,6 @@ extern rindx_t recVInt [ nVIntMax ] ;      /* recurso que posee ese vector */
 
 void rti_00 ( void ) ;
 
-#if !defined(TASM32)
-
-void tratamientoComun ( void ) ;
-
-#endif
-
 void inicTVI ( void ) ;
 
 void redirigirInt ( byte_t nVInt, isr_t isr ) ;

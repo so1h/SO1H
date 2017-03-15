@@ -20,7 +20,7 @@
 
 extern word_t tamBloqueMax ;   /* mayor bloque de memoria libre disponible */
 
-extern ptrBloque_t listaLibres ;
+extern ptrBloque_t listaLibres ;       /* apunta a la cabecera de la lista */
 
 word_t k_buscarBloque ( word_t tam ) ;
 

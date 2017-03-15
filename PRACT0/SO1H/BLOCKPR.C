@@ -98,6 +98,7 @@ asm
 (
     "   mov [bp-4],cx \n" /* reg_SS */
     "   mov [bp-8],dx \n" /* reg_SP */
+	"   push bx       \n"                             /* para preservar bl */	
 ) ;    	
   
 	SS_Thread = reg_SS ;                   /* salvamos la pila del proceso */
@@ -105,11 +106,12 @@ asm
     reg_SS = SS_Kernel ;                /* establecemos la pila del Kernel */
     reg_SP = SP0_Kernel ;
 	
-asm                    /* usamos cx, dx y eax para no modificar bl (codOp) */
+asm                    /* usamos cx, dx y eax para no modificar bl (nVInt) */
 (	
     "   mov cx,[bp-4]  \n" /* reg_SS */
     "   mov dx,[bp-8]  \n" /* reg_SP */
 	"   mov eax,[bp+4] \n" /* dir. ret. */
+	"   pop bx         \n"                             /* restablecemos bl */
     "   mov ss,cx      \n"
     "   mov sp,dx      \n"
 	"   push eax       \n"
@@ -138,9 +140,16 @@ asm
 
 } 
 
-byte_t reg_BL ( void ) {
-	asm("mov al,bl \n") ; 
-}
+dword_t reg_BL ( void ) ;
+asm 
+(   
+    " section .text    \n"
+    "   global _reg_BL \n"
+    " _reg_BL:         \n"
+    "   movzx eax,bl   \n"
+    "   retf           \n"
+) ;
+
 
 
 

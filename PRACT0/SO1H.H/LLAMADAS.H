@@ -14,7 +14,7 @@
 
 #define nVIntSO1H    0x60            /* numero de vector utilizado por SO1 */
 
-void isr_SO1 ( void ) ;
+void isr_SO1H ( void ) ;
 
 #endif /* LLAMADAS_H */
 

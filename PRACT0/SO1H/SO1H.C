@@ -51,7 +51,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1hpub.h\seccion.h"                      /* mostrarSecciones */
 #include "..\so1h.h\interrup.h"                   /* inicTVI, redirigirInt */
 #include "..\so1hpub.h\ll_s_exc.h"                            /* nVIntSO1H */
-
+#include "..\so1h.h\procesos.h"           /* inicProcesos, indThreadActual */
+#include "..\so1h.h\llamadas.h"                                /* isr_SO1H */
 
 #define pSV(x) printStrVideo(x)                                   /* macro */
 //#define E(x) x
@@ -59,7 +60,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 void main ( void )
 {
-    word_t loQueHay ;
+    word_t loQueHay ; 
 
     asm("cli") ;                          /* se inhiben las interrupciones */
 
@@ -89,37 +90,7 @@ void main ( void )
 //  leerScancode() ;                          /* para detener la ejecucion */
 //  leerScancode() ;                            /* con las ints. inhibidas */
 
-    if ((modoSO1() == modoSO1_Bin) || (modoSO1() == modoSO1_Bs))
-    {
-        printStrVideo("\n unidadBIOS = 0x") ;
-        printHexVideo(unidadBIOS(), 2) ;
-        printLnVideo() ;
-//      inicSF(unidadBIOS()) ;  /* asigna memoria a segBuferSO1 y FAT (GM) */
-//      assert(inicMinisfFAT() == 0, "\a\n so1(): ERROR minisfFAT") ;
-//      inicTablaFichAbiertos() ;
-    }
-//  else
-//      assert(inicMinisfMSDOS() == 0, "\a\n so1(): ERROR minisfMSDOS") ;
-
-    IMRInicial = valorIMR() ;          /* tomamos nota del IMR (pic 8259A) */
-
-    printStrVideo("\n valorIMR() = ") ;
-    printHexVideo(valorIMR(), 4) ;
-    printStrVideo(" = ") ;
-
-    for ( int i = 0 ; i < 4 ; i++ )
-    {
-        printBinVideo((valorIMR() >> 12-i*4) & 0x000F, 4) ;
-        printStrVideo(" ") ;
-    }
-    printLnVideo() ;
-
-//  leerScancode() ;                          /* para detener la ejecucion */
-//  leerScancode() ;                            /* con las ints. inhibidas */
-
     obtenerMapa() ;                 /* CS_SO1H, DS_SO1H, SS_SO1H, BSS_SO1H */
-
-//  guardarDS_SO1H_1() ;                            /* DS_Kernel = DS_SO1H */
 
     printStrVideo(
         "\n"
@@ -145,8 +116,15 @@ void main ( void )
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
+//  E(inicRecursos()) ;    
+
+	E(inicProcesos()) ;           /* inicializacion del gestor de procesos */ 
+	                                          /* y se inicializa SS_Kernel */
+    descProceso[indProcesoActual].uid = 0 ;                        /* root */
+    descProceso[indProcesoActual].gid = 0 ;                        /* root */
+
     E(inicGM()) ;                  /* inicialización del gestor de memoria */
-//               /* (asigna memoria al proceso 0, al thread 0 y al kernel) */
+
     printStrVideo(
         "\n"
         "\n"
@@ -160,9 +138,6 @@ void main ( void )
 
     printLnVideo() ;
     mostrarListaLibres() ;
-
-//  /* Reservamos SP0_Kernel bytes de memoria para la pila del nucleo y    */
-    /* guardamos en SS_Kernel el segmento de la pila correspondiente.      */
 
     printStrVideo(
         "\n"
@@ -191,18 +166,59 @@ void main ( void )
 
 #endif
 
-    E(inicProcesos()) ;           /* inicializacion del gestor de procesos */ /* igual deberia estar antes de inicGM */
+    if ((modoSO1() == modoSO1_Bin) || (modoSO1() == modoSO1_Bs))
+    {
+        printStrVideo("\n unidadBIOS = 0x") ;
+        printHexVideo(unidadBIOS(), 2) ;
+        printLnVideo() ;
+//      inicSF(unidadBIOS()) ;  /* asigna memoria a segBuferSO1 y FAT (GM) */
+//      assert(inicMinisfFAT() == 0, "\a\n so1(): ERROR minisfFAT") ;
+//      inicTablaFichAbiertos() ;
+    }
+//  else
+//      assert(inicMinisfMSDOS() == 0, "\a\n so1(): ERROR minisfMSDOS") ;
+
+    IMRInicial = valorIMR() ;          /* tomamos nota del IMR (pic 8259A) */
 
     E(inicTVI()) ;    /* inicializamos la tabla de vectores de interrucion */
 	
+    printStrVideo("\n valorIMR() = ") ;
+    printHexVideo(valorIMR(), 4) ;
+    printStrVideo(" = ") ;
+
+    for ( int i = 0 ; i < 4 ; i++ )
+    {
+        printBinVideo((valorIMR() >> 12-i*4) & 0x000F, 4) ;
+        printStrVideo(" ") ;
+    }
+    printLnVideo() ;
+
+//  leerScancode() ;                          /* para detener la ejecucion */
+//  leerScancode() ;                            /* con las ints. inhibidas */
+
 //	/* establecemos el vector de interrupcion de llamadas al sistema SO1   */
 
-    printStrVideo("\n redirigirInt(nVIntSO1H, ") ;
-//  printLHexVideo(pointer(CS_SO1, (word_t)isr_SO1)) ;
-    printStrVideo(")") ;
-//  redirigirInt(nVIntSO1H, (isr_t)pointer(CS_SO1, (word_t)isr_SO1)) ;
+    printStrVideo("\n redirigirInt(nVIntSO1H, isr_SO1H)") ;
+    redirigirInt(nVIntSO1H, isr_SO1H) ;
     printStrVideo(" nVIntSO1H = 0x") ;
     printHexVideo(nVIntSO1H, 2) ;
+    printStrVideo(" isr_SO1H = 0x") ;
+    printLHexVideo((dword_t)isr_SO1H, 5) ;
+	
+	/* primera llamada al sistema de prueba: AH = 0x0f (no bloqueante) */ 
+	
+	asm("mov ax,0f00h") ;
+	asm("int 0x60") ;
+	
+    printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;
+
+	/* segunda llamada al sistema de prueba: AH = 0x0b (no bloqueante) */ 
+	
+	asm("mov ax,0b00h") ;
+	asm("int 0x60") ;
+	
+    printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;
+	
 
     /*  pasos siguientes:
           PROCESOS.C

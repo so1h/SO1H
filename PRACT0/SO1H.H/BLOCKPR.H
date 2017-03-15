@@ -41,7 +41,7 @@ void setKernelStack ( void ) ;
 
 void setThreadStack ( void ) ;
 
-byte_t reg_BL ( void ) ;
+dword_t reg_BL ( void ) ;
 
 //               /* prologo de una rti o llamada al sistema (int nVIntSO1) */
 
@@ -51,11 +51,13 @@ asm                                                                          \
 (                                                                            \
     "   push es \n"                                                          \
     "   push ds \n"                                                          \
+    "   push bx \n"                                   /* para preservar bl */\
 ) ;                                                                          \
   if (++nivelActivacionSO1H == 1) {                                          \
 asm                                                                          \
 (                                                                            \
-    "   mov cx,ss \n"       /* usamos cx y dx para no modificar bl (codOp) */\
+    "   pop bx \n"                                     /* restablecemos bl */\
+    "   mov cx,ss \n"       /* usamos cx y dx para no modificar bl (nVInt) */\
     "   mov dx,sp \n"                                                        \
 ) ;                                                                          \
     setKernelStack() ;                                                       \
@@ -69,6 +71,8 @@ asm                                                                          \
     "   pusha \n"      /* apilamos todos los registros del proceso (80286) */\
 ) ;                                      /* ax, cx, dx, bx, sp, bp, si, di */\
     prologo_rti_sin_PUSHA() ;                                 /* fin macro */
+
+//               /* epilogo de una rti o llamada al sistema (int nVIntSO1) */
 
 #define epilogo_rti()                                             /* macro */\
                                                                              \
@@ -92,8 +96,8 @@ asm                                                                          \
     "   popa   \n"  /* restauramos todos los registros del proceso (80286) */\
                                          /* di, si, bp, sp, bx, dx, cx, ax */\
     "   iret   \n"                                                           \
-) ;                                                           /* fin macro */
-															  
+) ;                                                           /* fin macro */	
+																
 void prepararDesbloqueadosUrgentes ( void ) ;
 
 /* un thread puede terminar durante una llamada o durante una rti          */

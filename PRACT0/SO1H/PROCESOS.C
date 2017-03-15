@@ -509,7 +509,8 @@ void inicProcesos ( void )
 
     pindx_t i ;
 
-    ccbAlEpilogo = (ccb_t)MK_P(DS_SO1H, (word_t)&descCcbAlEpilogo) ;
+//  ccbAlEpilogo = (ccb_t)MK_P(DS_SO1H, (word_t)&descCcbAlEpilogo) ;
+    ccbAlEpilogo = (ccb_t)&descCcbAlEpilogo ;
 
 //  /* inicializamos las colas: */
 
@@ -522,6 +523,67 @@ void inicProcesos ( void )
     inicPC2c(&c2cPFR[POrdenados],  &e2PFR.e2POrdenados,           maxProcesos,     FALSE) ;
     inicPC2c(&c2cPFR[TDormidos],   &e2PFR.e2TDormidos,            maxProcesos,     FALSE) ;
 
+//  /* inicializamos descProceso[0]: proceso SO1H y nucleo */	
+	
+    descProceso[0].CSProc = CS_SO1H ; 
+    descProceso[0].tam = SS_SO1H - CS_SO1H ; 
+    descProceso[0].pid = nuevoPid() ;              /* el proceso 0 es SO1H */
+    descProceso[0].noStatus = TRUE ;           /* puede morir directamente */
+    descProceso[0].ppindx = -1 ;                         /* no tiene padre */
+    descProceso[0].hpindx = -1 ;
+    inicPC2c(&descProceso[0].c2cHijos, &e2PFR.e2Hijos, maxProcesos + 0, TRUE) ;
+    descProceso[i].numTids = 0 ;
+    inicPC2c(&descProceso[0].c2cThreads, &e2PFR.e2Threads, maxThreads + 0, TRUE) ;
+    descProceso[0].tamCodigo = &_stop__text - &_start__text + sizeof(cabecera_t) ;
+    descProceso[0].desplBSS = &_start__bss - ((dword_t)&_start__data & 0xFFFFFFF0) ;
+    descProceso[0].desplPila = &_stop__bss - ((dword_t)&_start__data & 0xFFFFFFF0) ;
+    descProceso[0].tamFichero = &_stop__data - &_start__text + sizeof(cabecera_t) ;
+
+    apilarPC2c(0, (ptrC2c_t)&c2cPFR[DPOcupados]) ;           /* apilamos 0 */
+    apilarPC2c(0, (ptrC2c_t)&c2cPFR[POrdenados]) ;           /* apilamos 0 */
+
+//  /* inicializamos descThread[0]: thread SO1H */	
+
+    descThread[0].SSThread = SS_SO1H ;          
+    descThread[0].SP0 = SP0_SO1H ;              
+    descThread[0].tid = 0 ;
+    descThread[0].estado = ejecutandose ;
+    descThread[0].trama = (trama_t *)&_stop__bss + SP0_SO1H - sizeof(trama_t) ;
+    descThread[0].noStatus = TRUE ;            /* puede morir directamente */
+    descThread[0].pindx = 0 ;
+
+    apilarPC2c(0, (ptrC2c_t)&c2cPFR[DTOcupados]) ;           /* apilamos 0 */
+	apilarPC2c(0, (ptrC2c_t)&descProceso[0].c2cThreads) ;    /* apilamos 0 */
+	descProceso[i].numTids++ ;
+		
+//  /* inicializamos la pila del nucleo SS_Kernel y SP0_Kernel (ajustsp.h) */ 		
+		
+    SS_Kernel = SS_SO1H + ((SP0_SO1H + 15)/16) ;        /* pila del nucleo */
+
+//  /* inicializamos el resto de descriptores de proceso */                  	
+	
+    for ( i = maxProcesos-1 ; i > 0 ; i-- )    /* todos menos el proceso 0 */
+    {
+        descProceso[i].pid = -1 ;
+        descProceso[i].uid = -1 ;
+        descProceso[i].gid = -1 ;
+        descProceso[i].noStatus = TRUE ;       /* puede morir directamente */
+        inicPC2c(&descProceso[i].c2cHijos, &e2PFR.e2Hijos, maxProcesos + i, TRUE) ;
+        descProceso[i].numTids = 0 ;
+        inicPC2c(&descProceso[i].c2cThreads, &e2PFR.e2Threads, maxThreads + i, TRUE) ;
+        descProceso[i].CSProc = 0x0000 ;
+        descProceso[i].tamCodigo = 0x0000 ;
+        descProceso[i].desplBSS = 0x0000 ;
+        descProceso[i].desplPila = 0x0000 ;
+        descProceso[i].tam = 0 ;
+        descProceso[i].tamFichero = 0 ;
+        descProceso[i].programa[0] = (char)0 ;
+//      /* descProceso[i].tCPU = 0 ; */   /* tiempo de CPU en (tics/2**16) */
+        apilarPC2c(i, (ptrC2c_t)&c2cPFR[DPLibres]) ;         /* apilamos i */
+    }
+
+//  /* inicializamos el resto de descriptores de thread */                  	
+	
     for ( i = maxThreads-1 ; i > 0 ; i-- )      /* todos menos el trhead 0 */
     {
         descThread[i].tid = -1 ;
@@ -531,49 +593,9 @@ void inicProcesos ( void )
         descThread[i].pindx = -1 ;
         descThread[i].SSThread = 0x0000 ;
         descThread[i].SP0 = 0x0000 ;
+        apilarPC2c(i, (ptrC2c_t)&c2cPFR[DTLibres]) ;         /* apilamos i */
+//      /* descProceso[0].tCPU = 0 ; */   /* tiempo de CPU en (tics/2**16) */
     }
-
-    for ( i = maxProcesos-1 ; i > 0 ; i-- )    /* todos menos el proceso 0 */
-    {
-        descProceso[i].pid = -1 ;
-        descProceso[i].uid = -1 ;
-        descProceso[i].gid = -1 ;
-        descProceso[i].noStatus = TRUE ;       /* puede morir directamente */
-        inicPC2c(&descProceso[i].c2cHijos, &e2PFR.e2Hijos, maxProcesos + i, TRUE) ;
-        apilarPC2c(i, (ptrC2c_t)&c2cPFR[DPLibres]) ;         /* apilamos i */
-        descProceso[i].CSProc = 0x0000 ;
-        descProceso[i].tamCodigo = 0x0000 ;
-        descProceso[i].desplBSS = 0x0000 ;
-        descProceso[i].desplPila = 0x0000 ;
-        descProceso[i].tam = 0 ;
-        descProceso[i].tamFichero = 0 ;
-        descProceso[i].programa[0] = (char)0 ;
-//      /* descProceso[i].tCPU = 0 ; */   /* tiempo de CPU en (tics/2**16) */
-    }
-
-//  SS_Kernel = SS_SO1H + ((SP0_SO1H + 15)/16) ;/* se inicializa en inicGM */
-
-//  descThread[0].SSThread = SS_SO1H ;          /* se inicializa en inicGM */
-//  descThread[0].SP0 = SP0_SO1H ;              /* se inicializa en inicGM */
-    descThread[0].tid = 0 ;
-    descThread[0].estado = ejecutandose ;
-    descThread[0].trama = (trama_t *)&_stop__bss + SP0_SO1H - sizeof(trama_t) ;
-    descThread[0].noStatus = TRUE ;            /* puede morir directamente */
-    descThread[0].pindx = 0 ;
-
-//  descProceso[0].CSProc = CS_SO1H ; */        /* se inicializa en inicGM */
-//  descProceso[0].tam = SS_SO1H - CS_SO1H ; */ /* se inicializa en inicGM */
-    descProceso[0].pid = nuevoPid() ;              /* el proceso 0 es SO1H */
-    descProceso[0].noStatus = TRUE ;           /* puede morir directamente */
-    descProceso[0].ppindx = -1 ;                         /* no tiene padre */
-    descProceso[0].hpindx = -1 ;
-    inicPC2c(&descProceso[0].c2cHijos, &e2PFR.e2Hijos, maxProcesos + 0, TRUE) ;
-    apilarPC2c(0, (ptrC2c_t)&c2cPFR[DPOcupados]) ;           /* apilamos 0 */
-    apilarPC2c(0, (ptrC2c_t)&c2cPFR[POrdenados]) ;           /* apilamos 0 */
-    descProceso[0].tamCodigo = &_stop__text - &_start__text + sizeof(cabecera_t) ;
-    descProceso[0].desplBSS = &_start__bss - ((dword_t)&_start__data & 0xFFFFFFF0) ;
-    descProceso[0].desplPila = &_stop__bss - ((dword_t)&_start__data & 0xFFFFFFF0) ;
-    descProceso[0].tamFichero = &_stop__data - &_start__text + sizeof(cabecera_t) ;
 
 #if (1)
     printStrVideo("\n sizeof(cabecera_t) = ") ;
@@ -588,9 +610,8 @@ void inicProcesos ( void )
     printHexVideo(descProceso[0].desplPila, 4) ;                     /* Ok */
     printStrVideo("\n descProceso[0].tamFichero = ") ;
     printLDecVideo(descProceso[0].tamFichero, 1) ;                   /* Ok */
+	printLnVideo() ;
 #endif
-
-//  /* descProceso[0].tCPU = 0 ; */           /* expresado en tics/(2**16) */
 
     descProceso[0].nfa = 0 ;
     for ( i = 0 ; i < dfMax ; i++ )               /* inicializacion de tfa */

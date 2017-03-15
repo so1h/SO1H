@@ -233,45 +233,29 @@ void inicGM ( void )                             /* 1 paragrafo = 16 bytes */
     word_t memDisponible ;             /* memoria disponible en paragrafos */
     ptrBloque_t ptrBloque ;
 
-//  /* asignacion de memoria para el proceso 0 (codigo y datos)            */
-
-    descProceso[0].CSProc = CS_SO1H ;
-//  descProceso[0].CSProc = ((int)&_start__text - (int)sizeof(cabecera_t)) / 16 ;
-    descProceso[0].tam = SS_SO1H - CS_SO1H ;           /* (codigo y datos) */
-
-//  /* asignacion de memoria para el thread 0 (pila)                       */
-
-    descThread[0].SSThread = SS_SO1H ;
-    descThread[0].SP0 = SP0_SO1H ;                               /* (pila) */
-
-//  /* asignacion de memoria para la pila del nucleo                       */
-
-    SS_Kernel = SS_SO1H + ((SP0_SO1H + 15)/16) ;       /* pila del nucleo) */
-
     primerSegLibre = SS_Kernel + ((SP0_Kernel + 15)/16) ;
 
     printStrVideo(" primerSegLibre = ") ;
     printHexVideo(primerSegLibre, 4) ;
 
-//  /* inicGM se ocuparse de descontar de la memoria libre la memoria      */
-//  /* ocupada por SO1H, ya que si no, las escrituras en los nodos de la   */
-//  /* lista de bloques libres podrían modificar los primeros bytes de     */
-//  /* codigo de SO1.                                                      */
+//  /* inicGM descuenta de la memoria libre la memoria ocupada por SO1H,   */
+//  /* ya que si no, las escrituras en los nodos de la lista de bloques    */
+//  /* libres podrían modificar los primeros bytes de codigo de SO1.       */
 
 //  /* sigSeg = segmento siguiente al ultimo disponible por SO1H           */
 
     switch (modoSO1())
     {
-    case modoSO1_Bin :                                   /* so1.bin (boot) */
-        sigSeg = memBIOS()*(1024/16) ;
-        break ;
-    case modoSO1_Exe :                                           /* hayDOS */
-        sigSeg = *((word_t *)MK_P(segPSP(), 0x0002)) ;
-        break ;
-    default :
-        printStrVideo("\n inicGM() ERROR: modoSO1() = ") ;
-        printHexVideo(modoSO1(), 4) ;
-        leerTeclaBIOS() ;
+        case modoSO1_Bin :                               /* so1.bin (boot) */
+            sigSeg = memBIOS()*(1024/16) ;
+            break ;
+        case modoSO1_Exe :                                       /* hayDOS */
+            sigSeg = *((word_t *)MK_P(segPSP(), 0x0002)) ;
+            break ;
+        default :
+            printStrVideo("\n inicGM() ERROR: modoSO1() = ") ;
+            printHexVideo(modoSO1(), 4) ;
+            leerTeclaBIOS() ;
     }
 
     memDisponible = sigSeg - primerSegLibre ;                  /* sin SO1H */
