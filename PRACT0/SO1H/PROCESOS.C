@@ -32,7 +32,7 @@ descProcesoExt_t descProceso [ maxProcesos ] ;        /* tabla de procesos */
 descThreadExt_t descThread [ maxThreads ] ;            /* tabla de threads */
 
 descFichero_t descFichero [ dfsMax ] ;                /* tabla de ficheros */
-/* abiertos del sistema */
+//                                                 /* abiertos del sistema */
 descRecurso_t descRecurso [ maxRecursos ] ;
 
 c2c_t c2cPFR [ numColasPFR ] ;                           /* indices cPFR_t */
@@ -98,84 +98,82 @@ tindx_t indice ( tid_t tid )
     return(-1) ;
 }
 
+/* ----------------------------------------------------------------------- */
+/* Planificador (sigThread)                                                */
+/* ----------------------------------------------------------------------- */
+
+/* sigThread selecciona de la cola de threads preparados el siguiente      */
+/* thread a ejecutar. Si no hay ningun thread preparado se permiten las    */
+/* interrupciones y se detiene el procesador (hasta que ocurra una         */
+/* interrupcion). Al retornar de esa interrupcion se inhiben las           */
+/* y se intenta de nuevo encontrar un thread preparado en la cola.         */
+
+char molino [4] = { '|', '/', '-', '\\' } ; 
+
+int indMolino = 0 ;
+
+#define modoPtdo 3                                       /* 0, 1, 2, 3 o 4 */
+
+#if (modoPtdo == 0) 
+#define pintaOcioso 	
+#endif
+#if (modoPtdo == 1)
+#define pintaOcioso \
+    (*((char *)(0xB8000 + 2*79)))++ ;
+#endif
+#if (modoPtdo == 2)         
+#define pintaOcioso                  \
+	asm("   mov ax,0B800h       ") ; \
+    asm("   mov es,ax           ") ; \
+    asm("   add [es:158],byte 1 ") ;
+#endif
+#if (modoPtdo == 3)
+#define pintaOcioso \
+	(*((char *)(0xB8000 + 2*79))) = molino[(indMolino++) & 0x03] ; 
+#endif 
+#if (modoPtdo == 4) 
+#define pintaOcioso                  \
+	printStrVideo("\n nVIntActual = ") ; \
+	printHexVideo(nVIntActual, 2) ;
+#endif
+
 int contOcioso = - 1 ;
 
 pindx_t sigThread ( void )                     /* planificador (scheduler) */
 {
-
-    static tindx_t tindx ;                 /* printStrWin(win_so, "\nS") ; */
+    static tindx_t tindx ;
 
     contOcioso = -1 ;
     while (c2cPFR[TPreparados].numElem == 0)
     {
-//    if (indProcesoActual != -1)
-//      plot('e', 0, contadorTimer0()) ;
-        indProcesoActual = -1 ;              /* printStrWin(win_so, "h") ; */
-//    enHalt = TRUE ;
-#if (0)
-        asm sti
-        asm hlt                                 /* detenemos el procesador */
-        asm cli
-#endif
+//      if (indProcesoActual != -1)
+//          plot('e', 0, contadorTimer0()) ;
+        indProcesoActual = -1 ;
+        indThreadActual = -1 ;
+        enHalt = TRUE ;
+        asm("sti") ;
+        asm("hlt") ;                            /* detenemos el procesador */
+        asm("cli") ;                       /* ha ocurrido una interrupcion */
+		pintaOcioso ;
     }
 
     tindx = desencolarPC2c((ptrC2c_t)&c2cPFR[TPreparados]) ;
-    /*
-    if (debugWord == 0x0001) {
-      printStrBIOS("\n sigProceso(): ") ;
-      printStrBIOS("\n indProcesoActual = ") ;
-      printIntBIOS(indProcesoActual, 1) ;
-      printStrBIOS(" pindx = ") ;
-      printIntBIOS(pindx, 1) ;
-      while(TRUE) ;
-    }
-    */
+
     return(tindx) ;
 
 }
 
-int activarThread ( tindx_t tindx )
+int activarThread ( tindx_t tindx )                          /* dispatcher */
 {
-    /*
-    if (debugWord == 0x0001) {
-      printStrBIOS("\n activarProceso(): ") ;
-      printStrBIOS("\n indProcesoActual = ") ;
-      printIntBIOS(indProcesoActual, 1) ;
-      printStrBIOS(" pindx = ") ;
-      printIntBIOS(pindx, 1) ;
-      while(TRUE) ;
-    }
-    */
-    /*
-      printStrWin(win_so, "\nA(") ;
-      printDecWin(win_so, pindx, 1) ;
-      printStrWin(win_so, ") numPPrep = ") ;
-      printDecWin(win_so, numPPrep, 1) ;
-      printStrWin(win_so, "\n") ;
-    */
 
     if ((tindx < 0) || (descThread[tindx].tid < 0))
     {
-        /*
-            printStrWin(win_so, "\n activarProceso: no existe el proceso ") ;
-            printDecWin(win_so, descProceso[pindx].pid, 1) ;
-            printStrWin(win_so, " con indice ") ;
-            printDecWin(win_so, pindx, 1) ;
-            printStrWin(win_so, "\n") ;
-        */
-        return(-1) ;
+        return(-1) ; /* no existe el thread tindx */
     }
 
     if (descThread[tindx].estado != preparado)
     {
-        /*
-            printStrWin(win_so, "\n el proceso ") ;
-            printDecWin(win_so, descProceso[pindx].pid, 1) ;
-            printStrWin(win_so, " con indice ") ;
-            printDecWin(win_so, pindx, 1) ;
-            printStrWin(win_so, " no esta preparado\n") ;
-        */
-        return(-1) ;
+        return(-1) ;                  /* el thread tindx no esta preparado */
     }
 
     descThread[tindx].estado = ejecutandose ;
@@ -185,38 +183,39 @@ int activarThread ( tindx_t tindx )
 //  plot('e', 0, contadorTimer0()) ;
 
     contRodajas++ ;                                                    /*T0*/
-#if (0)
+
     if (hayTic)               /* se llamo a activarProceso desde rti_timer */
         contTicsRodaja = 0 ;
     else
         contTicsRodaja = -1 ;      /* un tic puede estar a punto de llegar */
     hayTic = FALSE ;
-#endif
-    SS_Thread = seg((pointer_t)(descThread[indThreadActual].trama)) ;
-    SP_Thread = off((pointer_t)(descThread[indThreadActual].trama)) ;
+
+    SS_Thread = descThread[indThreadActual].SSThread ;
+    SP_Thread = (word_t)(
+	  (int)(descThread[indThreadActual].trama) - (int)(((dword_t)SS_Thread) << 4)) ;
+
+	printStrVideo("\n\n SP_Thread = ") ;
+	printHexVideo(SP_Thread, 4) ;	
 
     /* SS_Proceso y SP_Proceso son variables globales. Si fueran variables */
-    /* locales habria que tener cuidado en el orden de las 3 instrucciones */
+    /* locales habria que tener cuidado en el orden de las instrucciones   */
     /* ya que se modifica la pila y el orden de las instrucciones seria    */
     /* critico                                                             */
 
-//  enHalt = FALSE ;
+    enHalt = FALSE ;
 
-    nivelActivacionSO1H = 0 ;              /* esta ejecutandose un proceso */
+    nivelActivacionSO1H = 0 ;               /* esta ejecutandose un thread */
 
-#if (0)
+    setThreadStack(SS_Thread, SP_Thread) ; /* establece la pila del thread */
+asm                                                /* SS_Thread, SP_Thread */
+(
+    "   pop ds \n"        /* establecemos el segmento de datos del proceso */
+    "   pop es \n"
 
-    asm mov ss,SS_Proceso ;            /* establecemos la pila del proceso */
-    asm mov sp,SP_Proceso ;
+    "   popa   \n"                /* restauramos los registros del proceso */
 
-    asm pop ds            /* establecemos el segmento de datos del proceso */
-    asm pop es
-
-    asm popa                      /* restauramos los registros del proceso */
-
-    asm iret                                 /* restauramos IP, CS y Flags */
-
-#endif
+    "   iret   \n"                           /* restauramos IP, CS y Flags */
+) ;
 
     return(0) ;
 
@@ -224,14 +223,14 @@ int activarThread ( tindx_t tindx )
 
 void salvarThread ( void )                        /* indThreadActual != -1 */
 {
-    descThread[indThreadActual].trama =
-        (trama_t *)pointer(SS_Thread, SP_Thread) ;
+    descThread[indThreadActual].trama = 
+	    (trama_t *)MK_P(SS_Thread, SP_Thread) ;
 }
 
 void salvarTareaInterrumpida ( void )            /* indProcesoActual != -1 */
 {
     descThread[indThreadActual].trama =
-        (trama_t *)pointer(SS_Tarea, SP_Tarea) ;
+        (trama_t *)MK_P(SS_Tarea, SP_Tarea) ;
 }
 
 void ponerNumeroHex ( word_t num, char * * str )                /* num > 0 */
@@ -318,6 +317,67 @@ void registrarEnPOrdenados ( pindx_t pindx )
     e[ant].sig = pindx ;
     e[j].ant = pindx ;
     c2cPFR[POrdenados].numElem++ ;
+}
+
+/* funcion que se ejecuta al terminar un thread creado */             
+
+void finThread ( void ) {
+//   thread_exit(valor de terminacion de funcion) ;  
+} 
+
+tindx_t crearThread ( funcion_t funcion,             /* funcion a ejecutar */
+                      word_t    SP0,           /* SP0 para el nuevo thread */
+                      void *    arg,               /* argumento de partida */
+                      pindx_t   pindx )              /* proceso contenedor */
+{
+	word_t flags ;
+	tindx_t i ;
+	word_t SSThread ;
+	dword_t * ptrPila ; 
+	
+    if ((pindx < 0) || (pindx > maxThreads)) return(-1) ;
+	if (posicionC2c(pindx,c2cPFR[DPOcupados]) == -1) return(-1) ;
+    if (c2cPFR[DTLibres].numElem == 0) return(-1) ;	
+	SSThread = k_buscarBloque((SP0 + 15)/16) ;
+	if (SSThread == 0x0000) return(-1) ;
+	i = desencolarPC2c((ptrC2c_t)&c2cPFR[DTLibres]) ;
+	encolarPC2c(i, (ptrC2c_t)&c2cPFR[DTOcupados]) ;
+	descThread[i].tid = nuevoTid() ;
+	descThread[i].estado = preparado ;
+	descThread[i].pindx = pindx ;
+	descThread[i].SSThread = SSThread ;
+	descThread[i].SP0 = SP0 ;
+	ptrPila = MK_P(SSThread, SP0) ;
+	*--ptrPila = (dword_t)arg ;
+	*--ptrPila = 0x00000000 ; /* finish thread (direccion de retorno) */
+//	descThread[i].trama = MK_P(SSThread, SP0 - 8 - sizeof(trama_t)) ;
+	descThread[i].trama = (trama_t *)(ptrPila - sizeof(trama_t)) ;
+	
+    descThread[i].trama->DS = 0x0000 ;
+    descThread[i].trama->ES = 0x0000 ;
+    descThread[i].trama->DI = 0x0000 ;
+    descThread[i].trama->SI = 0x0000 ;
+    descThread[i].trama->BP = SP0 - 8 ;     
+    descThread[i].trama->SP = SP0 - 8 ;     
+    descThread[i].trama->BX = 0x0000 ;
+    descThread[i].trama->DX = 0x0000 ;
+    descThread[i].trama->CX = 0x0000 ;
+    descThread[i].trama->AX = 0x0000 ;
+    descThread[i].trama->IP = OFF(funcion) ;
+    descThread[i].trama->CS = SEG(funcion) ;
+asm
+(
+    "   pushf         \n"
+    "   pop ax        \n"
+    "   mov [bp-4],ax \n" /* flags */                        /* SR = Flags */
+) ;
+    descThread[i].trama->Flags =
+        (flags & 0xF000) | 0x0202 ;           /* interrupciones permitidas */
+    /*  descThread[i].trama->Flags = 0x7302 ; */                  /* traza */	
+	
+	encolarPC2c(i, (ptrC2c_t)&c2cPFR[TPreparados]) ;
+	
+	return(i) ;
 }
 
 pindx_t crearProceso (       word_t    segmento,
@@ -523,10 +583,10 @@ void inicProcesos ( void )
     inicPC2c(&c2cPFR[POrdenados],  &e2PFR.e2POrdenados,           maxProcesos,     FALSE) ;
     inicPC2c(&c2cPFR[TDormidos],   &e2PFR.e2TDormidos,            maxProcesos,     FALSE) ;
 
-//  /* inicializamos descProceso[0]: proceso SO1H y nucleo */	
-	
-    descProceso[0].CSProc = CS_SO1H ; 
-    descProceso[0].tam = SS_SO1H - CS_SO1H ; 
+//  /* inicializamos descProceso[0]: proceso SO1H y nucleo */
+
+    descProceso[0].CSProc = CS_SO1H ;
+    descProceso[0].tam = SS_SO1H - CS_SO1H ;
     descProceso[0].pid = nuevoPid() ;              /* el proceso 0 es SO1H */
     descProceso[0].noStatus = TRUE ;           /* puede morir directamente */
     descProceso[0].ppindx = -1 ;                         /* no tiene padre */
@@ -542,10 +602,10 @@ void inicProcesos ( void )
     apilarPC2c(0, (ptrC2c_t)&c2cPFR[DPOcupados]) ;           /* apilamos 0 */
     apilarPC2c(0, (ptrC2c_t)&c2cPFR[POrdenados]) ;           /* apilamos 0 */
 
-//  /* inicializamos descThread[0]: thread SO1H */	
+//  /* inicializamos descThread[0]: thread SO1H */
 
-    descThread[0].SSThread = SS_SO1H ;          
-    descThread[0].SP0 = SP0_SO1H ;              
+    descThread[0].SSThread = SS_SO1H ;
+    descThread[0].SP0 = SP0_SO1H ;
     descThread[0].tid = 0 ;
     descThread[0].estado = ejecutandose ;
     descThread[0].trama = (trama_t *)&_stop__bss + SP0_SO1H - sizeof(trama_t) ;
@@ -553,15 +613,15 @@ void inicProcesos ( void )
     descThread[0].pindx = 0 ;
 
     apilarPC2c(0, (ptrC2c_t)&c2cPFR[DTOcupados]) ;           /* apilamos 0 */
-	apilarPC2c(0, (ptrC2c_t)&descProceso[0].c2cThreads) ;    /* apilamos 0 */
-	descProceso[i].numTids++ ;
-		
-//  /* inicializamos la pila del nucleo SS_Kernel y SP0_Kernel (ajustsp.h) */ 		
-		
+    apilarPC2c(0, (ptrC2c_t)&descProceso[0].c2cThreads) ;    /* apilamos 0 */
+    descProceso[i].numTids++ ;
+
+//  /* inicializamos la pila del nucleo SS_Kernel y SP0_Kernel (ajustsp.h) */
+
     SS_Kernel = SS_SO1H + ((SP0_SO1H + 15)/16) ;        /* pila del nucleo */
 
-//  /* inicializamos el resto de descriptores de proceso */                  	
-	
+//  /* inicializamos el resto de descriptores de proceso */
+
     for ( i = maxProcesos-1 ; i > 0 ; i-- )    /* todos menos el proceso 0 */
     {
         descProceso[i].pid = -1 ;
@@ -582,8 +642,8 @@ void inicProcesos ( void )
         apilarPC2c(i, (ptrC2c_t)&c2cPFR[DPLibres]) ;         /* apilamos i */
     }
 
-//  /* inicializamos el resto de descriptores de thread */                  	
-	
+//  /* inicializamos el resto de descriptores de thread */
+
     for ( i = maxThreads-1 ; i > 0 ; i-- )      /* todos menos el trhead 0 */
     {
         descThread[i].tid = -1 ;
@@ -610,7 +670,7 @@ void inicProcesos ( void )
     printHexVideo(descProceso[0].desplPila, 4) ;                     /* Ok */
     printStrVideo("\n descProceso[0].tamFichero = ") ;
     printLDecVideo(descProceso[0].tamFichero, 1) ;                   /* Ok */
-	printLnVideo() ;
+    printLnVideo() ;
 #endif
 
     descProceso[0].nfa = 0 ;

@@ -58,6 +58,20 @@ POSSIBILITY OF SUCH DAMAGE.
 //#define E(x) x
 #define E(x) { pSV("\n ") ; pSV(#x) ; pSV(" ... ") ; x ; }        /* macro */
 
+void * funcion ( void * arg ) {
+    while (TRUE) {
+//      printCarVideo(*((char *)arg)) ;
+	    (*((char *)(0xB8000+2*78)))++ ;
+//		asm("mov ax,0x0b02") ;
+//      asm("int 0x60") ;
+//	    (*((char *)(0xB8000+2*(78-*((int *)(arg))))))++ ;
+	}
+asm
+(
+    "   db 'funcion' "   
+) ;
+}
+
 void main ( void )
 {
     word_t loQueHay ; 
@@ -206,7 +220,7 @@ void main ( void )
     printLHexVideo((dword_t)isr_SO1H, 5) ;
 	
 	/* primera llamada al sistema de prueba: AH = 0x0f (no bloqueante) */ 
-	
+
 	asm("mov ax,0f00h") ;
 	asm("int 0x60") ;
 	
@@ -215,6 +229,21 @@ void main ( void )
 	/* segunda llamada al sistema de prueba: AH = 0x0b (no bloqueante) */ 
 	
 	asm("mov ax,0b00h") ;
+	asm("int 0x60") ;
+	
+    printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;
+	
+	int n = 1 ;
+    printStrVideo("\n\n crearThread(funcion, 0x4000, &n, 0) = ") ;
+	printIntVideo(crearThread(funcion, 0x4000, NULL, 0), 1) ;
+	printStrVideo("\n\n descThread[1].SSThread = ") ;
+	printHexVideo(descThread[1].SSThread, 4) ;
+	printStrVideo("\n\n descThread[1].trama = ") ;
+	printLHexVideo(descThread[1].trama, 8) ;	
+	
+	/* tercera llamada al sistema de prueba: AH = 0x0b (bloqueante!!!) */ 
+	
+	asm("mov ax,0b01h") ;
 	asm("int 0x60") ;
 	
     printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;

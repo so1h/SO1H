@@ -17,7 +17,8 @@
 
 #define maxRecursos 14                        /* numero maximo de recursos */
 
-#define nVIntMax 128                                                /* 256 */
+//#define nVIntMax 128                                              /* 256 */
+#define nVIntMax 256                                                /* 256 */
 
 #define tamComando 80    /* numero maximo de caracteres en un comando (+1) */
 

@@ -14,8 +14,6 @@ extern rti_t VIOrg [ nVIntMax ] ;   /* vectores de interrupcion originales */
 
 extern rindx_t recVInt [ nVIntMax ] ;      /* recurso que posee ese vector */
 
-void rti_00 ( void ) ;
-
 void inicTVI ( void ) ;
 
 void redirigirInt ( byte_t nVInt, isr_t isr ) ;

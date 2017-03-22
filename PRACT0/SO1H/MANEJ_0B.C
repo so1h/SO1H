@@ -23,9 +23,14 @@ void so1_manejador_0b ( void ) {                     /* ah = 0b ; int SO1H */
 
         case 0x00 :                             
 		            break ;
-        case 0x01 :                                      
+        case 0x01 : 
+		            bloquearThreadActual(rec_hijo) ;            
 		            break ;
-        case 0x02 :                                     
+        case 0x02 : 
+                    descThread[indThreadActual].trama = tramaThread ;
+                    descThread[indThreadActual].estado = preparado ;
+					encolarPC2c(indThreadActual, (ptrC2c_t)&c2cPFR[TPreparados]) ;
+					buscarNuevoThreadActual() ;
 		            break ;
         case 0x03 :                                      
 		            break ;

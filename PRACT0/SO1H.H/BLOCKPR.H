@@ -27,6 +27,8 @@ extern word_t SP_Tarea ;
 
 extern int nivelActivacionSO1H ;                /* 0 => thread, 1 => tarea */
 
+extern int nVIntActual ;       /* numero de v.i. de la interrupcion actual */
+
 extern bool_t enHalt ;            /* se interrumpio en el hlt de sigThread */
 
 extern bool_t activarAlEpilogo1 ;
@@ -37,11 +39,11 @@ extern bool_t hayTic ;             /* se acaba de producir un tic de reloj */
 
 //   /* hayTic se utiliza en activarThread para determinar mejor la rodaja */
 
-void setKernelStack ( void ) ;
+void setKernelStack ( void ) ;   /* supone apilados sp y ss (en ese orden) */            
 
-void setThreadStack ( void ) ;
+void setThreadStack ( word_t SS_Thread, word_t SP_Thread ) ;
 
-dword_t reg_BL ( void ) ;
+dword_t reg_DL ( void ) ;
 
 //               /* prologo de una rti o llamada al sistema (int nVIntSO1) */
 
@@ -51,18 +53,19 @@ asm                                                                          \
 (                                                                            \
     "   push es \n"                                                          \
     "   push ds \n"                                                          \
-    "   push bx \n"                                   /* para preservar bl */\
 ) ;                                                                          \
-  if (++nivelActivacionSO1H == 1) {                                          \
+  if (++nivelActivacionSO1H == 1)                                            \
+  {                                                                          \
 asm                                                                          \
 (                                                                            \
-    "   pop bx \n"                                     /* restablecemos bl */\
-    "   mov cx,ss \n"       /* usamos cx y dx para no modificar bl (nVInt) */\
-    "   mov dx,sp \n"                                                        \
+    "   push esp     \n"                         /* setKernelStack(ss, sp) */\
+    "   mov ax,ss    \n"                                                     \
+    "   movzx eax,ax \n"                                                     \
+    "   push eax     \n"                   /* orden de apilamiento critico */\
 ) ;                                                                          \
     setKernelStack() ;                                                       \
   }                               /* en otro caso la pila es ya la de SO1H */\
-                                                              /* fin macro */
+//                                                            /* fin macro */\
 															  
 #define prologo_rti()                                             /* macro */\
                                                                              \
@@ -86,7 +89,7 @@ asm                                                                          \
     }                                                                        \
   }                                                                          \
   if (nivelActivacionSO1H-- == 1) {                                          \
-    setThreadStack() ;                                                       \
+    setThreadStack(SS_Thread, SP_Thread) ;                                   \
   }                                                                          \
 asm                                                                          \
 (                                                                            \
@@ -103,12 +106,12 @@ void prepararDesbloqueadosUrgentes ( void ) ;
 /* un thread puede terminar durante una llamada o durante una rti          */
 /* o ser expulsado */
 
-void buscarNuevoProcesoActual ( void ) ;
+void buscarNuevoThreadActual ( void ) ;
 
 /* en principio solo se bloquean threads desde las llamadas al sistema     */
 /* pero vamos a contemplar bloqueos de threads incluso desde una rti       */
 
-void bloquearProcesoActual ( rindx_t rindx ) ;
+void bloquearThreadActual ( rindx_t rindx ) ;
 
 /* NOTA: estas funciones serán llamadas no solo desde procesos/threads,    */
 /* sino tambien desde drivers.                                             */

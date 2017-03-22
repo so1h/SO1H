@@ -88,12 +88,12 @@ int activarThread ( tindx_t tindx ) ;
 
 void registrarEnPOrdenados ( pindx_t pindx ) ;
 
-tid_t crearThread ( word_t  IP0,
-                    word_t  SSThread,
-                    word_t  SP0,
-                    void * arg,
-                    pindx_t pindx,
-                    tid_t   tid ) ;
+/* crearThread crea un nuevo thread en el proceso pindx                    */
+
+tindx_t crearThread ( funcion_t funcion,             /* funcion a ejecutar */
+                      word_t    SP0,           /* SP0 para el nuevo thread */
+                      void *    arg,               /* argumento de partida */
+                      pindx_t   pindx ) ;            /* proceso contenedor */
 
 pindx_t crearProceso (       word_t    segmento,
                              word_t    tam,
