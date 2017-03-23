@@ -25,13 +25,17 @@ isr_t isr [ nVIntMax ] ;             /* rutina de servicio de interrupcion */
 asm
 (
     "%macro RTI 2         \n"                               /* RTI(%1, %2) */
-    "       pusha         \n"                                
+//  "       pusha         \n"                                   /* db 0x60 */ 
+//  "       db 0x67       \n"                                   /* db 0x67 *//* address-size override prefix */ 
+//  "       db 0x66       \n"                                   /* db 0x66 *//* operand-size override prefix */ 
+    "       pushad        \n"                             /* db 0x66, 0x60 */ 
     "       mov dl,0%1%2h \n"                         /* dl = %1%2 = nVInt */
     "       jmp word fin  \n"   /* (word) para codificar con 2 bytes el op */
-    "%endmacro            \n"        /* ya que sino unas veces 1 y otras 2 */
+    "%endmacro            \n"      /* ya que si no, unas veces 1 y otras 2 */
 ) ;	
 
-#define tamCodigoRTI 6                                        /* 1 + 2 + 3 */
+//#define tamCodigoRTI 6                                      /* 1 + 2 + 3 *//* pusha */ 
+#define tamCodigoRTI 7                                        /* 2 + 2 + 3 *//* pushad */ 
 
 asm
 (

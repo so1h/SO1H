@@ -61,7 +61,6 @@ typedef struct {
   pindx_t      hpindx ;     /* pindx del hijo por el que se esta esperando */\
   c2c_t        c2cHijos ;                        /* cola de procesos hijos */\
                                                               /* (threads) */\
-  int          numTids ;      /* numero de tids asignados hasta el momento */\
   c2c_t        c2cThreads ;                             /* cola de threads */\
                                                          /*----Memoria---- */\
   word_t       CSProc ;     /* segmento de codigo = inicio de la particion */\

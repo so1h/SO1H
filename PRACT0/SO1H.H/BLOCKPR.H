@@ -71,8 +71,8 @@ asm                                                                          \
                                                                              \
 asm                                                                          \
 (                                                                            \
-    "   pusha \n"      /* apilamos todos los registros del proceso (80286) */\
-) ;                                      /* ax, cx, dx, bx, sp, bp, si, di */\
+    "   pushad \n"     /* apilamos todos los registros del proceso (80286) */\
+) ;                              /* eax, ecx, edx, ebx, esp, ebp, esi, edi */\
     prologo_rti_sin_PUSHA() ;                                 /* fin macro */
 
 //               /* epilogo de una rti o llamada al sistema (int nVIntSO1) */
@@ -96,7 +96,7 @@ asm                                                                          \
     "   pop ds \n"          /* restauramos el segmento de datos del thread */\
     "   pop es \n"                                                           \
                                                                              \
-    "   popa   \n"  /* restauramos todos los registros del proceso (80286) */\
+    "   popad  \n"  /* restauramos todos los registros del proceso (80286) */\
                                          /* di, si, bp, sp, bx, dx, cx, ax */\
     "   iret   \n"                                                           \
 ) ;                                                           /* fin macro */	

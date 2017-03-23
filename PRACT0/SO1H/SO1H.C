@@ -59,13 +59,20 @@ POSSIBILITY OF SUCH DAMAGE.
 #define E(x) { pSV("\n ") ; pSV(#x) ; pSV(" ... ") ; x ; }        /* macro */
 
 void * funcion ( void * arg ) {
-    while (TRUE) {
-//      printCarVideo(*((char *)arg)) ;
-	    (*((char *)(0xB8000+2*78)))++ ;
-//		asm("mov ax,0x0b02") ;
-//      asm("int 0x60") ;
-//	    (*((char *)(0xB8000+2*(78-*((int *)(arg))))))++ ;
+	int i, j ;
+//	i = *((int *)arg) ;
+	i = (int)arg ;
+	for ( j = 0 ; j < 1000 ; j ++ ) {
+//  while (TRUE) {	
+//      printIntVideo(*((int *)arg), 2) ;
+//	    (*((char *)(0xB8000+2*78)))++ ;
+//	    *((char *)(0xB8000+2*78)) = *((char *)arg) ;
+//	    (*((char *)(0xB8000+2*(78-*((int *)arg)))))++ ;
+	    (*((char *)(0xB8000+2*(78-2*i))))++ ;
+		asm("mov ax,0x0b02") ;
+        asm("int 0x60") ;
 	}
+	return((void *)i) ;
 asm
 (
     "   db 'funcion' "   
@@ -233,9 +240,25 @@ void main ( void )
 	
     printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;
 	
-	int n = 1 ;
-    printStrVideo("\n\n crearThread(funcion, 0x4000, &n, 0) = ") ;
-	printIntVideo(crearThread(funcion, 0x4000, NULL, 0), 1) ;
+#if (0)	
+//  printStrVideo("\n\n crearThread(funcion, 0x4000, NULL, 0) = ") ;
+//	printIntVideo(crearThread(funcion, 0x4000, NULL, 0), 1) ;
+
+//	printIntVideo(crearThread(funcion, 0x4000, 0x12345678, 0), 1) ;
+#endif 
+
+#if (0)	
+    for ( int i = 0 ; i < 5 ; i++ ) {
+        printStrVideo("\n\n crearThread(funcion, 0x4000, &i, 0) = ") ;
+  	    printIntVideo(crearThread(funcion, 0x4000, &i, 0), 1) ;
+	}
+#endif 
+	
+    for ( int i = 0 ; i < 5 ; i++ ) {
+        printStrVideo("\n\n crearThread(funcion, 0x4000, i, 0) = ") ;
+  	    printIntVideo(crearThread(funcion, 0x4000, i, 0), 1) ;
+	}
+
 	printStrVideo("\n\n descThread[1].SSThread = ") ;
 	printHexVideo(descThread[1].SSThread, 4) ;
 	printStrVideo("\n\n descThread[1].trama = ") ;

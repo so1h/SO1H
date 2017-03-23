@@ -16,14 +16,13 @@
 
 void so1_manejador_0b ( void ) {                     /* ah = 0b ; int SO1H */
 
-    printStrVideo("\n\n estoy en so1_manejador_0b  tramaThread->AX = ") ;
-    printHexVideo(tramaThread->AH, 4) ;
-
     switch (tramaThread->AL) {
 
         case 0x00 :                             
 		            break ;
         case 0x01 : 
+    printStrVideo("\n\n estoy en so1_manejador_0b  tramaThread->AX = ") ;
+    printHexVideo(tramaThread->AH, 4) ;
 		            bloquearThreadActual(rec_hijo) ;            
 		            break ;
         case 0x02 : 

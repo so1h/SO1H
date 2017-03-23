@@ -16,22 +16,40 @@
 
 typedef struct {
   word_t DS, ES ;                                 /* apilados por software */
-  word_t DI, SI, BP, SP ;                                         /* pusha */
-  word_t BX, DX, CX, AX ;                                         /* pusha */
+  word_t EDI, ESI, EBP, ESP ;                                    /* pushad */
+  word_t EBX, EDX, ECX, EAX ;                                    /* pushad */
+  word_t IP, CS, Flags ;                                            /* int */
+} tramaDWords_t ;
+
+typedef struct {
+  word_t DS, ES ;                                 /* apilados por software */
+  word_t DI, rDI, SI, rSI, BP, rBP, SP, rSP ;                    /* pushad */
+  word_t BX, rBX, DX, rDX, CX, rCX, AX, rAX ;                    /* pushad */
   word_t IP, CS, Flags ;                                            /* int */
 } tramaWords_t ;
 
 typedef struct {
   word_t DS, ES ;                                 /* apilados por software */
-  word_t DI, SI, BP, SP ;                                         /* pusha */
-  byte_t BL, BH, DL, DH, CL, CH, AL, AH ;                         /* pusha */
+  word_t DI, rDI, SI, rSI, BP, rBP, SP, rSP ;                    /* pushad */
+  byte_t BL, BH, rB[2], DL, DH, rD[2], 
+         CL, CH, rC[2], AL, AH, rA[2] ;                          /* pushad */
   word_t IP, CS, Flags ;                                            /* int */
 } tramaBytes_t ;
 
 typedef union {
+  tramaDWords_t td ;
   tramaWords_t tw ;
   tramaBytes_t tb ;
 } trama_t ;
+
+#define EDI td.EDI       /* para simplificar las referencias trama->td.EDI */
+#define ESI td.ESI                                  /* quedando trama->EDI */
+#define EBP td.EBP
+#define ESP td.ESP
+#define EBX td.EBX
+#define EDX td.EDX
+#define ECX td.ECX
+#define EAX td.EAX
 
 #define DS tw.DS          /* para simplificar las referencias trama->tw.DS */
 #define ES tw.ES                                     /* quedando trama->DS */
