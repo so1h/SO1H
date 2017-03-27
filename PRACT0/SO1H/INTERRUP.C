@@ -63,11 +63,11 @@ asm
 #endif	
 	"fin:                                  \n"
 ) ;
-   
+   	
     prologo_rti_sin_PUSHA() ;                               /* nVInt en DL */
 
 	nVIntActual = reg_DL() ; 
-	
+
     isr[nVIntActual]() ;     /* llamada a la rutina de servicio de la int. */
 //                                     /* (se apila la dir. de ret. CS:IP) */	
     epilogo_rti() ;

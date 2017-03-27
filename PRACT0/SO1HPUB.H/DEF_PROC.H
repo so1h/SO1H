@@ -152,9 +152,10 @@ typedef struct {
 
 /* recursos (simples) por los que se espera bloqueado */
 
-#define rec_hijo            (rindx_t)(- 1)       /* terminacion de un hijo */
-#define rec_zombie          (rindx_t)(- 2)
-#define rec_desinstalacion  (rindx_t)(- 3)
+#define rec_thread          (rindx_t)(- 1)     /* terminacion de un thread */
+#define rec_hijo            (rindx_t)(- 2)       /* terminacion de un hijo */
+#define rec_zombie          (rindx_t)(- 3)
+#define rec_desinstalacion  (rindx_t)(- 4)
 
 typedef struct {                                    /* informacion variada */
   /* word_t ticsPorRodaja ; */

@@ -49,8 +49,8 @@ extern trama_t * tramaThread ;
 extern trama_t * tramaTarea ;
 
 /* Pueden ocurrir interrupciones mientras se atiende una llamada al        */
-/* sistema, por eso hay que distinguir entre la pila del proceso que hace  */
-/* la llamada, y la pila del proceso/sistema interrumpido. Esto ocurre     */
+/* sistema. Por eso hay que distinguir entre la pila del proceso que hace  */
+/* la llamada y la pila del proceso/sistema interrumpido. Esto ocurre      */
 /* por ejemplo cuando durante la llamada al sistema se leen sectores del   */
 /* disco con la int 13 del bios. Dicha int 13 permite las interrupciones,  */
 /* necesitando la interrupcion de reloj para medir los timeouts. Cuando    */
@@ -95,12 +95,12 @@ tindx_t crearThread ( funcion_t funcion,             /* funcion a ejecutar */
                       void *    arg,               /* argumento de partida */
                       pindx_t   pindx ) ;            /* proceso contenedor */
 
-pindx_t crearProceso (       word_t    segmento,
-                             word_t    tam,
-                             dword_t   tamFich,
-                             const char    * programa,
-                             const char    * comando,
-                             pindx_t   pindx ) ;
+pindx_t crearProceso ( word_t       segmento,
+                       word_t       tam,
+                       dword_t      tamFich,
+                       const char * programa,
+                       const char   * comando,
+                       pindx_t      pindx ) ;
 
 #define crearProcesoMacro(segmento, tam, tamFich, programa, comando, pindx)  \
   crearProceso(segmento, tam, tamFich, programa, comando, pindx)
@@ -111,9 +111,15 @@ void resetPids ( void ) ;
 
 void resetTids ( void ) ;
 
+int terminarThreadIndx ( tindx_t tindx ) ;         /* termina thread pindx */
+
+int eliminarThreadIndx ( tindx_t tindx ) ;         /* elimina thread pindx */
+
 int terminarProcIndx ( pindx_t pindx ) ;          /* termina proceso pindx */
 
 int eliminarProcIndx ( pindx_t pindx ) ;          /* elimina proceso pindx */
+
+int matarThreadIndx ( tindx_t tindx ) ;               /* mata thread tindx */
 
 int matarProcIndx ( pindx_t pindx ) ;                /* mata proceso pindx */
 

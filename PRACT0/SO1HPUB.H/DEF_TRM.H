@@ -14,10 +14,12 @@
 
 #include "..\so1hpub.h\tipos.h"
 
+#pragma pack(push, 1)
+
 typedef struct {
   word_t DS, ES ;                                 /* apilados por software */
-  word_t EDI, ESI, EBP, ESP ;                                    /* pushad */
-  word_t EBX, EDX, ECX, EAX ;                                    /* pushad */
+  dword_t EDI, ESI, EBP, ESP ;                                   /* pushad */
+  dword_t EBX, EDX, ECX, EAX ;                                   /* pushad */
   word_t IP, CS, Flags ;                                            /* int */
 } tramaDWords_t ;
 
@@ -41,6 +43,8 @@ typedef union {
   tramaWords_t tw ;
   tramaBytes_t tb ;
 } trama_t ;
+
+#pragma pack(pop) 
 
 #define EDI td.EDI       /* para simplificar las referencias trama->td.EDI */
 #define ESI td.ESI                                  /* quedando trama->EDI */

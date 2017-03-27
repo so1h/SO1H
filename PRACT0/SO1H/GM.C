@@ -44,8 +44,10 @@ word_t k_buscarBloque ( word_t tam )
 
     segmento = SEG(ptrBloque) ;
 
-//printStrVideo("\n k_buscarBloque: segmento = ") ;
-//printHexVideo(segmento, 4) ;
+printStrVideo("\n k_buscarBloque: segmento = ") ;
+printHexVideo(segmento, 4) ;
+printStrVideo(" tam = ") ;
+printHexVideo(tam, 4) ;
 //leerTeclaBIOS() ;
 
     tamOriginal = ptrBloque->tam ;

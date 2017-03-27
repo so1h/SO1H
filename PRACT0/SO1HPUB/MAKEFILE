@@ -9,7 +9,7 @@
 OBJS = tipos.o caracter.o printgen.o biosdata.o bios_0.o pantalla.o \
        puertos.o cmos.o telon.o colores.o msdos.o c2c.o debug.o \
        pic.o bios_crt.o memvideo.o printvid.o ptrc2c.o ccb.o \
-       seccion.o ajustusr.o 
+       seccion.o ajustusr.o ll_s_thr.o main.o
 
 .path.o   = .\obj
 .path.asm = .\asm

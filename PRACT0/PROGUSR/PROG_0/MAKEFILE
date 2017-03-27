@@ -28,7 +28,8 @@ LISTAPUBS =\
 ..\..\so1hpub\obj\debug.o ..\..\so1hpub\obj\pic.o ..\..\so1hpub\obj\puertos.o \
 ..\..\so1hpub\obj\memvideo.o ..\..\so1hpub\obj\memvideo.o ..\..\so1hpub\obj\bios_crt.o \
 ..\..\so1hpub\obj\printvid.o ..\..\so1hpub\obj\c2c.o ..\..\so1hpub\obj\ptrc2c.o \
-..\..\so1hpub\obj\ccb.o ..\..\so1hpub\obj\seccion.o
+..\..\so1hpub\obj\ccb.o ..\..\so1hpub\obj\seccion.o ..\..\so1hpub\obj\main.o \
+..\..\so1hpub\obj\ll_s_thr.o 
 
 
 $(PROGRAMA).bin: $(PROGRAMA).exe

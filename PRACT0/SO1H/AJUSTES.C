@@ -80,7 +80,7 @@ asm                                                      /* implementacion */
     "   mov sp,SP0_SO1H           \n"/* inic. puntero  de pila del proceso */ /* desplazamiento 004B */
 
     " extern __start              \n" /* funcion a la que ceder el control */
-    /* cedemos el control a _start */
+//                                          /* cedemos el control a _start */
     "   mov ebx,__start           \n"  /* _start es la funcion que reubica */
     "   ror ebx,4                 \n"                      /* ver c0dh.asm */
     "   add ax,bx                 \n"
@@ -112,12 +112,6 @@ word_t SS_SO1H ;                     /* segmento de pila           de SO1H */
 word_t SS_Kernel ;                   /* segmento de pila del kernel   SO1H */
 
 word_t IMRInicial ;            /* mascara de interrupcion inicial del 8259 */
-
-void finish ( void )                            /* main debe retornar aqui */
-{
-    /* exit(0) ; */           /* esta función no se usa, pero por simetria */
-}                                                            /* ver atexit */
-
 
 /* Cuando se llama a una función como modoSO1 el CS:IP se normaliza de     */
 /* manera que IP valga 0x0000 al principio de la función. Es decir         */

@@ -16,6 +16,8 @@ void __start__ ( void ) ;       /* al final de _start se llama a __start__ */
 
 void main ( void ) ;
 
-void finish ( void ) ;                          /* main debe retornar aqui */
+void finProceso ( void ) ;  /* fin por defecto de un proceso (thread main) */
+
+void finThread ( void ) ;                  /* fin por defecto de un thread */
 
 #endif /* MAIN_H */

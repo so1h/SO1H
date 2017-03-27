@@ -28,7 +28,7 @@ typedef byte_t * pointer_t ;
 
 #define interrupt __interrupt
 
-typedef void * ( * funcion_t ) ( void * ) ;  /* funcion para thread */
+typedef void * ( * funcion_t ) ( void * ) ;         /* funcion para thread */
 
 typedef void ( * manejador_t) ( void ) ;/* manejador de llamada al sistema */
 

@@ -16,8 +16,6 @@
 
 void startBin ( void ) ;          /* punto de entrada para so1h.bin (boot) */
 
-void finish ( void ) ;
-
 modoSO1_t modoSO1 ( void ) ;     /* modo en que se ejecuta SO1H: bin o exe */
 
 byte_t unidadBIOS ( void ) ;       /* numero BIOS de la unidad de arranque */

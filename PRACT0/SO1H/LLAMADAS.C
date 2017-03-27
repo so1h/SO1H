@@ -26,10 +26,12 @@
 /*        manejadores de las diferentes llamadas al sistema de SO1         */
 /* ----------------------------------------------------------------------- */
 
-extern void so1_manejador_0b ( void ) ;  
+extern void so1_manejador_00 ( void ) ; /* thread_create, thread_join,     */
+                                        /* thread_exit, thread_yield,      */
+                                        /* thread_self                     */
 
-extern void so1_manejador_0f ( void ) ;  
-
+extern void so1_manejador_0b ( void ) ; 									
+										
 #if (0)
 
 extern void so1_manejador_00 ( void ) ;        /* 0: createProcess 1: fork */
@@ -51,9 +53,6 @@ extern void so1_manejador_03 ( void ) ;                      /* 0: retardo */
 //                                     /* 3: obtenInfoFAB 4: obtenInfoINFO */
 //                                  /* 5: getdisk 6: findFirst 7: findNext */
 
-extern void so1_manejador_04 ( void ) ;                 /* 0: activarTraza */
-//                                                  /* 1: analizarProcesos */
-
 #endif
 
 void so1_manejador_Nulo ( void )
@@ -64,22 +63,22 @@ void so1_manejador_Nulo ( void )
 
 manejador_t manejador [ ] =                        /* tabla de manejadores */
 {
-m(0) so1_manejador_Nulo,
-m(1) so1_manejador_Nulo,                               
-m(2) so1_manejador_Nulo,                               
-m(3) so1_manejador_Nulo,                               
-m(4) so1_manejador_Nulo,                                      
+m(0) so1_manejador_00,                  /* thread_create, .. , thread_self */
+m(1) so1_manejador_Nulo,
+m(2) so1_manejador_Nulo,
+m(3) so1_manejador_Nulo,
+m(4) so1_manejador_Nulo,
 m(5) so1_manejador_Nulo,
 m(6) so1_manejador_Nulo,
 m(7) so1_manejador_Nulo,
 m(8) so1_manejador_Nulo,
 m(9) so1_manejador_Nulo,
 m(a) so1_manejador_Nulo,
-m(b) so1_manejador_0b,                                     /* para pruebas */
+m(b) so1_manejador_0b,                                       /* para pruebas */
 m(c) so1_manejador_Nulo,
 m(d) so1_manejador_Nulo,
 m(e) so1_manejador_Nulo,
-m(f) so1_manejador_0f                                      /* para pruebas */
+m(f) so1_manejador_Nulo                                 
 } ;
 
 #undef m(x)
@@ -88,7 +87,7 @@ m(f) so1_manejador_0f                                      /* para pruebas */
 
 void isr_SO1H ( void )                        /* Punto de entrada del S.O. */
 {
-	
+
 #ifdef NUM_MATRICULA
     macroEmboscada() ;
 #endif
@@ -114,8 +113,8 @@ void isr_SO1H ( void )                        /* Punto de entrada del S.O. */
     tramaThread = (trama_t *)MK_P(SS_Thread, SP_Thread) ;
 
     static byte_t codOp ;
-	
-	codOp = tramaThread->AH ;                                        /* ah */
+
+    codOp = tramaThread->AH ;                                        /* ah */
 
     if (codOp < maxLlamadas) manejador[codOp]() ;
 

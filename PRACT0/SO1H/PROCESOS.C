@@ -15,7 +15,8 @@
 //#include "..\so1hpub.h\strings.h"
 #include <string.h>                                              /* strcpy */
 #include "..\so1hpub.h\fcntl.h"
-#include "..\so1h.h\ajustes.h"
+#include "..\so1h.h\ajustes.h"                    
+#include "..\so1hpub.h\main.h"                    /* finProceso, finThread */
 #include "..\so1h.h\blockpr.h"
 #include "..\so1h.h\gm.h"
 #include "..\so1h.h\procesos.h"
@@ -324,21 +325,6 @@ void registrarEnPOrdenados ( pindx_t pindx )
     c2cPFR[POrdenados].numElem++ ;
 }
 
-/* funcion que se ejecuta al terminar un thread creado */             
-
-void finThread ( void ) {
-	dword_t reg_EAX ;
-    asm("mov [bp+4],eax") ; /* reg_AX */	
-	printStrVideo("\n\n fin del thread tindx = ") ;
-	printDecVideo(indThreadActual, 1) ;
-	printStrVideo(" tid = ") ;
-	printDecVideo(descThread[indProcesoActual].tid, 1) ;
-	printStrVideo(" codigo de terminacion (EAX) = ") ;
-	printDecVideo(reg_EAX, 1) ;	
-	asm("mov ax,0x0b01") ;                            /* bloqueo el thread */
-	asm("int 0x60") ;
-} 
-
 tindx_t crearThread ( funcion_t funcion,             /* funcion a ejecutar */
                       word_t    SP0,           /* SP0 para el nuevo thread */
                       void *    arg,               /* argumento de partida */
@@ -364,19 +350,24 @@ tindx_t crearThread ( funcion_t funcion,             /* funcion a ejecutar */
 	ptrPila = MK_P(SSThread, SP0) ;
 	*--ptrPila = (dword_t)arg ;
 	*--ptrPila = (dword_t)finThread ;            /* (direccion de retorno) */
+//  printStrVideo("\n\n finThread = ") ;
+//  printLHexVideo(finThread, 8) ;
+
 //	descThread[i].trama = MK_P(SSThread, SP0 - 8 - sizeof(trama_t)) ;
 	descThread[i].trama = (trama_t *)((dword_t)ptrPila - sizeof(trama_t)) ;
 	
     descThread[i].trama->DS = 0x0000 ;
     descThread[i].trama->ES = 0x0000 ;
-    descThread[i].trama->EDI = 0x00000000 ;
+    
+	descThread[i].trama->EDI = 0x00000000 ;
     descThread[i].trama->ESI = 0x00000000 ;
-    descThread[i].trama->EBP = SP0 - 8 ;     
-    descThread[i].trama->ESP = SP0 - 8 ;     
+    descThread[i].trama->EBP = SP0 - 14 ;        /* 14 = 4 + 4 + 2 + 2 + 2 */    
+    descThread[i].trama->ESP = SP0 - 14 ;        /*     arg fin Flg  CS IP */
     descThread[i].trama->EBX = 0x00000000 ;
     descThread[i].trama->EDX = 0x00000000 ;
     descThread[i].trama->ECX = 0x00000000 ;
     descThread[i].trama->EAX = 0x00000000 ;
+	
     descThread[i].trama->IP = OFF(funcion) ;
     descThread[i].trama->CS = SEG(funcion) ;
 asm
@@ -393,12 +384,12 @@ asm
 	return(i) ;
 }
 
-pindx_t crearProceso (       word_t    segmento,
-                             word_t    tam,
-                             dword_t   tamFich,
-                             const char    * programa,
-                             const char    * comando,
-                             pindx_t   pindx )
+pindx_t crearProceso ( word_t       segmento,
+                       word_t       tam,
+                       dword_t      tamFich,
+                       const char * programa,
+                       const char   * comando,
+                       pindx_t      pindx ) 
 {
 
     cabecera_t * cabecera ;
@@ -731,7 +722,16 @@ void inicProcesos ( void )
 
 }
 
-bool_t devolverParticion ( pindx_t pindx )
+bool_t devolverPila ( tindx_t tindx )                  /* para los threads */
+{
+    if (!estaPC2c(tindx, (ptrC2c_t)&c2cPFR[DTOcupados])) return(FALSE) ;
+    return(k_devolverBloque(
+               descThread[tindx].SSThread,
+               descThread[tindx].SP0)
+          ) ;
+}
+
+bool_t devolverParticion ( pindx_t pindx )            /* para los procesos */
 {
     if (!estaPC2c(pindx, (ptrC2c_t)&c2cPFR[POrdenados])) return(FALSE) ;
     eliminarPC2c(pindx, (ptrC2c_t)&c2cPFR[POrdenados]) ;
@@ -739,6 +739,22 @@ bool_t devolverParticion ( pindx_t pindx )
                descProceso[pindx].CSProc,
                descProceso[pindx].tam)
           ) ;
+}
+
+int terminarThreadIndx ( tindx_t tindx )           /* termina thread pindx */
+{
+    modoAp_t modoAp ;
+    int j, dfs ;
+
+    if (tindx == 0) return(-1) ;                         /* thread inicial */
+    if ((tindx < 0) || (tindx >= maxThreads)) return(-2) ;        /* error */
+    if (descThread[tindx].estado == libre) return(-3) ;
+    if (descThread[tindx].estado == preparado)
+        eliminarPC2c(tindx, (ptrC2c_t)&c2cPFR[TPreparados]) ;
+
+    devolverPila(tindx) ;
+
+    return(0) ;
 }
 
 int terminarProcIndx ( pindx_t pindx )            /* termina proceso pindx */
@@ -772,6 +788,15 @@ int terminarProcIndx ( pindx_t pindx )            /* termina proceso pindx */
     return(0) ;
 }
 
+int eliminarThreadIndx ( tindx_t tindx )           /* elimina thread pindx */
+{
+    descThread[tindx].estado = libre ;
+    descThread[tindx].pindx = -1 ;
+    eliminarPC2c(tindx, (ptrC2c_t)&c2cPFR[DTOcupados]) ;
+    apilarPC2c(tindx, (ptrC2c_t)&c2cPFR[DTLibres]) ;
+    return(0) ;
+}
+
 int eliminarProcIndx ( pindx_t pindx )            /* elimina proceso pindx */
 {
     descThread[pindx].estado = libre ;
@@ -779,6 +804,36 @@ int eliminarProcIndx ( pindx_t pindx )            /* elimina proceso pindx */
     eliminarPC2c(pindx, (ptrC2c_t)&c2cPFR[DPOcupados]) ;
     apilarPC2c(pindx, (ptrC2c_t)&c2cPFR[DPLibres]) ;
     return(0) ;
+}
+
+int matarThreadIndx ( tindx_t tindx )                 /* mata thread tindx */
+{
+    int err = 0 ;
+    rindx_t rindx ;
+    if (descThread[tindx].estado == libre) return(-1) ;        /* ya libre */
+    if (descThread[tindx].estado == bloqueado)
+    {
+        rindx = descThread[tindx].esperandoPor ;
+        switch (rindx)
+        {
+        /*  case rec_hijo           : return(-2) ; */
+        case rec_zombie         :
+            eliminarThreadIndx(tindx) ;
+            return(0) ;
+        /*  case rec_desinstalacion : return(-2) ; */
+        default :
+            ;
+            if ((0 <= rindx) && (rindx < maxRecursos))
+            {
+                descRecurso[rindx].eliminar(tindx) ;
+            }
+        }
+    }
+    err = terminarThreadIndx(tindx) ;
+    if (err == 0)
+        eliminarThreadIndx(tindx) ;
+
+    return(err) ;
 }
 
 int matarProcIndx ( pindx_t pindx )                  /* mata proceso pindx */

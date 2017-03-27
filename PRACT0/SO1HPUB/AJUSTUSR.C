@@ -24,7 +24,7 @@
 /*                                                                         */
 /* En todos los casos, al final __start__ cede el control a main.          */
 
-#include "..\so1hpub.h\main.h"
+#include "..\so1hpub.h\main.h"                     
 
 #ifndef _DOS
 
@@ -34,11 +34,6 @@ void __start__ ( void )                           /* se llama desde _start */
 }
 
 #endif
-
-void finish ( void ) 
-{
-    return ;
-}
 
 #if (0) 
 

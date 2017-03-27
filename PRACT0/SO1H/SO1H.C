@@ -53,35 +53,37 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1hpub.h\ll_s_exc.h"                            /* nVIntSO1H */
 #include "..\so1h.h\procesos.h"           /* inicProcesos, indThreadActual */
 #include "..\so1h.h\llamadas.h"                                /* isr_SO1H */
+#include "..\so1hpub.h\ll_s_thr.h"                         /* thread_yield */
 
 #define pSV(x) printStrVideo(x)                                   /* macro */
 //#define E(x) x
 #define E(x) { pSV("\n ") ; pSV(#x) ; pSV(" ... ") ; x ; }        /* macro */
 
 void * funcion ( void * arg ) {
-	int i, j ;
-//	i = *((int *)arg) ;
-	i = (int)arg ;
-	for ( j = 0 ; j < 1000 ; j ++ ) {
-//  while (TRUE) {	
+    int i, j ;
+
+//  i = *((int *)arg) ;
+    i = (int)arg ;
+    printStrVideo("\n\n soy el thread con tid = ") ;
+    printLIntVideo(thread_self(), 1) ;
+    printStrVideo(" arg = ") ;
+    printLIntVideo(arg, 1) ;
+    for ( j = 0 ; j < 10000 ; j ++ ) {
+//  while (TRUE) {
 //      printIntVideo(*((int *)arg), 2) ;
-//	    (*((char *)(0xB8000+2*78)))++ ;
-//	    *((char *)(0xB8000+2*78)) = *((char *)arg) ;
-//	    (*((char *)(0xB8000+2*(78-*((int *)arg)))))++ ;
-	    (*((char *)(0xB8000+2*(78-2*i))))++ ;
-		asm("mov ax,0x0b02") ;
-        asm("int 0x60") ;
-	}
-	return((void *)i) ;
-asm
-(
-    "   db 'funcion' "   
-) ;
+//      (*((char *)(0xB8000+2*78)))++ ;
+//      *((char *)(0xB8000+2*78)) = *((char *)arg) ;
+//      (*((char *)(0xB8000+2*(78-*((int *)arg)))))++ ;
+        (*((char *)(0xB8000+2*(78-2*i))))++ ;
+//      thread_yield() ;
+        if ( j % 20 == 19) thread_yield() ;
+    }
+    return((void *)i) ;
 }
 
 void main ( void )
 {
-    word_t loQueHay ; 
+    word_t loQueHay ;
 
     asm("cli") ;                          /* se inhiben las interrupciones */
 
@@ -137,10 +139,10 @@ void main ( void )
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
-//  E(inicRecursos()) ;    
+//  E(inicRecursos()) ;
 
-	E(inicProcesos()) ;           /* inicializacion del gestor de procesos */ 
-	                                          /* y se inicializa SS_Kernel */
+    E(inicProcesos()) ;           /* inicializacion del gestor de procesos */
+                                              /* y se inicializa SS_Kernel */
     descProceso[indProcesoActual].uid = 0 ;                        /* root */
     descProceso[indProcesoActual].gid = 0 ;                        /* root */
 
@@ -202,7 +204,7 @@ void main ( void )
     IMRInicial = valorIMR() ;          /* tomamos nota del IMR (pic 8259A) */
 
     E(inicTVI()) ;    /* inicializamos la tabla de vectores de interrucion */
-	
+
     printStrVideo("\n valorIMR() = ") ;
     printHexVideo(valorIMR(), 4) ;
     printStrVideo(" = ") ;
@@ -217,7 +219,7 @@ void main ( void )
 //  leerScancode() ;                          /* para detener la ejecucion */
 //  leerScancode() ;                            /* con las ints. inhibidas */
 
-//	/* establecemos el vector de interrupcion de llamadas al sistema SO1   */
+//  /* establecemos el vector de interrupcion de llamadas al sistema SO1   */
 
     printStrVideo("\n redirigirInt(nVIntSO1H, isr_SO1H)") ;
     redirigirInt(nVIntSO1H, isr_SO1H) ;
@@ -225,52 +227,35 @@ void main ( void )
     printHexVideo(nVIntSO1H, 2) ;
     printStrVideo(" isr_SO1H = 0x") ;
     printLHexVideo((dword_t)isr_SO1H, 5) ;
-	
-	/* primera llamada al sistema de prueba: AH = 0x0f (no bloqueante) */ 
 
-	asm("mov ax,0f00h") ;
-	asm("int 0x60") ;
+#define numThreads 10	
 	
+    for ( int i = 0 ; i < numThreads ; i++ ) {
+        tid_t tid ;
+        printStrVideo("\n\n thread_create(&tid, 0x4000, funcion, i) ") ;
+        thread_create(&tid, 0x4000, funcion, i) ;
+        printStrVideo(" tid = ") ;
+        printLIntVideo(tid, 1) ;
+        printStrVideo(" sizeof(trata_t) = ") ;
+        printLIntVideo(sizeof(trama_t), 1) ;
+        mostrarListaLibres() ;
+    }
+
+    printStrVideo("\n\n descThread[1].SSThread = ") ;
+    printHexVideo(descThread[1].SSThread, 4) ;
+    printStrVideo("\n\n descThread[1].trama = ") ;
+    printLHexVideo(descThread[1].trama, 8) ;
+
+    for ( int i = 0 ; i < numThreads ; i++ )
+        thread_join(-1, NULL) ;
+
+    /* llamada al sistema de prueba: AH = 0x0b (bloqueante!!!) */
+
+    asm("mov ax,0b01h") ;
+    asm("int 0x60") ;
+
     printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;
 
-	/* segunda llamada al sistema de prueba: AH = 0x0b (no bloqueante) */ 
-	
-	asm("mov ax,0b00h") ;
-	asm("int 0x60") ;
-	
-    printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;
-	
-#if (0)	
-//  printStrVideo("\n\n crearThread(funcion, 0x4000, NULL, 0) = ") ;
-//	printIntVideo(crearThread(funcion, 0x4000, NULL, 0), 1) ;
-
-//	printIntVideo(crearThread(funcion, 0x4000, 0x12345678, 0), 1) ;
-#endif 
-
-#if (0)	
-    for ( int i = 0 ; i < 5 ; i++ ) {
-        printStrVideo("\n\n crearThread(funcion, 0x4000, &i, 0) = ") ;
-  	    printIntVideo(crearThread(funcion, 0x4000, &i, 0), 1) ;
-	}
-#endif 
-	
-    for ( int i = 0 ; i < 5 ; i++ ) {
-        printStrVideo("\n\n crearThread(funcion, 0x4000, i, 0) = ") ;
-  	    printIntVideo(crearThread(funcion, 0x4000, i, 0), 1) ;
-	}
-
-	printStrVideo("\n\n descThread[1].SSThread = ") ;
-	printHexVideo(descThread[1].SSThread, 4) ;
-	printStrVideo("\n\n descThread[1].trama = ") ;
-	printLHexVideo(descThread[1].trama, 8) ;	
-	
-	/* tercera llamada al sistema de prueba: AH = 0x0b (bloqueante!!!) */ 
-	
-	asm("mov ax,0b01h") ;
-	asm("int 0x60") ;
-	
-    printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;
-	
 
     /*  pasos siguientes:
           PROCESOS.C
