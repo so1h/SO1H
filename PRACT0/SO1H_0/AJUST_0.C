@@ -4,27 +4,28 @@
 */
 
 /* ----------------------------------------------------------------------- */
-/*                                ajustes.c                                */
+/*                                ajust_0.c                                */
 /* ----------------------------------------------------------------------- */
-/*            Ajuste inicial del modelo de programacion de so1h            */
+/*           Ajuste inicial del modelo de programacion de so1h_0           */
 /* ----------------------------------------------------------------------- */
 
-/* codigo presente al principio de so1h.exe (tras su cabecera EXE) y al    */
-/* principio de so1h.bin (que no tiene cabecera). De hecho so1h.bin es     */
-/* igual a so1h.exe sin la cabecera. so1h puede ejecutarse de dos maneras: */
+/* codigo presente al principio de so1h_0.exe (tras su cabecera EXE) y al  */
+/* principio de so1h_0.bin (que no tiene cabecera). De hecho so1h_0.bin es */
+/* igual a so1h_0.exe sin la cabecera. so1h_0 puede ejecutarse de dos      */
+/* maneras:                                                                */
 /*                                                                         */
-/* 1) como so1h.bin siendo cargado en memoria por el sector de arranque    */
+/* 1) como so1h_0.bin siendo cargado en memoria por el sector de arranque  */
 /*                                                                         */
-/* 2) como so1h.exe siendo cargado desde MSDOS, NTVDM, DOSBox, ...         */
+/* 2) como so1h_0.exe siendo cargado desde MSDOS, NTVDM, DOSBox, ...       */
 /*                                                                         */
-/* so1h.bin toma el control en la función startBin, que es a donde le      */
+/* so1h_0.bin toma el control en la función startBin, que es a donde le    */
 /* cede el control el sector de arranque.                                  */
 /*                                                                         */
-/* En el caso de so1h.exe el cargador cede el control directamente a la    */
+/* En el caso de so1h_0.exe el cargador cede el control directamente a la  */
 /* función _start que es una función contenida en el fichero c0dh.asm de   */
 /* Smaller C. c0dh.asm se encarga de la reubicación.                       */
 /*                                                                         */
-/* Para unificar el comportamiento de so1h.exe y so1h.bin, la funcion      */
+/* Para unificar el comportamiento de so1h_0.exe y so1h_0.bin, la funcion  */
 /* startBin cede también el control a _start.                              */
 /*                                                                         */
 /* La función _start tras reubicar las variables globales cede el control  */
@@ -37,7 +38,9 @@
 /* En todos los casos, al final __start__ cede el control a main.          */
 
 #include "..\so1hpub.h\tipos.h"
-#include "..\so1h.h\ajustsp.h"                                 /* SP0_SO1H */
+#include "..\so1h_0.h\ajustsp_0.h"                           /* SP0_SO1H_0 */
+
+#include <string.h>                                              /* memcpy */
 
 #ifndef _DOS
 
@@ -51,9 +54,9 @@ void unidadBIOS ( void ) ;    /* guarda el número de la unidad de arranque */
 
 /* Es correcto el uso moderado de la pila desde el primer momento ya que   */
 /* para SO1H_0.exe MSDOS establece la pila donde se le ha indicado en la   */
-/* cabecera EXE, y para SO1H_0.bin el PBR deja la pila en con SS = 9000    */
+/* cabecera EXE, y para SO1H_0.bin el PBR deja la pila con SS = 9000       */
 
-void startBin ( void ) ;          /* punto de entrada para so1h.bin (boot) */                     
+void startBin ( void ) ;        /* punto de entrada para so1h_0.bin (boot) */                     
 asm                                                      /* implementacion */
 (
     " section .text               \n"
@@ -63,7 +66,7 @@ asm                                                      /* implementacion */
     "   cli                       \n"      /* inhibimos las interrupciones */
 
     "   mov ax,cs                 \n"      /* ajustamos cs con el fin de   */
-    "   sub ax,2                  \n"      /* que cs apunte a la cabecera  */
+    "   sub ax,2                  \n"      /* que cs apunte a la cabecera  */ /* 2 paragrafos = 32 bytes (sizeof(cabecera_t)) */
     "   push ax                   \n"      /* y cedemos el control a la    */
     "   push $+4                  \n"      /* siguiente instrucción tras   */
     "   retf                      \n"      /* el retorno lejano (retf)     */
@@ -73,17 +76,34 @@ asm                                                      /* implementacion */
     "   mov al,0x00               \n"    /* (modoSO1_t)0x00 == modoSO1_Bin */
     "   mov [cs:_modoSO1+9],al    \n"             /* modoSO1 = modoSO1_Bin */
 
-    " extern __stop__bss          \n"
-    "   mov ebx,__stop__bss       \n"    /* hacemos figurar _stop__bss     */
-    "   add ebx,0x0F              \n"
-    "   shr ebx,4                 \n"
-    "   mov ax,cs                 \n"
-    "   add bx,ax                 \n"
-    "   mov ss,bx                 \n"/* inic. segmento de pila del proceso */
-    "   mov sp,SP0_SO1H           \n"/* inic. puntero  de pila del proceso */ /* desplazamiento 004B */
+) ;
+void startExe ( void ) ;               /* punto de entrada para so1h_0.exe */                     
+asm                                                      /* implementacion */
+(
+    " section .text               \n"
+    "   global _startExe          \n"
+    " _startExe:                  \n"
 
-    " extern __start              \n" /* funcion a la que ceder el control */
+    "   mov ax,SS_SO1H_0          \n"
+    "   mov ss,ax                 \n"            /* inic. segmento de pila */
+    "   mov sp,SP0_SO1H_0         \n"            /* inic. puntero  de pila */ /* desplazamiento 003C */
+
+    "   mov ax,cs                 \n"    
+    "   mov [cs:_CSInicial+9],ax  \n"                    /* CSInicial = cs */  
+
+    " extern __start__bss         \n"            /* (sin reubicar)         */
+	"   mov cx,__start__bss       \n"            /* tam del fichero SO1H_0 */ /* redondeado a numero par */
+	"   shr cx,2                  \n"            /* n. bytes a n. dwords   */
+	"   mov ax,cs                 \n"            /* reubicamos SO1H_0 a    */
+	"   mov ds,ax                 \n"            /* 9000:0000. No se puede */
+	"   mov ax,ss                 \n"            /* reubicar a alto nivel  */
+	"   mov es,ax                 \n"            /* con SmallerC (llamar   */
+	"   xor esi,esi               \n"            /* dos veces a _start)    */
+	"   xor edi,edi               \n"
+	"   repz                      \n"
+	"   movsd                     \n"	
 //                                          /* cedemos el control a _start */
+    " extern __start              \n" /* funcion a la que ceder el control */
     "   mov ebx,__start           \n"  /* _start es la funcion que reubica */
     "   ror ebx,4                 \n"                      /* ver c0dh.asm */
     "   add ax,bx                 \n"
@@ -143,16 +163,18 @@ uint8_t unidadBIOS ( void )        /* numero BIOS de la unidad de arranque */
     ) ;                                                   /* return(uBIOS) */
 }
 
-uint8_t despCab ( void )    /* desplazam. de la cabecera (cab en startBin) */
+word_t CSInicial ( void )                                     /* CSInicial */
 {
     asm
     (
         "   call $+5           \n"
-        " dCab: dw 0x0000      \n"                    /* valor de desplCab */
+        " CSIni: dw 0x0000     \n"                       /* valor de CSIni */
         "   pop bx             \n"
-        "   mov al,[cs:bx]     \n" /* dCab */
-    ) ;                                                    /* return(dCab) */
+        "   mov ax,[cs:bx]     \n" /* CSIni */
+    ) ;                                                   /* return(CSIni) */
 }
+
+
 
 void obtenerMapa ( void )           /* obtiene CS_SO1H, DS_SO1H y BSS_SO1H */
 {

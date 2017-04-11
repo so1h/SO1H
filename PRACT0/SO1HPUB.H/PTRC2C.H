@@ -19,8 +19,10 @@ typedef c2c_t * ptrC2c_t ;                   /* puntero lejano a c2c_t */
 #define ultimoPC2c(ptrC2c)       (((ptrC2c_t)ptrC2c)->e[(ptrC2c)->cabecera].ant)
 #define siguientePC2c(i, ptrC2c) (((ptrC2c_t)ptrC2c)->e[i].sig)
 #define anteriorPC2c(i, ptrC2c)  (((ptrC2c_t)ptrC2c)->e[i].ant)
-#define estaPC2c(i, ptrC2c)      (((ptrC2c_t)ptrC2c)->e[i].sig != NULO)
-#define noEstaPC2c(i, ptrC2c)    (((ptrC2c_t)ptrC2c)->e[i].sig == NULO)
+//#define estaPC2c(i, ptrC2c)      (((ptrC2c_t)ptrC2c)->e[i].sig != NULO)
+#define estaPC2c(i, ptrC2c)      (((ptrC2c_t)ptrC2c)->e[i].cab == cabeceraPC2c(ptrC2c))
+//#define noEstaPC2c(i, ptrC2c)    (((ptrC2c_t)ptrC2c)->e[i].sig == NULO)
+#define noEstaPC2c(i, ptrC2c)    (((ptrC2c_t)ptrC2c)->e[i].sig == cabeceraPC2c(ptrC2c))
 
 #define codigoInsertarPC2c(i, anterior, ptrC2c) {                            \
   dobleEnlace_t * e = ((ptrC2c_t)ptrC2c)->e ;                                \
@@ -37,6 +39,7 @@ typedef c2c_t * ptrC2c_t ;                   /* puntero lejano a c2c_t */
     ((ptrC2c_t)ptrC2c)->primero = e[i].sig ;                                 \
   e[i].sig = NULO ;                                                          \
   e[i].ant = NULO ;                                                          \
+  e[i].cab = NULO ;                                                          \
   ((ptrC2c_t)ptrC2c)->numElem-- ;                                            \
 }
 #define codigoApilarPC2c(i, ptrC2c) {           /* ptrC2c vacia o no vacia */\

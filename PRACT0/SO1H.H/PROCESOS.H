@@ -72,10 +72,6 @@ extern word_t contadorTimer00 ; /* v. contadorTimer0() al pasar a ej. p.a. */
 
 extern int contOcioso ;                      /* contador para reloj ocioso */
 
-extern c2c_t bloqueadosRaton ;
-
-extern dobleEnlace_t e2BloqueadosRaton [ maxProcesos + 1 ] ;
-
 pid_t nuevoPid ( void ) ;
 
 tid_t nuevoTid ( void ) ;

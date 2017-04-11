@@ -28,10 +28,10 @@ void finThread ( void )             /* fin por defecto de un thread creado */
 {
 	dword_t reg_EAX ;
     asm("mov [bp-4],eax") ; /* reg_AX */	
-	printStrVideo("\n\n fin del thread con tid = ") ;
-    printDecVideo(thread_self(), 1) ;
+//	printStrVideo("\n\n fin del thread con tid = ") ;
+//  printDecVideo(thread_self(), 1) ;
 //	printStrVideo(" codigo de terminacion (EAX) = ") ;
 //	printDecVideo(reg_EAX, 1) ;
-    thread_exit((void *)reg_EAX) ;	
+    thread_exit((void *)reg_EAX) ;                              /* llamada */
 } 
 

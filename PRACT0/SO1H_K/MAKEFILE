@@ -4,9 +4,9 @@
 #                                                                            #
 #----------------------------------------------------------------------------#
 
-PROGRAMA = PROG_0
+PROGRAMA = SO1H_K
 
-!include "..\..\MKFILE0"
+!include "..\MKFILE0"
 
 !if $(MODEL) == huge
 C0DH     = obj\c0dh.o
@@ -15,21 +15,22 @@ LCDH     = $(UTMP):\SmallerC\v0100\lib\lcdh.a
 !elif $(MODEL) == dosu
 !endif
 
-.path.o   = .\obj;..\..\so1pub\obj
+#.path.o   = .\obj;..\so1pub\obj
+.path.o   = .\obj;..\so1h\obj;..\so1pub\obj
 .path.asm = .\asm
 .path.c   = .
 
 all: crearDirs $(PROGRAMA).exe $(PROGRAMA).bin
 
 LISTAPUBS =\
-..\..\so1hpub\obj\tipos.o ..\..\so1hpub\obj\biosdata.o ..\..\so1hpub\obj\caracter.o\
-..\..\so1hpub\obj\printgen.o ..\..\so1hpub\obj\bios_0.o ..\..\so1hpub\obj\telon.o\
-..\..\so1hpub\obj\pantalla.o ..\..\so1hpub\obj\colores.o ..\..\so1hpub\obj\msdos.o\
-..\..\so1hpub\obj\debug.o ..\..\so1hpub\obj\pic.o ..\..\so1hpub\obj\puertos.o \
-..\..\so1hpub\obj\memvideo.o ..\..\so1hpub\obj\memvideo.o ..\..\so1hpub\obj\bios_crt.o \
-..\..\so1hpub\obj\printvid.o ..\..\so1hpub\obj\c2c.o ..\..\so1hpub\obj\ptrc2c.o \
-..\..\so1hpub\obj\ccb.o ..\..\so1hpub\obj\seccion.o ..\..\so1hpub\obj\main.o \
-..\..\so1hpub\obj\ll_s_thr.o 
+..\so1hpub\obj\tipos.o ..\so1hpub\obj\biosdata.o ..\so1hpub\obj\caracter.o\
+..\so1hpub\obj\printgen.o ..\so1hpub\obj\bios_0.o ..\so1hpub\obj\telon.o\
+..\so1hpub\obj\pantalla.o ..\so1hpub\obj\colores.o ..\so1hpub\obj\msdos.o\
+..\so1hpub\obj\debug.o ..\so1hpub\obj\pic.o ..\so1hpub\obj\puertos.o \
+..\so1hpub\obj\memvideo.o ..\so1hpub\obj\memvideo.o ..\so1hpub\obj\bios_crt.o \
+..\so1hpub\obj\printvid.o ..\so1hpub\obj\c2c.o ..\so1hpub\obj\ptrc2c.o \
+..\so1hpub\obj\ccb.o ..\so1hpub\obj\seccion.o ..\so1hpub\obj\main.o \
+..\so1hpub\obj\ll_s_thr.o 
 
 
 $(PROGRAMA).bin: $(PROGRAMA).exe
@@ -37,11 +38,11 @@ $(PROGRAMA).bin: $(PROGRAMA).exe
 # PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).bin
   copy $(PROGRAMA).exe $(PROGRAMA).bin
   @echo.
-  copy $(PROGRAMA).bin ..\..\DISQUETE > nul
+  copy $(PROGRAMA).bin ..\DISQUETE > nul
   
-$(PROGRAMA).exe: $(PROGRAMA).o c0dh.o
+$(PROGRAMA).exe: $(PROGRAMA).o obj\c0dh.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
-..\..\so1hpub\obj\ajustusr.o\
+..\so1hpub\obj\ajustusr.o\
 obj\$(PROGRAMA).o\
 $(C0DH)\
 $(LISTAPUBS)\
@@ -68,7 +69,7 @@ $(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
   @echo ------- creado el fichero $(PROGRAMA).bat
 # tdump $(PROGRAMA).exe
 
-c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
+obj\c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
   $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o obj\c0dh.o
 
 !if ($(VIA_ASM) == TRUE)

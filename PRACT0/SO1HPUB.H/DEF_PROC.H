@@ -44,7 +44,9 @@ typedef struct {
   rindx_t      esperandoPor ;      /* recurso por el que se esta esperando */\
   trama_t      * trama ;                                  /* trama = SS:SP */\
   bool_t       noStatus ;              /* TRUE => puede morir directamente */\
-  int          status ;        /* estado de terminacion si se queda zombie */\
+  int          status ;  /* estado de terminacion si queda zombie (thread) */\
+  tindx_t      ptindx ;                          /* tindx del thread padre */\
+  tindx_t      htindx ;   /* tindx del thread por el que se esta esperando */\
   pindx_t      pindx ;               /* pindx del proceso al que pertenece */\
                                                          /*----Memoria---- */\
   word_t       SSThread ;                              /* segmento de pila */\
@@ -56,7 +58,7 @@ typedef struct {
                                                          /*------CPU------ */\
   pid_t        pid ;                                                         \
   bool_t       noStatus ;              /* TRUE => puede morir directamente */\
-  int          status ;        /* estado de terminacion si se queda zombie */\
+  int          status ;           /* estado de terminacion si queda zombie */\
   pindx_t      ppindx ;                         /* pindx del proceso padre */\
   pindx_t      hpindx ;     /* pindx del hijo por el que se esta esperando */\
   c2c_t        c2cHijos ;                        /* cola de procesos hijos */\
@@ -152,10 +154,11 @@ typedef struct {
 
 /* recursos (simples) por los que se espera bloqueado */
 
-#define rec_thread          (rindx_t)(- 1)     /* terminacion de un thread */
-#define rec_hijo            (rindx_t)(- 2)       /* terminacion de un hijo */
-#define rec_zombie          (rindx_t)(- 3)
-#define rec_desinstalacion  (rindx_t)(- 4)
+#define rec_hijo            (rindx_t)(- 1)       /* terminacion de un hijo */
+#define rec_zombie          (rindx_t)(- 2)
+#define rec_desinstalacion  (rindx_t)(- 3)
+#define rec_thr_hijo        (rindx_t)(- 4)     /* terminacion de un thread */
+#define rec_thr_zombie      (rindx_t)(- 5)     /* terminacion de un thread */
 
 typedef struct {                                    /* informacion variada */
   /* word_t ticsPorRodaja ; */
@@ -181,7 +184,7 @@ typedef struct {
   word_t  CS0 ;
   word_t  offTablaReub ;
   word_t  numOverlay ;
-  dword_t relleno ;
+  dword_t relleno ; 
 } cabecera_t ;
 
 #if (0) 

@@ -4,21 +4,23 @@
 #                                                                            #
 #----------------------------------------------------------------------------#
 
-PROGRAMA = SO1H
+PROGRAMA = SO1H_0
 
 !include "..\MKFILE0"
 
-# valor del puntero de pila inicial del proceso SO1H
-SP0_SO1H = 6000
+# valor de SS:SP iniciales del programa SO1H_0
+SS_SO1H_0  = 9000
+SP0_SO1H_0 = FFFE
 
 !if $(MODEL) == huge
-C0DH     = obj\c0dh.o
+C0DH     = ..\SO1H\obj\c0dh.o
 LCDH     = $(UTMP):\SmallerC\v0100\lib\lcdh.a
 !elif $(MODEL) == dosh
 !elif $(MODEL) == dosu
 !endif
 
-.path.o   = .\obj;..\so1pub\obj
+#.path.o   = .\obj;..\so1pub\obj
+.path.o   = .\obj;..\so1h\obj;..\so1pub\obj
 .path.asm = .\asm
 .path.c   = .
 
@@ -35,13 +37,77 @@ LISTAPUBS =\
 ..\so1hpub\obj\printvid.o ..\so1hpub\obj\c2c.o ..\so1hpub\obj\ptrc2c.o \
 ..\so1hpub\obj\ccb.o ..\so1hpub\obj\seccion.o ..\so1hpub\obj\ll_s_thr.o \
 
-
 $(PROGRAMA).sys: $(PROGRAMA).exe
   @echo.
 # PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).sys
   EXTRAER $(PROGRAMA).exe 32 0 $(PROGRAMA).sys
   @echo.
   copy $(PROGRAMA).sys ..\DISQUETE > nul
+  cd ..\DISQUETE
+  @copy &&|
+#
+# fichero de configuracion so1himg.cfg
+#  
+so1h_0.sys          # preparativos
+so1h_k.bin          # nucleo
+prog_0.bin          # programa
+| disco.cfg > nul
+  mkrd disco.cfg disco.rd
+  @copy &&|
+#
+# fichero de configuracion so1himg.cfg
+#  
+so1h_0.sys          # preparativos
+so1h_k.bin 00012345 # nucleo
+prog_0.bin          # programa
+disco.rd            # disco ram
+| so1himg.cfg > nul
+  componer so1himg.cfg so1himg.sys 
+
+!if (1)
+
+$(PROGRAMA).exe: ajust_0.o $(PROGRAMA).o dirf.o c0dh.o s0.o 
+  $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
+obj\ajust_0.o\
+obj\$(PROGRAMA).o\
+obj\dirf.o\
+$(C0DH)\
+..\so1h\obj\s0.o\
+..\so1h\obj\so1dbg.o\
+$(LISTAPUBS)\
+$(LCDH)
+# para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente
+# reservar la mayor cantidad de memoria posible, ver la palabra en dirPSP + 2)
+  @echo.
+  EXE2BIN -c $(PROGRAMA).exe
+  @echo.
+  PARCHEAR $(PROGRAMA).exe 12 FFFF
+# para hacer SP0 = SP0_SO1H en los desplazamientos 0x0010 y 0x003C
+  @echo.
+  PARCHEAR $(PROGRAMA).exe 16 $(SP0_SO1H_0)
+  PARCHEAR $(PROGRAMA).exe 60 $(SP0_SO1H_0)
+# para hacer CS:IP = startExe
+  PARCHEAR $(PROGRAMA).exe 20 0036 
+  PARCHEAR $(PROGRAMA).exe 22 FFFE 
+  @echo.
+  EXE2BIN -c $(PROGRAMA).exe
+  @copy &&|
+mode con cols=80 lines=25
+$(UTMP):\BC5\BIN\msdos $(PROGRAMA).exe
+| $(PROGRAMA).cmd > nul
+  @echo.
+  @echo ------- creado el fichero $(PROGRAMA).cmd
+  @copy &&|
+mode con cols=80 lines=25
+$(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
+| $(PROGRAMA).bat > nul
+  @echo.
+  @echo ------- creado el fichero $(PROGRAMA).bat
+# tdump $(PROGRAMA).exe
+  @echo.
+  copy $(PROGRAMA).exe ..\DISQUETE > nul
+  
+!else
 
 $(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o blockpr.o procesos.o \
                  interrup.o llamadas.o matrix.o manej_00.o manej_0b.o manej_0f.o 
@@ -89,6 +155,8 @@ $(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
 # tdump $(PROGRAMA).exe
   @echo.
   copy $(PROGRAMA).exe ..\DISQUETE > nul
+  
+!endif 
 
 c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
   $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o obj\c0dh.o

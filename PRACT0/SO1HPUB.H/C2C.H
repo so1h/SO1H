@@ -1,3 +1,8 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                                  c2c.h                                  */
 /* ----------------------------------------------------------------------- */
@@ -15,6 +20,7 @@ typedef struct
 {
     int sig ;
     int ant ;
+    int cab ;           /* identifica la cola a la que pertenece el enlace */
 } dobleEnlace_t ;                                          /* enlace doble */
 
 typedef struct
@@ -33,8 +39,11 @@ typedef struct
 #define ultimoC2c(c2c)       (c2c.e[c2c.cabecera].ant)
 #define siguienteC2c(i, c2c) (c2c.e[i].sig)
 #define anteriorC2c(i, c2c)  (c2c.e[i].ant)
-#define estaC2c(i, c2c)      (c2c.e[i].sig != NULO)             /* cuidado */
-#define noEstaC2c(i, c2c)    (c2c.e[i].sig == NULO)             /* cuidado */
+//#define estaC2c(i, c2c)      (c2c.e[i].sig != NULO)           /* cuidado *//* puede estar compartida */
+#define estaC2c(i, c2c)      (c2c.e[i].cab == c2c.cabecera)
+//#define noEstaC2c(i, c2c)    (c2c.e[i].sig == NULO)           /* cuidado *//* puede estar compartida */
+#define noEstaC2c(i, c2c)    (c2c.e[i].cab != c2c.cabecera)
+
 
 #define codigoInsertar(i, anterior, siguiente) {                             \
   e[i].sig = siguiente ;                                                     \
@@ -46,6 +55,7 @@ typedef struct
   dobleEnlace_t * e = c2c.e ;                                                \
   int siguiente = e[anterior].sig ;                                          \
   codigoInsertar(i, anterior, siguiente)                                     \
+  e[i].cab = c2c.cabecera ;                                                  \
   if (c2c.cabecera == anterior)                                              \
     c2c.primero = i ;                                                        \
   c2c.numElem++ ;                                                            \
@@ -62,6 +72,7 @@ typedef struct
   if (i == c2c.primero) c2c.primero = e[i].sig ;                             \
   e[i].sig = NULO ;                                                          \
   e[i].ant = NULO ;                                                          \
+  e[i].cab = NULO ;                                                          \
   c2c.numElem-- ;                                                            \
 }
 #define codigoApilarC2c(i, c2c) {                  /* c2c vacia o no vacia */\
@@ -115,10 +126,12 @@ int desencolarC2c ( c2c_t c2c ) ;
   int i ;                                                                    \
   e[cabecera].sig = cabecera ;                                               \
   e[cabecera].ant = cabecera ;                                               \
+  e[cabecera].cab = cabecera ;                                               \
   if (compartida) return ;                                                   \
   for ( i = 0 ; i < cabecera ; i++ ) {                                       \
     e[i].sig = NULO ;                                                        \
     e[i].ant = NULO ;                                                        \
+    e[i].cab = NULO ;                                                        \
   }                                                                          \
 }
 

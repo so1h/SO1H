@@ -64,10 +64,6 @@ int contTicsRodaja ;                     /* contador de tics de una rodaja */
 
 word_t contadorTimer00 ;  /* valor de contadorTimer0() al pasar a ej. p.a. */
 
-c2c_t bloqueadosRaton ;
-
-dobleEnlace_t e2BloqueadosRaton [ maxProcesos + 1 ] ;
-
 trama_t * tramaThread ;
 
 trama_t * tramaTarea ;
@@ -336,15 +332,20 @@ tindx_t crearThread ( funcion_t funcion,             /* funcion a ejecutar */
 	dword_t * ptrPila ; 
 	
     if ((pindx < 0) || (pindx > maxThreads)) return(-1) ;
-	if (posicionC2c(pindx,c2cPFR[DPOcupados]) == -1) return(-1) ;
-    if (c2cPFR[DTLibres].numElem == 0) return(-1) ;	
+	if (posicionC2c(pindx,c2cPFR[DPOcupados]) == -1) return(-2) ;
+    if (c2cPFR[DTLibres].numElem == 0) return(-3) ;	
 	SSThread = k_buscarBloque((SP0 + 15)/16) ;
-	if (SSThread == 0x0000) return(-1) ;
+	if (SSThread == 0x0000) return(-4) ;
 	i = desencolarPC2c((ptrC2c_t)&c2cPFR[DTLibres]) ;
 	encolarPC2c(i, (ptrC2c_t)&c2cPFR[DTOcupados]) ;
 	descThread[i].tid = nuevoTid() ;
 	descThread[i].estado = preparado ;
 	descThread[i].pindx = pindx ;
+    descThread[i].noStatus = TRUE ;          
+    descThread[i].status = 0 ;           
+    descThread[i].ptindx = indThreadActual ; 
+    descThread[i].htindx = -1 ;                 /* no espera ningun join */
+	
 	descThread[i].SSThread = SSThread ;
 	descThread[i].SP0 = SP0 ;
 	ptrPila = MK_P(SSThread, SP0) ;
@@ -378,6 +379,8 @@ asm
 ) ;
     descThread[i].trama->Flags =
         (flags & 0xF000) | 0x0202 ;           /* interrupciones permitidas */
+	
+	encolarPC2c(i, (ptrC2c_t)&descProceso[pindx].c2cThreads) ;
 	
 	encolarPC2c(i, (ptrC2c_t)&c2cPFR[TPreparados]) ;
 	
@@ -580,9 +583,9 @@ void inicProcesos ( void )
 
 //  /* inicializamos las colas: */
 
-    inicPC2c(&c2cPFR[DPLibres],    &e2PFR.e2DescProceso.Libres,   maxProcesos,     TRUE) ;
+    inicPC2c(&c2cPFR[DPLibres],    &e2PFR.e2DescProceso.Libres,   maxProcesos,     FALSE) ;
     inicPC2c(&c2cPFR[DPOcupados],  &e2PFR.e2DescProceso.Ocupados, maxProcesos + 1, TRUE) ;
-    inicPC2c(&c2cPFR[DTLibres],    &e2PFR.e2DescThread.Libres,    maxThreads,      TRUE) ;
+    inicPC2c(&c2cPFR[DTLibres],    &e2PFR.e2DescThread.Libres,    maxThreads,      FALSE) ;
     inicPC2c(&c2cPFR[DTOcupados],  &e2PFR.e2DescThread.Ocupados,  maxThreads + 1,  TRUE) ;
     inicPC2c(&c2cPFR[TPreparados], &e2PFR.e2Preparados,           maxProcesos,     FALSE) ;
     inicPC2c(&c2cPFR[TUrgentes],   &e2PFR.e2Urgentes,             maxProcesos,     FALSE) ;
@@ -597,8 +600,8 @@ void inicProcesos ( void )
     descProceso[0].noStatus = TRUE ;           /* puede morir directamente */
     descProceso[0].ppindx = -1 ;                         /* no tiene padre */
     descProceso[0].hpindx = -1 ;        /* no espera a que termine un hijo */
-    inicPC2c(&descProceso[0].c2cHijos, &e2PFR.e2Hijos, maxProcesos + 0, TRUE) ;
-    inicPC2c(&descProceso[0].c2cThreads, &e2PFR.e2Threads, maxThreads + 0, TRUE) ;
+    inicPC2c(&descProceso[0].c2cHijos, &e2PFR.e2Hijos, maxProcesos + 0, FALSE) ;
+    inicPC2c(&descProceso[0].c2cThreads, &e2PFR.e2Threads, maxThreads + 0, FALSE) ;
     descProceso[0].CSProc = CS_SO1H ;
     descProceso[0].tam = SS_SO1H - CS_SO1H ;
     descProceso[0].tamCodigo = &_stop__text - &_start__text + sizeof(cabecera_t) ;
@@ -618,7 +621,10 @@ void inicProcesos ( void )
     descThread[0].tid = nuevoTid() ;
     descThread[0].estado = ejecutandose ;
 //  descThread[0].trama = (trama_t *)NULL ;              /* (en ejecucion) */
-    descThread[0].noStatus = TRUE ;            /* puede morir directamente */
+    descThread[0].noStatus = TRUE ;            /* puede morir directamente */	
+//  descThread[0].status = 0 ;           
+    descThread[0].ptindx = -1 ;           /* no lo creo ningun otro thread */
+    descThread[0].htindx = -1 ;                   /* no espera ningun join */
     descThread[0].pindx = 0 ;
 //  descThread[0].tCPU = 0 ;              /* tiempo de CPU en (tics/2**16) */
 
@@ -661,6 +667,9 @@ void inicProcesos ( void )
         descThread[i].estado = libre ;
 //      descThread[i].trama = (trama_t *)NULL ;
 //      descThread[i].noStatus = TRUE ;        /* puede morir directamente */
+//      descThread[i].status = 0 ;           
+//      descThread[i].ptindx = -1 ;       /* no lo creo ningun otro thread */
+//      descThread[i].htindx = -1 ;               /* no espera ningun join */
         descThread[i].pindx = -1 ;
         descThread[i].SSThread = 0x0000 ;
         descThread[i].SP0 = 0x0000 ;
@@ -669,7 +678,7 @@ void inicProcesos ( void )
         apilarPC2c(i, (ptrC2c_t)&c2cPFR[DTLibres]) ;         /* apilamos i */
     }
 
-#if (1)
+#if (0)
     printStrVideo("\n sizeof(cabecera_t) = ") ;
     printDecVideo(sizeof(cabecera_t), 1) ;                           /* Ok */
     printStrVideo("\n descProceso[0].CSProc = ") ;

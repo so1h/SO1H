@@ -1,0 +1,47 @@
+
+Hay dos sistemas distintos aunque con mucho código en común:
+
+  1) SO1H: version de SO1H que toma el control directamente
+           tras el boot (SO1H.sys) o desde MSDOS (SO1H.exe).
+           Modelos: HUGE, DOSH y DOSU. Lleva a cabo las 
+           inicializaciones y tiene incorporado el driver
+           del sistema de ficheros que utiliza.
+           SO1H.sys no tiene cabecera. SO1H.exe si.
+
+  2) SO1H_0: fase de preparacion de la carga del sistema SO1H_K
+             llevando a cabo las inicializaciones del nucleo
+             y cargando en memoria los procesos (inic, 
+             drivers, disco ram) que necesita el nucleo.
+             SO1H_0.sys no tiene cabecera. SO1H_0.exe tiene cabecera.              
+            
+     SO1H_K: nucleo que es cargado por SO1H_0. SO1H_0 junto
+             con SO1H_K, el proceso inic, los driver y el
+             disco ram, estando todo incluido en un único
+             fichero SO1HIMG.sys (SO1HIMG.exe) que es cargado
+             tras el boot o desde MSDOS.     
+             SO1H_K.bin tiene cabecera.              
+
+     SO1HIMG: es el fichero preparado para la carga.
+              Incluye SO1H_0, SO1H_K, inic, drivers y disco ram.
+              Con simplemente un sector de arranque y con SO1HIMG.sys ya 
+              tendríamos un disquete capaz de poner en funcionamiento
+              un sistema con shell y algunos comandos internos y externos.
+              Lo mismo el arranque de disco duro. Igualmente podríamos arrancar 
+              SO1HIMG.sys a través de la red. Para construir SO1HIMG.sys o
+              SO1HIMG.exe a partir de SOiH_0, SO1H_K, ... debemos utilizar
+              el comando COMPONER.exe (programado con C Builder).      
+              SO1HIMG.sys no tiene cabecera. SO1HIMG.exe tiene cabecera. 
+
+Nota: Utilizaremos la siguiente nomenclatura en la denominacion d elos ficheros:
+
+     fichero.exe (esta claro)
+     fichero.bin (fichero ejecutable en SO1H ==> tiene cabecera (EXE))
+     fichero.sys (fichero que puede cargarse utilizando un sector de arranque
+                  por lo que no tiene cabecera)
+     fichero.rd  (fichero correspondiente a un disco ram)
+
+     entonces tendríamos: SO1H.sys y SO1H.exe
+                          SO1H_0.sys y SO1H_0.exe
+                          SO1H_K.bin
+                          progusr.bin
+                          SO1HIMG.sys y SO1HIMG.exe

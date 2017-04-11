@@ -1,3 +1,8 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                                  c2c.c                                  */
 /* ----------------------------------------------------------------------- */
@@ -18,7 +23,7 @@ void eliminarC2c ( int i, c2c_t c2c )
 
 void apilarC2c ( int i, c2c_t c2c )
 {
-    codigoApilarC2c(i, c2c)
+     codigoApilarC2c(i, c2c)
 }
 
 void encolarC2c ( int i, c2c_t c2c )

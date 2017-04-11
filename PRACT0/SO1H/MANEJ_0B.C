@@ -22,7 +22,7 @@ void so1_manejador_0b ( void ) {                     /* ah = 0b ; int SO1H */
 		            break ;
         case 0x01 : 
     printStrVideo("\n\n estoy en so1_manejador_0b  tramaThread->AX = ") ;
-    printHexVideo(tramaThread->AH, 4) ;
+    printHexVideo(tramaThread->AX, 4) ;
 		            bloquearThreadActual(rec_hijo) ;            
 		            break ;
         case 0x02 : 

@@ -76,9 +76,11 @@ void * funcion ( void * arg ) {
 //      (*((char *)(0xB8000+2*(78-*((int *)arg)))))++ ;
         (*((char *)(0xB8000+2*(78-2*i))))++ ;
 //      thread_yield() ;
-        if ( j % 20 == 19) thread_yield() ;
+        if ( j % 20 == 19) 
+			thread_yield() ;                                    /* llamada */
     }
-    return((void *)i) ;
+    thread_exit((void *)i) ;                                    /* llamada */
+//  return((void *)i) ;              /* llamada implicita (so1hpub\main.c) */
 }
 
 void main ( void )
@@ -228,17 +230,22 @@ void main ( void )
     printStrVideo(" isr_SO1H = 0x") ;
     printLHexVideo((dword_t)isr_SO1H, 5) ;
 
-#define numThreads 10	
+//#define numThreads 10	
+#define numThreads 5	
 	
     for ( int i = 0 ; i < numThreads ; i++ ) {
         tid_t tid ;
-        printStrVideo("\n\n thread_create(&tid, 0x4000, funcion, i) ") ;
-        thread_create(&tid, 0x4000, funcion, i) ;
+//		thread_attribs_t attribs = { 0x4000, 0x0001 } ;
+		thread_attribs_t attribs = { 0x4000, 0x0000 } ;
+
+//      printStrVideo("\n thread_create(&tid, NULL, funcion, i) ") ;
+//      thread_create(&tid, NULL, funcion, i) ;
+        printStrVideo("\n thread_create(&tid, &attribs, funcion, i) ") ;
+        thread_create(&tid, &attribs, funcion, i) ;             /* llamada */
+
         printStrVideo(" tid = ") ;
         printLIntVideo(tid, 1) ;
-        printStrVideo(" sizeof(trata_t) = ") ;
-        printLIntVideo(sizeof(trama_t), 1) ;
-        mostrarListaLibres() ;
+//      mostrarListaLibres() ;
     }
 
     printStrVideo("\n\n descThread[1].SSThread = ") ;
@@ -246,17 +253,48 @@ void main ( void )
     printStrVideo("\n\n descThread[1].trama = ") ;
     printLHexVideo(descThread[1].trama, 8) ;
 
-    for ( int i = 0 ; i < numThreads ; i++ )
-        thread_join(-1, NULL) ;
+    for ( int i = 1 ; i < (numThreads+1) ; i++ ) 
+	{
+        tid_t tid0, tid ;
+		void * ptrVoid ;
+		void * * res ;
+#if (0)        
+		tid0 = -1 ;                                    /* cualquier thread */
+#elsif (0)
+        tid0 = i ;
+#else	
+        tid0 = numThreads-i+1 ;  /* espera la terminacion en orden inverso */
+#endif
 
-    /* llamada al sistema de prueba: AH = 0x0b (bloqueante!!!) */
+#if (0)        
+		res = NULL ;                          /* no se espera un resultado */
+#else
+        res = (void * *)&ptrVoid ;
+#endif		
 
-    asm("mov ax,0b01h") ;
-    asm("int 0x60") ;
+		tid = thread_join(tid0, res) ;                          /* llamada */
+		
+		printStrVideo(
+		  "\n"
+		  " fin llamada thread_join: thread_self tid0 tid   res     ptrVoid  \n"
+//        "                          =========== ==== === ========  ======== \n"
+		  "                          "
+		) ;
+		printLIntVideo(thread_self(), 11) ;
+	    printLIntVideo(tid0, 5) ;
+	    printLIntVideo(tid, 4) ;
+        printCarVideo(' ') ;
+		printLHexVideo(res, 8) ;
+        printStrVideo("  ") ;
+		if (res != NULL) 
+		    printLHexVideo(ptrVoid,8) ;
+		else printStrVideo("        ") ;
+		
+	}
 
-    printStrVideo("\n\n Se ha retornado de la llamada al sistema ") ;
-
-
+    printStrVideo("\n Pulse una tecla para continuar ... ") ;
+	
+	
     /*  pasos siguientes:
           PROCESOS.C
           implementar la llamada al sistema fork()

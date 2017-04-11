@@ -4,17 +4,19 @@
 #                                                                            #
 #----------------------------------------------------------------------------#
 
-all:
+DIRS = so1hpub/ \
+       so1h/ \
+	   so1h_k/ \
+       progusr/ \
+       so1h_0/
+
+DIRS.cd = $(DIRS:/=.cd)
+	   	   
+all: $(DIRS.cd) 
+
+$(DIRS.cd):
   @echo.
-  cd so1hpub
-  @make
-  @cd ..
-  @echo.
-  cd so1h
-  @make
-  @cd ..
-  @echo.
-  cd progusr
+  cd $&
   @make
   @cd ..
 
@@ -29,6 +31,9 @@ clean: crearDir
   cd so1h
   @make clean > nul
   @cd ..
+  cd so1h_k
+  @make clean > nul
+  @cd ..
   cd progusr
   @make clean > nul
   @cd ..
@@ -41,42 +46,12 @@ clean: crearDir
 
 build: clean all
 
-run:
+run runmsdos rundebug rundosbox imagen start:
   @echo.
   cd so1h
-  make run
+  make $&
   @cd ..
-
-runmsdos:
-  @echo.
-  cd so1h
-  make runmsdos
-  @cd ..
-
-rundebug:
-  @echo.
-  cd so1h
-  make rundebug
-  @cd ..
-
-rundosbox:
-  @echo.
-  cd so1h
-  make rundosbox
-  @cd ..
-
-imagen:
-  @echo.
-  cd so1h
-  make imagen
-  @cd ..
-
-start:
-  @echo.
-  cd so1h
-  make start
-  @cd ..
-
+  
 help:
 # echo off & color 07 & title help & msg * "Hola"
   @"echo."
