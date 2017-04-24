@@ -13,7 +13,7 @@
 #include "..\so1hpub.h\tipos.h"                          /* byte_t, word_t */
 #include "..\so1hpub.h\pic.h"
 #include "..\so1h.h\ajustes.h"
-#include "..\so1h.h\procesos.h"
+#include "..\so1h.h\procs.h"
 #include "..\so1h.h\blockpr.h"                      /* nivelActivacionSO1H */
 #include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
 //#include "..\so1h.h\bios.h"                              /* printStrBIOS */
@@ -21,6 +21,13 @@
 #include "..\so1h.h\llamadas.h"
 
 #include "..\so1h.h\matrix.h"                             /* NUM_MATRICULA */
+
+asm                                                      /* implementacion */
+(
+    " section .text           \n"
+    "   global _link_llamadas \n"
+    " _link_llamadas:         \n"
+) ;
 
 /* ----------------------------------------------------------------------- */
 /*        manejadores de las diferentes llamadas al sistema de SO1         */
@@ -30,23 +37,23 @@ extern void so1_manejador_00 ( void ) ; /* thread_create, thread_join,     */
                                         /* thread_exit, thread_yield,      */
                                         /* thread_self                     */
 
-extern void so1_manejador_0b ( void ) ; 									
-										
-#if (0)
-
-extern void so1_manejador_00 ( void ) ;        /* 0: createProcess 1: fork */
+extern void so1_manejador_01 ( void ) ;        /* 0: createProcess 1: fork */
 //                                           /* 2: exec 3: waitpid 4: exit */
 //                                     /* 5: getpid 6: getpindx 7: getppid */
 //                      /* 8: getuid 9: setuid a: getgid b: setgid c: kill */
 
-extern void so1_manejador_01 ( void ) ;                /* 0: open 1: close */
+extern void so1_manejador_02 ( void ) ;                /* 0: open 1: close */
 //                                      /* 2: leer 3: leerListo 4: leerRaw */
 //                                   /* 5: leerRawListo 6: escribir 7: eof */
 
-extern void so1_manejador_02 ( void ) ;                 /* 0: obtenInfoSO1 */
+extern void so1_manejador_03 ( void ) ;                 /* 0: obtenInfoSO1 */
 //                                      /* 1: crearRecurso 2: crearFichero */
 //                         /* 3: esperarDesinstalacion, 4: destruirRecurso */
 //                          /* 5: encolarCcbRecurso, 6: eliminarCcbRecurso */
+
+extern void so1_manejador_0b ( void ) ; 									
+										
+#if (0)
 
 extern void so1_manejador_03 ( void ) ;                      /* 0: retardo */
 //                                       /* 1: obtenInfoPS 2: obtenInfoMEM */
@@ -64,9 +71,9 @@ void so1_manejador_Nulo ( void )
 manejador_t manejador [ ] =                        /* tabla de manejadores */
 {
 m(0) so1_manejador_00,                  /* thread_create, .. , thread_self */
-m(1) so1_manejador_Nulo,
-m(2) so1_manejador_Nulo,
-m(3) so1_manejador_Nulo,
+m(1) so1_manejador_01,
+m(2) so1_manejador_02,
+m(3) so1_manejador_03,
 m(4) so1_manejador_Nulo,
 m(5) so1_manejador_Nulo,
 m(6) so1_manejador_Nulo,

@@ -43,21 +43,34 @@ $(PROGRAMA).sys: $(PROGRAMA).exe
   @echo.
   copy $(PROGRAMA).sys ..\DISQUETE > nul
 
-$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o blockpr.o procesos.o \
-                 interrup.o llamadas.o matrix.o manej_00.o manej_0b.o manej_0f.o 
+$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm_0.o gm_k.o blockpr.o \
+                 procs_0.o procs_k.o ints.o llamadas.o \
+#				 recurs_0.o recurs_k.o \
+				 matrix.o \
+				 manej_00.o manej_01.o ejecutar.o dokill.o \
+				 manej_02.o manej_03.o manej_0b.o manej_0f.o 
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 obj\ajustes.o\
 obj\$(PROGRAMA).o\
 $(C0DH)\
 obj\s0.o\
 obj\so1dbg.o\
-obj\gm.o\
+obj\gm_0.o\
+obj\gm_k.o\
 obj\blockpr.o\
-obj\procesos.o\
-obj\interrup.o\
+obj\procs_0.o\
+obj\procs_k.o\
+#obj\recurs_0.o\
+#obj\recurs_k.o\
+obj\ints.o\
 obj\llamadas.o\
 obj\matrix.o\
 obj\manej_00.o\
+obj\manej_01.o\
+obj\ejecutar.o\
+obj\dokill.o\
+obj\manej_02.o\
+obj\manej_03.o\
 obj\manej_0b.o\
 obj\manej_0f.o\
 $(LISTAPUBS)\

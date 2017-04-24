@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------- */
-/*                               interrup.c                                */
+/*                                ints_k.c                                 */
 /* ----------------------------------------------------------------------- */
 /*                  rutinas de tratamiento de interrupcion                 */
 /* ----------------------------------------------------------------------- */
@@ -8,10 +8,18 @@
 #include "..\so1hpub.h\pic.h"                                    /* ptrTVI */
 #include "..\so1h.h\ajustsp.h"                           
 #include "..\so1h.h\ajustes.h"    
-#include "..\so1h.h\procesos.h"
+#include "..\so1h.h\procs.h"
 #include "..\so1h.h\blockpr.h"
-#include "..\so1h.h\interrup.h"
+#include "..\so1h.h\ints.h"
 #include "..\so1hpub.h\printvid.h"
+#include "..\so1hpub.h\seccion.h"                          /* _start__text */
+
+asm                                                      /* implementacion */
+(
+    " section .text       \n"
+    "   global _link_ints \n"
+    " _link_ints:         \n"
+) ;
 
 rti_t VIOrg [ nVIntMax ] ;          /* vectores de interrupcion originales */
 
@@ -98,9 +106,11 @@ void inicTVI ( void ) {
 
 void redirigirInt ( byte_t nVInt, isr_t isr_x ) {
     ptrTVI[nVInt] = 
-	    (rti_t)MK_FP(CS_SO1H, 
+//	    (rti_t)MK_FP(CS_SO1H, 
+	    (rti_t)MK_FP((word_t)(((dword_t)&_start__text) >> 4), 
 //	                 (dword_t)&rti_00+(dword_t)(nVInt*tamCodigoRTI)-((dword_t)CS_SO1H << 4)) ;
-	                 (((dword_t)&envolvente_00)+6)+(dword_t)(nVInt*tamCodigoRTI)-((dword_t)CS_SO1H << 4)) ;
+//	                 (((dword_t)&envolvente_00)+6)+(dword_t)(nVInt*tamCodigoRTI)-((dword_t)CS_SO1H << 4)) ;
+	                 (((dword_t)&envolvente_00)+6)+(dword_t)(nVInt*tamCodigoRTI)-(dword_t)&_start__text) ;
     isr[nVInt] = isr_x ;
 
 #if (0)	

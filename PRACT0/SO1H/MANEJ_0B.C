@@ -10,7 +10,7 @@
 
 #include "..\so1hpub.h\tipos.h"
 #include "..\so1hpub.h\printvid.h"
-#include "..\so1h.h\procesos.h"
+#include "..\so1h.h\procs.h"
 #include "..\so1h.h\blockpr.h"
 
 

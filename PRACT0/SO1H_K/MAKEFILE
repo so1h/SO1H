@@ -44,6 +44,19 @@ $(PROGRAMA).exe: $(PROGRAMA).o obj\c0dh.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 ..\so1hpub\obj\ajustusr.o\
 obj\$(PROGRAMA).o\
+..\so1h\obj\gm_k.o\
+..\so1h\obj\ints.o\
+..\so1h\obj\procs_k.o\
+#..\so1h\obj\recurs_k.o\
+..\so1h\obj\blockpr.o\
+..\so1h\obj\llamadas.o\
+..\so1h\obj\manej_00.o\
+..\so1h\obj\manej_01.o\
+..\so1h\obj\ejecutar.o\
+..\so1h\obj\dokill.o\
+..\so1h\obj\manej_02.o\
+..\so1h\obj\manej_03.o\
+..\so1h\obj\manej_0B.o\
 $(C0DH)\
 $(LISTAPUBS)\
 $(LCDH)

@@ -11,12 +11,15 @@
 
 #include "..\so1h.h\ajustsp.h"
 #include "..\so1h.h\main.h"
-#include "..\so1h.h\ajustes.h"                      /* establecerDS_SO1H_1 */
+#include "..\so1h.h\ajustes.h"           /* SS_Kernel, establecerDS_SO1H_1 */
 #include "..\so1h.h\blockpr.h"
 
 #include "..\so1hpub.h\bios_0.h"
 
-#include "..\so1h.h\procesos.h"
+#include "..\so1h.h\procs.h"
+
+// antes estaba declarada SS_Kernel en AJUSTES.C o AJUST_0.C 
+word_t SS_Kernel ;                   /* segmento de pila del kernel   SO1H */
 
 word_t SS_Thread ;             /* pila thread que hace una llamada al s.o. */
 

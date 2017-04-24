@@ -4,13 +4,13 @@
 */
 
 /* ----------------------------------------------------------------------- */
-/*                               procesos.h                                */
+/*                                 procs.h                                 */
 /* ----------------------------------------------------------------------- */
 /*                      Gestion de procesos y threads                      */
 /* ----------------------------------------------------------------------- */
 
-#ifndef PROCESOS_H
-#define PROCESOS_H
+#ifndef PROCS_H
+#define PROCS_H
 
 #include "..\so1hpub.h\def_proc.h"
 
@@ -119,7 +119,9 @@ int matarThreadIndx ( tindx_t tindx ) ;               /* mata thread tindx */
 
 int matarProcIndx ( pindx_t pindx ) ;                /* mata proceso pindx */
 
-#endif /* PROCESOS_H */
+void link_procs ( void ) ;
+
+#endif /* PROCS_H */
 
 
 

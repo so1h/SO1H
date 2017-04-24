@@ -32,5 +32,7 @@ void inicGM ( void ) ;
 
 void mostrarListaLibres ( void ) ;
 
+void link_gm_k ( void ) ;
+
 #endif /* GM_H */
 

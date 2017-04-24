@@ -1,3 +1,8 @@
+/*
+  Copyright (c) 2017, Pedro Pablo Lopez Rodriguez & Julio Lozano Del Pozo
+  2-clause BSD license.
+*/
+
 /* ----------------------------------------------------------------------- */
 /*                               manej_00.c                                */
 /* ----------------------------------------------------------------------- */
@@ -16,7 +21,7 @@
 
 #include "..\so1hpub.h\tipos.h"
 #include "..\so1hpub.h\printvid.h"
-#include "..\so1h.h\procesos.h"
+#include "..\so1h.h\procs.h"
 #include "..\so1h.h\blockpr.h"
 #include "..\so1hpub.h\ll_s_thr.h"                     /* thread_attribs_t */
 

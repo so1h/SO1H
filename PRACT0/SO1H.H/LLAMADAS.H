@@ -16,5 +16,7 @@
 
 void isr_SO1H ( void ) ;
 
+void link_llamadas ( void ) ;
+
 #endif /* LLAMADAS_H */
 

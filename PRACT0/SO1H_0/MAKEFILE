@@ -24,7 +24,58 @@ LCDH     = $(UTMP):\SmallerC\v0100\lib\lcdh.a
 .path.asm = .\asm
 .path.c   = .
 
-all: crearDirs $(PROGRAMA).exe $(PROGRAMA).sys
+all: crearDirs ..\DISQUETE\so1himg.exe ..\DISQUETE\so1himg.sys
+
+..\DISQUETE\so1himg.exe \
+..\DISQUETE\so1himg.sys: $(PROGRAMA).exe $(PROGRAMA).sys
+#
+  copy $(PROGRAMA).sys ..\DISQUETE > nul
+  copy $(PROGRAMA).exe ..\DISQUETE > nul
+  @echo.
+#
+  cd ..\DISQUETE
+#
+  @copy &&|
+#
+# fichero de configuracion disco.cfg
+#  
+so1h_0.sys          # preparativos
+so1h_k.bin          # nucleo
+prog_0.bin          # programa
+| disco.cfg > nul
+  @if exist MAKE????.@@@ erase MAKE????.@@@
+#
+  mkrd disco.cfg disco.rd -q
+  @echo.
+  @copy &&|
+#
+# fichero de configuracion so1himg.cfg (sys)
+#  
+so1h_0.sys          # preparativos
+so1h_k.bin 00012345 # nucleo
+prog_0.bin          # programa
+disco.rd            # disco ram
+| so1himg.cfg > nul
+  @if exist MAKE????.@@@ erase MAKE????.@@@
+#
+# componer so1himg.cfg so1himg.sys 
+  componer so1himg.cfg so1himg.sys -q
+  @echo.
+  @copy &&|
+#
+# fichero de configuracion so1himg.cfg (exe)
+#  
+so1h_0.exe          # preparativos
+so1h_k.bin 00012345 # nucleo
+prog_0.bin          # programa
+disco.rd            # disco ram
+| so1himg.cfg > nul
+  @if exist MAKE????.@@@ erase MAKE????.@@@
+#
+# componer so1himg.cfg so1himg.exe 
+  componer so1himg.cfg so1himg.exe -q
+#  
+  cd ..\SO1H_0
 
 LISTAPUBS =\
 #si pongo main.o (finThread) al final funciona mal (procesos.c) al retornar
@@ -39,30 +90,8 @@ LISTAPUBS =\
 
 $(PROGRAMA).sys: $(PROGRAMA).exe
   @echo.
-# PARCHEAR $(PROGRAMA).exe 0 EB 1E -d $(PROGRAMA).sys
   EXTRAER $(PROGRAMA).exe 32 0 $(PROGRAMA).sys
   @echo.
-  copy $(PROGRAMA).sys ..\DISQUETE > nul
-  cd ..\DISQUETE
-  @copy &&|
-#
-# fichero de configuracion so1himg.cfg
-#  
-so1h_0.sys          # preparativos
-so1h_k.bin          # nucleo
-prog_0.bin          # programa
-| disco.cfg > nul
-  mkrd disco.cfg disco.rd
-  @copy &&|
-#
-# fichero de configuracion so1himg.cfg
-#  
-so1h_0.sys          # preparativos
-so1h_k.bin 00012345 # nucleo
-prog_0.bin          # programa
-disco.rd            # disco ram
-| so1himg.cfg > nul
-  componer so1himg.cfg so1himg.sys 
 
 !if (1)
 
@@ -104,8 +133,6 @@ $(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
   @echo.
   @echo ------- creado el fichero $(PROGRAMA).bat
 # tdump $(PROGRAMA).exe
-  @echo.
-  copy $(PROGRAMA).exe ..\DISQUETE > nul
   
 !else
 
@@ -222,22 +249,22 @@ help:
   @"echo    make desensambla produce $(PROGRAMA).des, desensamblado de $(PROGRAMA).sys"
   @"echo    make help        muestra esta ayuda sobre los objetivos disponibles"
 
-hexdump: $(PROGRAMA).sys
+hexdump: so1himg.sys $(PROGRAMA).sys
   @echo.
-# $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -i $(PROGRAMA).sys $(PROGRAMA).hex
-  $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -u $(PROGRAMA).sys $(PROGRAMA).hex
-  type $(PROGRAMA).hex | more
+# $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -i so1himg.sys so1himg.hex
+  $(UTMP):\prgtools\bin\XXD\xxd -c 16 -g 1 -u so1himg.sys so1himg.hex
+  type so1himg.hex | more
 
 desensambla: $(PROGRAMA).sys
   @echo.
   ndisasm -b16 $(PROGRAMA).sys > $(PROGRAMA).des
   type $(PROGRAMA).des | more
 
-imagen $(UTMP):\fd$(PROGRAMA).img: ..\..\PRACT2\BOOT\BOOT.bs $(PROGRAMA).sys
+imagen $(UTMP):\fd$(PROGRAMA).img: ..\..\PRACT2\BOOT\BOOT.bs so1himg.sys
   @echo.
   EXTENDER ..\..\PRACT2\BOOT\BOOT.bs 1474560 $(UTMP):\fd$(PROGRAMA).img
   @echo.
-  PARCHEAR $(UTMP):\fd$(PROGRAMA).img 16896 -f $(PROGRAMA).sys
+  PARCHEAR $(UTMP):\fd$(PROGRAMA).img 16896 -f so1himg.sys
 
 floppy: $(UTMP):\fd$(PROGRAMA).img
   @echo.
@@ -268,20 +295,20 @@ run:
   @echo.
 # cmd /C "mode con cols=80 lines=25 & $(PROGRAMA).exe "
   @cd ..\DISQUETE
-  ..\DISQUETE\$(PROGRAMA).exe
+  ..\DISQUETE\so1himg.exe
 
 runmsdos:
   @echo.
   @cd ..\DISQUETE
-  start cmd /K "mode con cols=80 lines=25 & cls & msdos $(PROGRAMA).exe "
+  start cmd /K "mode con cols=80 lines=25 & cls & msdos so1himg.exe "
 
 rundebug:
   @echo.
   @cd ..\DISQUETE
-  start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug $(PROGRAMA).exe "
+  start cmd /K "mode con cols=80 lines=25 & cls & msdos_debug so1himg.exe "
   $(UUSB):\Utilidades\teraterm.exe telnet://localhost:23 /T=1
 
 rundosbox:
   @echo.
   @cd ..\DISQUETE
-  start $(UUSB):\Interno\dosbox-0.74\dosbox.exe $(PROGRAMA).exe -noconsole
+  start $(UUSB):\Interno\dosbox-0.74\dosbox.exe so1himg.exe -noconsole

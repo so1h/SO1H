@@ -44,15 +44,18 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "..\so1h.h\so1dbg.h"             /* leerScancode, esperarScancode */
 #include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
 
-#include "..\so1h.h\gm.h"                        /* inicGM, k_buscarBloque */
 #include "..\so1hpub.h\memvideo.h"           /* goToXYVideo, printCarVideo */
 #include "..\so1hpub.h\bios_crt.h"                          /* inicBiosCrt */
 #include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
 #include "..\so1hpub.h\seccion.h"                      /* mostrarSecciones */
-#include "..\so1h.h\interrup.h"                   /* inicTVI, redirigirInt */
 #include "..\so1hpub.h\ll_s_exc.h"                            /* nVIntSO1H */
-#include "..\so1h.h\procesos.h"           /* inicProcesos, indThreadActual */
+
+#include "..\so1h.h\gm.h"                        /* inicGM, k_buscarBloque */
+#include "..\so1h.h\ints.h"                       /* inicTVI, redirigirInt */
+#include "..\so1h.h\procs.h"              /* inicProcesos, indThreadActual */
 #include "..\so1h.h\llamadas.h"                                /* isr_SO1H */
+#include "..\so1h.h\recurs.h"                              /* inicRecursos */
+
 #include "..\so1hpub.h\ll_s_thr.h"                         /* thread_yield */
 
 #define pSV(x) printStrVideo(x)                                   /* macro */

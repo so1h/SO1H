@@ -10,22 +10,22 @@
 /* ----------------------------------------------------------------------- */
 
 /* codigo presente al principio de so1h_0.exe (tras su cabecera EXE) y al  */
-/* principio de so1h_0.bin (que no tiene cabecera). De hecho so1h_0.bin es */
+/* principio de so1h_0.sys (que no tiene cabecera). De hecho so1h_0.sys es */
 /* igual a so1h_0.exe sin la cabecera. so1h_0 puede ejecutarse de dos      */
 /* maneras:                                                                */
 /*                                                                         */
-/* 1) como so1h_0.bin siendo cargado en memoria por el sector de arranque  */
+/* 1) como so1h_0.sys siendo cargado en memoria por el sector de arranque  */
 /*                                                                         */
 /* 2) como so1h_0.exe siendo cargado desde MSDOS, NTVDM, DOSBox, ...       */
 /*                                                                         */
-/* so1h_0.bin toma el control en la función startBin, que es a donde le    */
+/* so1h_0.sys toma el control en la función startBin, que es a donde le    */
 /* cede el control el sector de arranque.                                  */
 /*                                                                         */
 /* En el caso de so1h_0.exe el cargador cede el control directamente a la  */
 /* función _start que es una función contenida en el fichero c0dh.asm de   */
 /* Smaller C. c0dh.asm se encarga de la reubicación.                       */
 /*                                                                         */
-/* Para unificar el comportamiento de so1h_0.exe y so1h_0.bin, la funcion  */
+/* Para unificar el comportamiento de so1h_0.exe y so1h_0.sys, la funcion  */
 /* startBin cede también el control a _start.                              */
 /*                                                                         */
 /* La función _start tras reubicar las variables globales cede el control  */
@@ -132,7 +132,8 @@ word_t BSS_SO1H ;                    /* segmento de datos (bss)    de SO1H */
 
 word_t SS_SO1H ;                     /* segmento de pila           de SO1H */
 
-word_t SS_Kernel ;                   /* segmento de pila del kernel   SO1H */
+// llevamos esta declaracion efectiva de SS_Kernel a BLOCKPR.C 
+//word_t SS_Kernel ;                   /* segmento de pila del kernel   SO1H */
 
 word_t IMRInicial ;            /* mascara de interrupcion inicial del 8259 */
 
