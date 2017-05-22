@@ -4,8 +4,8 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\puertos.h"
-#include "..\so1hpub.h\cmos.h"
+#include <so1hpub.h\puertos.h>
+#include <so1hpub.h\cmos.h>
 
 byte_t leerCmos ( byte_t reg )
 {

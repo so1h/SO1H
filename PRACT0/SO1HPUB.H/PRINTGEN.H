@@ -8,7 +8,7 @@
 #ifndef PRINTGEN_H
 #define PRINTGEN_H
 
-#include "tipos.h"
+#include <so1hpub.h\tipos.h>
 
 typedef int (* printCar_t) ( char car ) ;               /* tipo printCar_t */
 

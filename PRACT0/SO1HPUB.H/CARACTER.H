@@ -9,9 +9,11 @@
 
 extern char dig[17] ;
 
-char mayuscula ( char letra ) ;
+/* utilizar toupper y tolower (biblioteca estandar ctype.h */
 
-char minuscula ( char letra ) ;
+//char mayuscula ( char letra ) ;
+
+//char minuscula ( char letra ) ;
 
 #endif /* CARACTER_H */
 

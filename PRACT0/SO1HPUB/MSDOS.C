@@ -4,9 +4,9 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"
-#include "..\so1hpub.h\bios_0.h"
-#include "..\so1hpub.h\msdos.h"
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\bios_0.h>
+#include <so1hpub.h\msdos.h>
 #include <string.h>                                      /* strcmp, strcpy */
 //#include <so1pub.h\strings.h>
 
@@ -20,8 +20,8 @@ void finProgDOS ( int exitCode )
     ) ;
 }
 
-#if (0) 
-	
+#if (0)
+
 void mostrarVIMSDOS ( void )
 {
 
@@ -158,8 +158,8 @@ bool_t hayDOSBox ( void )
     byte_t * VIDos = (((dword_t)(ptrVIDos->segment)) << 4) + (ptrVIDos->offset) ;
 
     if ((((dword_t)VIDos) == 0x000F14A0) ||
-        (((dword_t)VIDos) == 0x000F1060))	
-        return (TRUE) ;          
+            (((dword_t)VIDos) == 0x000F1060))
+        return (TRUE) ;
     if (!hayMSDOS()) return(FALSE) ;
     return (strcmp((char *)valorMSDOS("DOSBOX"), "DOSBOX") == 0) ;
 

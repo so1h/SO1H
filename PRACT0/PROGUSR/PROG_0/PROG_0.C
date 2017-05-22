@@ -4,8 +4,10 @@
 /*                      un primer programa de usuario                      */
 /* ----------------------------------------------------------------------- */
 
-int main ( void )  
+#include <so1hpub.h\ll_s_thr.h>
+
+int main ( void )
 {
-    return(0) ;  
+    return(thread_self()) ;
 }
 

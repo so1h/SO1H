@@ -7,7 +7,7 @@
 #ifndef SECCION_H
 #define SECCION_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 extern char _start__text ;
 extern char _stop__text ;

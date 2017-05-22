@@ -12,10 +12,10 @@
 #ifndef BLOCKPR_H
 #define BLOCKPR_H
 
-#include "..\so1hpub.h\tipos.h"
-#include "..\so1hpub.h\def_proc.h"
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\def_proc.h>
 
-#include "..\so1h.h\ajustes.h"                      /* establecerDS_SO1H_0 */
+#include <so1h.h\ajustes.h>                         /* establecerDS_SO1H_0 */
 
 extern word_t SS_Thread ;      /* pila thread que hace una llamada al s.o. */
 
@@ -39,7 +39,7 @@ extern bool_t hayTic ;             /* se acaba de producir un tic de reloj */
 
 //   /* hayTic se utiliza en activarThread para determinar mejor la rodaja */
 
-void setKernelStack ( void ) ;   /* supone apilados sp y ss (en ese orden) */            
+void setKernelStack ( void ) ;   /* supone apilados sp y ss (en ese orden) */
 
 void setThreadStack ( word_t SS_Thread, word_t SP_Thread ) ;
 
@@ -66,7 +66,7 @@ asm                                                                          \
     setKernelStack() ;                                                       \
   }                               /* en otro caso la pila es ya la de SO1H */\
 //                                                            /* fin macro */\
-															  
+
 #define prologo_rti()                                             /* macro */\
                                                                              \
 asm                                                                          \
@@ -99,8 +99,8 @@ asm                                                                          \
     "   popad  \n"  /* restauramos todos los registros del proceso (80286) */\
                                          /* di, si, bp, sp, bx, dx, cx, ax */\
     "   iret   \n"                                                           \
-) ;                                                           /* fin macro */	
-																
+) ;                                                           /* fin macro */
+
 void prepararDesbloqueadosUrgentes ( void ) ;
 
 /* un thread puede terminar durante una llamada o durante una rti          */

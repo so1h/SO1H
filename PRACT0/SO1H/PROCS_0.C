@@ -9,24 +9,24 @@
 /*                      Gestion de procesos y threads                      */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\caracter.h"
-#include "..\so1hpub.h\puertos.h"
-//#include "..\so1hpub.h\copia.h"
-//#include "..\so1hpub.h\strings.h"
+#include <so1hpub.h\caracter.h>
+#include <so1hpub.h\puertos.h>
+//#include <so1hpub.h\copia.h>
+//#include <so1hpub.h\strings.h>
 #include <string.h>                                              /* strcpy */
-#include "..\so1hpub.h\fcntl.h"
-#include "..\so1h.h\ajustes.h"                    
-#include "..\so1hpub.h\main.h"                    /* finProceso, finThread */
-#include "..\so1h.h\blockpr.h"                                   /* enHalt */
-#include "..\so1h.h\gm.h"
-#include "..\so1h.h\procs.h"
+#include <so1hpub.h\fcntl.h>
+#include <so1h.h\ajustes.h>
+#include <so1hpub.h\main.h>                       /* finProceso, finThread */
+#include <so1h.h\blockpr.h>                                      /* enHalt */
+#include <so1h.h\gm.h>
+#include <so1h.h\procs.h>
 
-#include "..\so1hpub.h\bios_0.h"                       /* printStrBIOS ... */
-//#include "..\so1h.h\dbgword.h"                              /* debugWord *//********************/
+#include <so1hpub.h\bios_0.h>                          /* printStrBIOS ... */
+//#include <so1h.h\dbgword.h>                                 /* debugWord *//********************/
 
-#include "..\so1hpub.h\printvid.h"                    /* printStrVideo ... */
-#include "..\so1hpub.h\seccion.h"             /* _start__text, _stop__text */
-#include "..\so1h.h\ajustsp.h"                                 /* SP0_SO1H */
+#include <so1hpub.h\printvid.h>                       /* printStrVideo ... */
+#include <so1hpub.h\seccion.h>                /* _start__text, _stop__text */
+#include <so1h.h\ajustsp.h>                                    /* SP0_SO1H */
 
 #define maxCbAlEpilogo 9
 
@@ -89,8 +89,8 @@ void inicProcesos ( void )
     descThread[0].tid = nuevoTid() ;
     descThread[0].estado = ejecutandose ;
 //  descThread[0].trama = (trama_t *)NULL ;              /* (en ejecucion) */
-    descThread[0].noStatus = TRUE ;            /* puede morir directamente */	
-//  descThread[0].status = 0 ;           
+    descThread[0].noStatus = TRUE ;            /* puede morir directamente */
+//  descThread[0].status = 0 ;
     descThread[0].ptindx = -1 ;           /* no lo creo ningun otro thread */
     descThread[0].htindx = -1 ;                   /* no espera ningun join */
     descThread[0].pindx = 0 ;
@@ -135,14 +135,14 @@ void inicProcesos ( void )
         descThread[i].estado = libre ;
 //      descThread[i].trama = (trama_t *)NULL ;
 //      descThread[i].noStatus = TRUE ;        /* puede morir directamente */
-//      descThread[i].status = 0 ;           
+//      descThread[i].status = 0 ;
 //      descThread[i].ptindx = -1 ;       /* no lo creo ningun otro thread */
 //      descThread[i].htindx = -1 ;               /* no espera ningun join */
         descThread[i].pindx = -1 ;
         descThread[i].SSThread = 0x0000 ;
         descThread[i].SP0 = 0x0000 ;
 //      descThread[i].tCPU = 0 ;          /* tiempo de CPU en (tics/2**16) */
-		
+
         apilarPC2c(i, (ptrC2c_t)&c2cPFR[DTLibres]) ;         /* apilamos i */
     }
 
@@ -178,7 +178,7 @@ void inicProcesos ( void )
     case modoSO1_Bin:                                   /* so1h.bin (boot) */
         strcpy(descProceso[0].comando, comandoSo1a) ;
         break ;
-    case modoSO1_Exe:                                          /* so1h.exe */ 
+    case modoSO1_Exe:                                          /* so1h.exe */
         strcpy(descProceso[0].comando, comandoSo1b) ;
         break ;
 //  case modoSO1_Bs :                           /* so1.bin (boot) SYSLINUX */
@@ -190,9 +190,9 @@ void inicProcesos ( void )
     strcpy(descProceso[0].programa, strSo1h[modoSO1()-1]) ;
 
     indProcesoActual = 0 ;
-	
-	indThreadActual = 0 ;
-	
+
+    indThreadActual = 0 ;
+
     indThreadDeSuperficie = 0 ;
 
     nivelActivacionSO1H = 0 ;

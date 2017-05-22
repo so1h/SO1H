@@ -4,7 +4,7 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\puertos.h"
+#include <so1hpub.h\puertos.h>
 
 byte_t inportb ( word_t port )
 {

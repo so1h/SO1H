@@ -12,7 +12,8 @@
 #ifndef RECURS_H
 #define RECURS_H
 
-#include "..\so1hpub.h\def_proc.h"
+#include <so1hpub.h\tipos.h>                     /* word_t, rindx_t, dfs_t */
+#include <so1hpub.h\def_proc.h>            /* tipoFichero_t, descRecurso_t */
 
 void inicRecursos ( void ) ;
 

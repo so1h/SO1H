@@ -7,8 +7,8 @@
 #ifndef PANTALLA_H
 #define PANTALLA_H
 
-#include "tipos.h"
-#include "def_pant.h"
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\def_pant.h>
 
 word_t tamPantalla ( byte_t numFilas ) ;
 

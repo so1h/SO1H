@@ -20,7 +20,7 @@ all: crearDirs $(OBJS)
 !if ($(VIA_ASM) == TRUE)
 
 .c.asm:
-  $(CC) $(CFLAGS) -S $&.c -o asm\$&.asm
+  $(CC) $(CFLAGS) -SI $(UUSB):\SO1H\PRACT0 -S $&.c -o asm\$&.asm
 
 .asm.o:
 # $(CC) $(CFLAGS) -c asm\$&.asm -o obj\$&.o
@@ -29,7 +29,7 @@ all: crearDirs $(OBJS)
 !else
 
 .c.o:
-  $(CC) $(CFLAGS) -c $&.c -o obj\$&.o
+  $(CC) $(CFLAGS) -SI $(UUSB):\SO1H\PRACT0 -c $&.c -o obj\$&.o
 
 !endif
 

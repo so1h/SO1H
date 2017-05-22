@@ -8,8 +8,8 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"                                  /* byte_t */
-#include "..\so1hpub.h\puertos.h"        /* PORT_PS2_DATA, PORT_PS2_STATUS */
+#include <so1hpub.h\tipos.h>                                     /* byte_t */
+#include <so1hpub.h\puertos.h>           /* PORT_PS2_DATA, PORT_PS2_STATUS */
 
 /* puntoDeParadaSO1 es una funcion pensada para poner puntos de parada en  */
 /* el codigo del sistema SO1 (y los programas de usuario). Para poner un   */

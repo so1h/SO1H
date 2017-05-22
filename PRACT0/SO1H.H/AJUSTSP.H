@@ -12,8 +12,8 @@
 #ifndef AJUSTSP_H
 #define AJUSTSP_H
 
-#include "..\so1hpub.h\seccion.h"                          /* _start__text */
-#include "..\so1hpub.h\def_proc.h"                           /* cabecera_t */
+#include <so1hpub.h\seccion.h>                             /* _start__text */
+#include <so1hpub.h\def_proc.h>                              /* cabecera_t */
 
 /* SO1H se ejecuta como si fuera un proceso que se ocupa de todas las      */
 /* inicializaciones y de crear el proceso inicial. La pila de este proceso */
@@ -37,7 +37,7 @@
 asm
 (
     "%define SP0_SO1H 0x8000"           /* puntero de pila inicial de SO1H */
-) ;        
+) ;
 
 /* Cuando se active SO1H como nucleo del sistema operativo en respuesta a  */
 /* una llamada al sistema (interrupcion software int 0x60) o en respuesta  */
@@ -46,10 +46,10 @@ asm
 /* del tamaño declarado aqui como SP0_Kernel.                              */
 
 #define SP0_Kernel  0xA000     /* puntero de pila inicial del sistema SO1H */
-asm 
+asm
 (
     "%define SP0_Kernel  0xA000"
-) ;     
+) ;
 
 /* El segmento (SS) correspondiente a la pila del nucleo se guarda en una  */
 /* estara disponible en una variable en el segmento de codigo (ajustes.c)  */

@@ -7,10 +7,7 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include "..\so1hpub.h\tipos.h"
-//#include "..\so1pub.h\startdata.h"
-//#include "..\so1pub.h\startbss.h"
-//#include "..\so1pub.h\finbss.h"
+#include <so1hpub.h\tipos.h>
 
 void puntoDeParada ( void ) ;
 
@@ -43,21 +40,24 @@ extern bool_t debug_parar ;
 
 #if (0)
 
-void tomarIP ( void ) {              /* pone en BX la direccion de retorno */
-  asm push bp
-  asm mov bp,sp
-  asm mov bx,ss:[bp+2]                              /* BX = dir de retorno */
-  asm pop bp
+void tomarIP ( void )                /* pone en BX la direccion de retorno */
+{
+    asm push bp
+    asm mov bp,sp
+    asm mov bx,ss:[bp+2]                              /* BX = dir de retorno */
+    asm pop bp
 }
 
-void mostrarPila ( word_t words ) {
-  word_t far * ptrWord ;
-  int i ;
-  ptrWord = (word_t far *)pointer(_SS, _SP) ;
-  for ( i = 0 ; i < words ; i++ ) {
-    printStrBIOS("\n ") ;
-    printHexBIOS(ptrWord[i+4]) ;          /* 1 d.r. + 1 par. + 2 v.l. = 4 */
-  }
+void mostrarPila ( word_t words )
+{
+    word_t far * ptrWord ;
+    int i ;
+    ptrWord = (word_t far *)pointer(_SS, _SP) ;
+    for ( i = 0 ; i < words ; i++ )
+    {
+        printStrBIOS("\n ") ;
+        printHexBIOS(ptrWord[i+4]) ;          /* 1 d.r. + 1 par. + 2 v.l. = 4 */
+    }
 }
 
 #endif

@@ -16,8 +16,8 @@
 #ifndef LL_S_EXC_H
 #define LL_S_EXC_H
 
-#include "..\so1hpub.h\tipos.h"                                  /* word_t */                      
-#include "..\so1hpub.h\def_proc.h"        /* pid_t, uid_t, gid_t, modoAp_t */
+#include <so1hpub.h\tipos.h>                                     /* word_t */
+#include <so1hpub.h\def_proc.h>           /* pid_t, uid_t, gid_t, modoAp_t */
 
 /* ----------------------------------------------------------------------- */
 /* -                                                                     - */

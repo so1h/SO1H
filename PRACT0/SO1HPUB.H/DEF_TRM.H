@@ -12,39 +12,43 @@
 #ifndef DEF_TRM_H
 #define DEF_TRM_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 #pragma pack(push, 1)
 
-typedef struct {
-  word_t DS, ES ;                                 /* apilados por software */
-  dword_t EDI, ESI, EBP, ESP ;                                   /* pushad */
-  dword_t EBX, EDX, ECX, EAX ;                                   /* pushad */
-  word_t IP, CS, Flags ;                                            /* int */
+typedef struct
+{
+    word_t DS, ES ;                                 /* apilados por software */
+    dword_t EDI, ESI, EBP, ESP ;                                   /* pushad */
+    dword_t EBX, EDX, ECX, EAX ;                                   /* pushad */
+    word_t IP, CS, Flags ;                                            /* int */
 } tramaDWords_t ;
 
-typedef struct {
-  word_t DS, ES ;                                 /* apilados por software */
-  word_t DI, rDI, SI, rSI, BP, rBP, SP, rSP ;                    /* pushad */
-  word_t BX, rBX, DX, rDX, CX, rCX, AX, rAX ;                    /* pushad */
-  word_t IP, CS, Flags ;                                            /* int */
+typedef struct
+{
+    word_t DS, ES ;                                 /* apilados por software */
+    word_t DI, rDI, SI, rSI, BP, rBP, SP, rSP ;                    /* pushad */
+    word_t BX, rBX, DX, rDX, CX, rCX, AX, rAX ;                    /* pushad */
+    word_t IP, CS, Flags ;                                            /* int */
 } tramaWords_t ;
 
-typedef struct {
-  word_t DS, ES ;                                 /* apilados por software */
-  word_t DI, rDI, SI, rSI, BP, rBP, SP, rSP ;                    /* pushad */
-  byte_t BL, BH, rB[2], DL, DH, rD[2], 
-         CL, CH, rC[2], AL, AH, rA[2] ;                          /* pushad */
-  word_t IP, CS, Flags ;                                            /* int */
+typedef struct
+{
+    word_t DS, ES ;                                 /* apilados por software */
+    word_t DI, rDI, SI, rSI, BP, rBP, SP, rSP ;                    /* pushad */
+    byte_t BL, BH, rB[2], DL, DH, rD[2],
+           CL, CH, rC[2], AL, AH, rA[2] ;                          /* pushad */
+    word_t IP, CS, Flags ;                                            /* int */
 } tramaBytes_t ;
 
-typedef union {
-  tramaDWords_t td ;
-  tramaWords_t tw ;
-  tramaBytes_t tb ;
+typedef union
+{
+    tramaDWords_t td ;
+    tramaWords_t tw ;
+    tramaBytes_t tb ;
 } trama_t ;
 
-#pragma pack(pop) 
+#pragma pack(pop)
 
 #define EDI td.EDI       /* para simplificar las referencias trama->td.EDI */
 #define ESI td.ESI                                  /* quedando trama->EDI */

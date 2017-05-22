@@ -7,7 +7,7 @@
 #ifndef MSDOS_H
 #define MSDOS_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 #define nVIntMSDOS 0x21     /* numero del vector del interrupcion de MSDOS */
 

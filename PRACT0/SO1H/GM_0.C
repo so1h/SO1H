@@ -10,15 +10,15 @@
 /* ----------------------------------------------------------------------- */
 
 
-#include "..\so1hpub.h\bios_0.h"                                /* memBIOS */
-#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
-#include "..\so1hpub.h\msdos.h"
-//#include "..\so1hpub.h\strings.h"
-#include "..\so1h.h\ajustsp.h"                                 /* SP0_SO1H */
-#include "..\so1h.h\ajustes.h"         /* SS_Kernel, CS_SO1H, .. , SS_SO1H */
-//#include "..\so1h.h\recursos.h"
-#include "..\so1h.h\procs.h"                                /* descProceso */
-#include "..\so1h.h\gm.h"
+#include <so1hpub.h\bios_0.h>                                   /* memBIOS */
+#include <so1hpub.h\printvid.h>                           /* printStrVideo */
+#include <so1hpub.h\msdos.h>
+//#include <so1hpub.h\strings.h>
+#include <so1h.h\ajustsp.h>                                    /* SP0_SO1H */
+#include <so1h.h\ajustes.h>            /* SS_Kernel, CS_SO1H, .. , SS_SO1H */
+//#include <so1h.h\recursos.h>
+#include <so1h.h\procs.h>                                   /* descProceso */
+#include <so1h.h\gm.h>
 
 /* inicGM inicializa la memoria disponible tras la carga de SO1H, y asigna */
 /* memoria al proceso 0 (codigo y datos) y a su tread 0 (pila) que se      */
@@ -48,16 +48,16 @@ void inicGM ( void )                             /* 1 paragrafo = 16 bytes */
 
     switch (modoSO1())
     {
-        case modoSO1_Bin :                               /* so1.bin (boot) */
-            sigSeg = memBIOS()*(1024/16) ;
-            break ;
-        case modoSO1_Exe :                                       /* hayDOS */
-            sigSeg = *((word_t *)MK_P(segPSP(), 0x0002)) ;
-            break ;
-        default :
-            printStrVideo("\n inicGM() ERROR: modoSO1() = ") ;
-            printHexVideo(modoSO1(), 4) ;
-            leerTeclaBIOS() ;
+    case modoSO1_Bin :                               /* so1.bin (boot) */
+        sigSeg = memBIOS()*(1024/16) ;
+        break ;
+    case modoSO1_Exe :                                       /* hayDOS */
+        sigSeg = *((word_t *)MK_P(segPSP(), 0x0002)) ;
+        break ;
+    default :
+        printStrVideo("\n inicGM() ERROR: modoSO1() = ") ;
+        printHexVideo(modoSO1(), 4) ;
+        leerTeclaBIOS() ;
     }
 
     memDisponible = sigSeg - primerSegLibre ;                  /* sin SO1H */
@@ -90,7 +90,8 @@ void inicGM ( void )                             /* 1 paragrafo = 16 bytes */
 #if (0)
 
     dR.tipo = rGM ;
-    copiarStr("GM", dR.nombre) ;
+//  copiarStr("GM", dR.nombre) ;
+    strcpy(dR.nombre, "GM") ;
     dR.ccb = (ccb_t)&descCcbGM ;
     dR.pindx = indProcesoActual ;
     dR.numVI = 0 ;

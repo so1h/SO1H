@@ -7,7 +7,7 @@
 #ifndef FCNTL_H
 #define FCNTL_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 typedef word_t modoAp_t ;
 

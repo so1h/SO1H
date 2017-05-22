@@ -12,8 +12,8 @@
 #ifndef GM_H
 #define GM_H
 
-#include "..\so1hpub.h\tipos.h"                                  /* word_t */
-#include "..\so1hpub.h\def_mem.h"                           /* ptrBloque_t */
+#include <so1hpub.h\tipos.h>                                     /* word_t */
+#include <so1hpub.h\def_mem.h>                              /* ptrBloque_t */
 
 #define tamParagrafo 16          /* un paragrafo son 16 bytes consecutivos */
 //                           /* comenzando en una direccion multiplo de 16 */

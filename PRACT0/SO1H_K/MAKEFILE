@@ -47,7 +47,7 @@ obj\$(PROGRAMA).o\
 ..\so1h\obj\gm_k.o\
 ..\so1h\obj\ints.o\
 ..\so1h\obj\procs_k.o\
-#..\so1h\obj\recurs_k.o\
+..\so1h\obj\recurs_k.o\
 ..\so1h\obj\blockpr.o\
 ..\so1h\obj\llamadas.o\
 ..\so1h\obj\manej_00.o\
@@ -68,18 +68,6 @@ $(LCDH)
   PARCHEAR $(PROGRAMA).exe 12 FFFF
   @echo.
   EXE2BIN -c $(PROGRAMA).exe
-  @copy &&|
-mode con cols=80 lines=25
-$(UTMP):\BC5\BIN\msdos $(PROGRAMA).exe
-| $(PROGRAMA).cmd > nul
-  @echo.
-  @echo ------- creado el fichero $(PROGRAMA).cmd
-  @copy &&|
-mode con cols=80 lines=25
-$(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
-| $(PROGRAMA).bat > nul
-  @echo.
-  @echo ------- creado el fichero $(PROGRAMA).bat
 # tdump $(PROGRAMA).exe
 
 obj\c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
@@ -88,7 +76,7 @@ obj\c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
 !if ($(VIA_ASM) == TRUE)
 
 .c.asm:
-  $(CC) $(CFLAGS) -S $&.c -o asm\$&.asm
+  $(CC) $(CFLAGS) -SI $(UUSB):\SO1H\PRACT0 -S $&.c -o asm\$&.asm
 
 .asm.o:
 # $(CC) $(CFLAGS) -c asm\$&.asm -o obj\$&.o
@@ -97,7 +85,7 @@ obj\c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
 !else
 
 .c.o:
-  $(CC) $(CFLAGS) -c $&.c -o obj\$&.o
+  $(CC) $(CFLAGS) -SI $(UUSB):\SO1H\PRACT0 -c $&.c -o obj\$&.o
 
 !endif
 

@@ -10,15 +10,15 @@
 /* ----------------------------------------------------------------------- */
 
 
-#include "..\so1hpub.h\bios_0.h"                                /* memBIOS */
-#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
-#include "..\so1hpub.h\msdos.h"
-//#include "..\so1hpub.h\strings.h"
-#include "..\so1h.h\ajustsp.h"                                 /* SP0_SO1H */
-#include "..\so1h.h\ajustes.h"         /* SS_Kernel, CS_SO1H, .. , SS_SO1H */
-//#include "..\so1h.h\recursos.h"
-#include "..\so1h.h\procs.h"                                /* descProceso */
-#include "..\so1h.h\gm.h"
+#include <so1hpub.h\bios_0.h>                                   /* memBIOS */
+#include <so1hpub.h\printvid.h>                           /* printStrVideo */
+#include <so1hpub.h\msdos.h>
+//#include <so1hpub.h\strings.h>
+#include <so1h.h\ajustsp.h>                                    /* SP0_SO1H */
+#include <so1h.h\ajustes.h>            /* SS_Kernel, CS_SO1H, .. , SS_SO1H */
+//#include <so1h.h\recursos.h>
+#include <so1h.h\procs.h>                                   /* descProceso */
+#include <so1h.h\gm.h>
 
 asm                                                      /* implementacion */
 (
@@ -51,10 +51,10 @@ word_t k_buscarBloque ( word_t tam )
 
     segmento = SEG(ptrBloque) ;
 
-printStrVideo("\n k_buscarBloque: segmento = ") ;
-printHexVideo(segmento, 4) ;
-printStrVideo(" tam = ") ;
-printHexVideo(tam, 4) ;
+    printStrVideo("\n k_buscarBloque: segmento = ") ;
+    printHexVideo(segmento, 4) ;
+    printStrVideo(" tam = ") ;
+    printHexVideo(tam, 4) ;
 //leerTeclaBIOS() ;
 
     tamOriginal = ptrBloque->tam ;

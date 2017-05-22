@@ -7,7 +7,7 @@
 #ifndef DEF_MEM_H
 #define DEF_MEM_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 typedef struct
 {

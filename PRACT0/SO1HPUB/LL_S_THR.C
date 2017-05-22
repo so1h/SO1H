@@ -8,12 +8,12 @@
 /* ----------------------------------------------------------------------- */
 /* Subconjunto de rutinas de interfaz de las llamadas al sistema           */
 /* correspondiente a los threads, que son las primeras que se implementan  */
-/* en SO1H.                                                                */ 
+/* en SO1H.                                                                */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"                                 /* dword_t */
-#include "..\so1hpub.h\def_proc.h"                                /* tid_t */
-#include "..\so1hpub.h\ll_s_thr.h"                                
+#include <so1hpub.h\tipos.h>                                    /* dword_t */
+#include <so1hpub.h\def_proc.h>                                   /* tid_t */
+#include <so1hpub.h\ll_s_thr.h>
 
 /* ----------------------------------------------------------------------- */
 /* -                                                                     - */
@@ -49,17 +49,17 @@
 int thread_create ( tid_t * tid,
                     thread_attribs_t * attribs,
                     void * ( * funcionInicial ),
-                    void * arg ) 
+                    void * arg )
 {
-asm
-(
-    "   mov ebx,[bp+20] \n" /* arg */
-    "   mov ecx,[bp+16] \n" /* funcionInicial */
-    "   mov edx,[bp+12] \n" /* attribs */
-    "   mov esi,[bp+ 8] \n" /* tid */
-    "   mov ax,0x0000   \n"
-    "   int 0x60        \n" /* EAX = 0 o codigo de error */ 
-) ;
+    asm
+    (
+        "   mov ebx,[bp+20] \n" /* arg */
+        "   mov ecx,[bp+16] \n" /* funcionInicial */
+        "   mov edx,[bp+12] \n" /* attribs */
+        "   mov esi,[bp+ 8] \n" /* tid */
+        "   mov ax,0x0000   \n"
+        "   int 0x60        \n" /* EAX = 0 o codigo de error */
+    ) ;
 }
 
 /* ----------------------------------------------------------------------- */
@@ -67,15 +67,15 @@ asm
 /* ----------------------------------------------------------------------- */
 
 
-int thread_join ( tid_t tid, void * * res ) 
+int thread_join ( tid_t tid, void * * res )
 {
-asm
-(
-    "   mov ebx,[bp+12] \n" /* res */
-    "   mov ecx,[bp+ 8] \n" /* tid */
-    "   mov ax,0x0001   \n"
-    "   int 0x60        \n"	
-) ;
+    asm
+    (
+        "   mov ebx,[bp+12] \n" /* res */
+        "   mov ecx,[bp+ 8] \n" /* tid */
+        "   mov ax,0x0001   \n"
+        "   int 0x60        \n"
+    ) ;
 }
 
 /* ----------------------------------------------------------------------- */
@@ -83,14 +83,14 @@ asm
 /* ----------------------------------------------------------------------- */
 
 
-void thread_exit ( void * res ) 
+void thread_exit ( void * res )
 {
-asm
-(
-    "   mov ebx,[bp+8] \n" /*res */
-    "   mov ax,0x0002  \n"
-    "   int 0x60       \n"	
-) ;
+    asm
+    (
+        "   mov ebx,[bp+8] \n" /*res */
+        "   mov ax,0x0002  \n"
+        "   int 0x60       \n"
+    ) ;
 }
 
 /* ----------------------------------------------------------------------- */
@@ -98,13 +98,13 @@ asm
 /* ----------------------------------------------------------------------- */
 
 
-int thread_yield ( void ) 
+int thread_yield ( void )
 {
-asm
-(
-    "   mov ax,0x0003 \n"
-    "   int 0x60      \n"	
-) ;
+    asm
+    (
+        "   mov ax,0x0003 \n"
+        "   int 0x60      \n"
+    ) ;
     return(0) ;
 }
 
@@ -114,13 +114,13 @@ asm
 /* ----------------------------------------------------------------------- */
 
 
-tid_t thread_self ( void ) 
+tid_t thread_self ( void )
 {
-asm
-(
-    "   mov ax,0x0004 \n"
-    "   int 0x60      \n"	
-) ;
+    asm
+    (
+        "   mov ax,0x0004 \n"
+        "   int 0x60      \n"
+    ) ;
 }
 
 

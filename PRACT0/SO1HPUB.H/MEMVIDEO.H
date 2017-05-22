@@ -7,8 +7,8 @@
 #ifndef MEMVIDEO_H
 #define MEMVIDEO_H
 
-#include "..\so1hpub.h\tipos.h"
-#include "..\so1hpub.h\pantalla.h"
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\pantalla.h>
 
 extern byte_t cursorF ;
 

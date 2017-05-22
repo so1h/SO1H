@@ -4,31 +4,35 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"
-#include "..\so1hpub.h\bios_0.h"
-#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\bios_0.h>
+#include <so1hpub.h\printvid.h>                           /* printStrVideo */
 
-void puntoDeParada ( void ) {
-asm 
-(
-    "   retf                      \n"
-	"   db 'Punto De Parada '     \n"
-) ;
+void puntoDeParada ( void )
+{
+    asm
+    (
+        "   retf                      \n"
+        "   db 'Punto De Parada '     \n"
+    ) ;
 }
 
 bool_t debug_parar = FALSE ;
 
-void assert ( int condicion, char * str ) {
-    if (!condicion) {
+void assert ( int condicion, char * str )
+{
+    if (!condicion)
+    {
         printStrVideo(str) ;
         leerTeclaBIOS() ;
     }
 }
 
-word_t valorFlags ( void ) {
+word_t valorFlags ( void )
+{
 //  word_t flags ;
-    asm 
-	(
+    asm
+    (
         "   pushf         \n"
         "   pop ax        \n"
 //      "   mov [bp-4],ax \n" /* flags */
@@ -36,9 +40,10 @@ word_t valorFlags ( void ) {
 //  return(flags) ;
 }
 
-void mostrarFlags ( void ) {
+void mostrarFlags ( void )
+{
     word_t flags ;
-    asm 
+    asm
     (
         "   pushf         \n"
         "   pop ax        \n"
@@ -48,7 +53,7 @@ void mostrarFlags ( void ) {
     printHexVideo(flags, 4) ;
     if (flags & 0x0200) printStrVideo(" ints permitidas ") ;
     else printStrVideo(" ints inhibidas ") ;
-    asm 
+    asm
     (
         "   mov ax,[bp-4] \n" /* flags */
         "   push ax       \n"

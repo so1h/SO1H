@@ -2,5 +2,8 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
 		<Project filename="SO1H.cbp" />
+		<Project filename="SO1H_K.cbp" />
+		<Project filename="../PROGUSR/PROG_0/CB/PROG_0.cbp" />
+		<Project filename="SO1H_0.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

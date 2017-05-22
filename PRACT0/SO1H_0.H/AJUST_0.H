@@ -12,13 +12,23 @@
 #ifndef AJUST_0_H
 #define AJUST_0_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 void startBin ( void ) ;          /* punto de entrada para so1h.bin (boot) */
+
+void startExe ( void ) ;               /* punto de entrada para so1h_0.exe */
+
+#ifndef _DOS
+
+void __start__ ( void ) ;                         /* se llama desde _start */
+
+#endif
 
 modoSO1_t modoSO1 ( void ) ;     /* modo en que se ejecuta SO1H: bin o exe */
 
 byte_t unidadBIOS ( void ) ;       /* numero BIOS de la unidad de arranque */
+
+word_t CSInicial ( void ) ;                                   /* CSInicial */
 
 extern word_t CS_SO1H ;              /* segmento de codigo (text)  de SO1H */
 
@@ -29,8 +39,6 @@ extern word_t DS_SO1H ;              /* segmento de datos (data)   de SO1H */
 extern word_t BSS_SO1H ;             /* segmento de datos (bss)    de SO1H */
 
 extern word_t SS_SO1H ;              /* segmento de pila           de SO1H */
-
-extern word_t SS_Kernel ;            /* segmento de pila del kernel   SO1H */
 
 extern word_t IMRInicial ;     /* mascara de interrupcion inicial del 8259 */
 

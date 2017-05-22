@@ -9,24 +9,24 @@
 /*                      Gestion de procesos y threads                      */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\caracter.h"
-#include "..\so1hpub.h\puertos.h"
-//#include "..\so1hpub.h\copia.h"
-//#include "..\so1hpub.h\strings.h"
+#include <so1hpub.h\caracter.h>
+#include <so1hpub.h\puertos.h>
+//#include <so1hpub.h\copia.h>
+//#include <so1hpub.h\strings.h>
 #include <string.h>                                              /* strcpy */
-#include "..\so1hpub.h\fcntl.h"
-#include "..\so1h.h\ajustes.h"                    
-#include "..\so1hpub.h\main.h"                    /* finProceso, finThread */
-#include "..\so1h.h\blockpr.h"                                   /* enHalt */
-#include "..\so1h.h\gm.h"
-#include "..\so1h.h\procs.h"
+#include <so1hpub.h\fcntl.h>
+#include <so1h.h\ajustes.h>
+#include <so1hpub.h\main.h>                       /* finProceso, finThread */
+#include <so1h.h\blockpr.h>                                      /* enHalt */
+#include <so1h.h\gm.h>
+#include <so1h.h\procs.h>
 
-#include "..\so1hpub.h\bios_0.h"                       /* printStrBIOS ... */
-//#include "..\so1h.h\dbgword.h"                              /* debugWord *//********************/
+#include <so1hpub.h\bios_0.h>                          /* printStrBIOS ... */
+//#include <so1h.h\dbgword.h>                                 /* debugWord *//********************/
 
-#include "..\so1hpub.h\printvid.h"                    /* printStrVideo ... */
-#include "..\so1hpub.h\seccion.h"             /* _start__text, _stop__text */
-#include "..\so1h.h\ajustsp.h"                                 /* SP0_SO1H */
+#include <so1hpub.h\printvid.h>                       /* printStrVideo ... */
+#include <so1hpub.h\seccion.h>                /* _start__text, _stop__text */
+#include <so1h.h\ajustsp.h>                                    /* SP0_SO1H */
 
 asm                                                      /* implementacion */
 (
@@ -111,20 +111,20 @@ tindx_t indice ( tid_t tid )
 /* interrupcion). Al retornar de esa interrupcion se inhiben las           */
 /* y se intenta de nuevo encontrar un thread preparado en la cola.         */
 
-char molino [4] = { '|', '/', '-', '\\' } ; 
+char molino [4] = { '|', '/', '-', '\\' } ;
 
 int indMolino = 0 ;
 
 #define modoPtdo 3                                       /* 0, 1, 2, 3 o 4 */
 
-#if (modoPtdo == 0) 
-#define pintaOcioso 	
+#if (modoPtdo == 0)
+#define pintaOcioso
 #endif
 #if (modoPtdo == 1)
 #define pintaOcioso \
     (*((char *)(0xB8000 + 2*79)))++ ;
 #endif
-#if (modoPtdo == 2)         
+#if (modoPtdo == 2)
 #define pintaOcioso                  \
 	asm("   mov ax,0B800h       ") ; \
     asm("   mov es,ax           ") ; \
@@ -132,9 +132,9 @@ int indMolino = 0 ;
 #endif
 #if (modoPtdo == 3)
 #define pintaOcioso \
-	(*((char *)(0xB8000 + 2*79))) = molino[(indMolino++) & 0x03] ; 
-#endif 
-#if (modoPtdo == 4) 
+	(*((char *)(0xB8000 + 2*79))) = molino[(indMolino++) & 0x03] ;
+#endif
+#if (modoPtdo == 4)
 #define pintaOcioso                  \
 	printStrVideo("\n nVIntActual = ") ; \
 	printHexVideo(nVIntActual, 2) ;
@@ -157,7 +157,7 @@ pindx_t sigThread ( void )                     /* planificador (scheduler) */
         asm("sti") ;
         asm("hlt") ;                            /* detenemos el procesador */
         asm("cli") ;                       /* ha ocurrido una interrupcion */
-		pintaOcioso ;
+        pintaOcioso ;
     }
 
     tindx = desencolarPC2c((ptrC2c_t)&c2cPFR[TPreparados]) ;
@@ -195,10 +195,10 @@ int activarThread ( tindx_t tindx )                          /* dispatcher */
 
     SS_Thread = descThread[indThreadActual].SSThread ;
     SP_Thread = (word_t)(
-	  (int)(descThread[indThreadActual].trama) - (int)(((dword_t)SS_Thread) << 4)) ;
+                    (int)(descThread[indThreadActual].trama) - (int)(((dword_t)SS_Thread) << 4)) ;
 
 //	printStrVideo("\n\n SP_Thread = ") ;
-//	printHexVideo(SP_Thread, 4) ;	
+//	printHexVideo(SP_Thread, 4) ;
 
     /* SS_Proceso y SP_Proceso son variables globales. Si fueran variables */
     /* locales habria que tener cuidado en el orden de las instrucciones   */
@@ -210,15 +210,15 @@ int activarThread ( tindx_t tindx )                          /* dispatcher */
     nivelActivacionSO1H = 0 ;               /* esta ejecutandose un thread */
 
     setThreadStack(SS_Thread, SP_Thread) ; /* establece la pila del thread */
-asm                                                /* SS_Thread, SP_Thread */
-(
-    "   pop ds \n"        /* establecemos el segmento de datos del proceso */
-    "   pop es \n"
+    asm                                                /* SS_Thread, SP_Thread */
+    (
+        "   pop ds \n"        /* establecemos el segmento de datos del proceso */
+        "   pop es \n"
 
-    "   popad  \n"                /* restauramos los registros del proceso */
+        "   popad  \n"                /* restauramos los registros del proceso */
 
-    "   iret   \n"                           /* restauramos IP, CS y Flags */
-) ;
+        "   iret   \n"                           /* restauramos IP, CS y Flags */
+    ) ;
 
     return(0) ;
 
@@ -226,8 +226,8 @@ asm                                                /* SS_Thread, SP_Thread */
 
 void salvarThread ( void )                        /* indThreadActual != -1 */
 {
-    descThread[indThreadActual].trama = 
-	    (trama_t *)MK_P(SS_Thread, SP_Thread) ;
+    descThread[indThreadActual].trama =
+        (trama_t *)MK_P(SS_Thread, SP_Thread) ;
 }
 
 void salvarTareaInterrumpida ( void )            /* indProcesoActual != -1 */
@@ -327,65 +327,65 @@ tindx_t crearThread ( funcion_t funcion,             /* funcion a ejecutar */
                       void *    arg,               /* argumento de partida */
                       pindx_t   pindx )              /* proceso contenedor */
 {
-	word_t flags ;
-	tindx_t i ;
-	word_t SSThread ;
-	dword_t * ptrPila ; 
-	
+    word_t flags ;
+    tindx_t i ;
+    word_t SSThread ;
+    dword_t * ptrPila ;
+
     if ((pindx < 0) || (pindx > maxThreads)) return(-1) ;
-	if (posicionC2c(pindx,c2cPFR[DPOcupados]) == -1) return(-2) ;
-    if (c2cPFR[DTLibres].numElem == 0) return(-3) ;	
-	SSThread = k_buscarBloque((SP0 + 15)/16) ;
-	if (SSThread == 0x0000) return(-4) ;
-	i = desencolarPC2c((ptrC2c_t)&c2cPFR[DTLibres]) ;
-	encolarPC2c(i, (ptrC2c_t)&c2cPFR[DTOcupados]) ;
-	descThread[i].tid = nuevoTid() ;
-	descThread[i].estado = preparado ;
-	descThread[i].pindx = pindx ;
-    descThread[i].noStatus = TRUE ;          
-    descThread[i].status = 0 ;           
-    descThread[i].ptindx = indThreadActual ; 
+    if (posicionC2c(pindx,c2cPFR[DPOcupados]) == -1) return(-2) ;
+    if (c2cPFR[DTLibres].numElem == 0) return(-3) ;
+    SSThread = k_buscarBloque((SP0 + 15)/16) ;
+    if (SSThread == 0x0000) return(-4) ;
+    i = desencolarPC2c((ptrC2c_t)&c2cPFR[DTLibres]) ;
+    encolarPC2c(i, (ptrC2c_t)&c2cPFR[DTOcupados]) ;
+    descThread[i].tid = nuevoTid() ;
+    descThread[i].estado = preparado ;
+    descThread[i].pindx = pindx ;
+    descThread[i].noStatus = TRUE ;
+    descThread[i].status = 0 ;
+    descThread[i].ptindx = indThreadActual ;
     descThread[i].htindx = -1 ;                 /* no espera ningun join */
-	
-	descThread[i].SSThread = SSThread ;
-	descThread[i].SP0 = SP0 ;
-	ptrPila = MK_P(SSThread, SP0) ;
-	*--ptrPila = (dword_t)arg ;
-	*--ptrPila = (dword_t)finThread ;            /* (direccion de retorno) */
+
+    descThread[i].SSThread = SSThread ;
+    descThread[i].SP0 = SP0 ;
+    ptrPila = MK_P(SSThread, SP0) ;
+    *--ptrPila = (dword_t)arg ;
+    *--ptrPila = (dword_t)finThread ;            /* (direccion de retorno) */
 //  printStrVideo("\n\n finThread = ") ;
 //  printLHexVideo(finThread, 8) ;
 
 //	descThread[i].trama = MK_P(SSThread, SP0 - 8 - sizeof(trama_t)) ;
-	descThread[i].trama = (trama_t *)((dword_t)ptrPila - sizeof(trama_t)) ;
-	
+    descThread[i].trama = (trama_t *)((dword_t)ptrPila - sizeof(trama_t)) ;
+
     descThread[i].trama->DS = 0x0000 ;
     descThread[i].trama->ES = 0x0000 ;
-    
-	descThread[i].trama->EDI = 0x00000000 ;
+
+    descThread[i].trama->EDI = 0x00000000 ;
     descThread[i].trama->ESI = 0x00000000 ;
-    descThread[i].trama->EBP = SP0 - 14 ;        /* 14 = 4 + 4 + 2 + 2 + 2 */    
+    descThread[i].trama->EBP = SP0 - 14 ;        /* 14 = 4 + 4 + 2 + 2 + 2 */
     descThread[i].trama->ESP = SP0 - 14 ;        /*     arg fin Flg  CS IP */
     descThread[i].trama->EBX = 0x00000000 ;
     descThread[i].trama->EDX = 0x00000000 ;
     descThread[i].trama->ECX = 0x00000000 ;
     descThread[i].trama->EAX = 0x00000000 ;
-	
+
     descThread[i].trama->IP = OFF(funcion) ;
     descThread[i].trama->CS = SEG(funcion) ;
-asm
-(
-    "   pushf         \n"
-    "   pop ax        \n"
-    "   mov [bp-4],ax \n" /* flags */                        /* SR = Flags */
-) ;
+    asm
+    (
+        "   pushf         \n"
+        "   pop ax        \n"
+        "   mov [bp-4],ax \n" /* flags */                        /* SR = Flags */
+    ) ;
     descThread[i].trama->Flags =
         (flags & 0xF000) | 0x0202 ;           /* interrupciones permitidas */
-	
-	encolarPC2c(i, (ptrC2c_t)&descProceso[pindx].c2cThreads) ;
-	
-	encolarPC2c(i, (ptrC2c_t)&c2cPFR[TPreparados]) ;
-	
-	return(i) ;
+
+    encolarPC2c(i, (ptrC2c_t)&descProceso[pindx].c2cThreads) ;
+
+    encolarPC2c(i, (ptrC2c_t)&c2cPFR[TPreparados]) ;
+
+    return(i) ;
 }
 
 pindx_t crearProceso ( word_t       segmento,
@@ -393,7 +393,7 @@ pindx_t crearProceso ( word_t       segmento,
                        dword_t      tamFich,
                        const char * programa,
                        const char   * comando,
-                       pindx_t      pindx ) 
+                       pindx_t      pindx )
 {
 
     cabecera_t * cabecera ;
@@ -415,7 +415,7 @@ pindx_t crearProceso ( word_t       segmento,
 //         /* createProcess (pindx = -1) o exec (pindx = indProcesoActual) */
 
     if ((pindx < 0) && (c2cPFR[DPOcupados].numElem == maxProcesos)) return(-1) ;
-	
+
     cabecera = (cabecera_t *)pointer(segmento, 0x0000) ;
 #if (0)
     if (!igualesHasta((char *)cabecera->magicbyte,

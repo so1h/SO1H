@@ -9,18 +9,18 @@
 /*                  manejadores de las llamadas al sistema                 */
 /* ----------------------------------------------------------------------- */
 
-//#include "..\so1hpub.h\strings.h"
-#include "..\so1hpub.h\tipos.h"                          /* byte_t, word_t */
-#include "..\so1hpub.h\pic.h"
-#include "..\so1h.h\ajustes.h"
-#include "..\so1h.h\procs.h"
-#include "..\so1h.h\blockpr.h"                      /* nivelActivacionSO1H */
-#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
-//#include "..\so1h.h\bios.h"                              /* printStrBIOS */
-//#include "..\so1h.h\plot.h"
-#include "..\so1h.h\llamadas.h"
+//#include <so1hpub.h\strings.h>
+#include <so1hpub.h\tipos.h>                             /* byte_t, word_t */
+#include <so1hpub.h\pic.h>
+#include <so1h.h\ajustes.h>
+#include <so1h.h\procs.h>
+#include <so1h.h\blockpr.h>                         /* nivelActivacionSO1H */
+#include <so1hpub.h\printvid.h  >                         /* printStrVideo */
+//#include <so1h.h\bios.h>                                 /* printStrBIOS */
+//#include <so1h.h\plot.h>
+#include <so1h.h\llamadas.h>
 
-#include "..\so1h.h\matrix.h"                             /* NUM_MATRICULA */
+#include <so1h.h\matrix.h>                                /* NUM_MATRICULA */
 
 asm                                                      /* implementacion */
 (
@@ -34,8 +34,8 @@ asm                                                      /* implementacion */
 /* ----------------------------------------------------------------------- */
 
 extern void so1_manejador_00 ( void ) ; /* thread_create, thread_join,     */
-                                        /* thread_exit, thread_yield,      */
-                                        /* thread_self                     */
+/* thread_exit, thread_yield,      */
+/* thread_self                     */
 
 extern void so1_manejador_01 ( void ) ;        /* 0: createProcess 1: fork */
 //                                           /* 2: exec 3: waitpid 4: exit */
@@ -51,8 +51,8 @@ extern void so1_manejador_03 ( void ) ;                 /* 0: obtenInfoSO1 */
 //                         /* 3: esperarDesinstalacion, 4: destruirRecurso */
 //                          /* 5: encolarCcbRecurso, 6: eliminarCcbRecurso */
 
-extern void so1_manejador_0b ( void ) ; 									
-										
+extern void so1_manejador_0b ( void ) ;
+
 #if (0)
 
 extern void so1_manejador_03 ( void ) ;                      /* 0: retardo */
@@ -70,25 +70,26 @@ void so1_manejador_Nulo ( void )
 
 manejador_t manejador [ ] =                        /* tabla de manejadores */
 {
-m(0) so1_manejador_00,                  /* thread_create, .. , thread_self */
-m(1) so1_manejador_01,
-m(2) so1_manejador_02,
-m(3) so1_manejador_03,
-m(4) so1_manejador_Nulo,
-m(5) so1_manejador_Nulo,
-m(6) so1_manejador_Nulo,
-m(7) so1_manejador_Nulo,
-m(8) so1_manejador_Nulo,
-m(9) so1_manejador_Nulo,
-m(a) so1_manejador_Nulo,
-m(b) so1_manejador_0b,                                       /* para pruebas */
-m(c) so1_manejador_Nulo,
-m(d) so1_manejador_Nulo,
-m(e) so1_manejador_Nulo,
-m(f) so1_manejador_Nulo                                 
+    m(0) so1_manejador_00,                  /* thread_create, .. , thread_self */
+    m(1) so1_manejador_01,
+    m(2) so1_manejador_02,
+    m(3) so1_manejador_03,
+    m(4) so1_manejador_Nulo,
+    m(5) so1_manejador_Nulo,
+    m(6) so1_manejador_Nulo,
+    m(7) so1_manejador_Nulo,
+    m(8) so1_manejador_Nulo,
+    m(9) so1_manejador_Nulo,
+    m(a) so1_manejador_Nulo,
+    m(b) so1_manejador_0b,                                       /* para pruebas */
+    m(c) so1_manejador_Nulo,
+    m(d) so1_manejador_Nulo,
+    m(e) so1_manejador_Nulo,
+    m(f) so1_manejador_Nulo
 } ;
 
-#undef m(x)
+//#undef m(x)
+#undef m
 
 #define maxLlamadas sizeof(manejador)/sizeof(manejador_t)
 

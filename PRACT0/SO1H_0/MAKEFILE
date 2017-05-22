@@ -75,6 +75,23 @@ disco.rd            # disco ram
 # componer so1himg.cfg so1himg.exe 
   componer so1himg.cfg so1himg.exe -q
 #  
+  @copy &&|
+mode con cols=80 lines=25
+$(UTMP):\BC5\BIN\msdos SO1HIMG.exe
+pause
+| SO1HIMG.cmd > nul
+  @if exist MAKE????.@@@ erase MAKE????.@@@
+  @echo.
+  @echo ------- creado el fichero SO1HIMG.cmd
+  @copy &&|
+mode con cols=80 lines=25
+cls
+start cmd /K "$(UTMP):\BC5\BIN\msdos_debug SO1HIMG.exe & pause"
+$(UUSB):\Utilidades\teraterm.exe telnet://localhost:23 /T=1
+| SO1HIMG.debug.cmd > nul
+  @if exist MAKE????.@@@ erase MAKE????.@@@
+  @echo.
+  @echo ------- creado el fichero SO1HIMG.debug.cmd
   cd ..\SO1H_0
 
 LISTAPUBS =\
@@ -93,13 +110,13 @@ $(PROGRAMA).sys: $(PROGRAMA).exe
   EXTRAER $(PROGRAMA).exe 32 0 $(PROGRAMA).sys
   @echo.
 
-!if (1)
-
-$(PROGRAMA).exe: ajust_0.o $(PROGRAMA).o dirf.o c0dh.o s0.o 
+$(PROGRAMA).exe: ajust_0.o $(PROGRAMA).o inick.o procs_x.o c0dh.o s0.o 
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 obj\ajust_0.o\
 obj\$(PROGRAMA).o\
-obj\dirf.o\
+#obj\dirf.o\
+obj\inick.o\
+obj\procs_x.o\
 $(C0DH)\
 ..\so1h\obj\s0.o\
 ..\so1h\obj\so1dbg.o\
@@ -120,78 +137,15 @@ $(LCDH)
   PARCHEAR $(PROGRAMA).exe 22 FFFE 
   @echo.
   EXE2BIN -c $(PROGRAMA).exe
-  @copy &&|
-mode con cols=80 lines=25
-$(UTMP):\BC5\BIN\msdos $(PROGRAMA).exe
-| $(PROGRAMA).cmd > nul
-  @echo.
-  @echo ------- creado el fichero $(PROGRAMA).cmd
-  @copy &&|
-mode con cols=80 lines=25
-$(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
-| $(PROGRAMA).bat > nul
-  @echo.
-  @echo ------- creado el fichero $(PROGRAMA).bat
 # tdump $(PROGRAMA).exe
   
-!else
-
-$(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm.o blockpr.o procesos.o \
-                 interrup.o llamadas.o matrix.o manej_00.o manej_0b.o manej_0f.o 
-  $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
-obj\ajustes.o\
-obj\$(PROGRAMA).o\
-$(C0DH)\
-obj\s0.o\
-obj\so1dbg.o\
-obj\gm.o\
-obj\blockpr.o\
-obj\procesos.o\
-obj\interrup.o\
-obj\llamadas.o\
-obj\matrix.o\
-obj\manej_00.o\
-obj\manej_0b.o\
-obj\manej_0f.o\
-$(LISTAPUBS)\
-$(LCDH)
-# para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente
-# reservar la mayor cantidad de memoria posible, ver la palabra en dirPSP + 2)
-  @echo.
-  EXE2BIN -c $(PROGRAMA).exe
-  @echo.
-  PARCHEAR $(PROGRAMA).exe 12 FFFF
-# para hacer SP0 = SP0_SO1H en los desplazamientos 0x0010 y 0x004B
-  @echo.
-  PARCHEAR $(PROGRAMA).exe 16 $(SP0_SO1H)
-  PARCHEAR $(PROGRAMA).exe 75 $(SP0_SO1H)
-  @echo.
-  EXE2BIN -c $(PROGRAMA).exe
-  @copy &&|
-mode con cols=80 lines=25
-$(UTMP):\BC5\BIN\msdos $(PROGRAMA).exe
-| $(PROGRAMA).cmd > nul
-  @echo.
-  @echo ------- creado el fichero $(PROGRAMA).cmd
-  @copy &&|
-mode con cols=80 lines=25
-$(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
-| $(PROGRAMA).bat > nul
-  @echo.
-  @echo ------- creado el fichero $(PROGRAMA).bat
-# tdump $(PROGRAMA).exe
-  @echo.
-  copy $(PROGRAMA).exe ..\DISQUETE > nul
-  
-!endif 
-
 c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
   $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o obj\c0dh.o
 
 !if ($(VIA_ASM) == TRUE)
 
 .c.asm:
-  $(CC) $(CFLAGS) -S $&.c -o asm\$&.asm
+  $(CC) $(CFLAGS) -SI $(UUSB):\SO1H\PRACT0 -S $&.c -o asm\$&.asm
 
 .asm.o:
 # $(CC) $(CFLAGS) -c asm\$&.asm -o obj\$&.o
@@ -200,7 +154,7 @@ c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
 !else
 
 .c.o:
-  $(CC) $(CFLAGS) -c $&.c -o obj\$&.o
+  $(CC) $(CFLAGS) -SI $(UUSB):\SO1H\PRACT0 -c $&.c -o obj\$&.o
 
 !endif
 
@@ -220,6 +174,9 @@ LISTAPULE  = map asm lst des hex o TR TP TD
 clean: $(LISTACLEAN) pule
   @if exist stderr.txt erase stderr.txt > nul
   @if exist stdout.txt erase stdout.txt > nul
+  @if exist ..\DISQUETE\SO1H_0.* erase ..\DISQUETE\SO1H_0.*
+  @if exist ..\DISQUETE\SO1HIMG.* erase ..\DISQUETE\SO1HIMG.*
+  @if exist ..\DISQUETE\disco.* erase ..\DISQUETE\disco.*
 
 pule: $(LISTAPULE)
   @if exist obj\*.o erase obj\*.o

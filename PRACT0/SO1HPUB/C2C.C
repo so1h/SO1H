@@ -9,7 +9,7 @@
 /*                 colas doblemente enlazadas con cabecera                 */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\c2c.h"
+#include <so1hpub.h\c2c.h>
 
 int posicionC2c ( int i, c2c_t c2c )    /* devuelve -1 si i no esta en c2c */
 {
@@ -23,7 +23,7 @@ void eliminarC2c ( int i, c2c_t c2c )
 
 void apilarC2c ( int i, c2c_t c2c )
 {
-     codigoApilarC2c(i, c2c)
+    codigoApilarC2c(i, c2c)
 }
 
 void encolarC2c ( int i, c2c_t c2c )

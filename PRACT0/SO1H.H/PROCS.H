@@ -12,7 +12,7 @@
 #ifndef PROCS_H
 #define PROCS_H
 
-#include "..\so1hpub.h\def_proc.h"
+#include <so1hpub.h\def_proc.h>
 
 typedef struct
 {

@@ -7,8 +7,8 @@
 #ifndef INTS_H
 #define INTS_H
 
-#include "..\so1hpub.h\tipos.h"    
-#include "..\so1hpub.h\const.h"
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\const.h>
 
 extern rti_t VIOrg [ nVIntMax ] ;   /* vectores de interrupcion originales */
 

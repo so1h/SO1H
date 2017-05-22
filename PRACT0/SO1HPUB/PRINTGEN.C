@@ -4,8 +4,8 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\printgen.h"                           /* printCar_t */
-#include "..\so1hpub.h\caracter.h"                                  /* dig */
+#include <so1hpub.h\printgen.h>                              /* printCar_t */
+#include <so1hpub.h\caracter.h>                                     /* dig */
 
 int printGenLn ( printCar_t p )
 {

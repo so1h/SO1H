@@ -24,7 +24,7 @@ typedef enum { FALSE, TRUE } bool_t ;
 
 typedef byte_t * pointer_t ;
 
-#define NULL (pointer_t)0x00000000 
+#define NULL (pointer_t)0x00000000
 
 #define interrupt __interrupt
 
@@ -87,13 +87,13 @@ typedef int dfs_t ;      /* indice en la tabla de descriptores del sistema */
 
 typedef int rindx_t ;         /* indice de recurso en la tabla de recursos */
 
-#define MK_P_SEG(seg) (((dword_t)seg) << 4) 
+#define MK_P_SEG(seg) (((dword_t)seg) << 4)
 
-#define MK_P(seg, off) (MK_P_SEG(seg) + (dword_t)off) 
+#define MK_P(seg, off) (MK_P_SEG(seg) + (dword_t)off)
 
-#define SEG(dir_lineal) ((word_t)((dword_t)dir_lineal >> 4))  
+#define SEG(dir_lineal) ((word_t)((dword_t)dir_lineal >> 4))
 
-#define OFF(dir_lineal) (((word_t)dir_lineal) & 0x000F)  
+#define OFF(dir_lineal) (((word_t)dir_lineal) & 0x000F)
 
 #define MK_FP(seg,ofs)  (((dword_t)(seg) << 16) | (word_t)(ofs))
 

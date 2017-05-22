@@ -32,37 +32,38 @@ POSSIBILITY OF SUCH DAMAGE.
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"                                  /* word_t */
-#include "..\so1hpub.h\bios_0.h"            /* clrScrBIOS, goToXYBIOS, ... */
-#include "..\so1hpub.h\biosdata.h"       /* ptrBiosArea, ptrFechaBios, ... */
-#include "..\so1hpub.h\telon.h"                   /* salvarPantallaInicial */
-#include "..\so1hpub.h\debug.h"        /* assert, mostrarFlags, valorFlags */
-#include "..\so1hpub.h\pic.h"                   /* valorIMR, establecerIMR */
-#include "..\so1h.h\ajustsp.h"                               /* SP0_Kernel */
-#include "..\so1h.h\ajustes.h"         /* modoSO1, unidadBIOS, IMRInicial, */
+#include <so1hpub.h\tipos.h>                                     /* word_t */
+#include <so1hpub.h\bios_0.h>               /* clrScrBIOS, goToXYBIOS, ... */
+#include <so1hpub.h\biosdata.h>          /* ptrBiosArea, ptrFechaBios, ... */
+#include <so1hpub.h\telon.h>                      /* salvarPantallaInicial */
+#include <so1hpub.h\debug.h>           /* assert, mostrarFlags, valorFlags */
+#include <so1hpub.h\pic.h>                      /* valorIMR, establecerIMR */
+#include <so1h.h\ajustsp.h>                                  /* SP0_Kernel */
+#include <so1h.h\ajustes.h>            /* modoSO1, unidadBIOS, IMRInicial, */
 //                                                          /* obtenerMapa */
-#include "..\so1h.h\so1dbg.h"             /* leerScancode, esperarScancode */
-#include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
+#include <so1h.h\so1dbg.h>                /* leerScancode, esperarScancode */
+#include <so1h.h\s0.h>                   /* mirarLoQueHay, MostrarLoQueHay */
 
-#include "..\so1hpub.h\memvideo.h"           /* goToXYVideo, printCarVideo */
-#include "..\so1hpub.h\bios_crt.h"                          /* inicBiosCrt */
-#include "..\so1hpub.h\printvid.h"                        /* printStrVideo */
-#include "..\so1hpub.h\seccion.h"                      /* mostrarSecciones */
-#include "..\so1hpub.h\ll_s_exc.h"                            /* nVIntSO1H */
+#include <so1hpub.h\memvideo.h>              /* goToXYVideo, printCarVideo */
+#include <so1hpub.h\bios_crt.h>                             /* inicBiosCrt */
+#include <so1hpub.h\printvid.h>                           /* printStrVideo */
+#include <so1hpub.h\seccion.h>                         /* mostrarSecciones */
+#include <so1hpub.h\ll_s_exc.h>                               /* nVIntSO1H */
 
-#include "..\so1h.h\gm.h"                        /* inicGM, k_buscarBloque */
-#include "..\so1h.h\ints.h"                       /* inicTVI, redirigirInt */
-#include "..\so1h.h\procs.h"              /* inicProcesos, indThreadActual */
-#include "..\so1h.h\llamadas.h"                                /* isr_SO1H */
-#include "..\so1h.h\recurs.h"                              /* inicRecursos */
+#include <so1h.h\gm.h>                           /* inicGM, k_buscarBloque */
+#include <so1h.h\ints.h>                          /* inicTVI, redirigirInt */
+#include <so1h.h\procs.h>                 /* inicProcesos, indThreadActual */
+#include <so1h.h\llamadas.h>                                   /* isr_SO1H */
+#include <so1h.h\recurs.h>                                 /* inicRecursos */
 
-#include "..\so1hpub.h\ll_s_thr.h"                         /* thread_yield */
+#include <so1hpub.h\ll_s_thr.h>                            /* thread_yield */
 
 #define pSV(x) printStrVideo(x)                                   /* macro */
 //#define E(x) x
 #define E(x) { pSV("\n ") ; pSV(#x) ; pSV(" ... ") ; x ; }        /* macro */
 
-void * funcion ( void * arg ) {
+void * funcion ( void * arg )
+{
     int i, j ;
 
 //  i = *((int *)arg) ;
@@ -71,7 +72,8 @@ void * funcion ( void * arg ) {
     printLIntVideo(thread_self(), 1) ;
     printStrVideo(" arg = ") ;
     printLIntVideo(arg, 1) ;
-    for ( j = 0 ; j < 10000 ; j ++ ) {
+    for ( j = 0 ; j < 10000 ; j ++ )
+    {
 //  while (TRUE) {
 //      printIntVideo(*((int *)arg), 2) ;
 //      (*((char *)(0xB8000+2*78)))++ ;
@@ -79,8 +81,8 @@ void * funcion ( void * arg ) {
 //      (*((char *)(0xB8000+2*(78-*((int *)arg)))))++ ;
         (*((char *)(0xB8000+2*(78-2*i))))++ ;
 //      thread_yield() ;
-        if ( j % 20 == 19) 
-			thread_yield() ;                                    /* llamada */
+        if ( j % 20 == 19)
+            thread_yield() ;                                    /* llamada */
     }
     thread_exit((void *)i) ;                                    /* llamada */
 //  return((void *)i) ;              /* llamada implicita (so1hpub\main.c) */
@@ -147,7 +149,7 @@ void main ( void )
 //  E(inicRecursos()) ;
 
     E(inicProcesos()) ;           /* inicializacion del gestor de procesos */
-                                              /* y se inicializa SS_Kernel */
+    /* y se inicializa SS_Kernel */
     descProceso[indProcesoActual].uid = 0 ;                        /* root */
     descProceso[indProcesoActual].gid = 0 ;                        /* root */
 
@@ -233,13 +235,14 @@ void main ( void )
     printStrVideo(" isr_SO1H = 0x") ;
     printLHexVideo((dword_t)isr_SO1H, 5) ;
 
-//#define numThreads 10	
-#define numThreads 5	
-	
-    for ( int i = 0 ; i < numThreads ; i++ ) {
+//#define numThreads 10
+#define numThreads 5
+
+    for ( int i = 0 ; i < numThreads ; i++ )
+    {
         tid_t tid ;
 //		thread_attribs_t attribs = { 0x4000, 0x0001 } ;
-		thread_attribs_t attribs = { 0x4000, 0x0000 } ;
+        thread_attribs_t attribs = { 0x4000, 0x0000 } ;
 
 //      printStrVideo("\n thread_create(&tid, NULL, funcion, i) ") ;
 //      thread_create(&tid, NULL, funcion, i) ;
@@ -256,48 +259,48 @@ void main ( void )
     printStrVideo("\n\n descThread[1].trama = ") ;
     printLHexVideo(descThread[1].trama, 8) ;
 
-    for ( int i = 1 ; i < (numThreads+1) ; i++ ) 
-	{
+    for ( int i = 1 ; i < (numThreads+1) ; i++ )
+    {
         tid_t tid0, tid ;
-		void * ptrVoid ;
-		void * * res ;
-#if (0)        
-		tid0 = -1 ;                                    /* cualquier thread */
+        void * ptrVoid ;
+        void * * res ;
+#if (0)
+        tid0 = -1 ;                                    /* cualquier thread */
 #elsif (0)
         tid0 = i ;
-#else	
+#else
         tid0 = numThreads-i+1 ;  /* espera la terminacion en orden inverso */
 #endif
 
-#if (0)        
-		res = NULL ;                          /* no se espera un resultado */
+#if (0)
+        res = NULL ;                          /* no se espera un resultado */
 #else
         res = (void * *)&ptrVoid ;
-#endif		
+#endif
 
-		tid = thread_join(tid0, res) ;                          /* llamada */
-		
-		printStrVideo(
-		  "\n"
-		  " fin llamada thread_join: thread_self tid0 tid   res     ptrVoid  \n"
+        tid = thread_join(tid0, res) ;                          /* llamada */
+
+        printStrVideo(
+            "\n"
+            " fin llamada thread_join: thread_self tid0 tid   res     ptrVoid  \n"
 //        "                          =========== ==== === ========  ======== \n"
-		  "                          "
-		) ;
-		printLIntVideo(thread_self(), 11) ;
-	    printLIntVideo(tid0, 5) ;
-	    printLIntVideo(tid, 4) ;
+            "                          "
+        ) ;
+        printLIntVideo(thread_self(), 11) ;
+        printLIntVideo(tid0, 5) ;
+        printLIntVideo(tid, 4) ;
         printCarVideo(' ') ;
-		printLHexVideo(res, 8) ;
+        printLHexVideo(res, 8) ;
         printStrVideo("  ") ;
-		if (res != NULL) 
-		    printLHexVideo(ptrVoid,8) ;
-		else printStrVideo("        ") ;
-		
-	}
+        if (res != NULL)
+            printLHexVideo(ptrVoid,8) ;
+        else printStrVideo("        ") ;
+
+    }
 
     printStrVideo("\n Pulse una tecla para continuar ... ") ;
-	
-	
+
+
     /*  pasos siguientes:
           PROCESOS.C
           implementar la llamada al sistema fork()

@@ -12,7 +12,7 @@
 #ifndef BIOS_0_H
 #define BIOS_0_H
 
-#include "tipos.h"
+#include <so1hpub.h\tipos.h>
 
 #define tO_PC     0xFF
 #define tO_XT     0xFE

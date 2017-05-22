@@ -45,7 +45,7 @@ $(PROGRAMA).sys: $(PROGRAMA).exe
 
 $(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm_0.o gm_k.o blockpr.o \
                  procs_0.o procs_k.o ints.o llamadas.o \
-#				 recurs_0.o recurs_k.o \
+				 recurs_0.o recurs_k.o \
 				 matrix.o \
 				 manej_00.o manej_01.o ejecutar.o dokill.o \
 				 manej_02.o manej_03.o manej_0b.o manej_0f.o 
@@ -60,8 +60,8 @@ obj\gm_k.o\
 obj\blockpr.o\
 obj\procs_0.o\
 obj\procs_k.o\
-#obj\recurs_0.o\
-#obj\recurs_k.o\
+obj\recurs_0.o\
+obj\recurs_k.o\
 obj\ints.o\
 obj\llamadas.o\
 obj\matrix.o\
@@ -90,18 +90,25 @@ $(LCDH)
   @copy &&|
 mode con cols=80 lines=25
 $(UTMP):\BC5\BIN\msdos $(PROGRAMA).exe
+pause
 | $(PROGRAMA).cmd > nul
+  @if exist MAKE????.@@@ erase MAKE????.@@@
   @echo.
   @echo ------- creado el fichero $(PROGRAMA).cmd
   @copy &&|
 mode con cols=80 lines=25
-$(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe
-| $(PROGRAMA).bat > nul
+cls
+start cmd /K "$(UTMP):\BC5\BIN\msdos_debug $(PROGRAMA).exe & pause"
+$(UUSB):\Utilidades\teraterm.exe telnet://localhost:23 /T=1 
+| $(PROGRAMA).debug.cmd > nul
+  @if exist MAKE????.@@@ erase MAKE????.@@@
   @echo.
-  @echo ------- creado el fichero $(PROGRAMA).bat
+  @echo ------- creado el fichero $(PROGRAMA).debug.cmd
 # tdump $(PROGRAMA).exe
   @echo.
   copy $(PROGRAMA).exe ..\DISQUETE > nul
+  copy $(PROGRAMA).cmd ..\DISQUETE > nul
+  copy $(PROGRAMA).debug.cmd ..\DISQUETE > nul
 
 c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
   $(CC) $(CFLAGS) -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o obj\c0dh.o
@@ -109,7 +116,7 @@ c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
 !if ($(VIA_ASM) == TRUE)
 
 .c.asm:
-  $(CC) $(CFLAGS) -S $&.c -o asm\$&.asm
+  $(CC) $(CFLAGS) -SI $(UUSB):\SO1H\PRACT0 -S $&.c -o asm\$&.asm
 
 .asm.o:
 # $(CC) $(CFLAGS) -c asm\$&.asm -o obj\$&.o
@@ -118,7 +125,7 @@ c0dh.o: $(UTMP):\SmallerC\v0100\srclib\c0dh.asm
 !else
 
 .c.o:
-  $(CC) $(CFLAGS) -c $&.c -o obj\$&.o
+  $(CC) $(CFLAGS) -SI $(UUSB):\SO1H\PRACT0 -c $&.c -o obj\$&.o
 
 !endif
 
@@ -138,6 +145,7 @@ LISTAPULE  = map asm lst des hex o TR TP TD
 clean: $(LISTACLEAN) pule
   @if exist stderr.txt erase stderr.txt > nul
   @if exist stdout.txt erase stdout.txt > nul
+  @if exist ..\DISQUETE\SO1H.* erase ..\DISQUETE\SO1H.*
 
 pule: $(LISTAPULE)
   @if exist obj\*.o erase obj\*.o

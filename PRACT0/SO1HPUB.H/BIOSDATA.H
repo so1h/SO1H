@@ -7,7 +7,7 @@
 #ifndef BIOSDATA_H
 #define BIOSDATA_H
 
-#include "tipos.h"
+#include <so1hpub.h\tipos.h>
 
 #if !(__SMALLER_C__)
 typedef struct

@@ -9,16 +9,16 @@
 /*                               sistema cero                              */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"                                  /* word_t */
-#include "..\so1h.h\ajustes.h"                                  /* modoSO1 */
-#include "..\so1hpub.h\biosdata.h"                         /* ptrFechaBios */
-#include "..\so1hpub.h\telon.h"                /* restaurarPantallaInicial */
-#include "..\so1hpub.h\msdos.h"                /* finProgDOS, hayWindowsNT */
-#include "..\so1hpub.h\bios_0.h"         /* rebootBIOS, ocultaCursorBIOS */
-#include "..\so1hpub.h\bios_crt.h"                          /* inicBiosCrt */
-#include "..\so1hpub.h\printvid.h"                   /* printStrVideo, ... */
-#include "..\so1h.h\so1dbg.h"                           /* esperarScancode */
-#include "..\so1h.h\s0.h"                /* mirarLoQueHay, MostrarLoQueHay */
+#include <so1hpub.h\tipos.h>                                     /* word_t */
+#include <so1h.h\ajustes.h>                                     /* modoSO1 */
+#include <so1hpub.h\biosdata.h>                            /* ptrFechaBios */
+#include <so1hpub.h\telon.h>                   /* restaurarPantallaInicial */
+#include <so1hpub.h\msdos.h>                   /* finProgDOS, hayWindowsNT */
+#include <so1hpub.h\bios_0.h>              /* rebootBIOS, ocultaCursorBIOS */
+#include <so1hpub.h\bios_crt.h>                             /* inicBiosCrt */
+#include <so1hpub.h\printvid.h>                      /* printStrVideo, ... */
+#include <so1h.h\so1dbg.h>                              /* esperarScancode */
+#include <so1h.h\s0.h>                   /* mirarLoQueHay, MostrarLoQueHay */
 //                                     /* hayDOS, hayNT, hayQemu, hayBochs */
 //                                         /* hayDBox, hayNTVDM, hayFake86 */
 #ifdef _DOS
@@ -74,11 +74,10 @@ void mirarLoQueHay ( word_t * loQueHay )
     {
     case 50903L :                                            /* "06/23/99" */
         *loQueHay |= hayQemu   ;
-        break ;
-    case  5706L : ;                                          /* "02/10/11" */
-
-
-    case  7578L :                                            /* "12/26/14" */
+        break ;		
+    case  5706L :                                            /* "02/10/11" */ /* Bochs 2.6.7 */ 
+    case  7578L :                                            /* "12/26/14" */ /* Bochs 2.6.8 */
+    case  8784L :                                            /* "02/16/17" */ /* Bochs 2.6.9 */ 
         *loQueHay |= hayBochs  ;
         break ;
     case 47137L :                                            /* "01/01/92" */
@@ -98,7 +97,7 @@ void mirarLoQueHay ( word_t * loQueHay )
         break ;
     default  :
         ;
-#if (0)
+#if (1)
         if ((modoSO1() == modoSO1_Bin) || (modoSO1() == modoSO1_Exe))
         {
             printLnVideo() ;

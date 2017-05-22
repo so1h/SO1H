@@ -12,7 +12,7 @@
 #ifndef C2C_H
 #define C2C_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 #define NULO ((int)-1)
 

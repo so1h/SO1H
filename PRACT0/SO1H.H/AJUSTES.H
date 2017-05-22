@@ -12,7 +12,7 @@
 #ifndef AJUSTES_H
 #define AJUSTES_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 void startBin ( void ) ;          /* punto de entrada para so1h.bin (boot) */
 

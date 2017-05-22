@@ -12,7 +12,7 @@
 #ifndef S0_H
 #define S0_H
 
-#include "..\so1hpub.h\tipos.h"                                  /* word_t */
+#include <so1hpub.h\tipos.h>                                     /* word_t */
 
 #define hayDOS    0x0001
 #define hayNT     0x0002

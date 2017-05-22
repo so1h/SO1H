@@ -1,0 +1,210 @@
+# depslib dependency file v1.0
+1495110297 source:x:\so1h\pract0\so1h\s0.c
+	<so1hpub.h\tipos.h>
+	<so1h.h\ajustes.h>
+	<so1hpub.h\biosdata.h>
+	<so1hpub.h\telon.h>
+	<so1hpub.h\msdos.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\bios_crt.h>
+	<so1hpub.h\printvid.h>
+	<so1h.h\so1dbg.h>
+	<so1h.h\s0.h>
+	<stdlib.h>
+
+1493410039 x:\so1h\pract0\so1hpub.h\tipos.h
+	<inttypes.h>
+
+1490572679 x:\so1h\pract0\so1h.h\ajustes.h
+	"..\so1hpub.h\tipos.h"
+
+1493409344 x:\so1h\pract0\so1hpub.h\biosdata.h
+	<so1hpub.h\tipos.h>
+
+1488330280 x:\so1h\pract0\so1hpub.h\telon.h
+
+1493409813 x:\so1h\pract0\so1hpub.h\msdos.h
+	<so1hpub.h\tipos.h>
+
+1493409344 x:\so1h\pract0\so1hpub.h\bios_0.h
+	<so1hpub.h\tipos.h>
+
+1493409344 x:\so1h\pract0\so1hpub.h\bios_crt.h
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\pantalla.h>
+
+1493409851 x:\so1h\pract0\so1hpub.h\pantalla.h
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\def_pant.h>
+
+1493409550 x:\so1h\pract0\so1hpub.h\def_pant.h
+	<so1hpub.h\tipos.h>
+
+1493409923 x:\so1h\pract0\so1hpub.h\printvid.h
+	<so1hpub.h\tipos.h>
+
+1489018948 x:\so1h\pract0\so1h.h\so1dbg.h
+	"..\so1hpub.h\tipos.h"
+
+1489019008 x:\so1h\pract0\so1h.h\s0.h
+	"..\so1hpub.h\tipos.h"
+
+1493411714 source:x:\so1h\pract0\so1h\so1dbg.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\puertos.h>
+
+1493409954 x:\so1h\pract0\so1hpub.h\puertos.h
+	<so1hpub.h\tipos.h>
+
+1493411874 source:x:\so1h\pract0\so1hpub\bios_0.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\caracter.h>
+	<so1hpub.h\printgen.h>
+	<so1hpub.h\biosdata.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\pantalla.h>
+
+1488330280 x:\so1h\pract0\so1hpub.h\caracter.h
+
+1493409910 x:\so1h\pract0\so1hpub.h\printgen.h
+	<so1hpub.h\tipos.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\bios_crt.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\bios_crt.h>
+	<so1hpub.h\biosdata.h>
+
+1493410516 source:x:\so1h\pract0\so1hpub\biosdata.c
+	<so1hpub.h\biosdata.h>
+
+1493410536 source:x:\so1h\pract0\so1hpub\c2c.c
+	<so1hpub.h\c2c.h>
+
+1493409276 x:\so1h\pract0\so1hpub.h\c2c.h
+	<so1hpub.h\tipos.h>
+
+1493413272 source:x:\so1h\pract0\so1hpub\caracter.c
+
+1493410560 source:x:\so1h\pract0\so1hpub\ccb.c
+	<so1hpub.h\ccb.h>
+
+1493409344 x:\so1h\pract0\so1hpub.h\ccb.h
+	<so1hpub.h\tipos.h>
+
+1493410582 source:x:\so1h\pract0\so1hpub\cmos.c
+	<so1hpub.h\puertos.h>
+	<so1hpub.h\cmos.h>
+
+1488330280 x:\so1h\pract0\so1hpub.h\cmos.h
+
+1493410652 source:x:\so1h\pract0\so1hpub\colores.c
+	<so1hpub.h\colores.h>
+
+1488330280 x:\so1h\pract0\so1hpub.h\colores.h
+
+1493410652 source:x:\so1h\pract0\so1hpub\debug.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\printvid.h>
+
+1493410652 source:x:\so1h\pract0\so1hpub\ll_s_thr.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\def_proc.h>
+	<so1hpub.h\ll_s_thr.h>
+
+1493409550 x:\so1h\pract0\so1hpub.h\def_proc.h
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\const.h>
+	<so1hpub.h\fcntl.h>
+	<so1hpub.h\def_trm.h>
+	<so1hpub.h\def_mem.h>
+	<so1hpub.h\ptrc2c.h>
+	<so1hpub.h\ccb.h>
+
+1489695659 x:\so1h\pract0\so1hpub.h\const.h
+
+1488330280 x:\so1h\pract0\so1hpub.h\fcntl.h
+	"..\so1hpub.h\tipos.h"
+
+1493243983 x:\so1h\pract0\so1hpub.h\def_trm.h
+	"..\so1hpub.h\tipos.h"
+
+1488330280 x:\so1h\pract0\so1hpub.h\def_mem.h
+	"..\so1hpub.h\tipos.h"
+
+1493409954 x:\so1h\pract0\so1hpub.h\ptrc2c.h
+	<so1hpub.h\c2c.h>
+
+1493409741 x:\so1h\pract0\so1hpub.h\ll_s_thr.h
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\def_proc.h>
+
+1493410684 source:x:\so1h\pract0\so1hpub\main.c
+	<so1hpub.h\main.h>
+	<so1hpub.h\ll_s_thr.h>
+	<so1hpub.h\printvid.h>
+
+1490573214 x:\so1h\pract0\so1hpub.h\main.h
+
+1493410712 source:x:\so1h\pract0\so1hpub\memvideo.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\pantalla.h>
+	<so1hpub.h\bios_crt.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\msdos.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\msdos.h>
+	<string.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\pantalla.c
+	<so1hpub.h\pantalla.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\pic.c
+	<so1hpub.h\puertos.h>
+	<so1hpub.h\pic.h>
+
+1493409884 x:\so1h\pract0\so1hpub.h\pic.h
+	<so1hpub.h\puertos.h>
+	<so1hpub.h\tipos.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\printgen.c
+	<so1hpub.h\printgen.h>
+	<so1hpub.h\caracter.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\printvid.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\caracter.h>
+	<so1hpub.h\memvideo.h>
+	<so1hpub.h\printgen.h>
+
+1493409813 x:\so1h\pract0\so1hpub.h\memvideo.h
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\pantalla.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\ptrc2c.c
+	<so1hpub.h\ptrc2c.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\puertos.c
+	<so1hpub.h\puertos.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\seccion.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\seccion.h>
+
+1493409954 x:\so1h\pract0\so1hpub.h\seccion.h
+	<so1hpub.h\tipos.h>
+
+1493412008 source:x:\so1h\pract0\so1hpub\telon.c
+	<so1hpub.h\tipos.h>
+	<so1hpub.h\def_pant.h>
+	<so1hpub.h\pantalla.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\biosdata.h>
+
+1493412014 source:x:\so1h\pract0\so1hpub\tipos.c
+	<so1hpub.h\tipos.h>
+

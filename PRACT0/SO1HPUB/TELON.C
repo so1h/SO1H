@@ -4,12 +4,12 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"                                  /* byte_t */
+#include <so1hpub.h\tipos.h>                                     /* byte_t */
 
-#include "..\so1hpub.h\def_pant.h"                             /* maxFilas */
-#include "..\so1hpub.h\pantalla.h"/* pantalla_t, copiarPantalla, atrNormal */
-#include "..\so1hpub.h\bios_0.h"  /* (read/goTo)XYBIOS, print(Str/Ptr)BIOS */ /* leerTeclaBIOS */
-#include "..\so1hpub.h\biosdata.h"                          /* ptrBiosArea */
+#include <so1hpub.h\def_pant.h>                                /* maxFilas */
+#include <so1hpub.h\pantalla.h>   /* pantalla_t, copiarPantalla, atrNormal */
+#include <so1hpub.h\bios_0.h>     /* (read/goTo)XYBIOS, print(Str/Ptr)BIOS */ /* leerTeclaBIOS */
+#include <so1hpub.h\biosdata.h>                             /* ptrBiosArea */
 
 static pantalla_t * ptrPant ;
 

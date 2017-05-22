@@ -4,12 +4,12 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"
-#include "..\so1hpub.h\caracter.h"                                  /* dig */
-#include "..\so1hpub.h\printgen.h"
-#include "..\so1hpub.h\biosdata.h"
-#include "..\so1hpub.h\bios_0.h"
-#include "..\so1hpub.h\pantalla.h"                            /* atrNormal */
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\caracter.h>                                     /* dig */
+#include <so1hpub.h\printgen.h>
+#include <so1hpub.h\biosdata.h>
+#include <so1hpub.h\bios_0.h>
+#include <so1hpub.h\pantalla.h>                               /* atrNormal */
 
 /* ----------------------------------------------------------------------- */
 /*                            tipo de ordenador                            */
@@ -56,7 +56,7 @@ byte_t tipoTeclado ( void )
 }
 
 #if (FALSE)
-	
+
 byte_t leerTeclaBIOS ( void )                  /* bloqueante en bucle BIOS */
 {
 //  char car ;
@@ -314,12 +314,12 @@ int printLHexBIOS ( dword_t num, word_t l )
     printGenLHex(num, l, printCarBIOS) ;
 }
 
-int printBinBIOS ( word_t num, word_t l ) 
+int printBinBIOS ( word_t num, word_t l )
 {
     printGenBin(num, l, printCarBIOS ) ;
 }
 
-int printLBinBIOS ( dword_t num, word_t l ) 
+int printLBinBIOS ( dword_t num, word_t l )
 {
     printGenLBin( num, l, printCarBIOS ) ;
 }

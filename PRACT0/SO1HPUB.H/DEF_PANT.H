@@ -7,7 +7,7 @@
 #ifndef DEF_PANT_H
 #define DEF_PANT_H
 
-#include "tipos.h"
+#include <so1hpub.h\tipos.h>
 
 #define maxFilas 50
 

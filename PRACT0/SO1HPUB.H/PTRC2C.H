@@ -7,7 +7,7 @@
 #ifndef PTRC2C_H
 #define PTRC2C_H
 
-#include "..\so1hpub.h\c2c.h"
+#include <so1hpub.h\c2c.h>
 
 typedef c2c_t * ptrC2c_t ;                   /* puntero lejano a c2c_t */
 

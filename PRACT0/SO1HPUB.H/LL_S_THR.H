@@ -14,8 +14,8 @@
 #ifndef LL_S_THR_H
 #define LL_S_THR_H
 
-#include "..\so1hpub.h\tipos.h"                                 /* dword_t */
-#include "..\so1hpub.h\def_proc.h"                                /* tid_t */
+#include <so1hpub.h\tipos.h>                                    /* dword_t */
+#include <so1hpub.h\def_proc.h>                                   /* tid_t */
 
 /* ----------------------------------------------------------------------- */
 /* -                                                                     - */
@@ -35,9 +35,10 @@
 
 #define opcionNoStatus (word_t)0x0001     /* no se espera a su terminacion */
 
-typedef struct {
-	word_t SP0 ;                          /* tamanio de la pila del thread */
-	word_t opciones ;             /* bits con opciones como optionNoStatus */
+typedef struct
+{
+    word_t SP0 ;                          /* tamanio de la pila del thread */
+    word_t opciones ;             /* bits con opciones como optionNoStatus */
 } thread_attribs_t ;                 /* atributos de creacion de un thread */
 
 int thread_create ( tid_t * tid,

@@ -4,7 +4,7 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\colores.h"
+#include <so1hpub.h\colores.h>
 
 combinacion_t combinacion [maxCombinaciones] =
 {

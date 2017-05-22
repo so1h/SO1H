@@ -12,19 +12,20 @@
 #ifndef CCB_H
 #define CCB_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 typedef int ( * callBack_t ) ( void * arg ) ;                 /* call back */
 
 #define cbNulo (callBack_t)0x00000000
 
-typedef struct {
-  word_t num ;                               /* numero actual de callBacks */
-  word_t in ;                                /* indice del primer callBack */
-  word_t out ;                    /* indice de la primera componente libre */
-  word_t max ;                               /* numero máximo de callBacks */
-  void * arg ;                                       /* argumento devuelto */
-  callBack_t callBack [10] ;                /* array circular de callBacks */
+typedef struct
+{
+    word_t num ;                               /* numero actual de callBacks */
+    word_t in ;                                /* indice del primer callBack */
+    word_t out ;                    /* indice de la primera componente libre */
+    word_t max ;                               /* numero máximo de callBacks */
+    void * arg ;                                       /* argumento devuelto */
+    callBack_t callBack [10] ;                /* array circular de callBacks */
 //callBack_t callBack [0xFFFF] ;            /* array circular de callBacks */
 //callBack_t callBack [ ] ;                 /* array circular de callBacks */
 //callBack_t * callBack ;                   /* array circular de callBacks */

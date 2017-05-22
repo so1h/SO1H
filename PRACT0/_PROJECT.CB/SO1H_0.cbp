@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SO1H_0" />
+		<Option platforms="Windows;" />
+		<Option execution_dir="X:/SO1H (git)/PRACT0/_PROJECT.CB/SO1H/" />
+		<Option pch_mode="2" />
+		<Option compiler="smaller_c" />
+		<Option show_notes="1">
+			<notes>
+				<![CDATA[SO1H__0
+======
+
+A los ficheros AJUST_0.C y SO1H_0.C se les ha asignado una (build) prioridad de 0 y 10 respectivamente.
+El resto de ficheros tienen prioridad 50. De esta manera a la hora de enlazar se pone primero el
+código de AJUST_0.C, luego SO1H_0.C y luego los demás.]]>
+			</notes>
+		</Option>
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/SO1H_0" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug" />
+				<Option type="1" />
+				<Option compiler="smaller_c" />
+				<ExtraCommands>
+					<Add before="$compiler -v -huge -c $(UTMP):\SmallerC\v0100\srclib\c0dh.asm -o $objects_output_dir\SO1H\c0dh.o" />
+					<Add after="cmd /C copy  $exe_output ..\SO1H_0\SO1H_0.exe" />
+					<Add after="$(UTMP):\BC5\BIN\EXE2BIN -c ..\SO1H_0\SO1H_0.exe" />
+					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 12 FFFF" />
+					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 16 9000" />
+					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 60 9000" />
+					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 20 0036" />
+					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 22 FFFE" />
+					<Add after="$(UTMP):\BC5\BIN\EXE2BIN -c ..\SO1H_0\SO1H_0.exe" />
+					<Add after="cmd /C copy  ..\SO1H_0\SO1H_0.exe ..\DISQUETE\SO1H_0.exe" />
+					<Add after="$(UTMP):\PRGTOOLS\BIN\EXTRAER ..\SO1H_0\SO1H_0.exe 32 0 ..\SO1H_0\SO1H_0.sys" />
+					<Add after="cmd /C copy  ..\SO1H_0\SO1H_0.sys ..\DISQUETE\SO1H_0.sys" />
+					<Add after="cmd /C echo." />
+					<Add after="cmd /C echo so1h_0.sys &gt; ..\DISQUETE\disco.cfg" />
+					<Add after="cmd /C echo so1h_k.bin &gt;&gt; ..\DISQUETE\disco.cfg" />
+					<Add after="cmd /C echo prog_0.bin &gt;&gt; ..\DISQUETE\disco.cfg" />
+					<Add after='cmd /C &quot;cd ..\DISQUETE &amp; $(UTMP):\PRGTOOLS\BIN\MKRD disco.cfg disco.rd -q&quot;' />
+					<Add after="cmd /C echo." />
+					<Add after="cmd /C echo so1h_0.sys &gt; ..\DISQUETE\so1himg.cfg" />
+					<Add after="cmd /C echo so1h_k.bin 00012345 &gt;&gt; ..\DISQUETE\so1himg.cfg" />
+					<Add after="cmd /C echo prog_0.bin &gt;&gt; ..\DISQUETE\so1himg.cfg" />
+					<Add after="cmd /C echo disco.rd &gt;&gt; ..\DISQUETE\so1himg.cfg" />
+					<Add after='cmd /C &quot;cd ..\DISQUETE &amp; $(UTMP):\PRGTOOLS\BIN\componer so1himg.cfg so1himg.sys -q&quot;' />
+					<Add after="cmd /C echo." />
+					<Add after="cmd /C echo so1h_0.exe &gt; ..\DISQUETE\so1himg.cfg" />
+					<Add after="cmd /C echo so1h_k.bin 00012345 &gt;&gt; ..\DISQUETE\so1himg.cfg" />
+					<Add after="cmd /C echo prog_0.bin &gt;&gt; ..\DISQUETE\so1himg.cfg" />
+					<Add after="cmd /C echo disco.rd &gt;&gt; ..\DISQUETE\so1himg.cfg" />
+					<Add after='cmd /C &quot;cd ..\DISQUETE &amp; $(UTMP):\PRGTOOLS\BIN\componer so1himg.cfg so1himg.exe -q&quot;' />
+					<Add after="cmd /C echo." />
+					<Add after="cmd /C echo mode con cols=80 lines=25 &gt; ..\DISQUETE\SO1HIMG.cmd" />
+					<Add after="cmd /C echo $(UTMP):\BC5\BIN\msdos SO1HIMG.exe &gt;&gt; ..\DISQUETE\SO1HIMG.cmd" />
+					<Add after="cmd /C echo pause &gt;&gt; ..\DISQUETE\SO1HIMG.cmd" />
+					<Add after="cmd /C echo ------- creado el fichero ..\DISQUETE\SO1HIMG.cmd" />
+					<Add after="cmd /C echo." />
+					<Add after="cmd /C echo mode con cols=80 lines=25 &gt; ..\DISQUETE\SO1HIMG.debug.cmd" />
+					<Add after="cmd /C echo cls &gt;&gt; ..\DISQUETE\SO1HIMG.debug.cmd" />
+					<Add after='cmd /C echo start cmd /K &quot;$(UTMP):\BC5\BIN\msdos_debug SO1HIMG.exe &amp; pause&quot; &gt;&gt; ..\DISQUETE\SO1HIMG.debug.cmd' />
+					<Add after="cmd /C echo $(UUSB):\Utilidades\teraterm.exe telnet://localhost:23 /T=1 &gt;&gt; ..\DISQUETE\SO1HIMG.debug.cmd" />
+					<Add after="cmd /C echo ------- creado el fichero ..\DISQUETE\SO1H.debug.cmd" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/SO1H" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="smaller_c" />
+			</Target>
+		</Build>
+		<Unit filename="../SO1H.H/S0.H" />
+		<Unit filename="../SO1H.H/SO1DBG.H" />
+		<Unit filename="../SO1HPUB.H/BIOSDATA.H" />
+		<Unit filename="../SO1HPUB.H/BIOS_0.H" />
+		<Unit filename="../SO1HPUB.H/BIOS_CRT.H" />
+		<Unit filename="../SO1HPUB.H/C2C.H" />
+		<Unit filename="../SO1HPUB.H/CARACTER.H" />
+		<Unit filename="../SO1HPUB.H/CARSCTRL.H" />
+		<Unit filename="../SO1HPUB.H/CCB.H" />
+		<Unit filename="../SO1HPUB.H/CMOS.H" />
+		<Unit filename="../SO1HPUB.H/COLORES.H" />
+		<Unit filename="../SO1HPUB.H/CONST.H" />
+		<Unit filename="../SO1HPUB.H/DEBUG.H" />
+		<Unit filename="../SO1HPUB.H/DEF_MEM.H" />
+		<Unit filename="../SO1HPUB.H/DEF_PANT.H" />
+		<Unit filename="../SO1HPUB.H/DEF_PROC.H" />
+		<Unit filename="../SO1HPUB.H/DEF_TRM.H" />
+		<Unit filename="../SO1HPUB.H/FCNTL.H" />
+		<Unit filename="../SO1HPUB.H/LL_S_EXC.H" />
+		<Unit filename="../SO1HPUB.H/LL_S_THR.H" />
+		<Unit filename="../SO1HPUB.H/MAIN.H" />
+		<Unit filename="../SO1HPUB.H/MEMVIDEO.H" />
+		<Unit filename="../SO1HPUB.H/MSDOS.H" />
+		<Unit filename="../SO1HPUB.H/PANTALLA.H" />
+		<Unit filename="../SO1HPUB.H/PIC.H" />
+		<Unit filename="../SO1HPUB.H/PRINTGEN.H" />
+		<Unit filename="../SO1HPUB.H/PRINTVID.H" />
+		<Unit filename="../SO1HPUB.H/PTRC2C.H" />
+		<Unit filename="../SO1HPUB.H/PUERTOS.H" />
+		<Unit filename="../SO1HPUB.H/SECCION.H" />
+		<Unit filename="../SO1HPUB.H/TELON.H" />
+		<Unit filename="../SO1HPUB.H/TIPOS.H" />
+		<Unit filename="../SO1HPUB/BIOSDATA.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/BIOS_0.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/BIOS_CRT.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/C2C.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/CARACTER.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/CCB.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/CMOS.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/COLORES.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/DEBUG.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/LL_S_THR.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/MAIN.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/MEMVIDEO.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/MSDOS.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/PANTALLA.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/PIC.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/PRINTGEN.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/PRINTVID.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/PTRC2C.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/PUERTOS.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/SECCION.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/TELON.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1HPUB/TIPOS.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/S0.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/SO1DBG.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H_0.H/AJUSTSP_0.H" />
+		<Unit filename="../SO1H_0.H/AJUST_0.H" />
+		<Unit filename="../SO1H_0.H/DIRF.H" />
+		<Unit filename="../SO1H_0.H/INICK.H" />
+		<Unit filename="../SO1H_0.H/SO1H_0.H" />
+		<Unit filename="../SO1H_0/AJUST_0.C">
+			<Option compilerVar="CC" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="../SO1H_0/INICK.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H_0/PROCS_X.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H_0/SO1H_0.C">
+			<Option compilerVar="CC" />
+			<Option weight="10" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

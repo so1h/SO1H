@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PROG_0" />
+		<Option pch_mode="2" />
+		<Option compiler="smaller_c" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../PROG_0" prefix_auto="0" extension_auto="1" />
+				<Option object_output="../../../_PROJECT.CB/obj/Debug" />
+				<Option type="1" />
+				<Option compiler="smaller_c" />
+				<Compiler>
+					<Add option="-v" />
+				</Compiler>
+				<Linker>
+					<Add option="-v" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="cmd /C copy ..\PROG_0.exe ..\PROG_0.bin" />
+					<Add after="cmd /C copy ..\PROG_0.bin ..\..\..\DISQUETE\PROG_0.bin" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="../PROG_0" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../" />
+				<Option type="1" />
+				<Option compiler="smaller_c" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Unit filename="../../../SO1HPUB.H/AJUSTUSR.H" />
+		<Unit filename="../../../SO1HPUB.H/BIOSDATA.H" />
+		<Unit filename="../../../SO1HPUB.H/BIOS_0.H" />
+		<Unit filename="../../../SO1HPUB.H/BIOS_CRT.H" />
+		<Unit filename="../../../SO1HPUB.H/C2C.H" />
+		<Unit filename="../../../SO1HPUB.H/CARACTER.H" />
+		<Unit filename="../../../SO1HPUB.H/CARSCTRL.H" />
+		<Unit filename="../../../SO1HPUB.H/CCB.H" />
+		<Unit filename="../../../SO1HPUB.H/CMOS.H" />
+		<Unit filename="../../../SO1HPUB.H/COLORES.H" />
+		<Unit filename="../../../SO1HPUB.H/CONST.H" />
+		<Unit filename="../../../SO1HPUB.H/DEBUG.H" />
+		<Unit filename="../../../SO1HPUB.H/DEF_MEM.H" />
+		<Unit filename="../../../SO1HPUB.H/DEF_PANT.H" />
+		<Unit filename="../../../SO1HPUB.H/DEF_PROC.H" />
+		<Unit filename="../../../SO1HPUB.H/DEF_TRM.H" />
+		<Unit filename="../../../SO1HPUB.H/FCNTL.H" />
+		<Unit filename="../../../SO1HPUB.H/LL_S_EXC.H" />
+		<Unit filename="../../../SO1HPUB.H/LL_S_THR.H" />
+		<Unit filename="../../../SO1HPUB.H/MAIN.H" />
+		<Unit filename="../../../SO1HPUB.H/MEMVIDEO.H" />
+		<Unit filename="../../../SO1HPUB.H/MSDOS.H" />
+		<Unit filename="../../../SO1HPUB.H/PANTALLA.H" />
+		<Unit filename="../../../SO1HPUB.H/PIC.H" />
+		<Unit filename="../../../SO1HPUB.H/PRINTGEN.H" />
+		<Unit filename="../../../SO1HPUB.H/PRINTVID.H" />
+		<Unit filename="../../../SO1HPUB.H/PTRC2C.H" />
+		<Unit filename="../../../SO1HPUB.H/PUERTOS.H" />
+		<Unit filename="../../../SO1HPUB.H/SECCION.H" />
+		<Unit filename="../../../SO1HPUB.H/TELON.H" />
+		<Unit filename="../../../SO1HPUB.H/TIPOS.H" />
+		<Unit filename="../../../SO1HPUB/AJUSTUSR.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/BIOSDATA.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/BIOS_0.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/BIOS_CRT.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/C2C.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/CARACTER.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/CCB.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/CMOS.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/COLORES.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/DEBUG.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/LL_S_THR.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/MAIN.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/MEMVIDEO.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/MSDOS.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/PANTALLA.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/PIC.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/PRINTGEN.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/PRINTVID.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/PTRC2C.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/PUERTOS.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/SECCION.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/TELON.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../SO1HPUB/TIPOS.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../PROG_0.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -7,7 +7,7 @@
 #ifndef PRINTVID_H
 #define PRINTVID_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 int printCarVideo ( char car ) ;                          /* en memvideo.h */
 
@@ -29,9 +29,9 @@ int printHexVideo ( word_t num, word_t l ) ;
 
 int printLHexVideo ( dword_t num, word_t l ) ;
 
-int printBinVideo ( word_t num, word_t l ) ;   
+int printBinVideo ( word_t num, word_t l ) ;
 
-int printLBinVideo ( dword_t num, word_t l ) ; 
+int printLBinVideo ( dword_t num, word_t l ) ;
 
 int printPtrVideo ( pointer_t ptr ) ;
 

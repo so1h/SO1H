@@ -7,7 +7,7 @@
 #ifndef DOKILL_H
 #define DOKILL_H
 
-#include "..\so1hpub.h\tipos.h"                                 /* pindx_t */
+#include <so1hpub.h\tipos.h>                                    /* pindx_t */
 
 void doKill ( pindx_t pindx ) ;                /* el proceso pindx termina */
 

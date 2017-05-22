@@ -12,7 +12,7 @@
 #ifndef SO1DBG_H
 #define SO1DBG_H
 
-#include "..\so1hpub.h\tipos.h"                                  /* byte_t */
+#include <so1hpub.h\tipos.h>                                     /* byte_t */
 
 /* puntoDeParadaSO1 es una funcion pensada para poner puntos de parada en  */
 /* el codigo del sistema SO1H (y los programas de usuario). Para poner un  */

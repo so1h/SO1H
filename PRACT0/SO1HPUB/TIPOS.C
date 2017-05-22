@@ -4,7 +4,7 @@
 /*                  Definiciones y tipos de datos basicos                  */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 pointer_t pointer ( word_t seg, word_t off )
 {

@@ -37,6 +37,9 @@ clean: crearDir
   cd progusr
   @make clean > nul
   @cd ..
+  cd so1h_0
+  @make clean > nul
+  @cd ..
   cd disquete
   @if exist *.bin erase *.bin
   @if exist *.exe erase *.exe

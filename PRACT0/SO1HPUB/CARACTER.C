@@ -6,6 +6,8 @@
 
 char dig [17] = "0123456789ABCDEF" ;
 
+#if (0)
+
 char mayuscula ( char letra )
 {
     if (('a' <= letra) && (letra <= 'z'))
@@ -27,3 +29,5 @@ char minuscula ( char letra )
     else if (letra == '¥') letra = '¤' ;
     return(letra) ;
 }
+
+#endif

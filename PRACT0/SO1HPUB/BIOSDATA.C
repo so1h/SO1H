@@ -4,7 +4,7 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\biosdata.h"
+#include <so1hpub.h\biosdata.h>
 
 volatile BIOSAREA_t * ptrBiosArea = 0x00000000 ;
 

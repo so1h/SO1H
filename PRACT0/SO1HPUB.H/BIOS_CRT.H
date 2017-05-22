@@ -7,22 +7,24 @@
 #ifndef BIOS_CRT_H
 #define BIOS_CRT_H
 
-#include "..\so1hpub.h\tipos.h"
-#include "..\so1hpub.h\pantalla.h"
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\pantalla.h>
 
-typedef enum {
-  _NONE, _MDA, _CGA,
-  _EGACOLOR = 0x04, _EGAMONO,
-  _VGACOLOR = 0x07, _VGAMONO,
-  _MCGACOLOR = 0x0a, _MCGAMONO,
-  _MDS_GENIUS = 0x30
+typedef enum
+{
+    _NONE, _MDA, _CGA,
+    _EGACOLOR = 0x04, _EGAMONO,
+    _VGACOLOR = 0x07, _VGAMONO,
+    _MCGACOLOR = 0x0a, _MCGAMONO,
+    _MDS_GENIUS = 0x30
 } tipoAdaptador_t ;
 
-typedef enum {
-  _FONT08 =  8,
-  _FONT14 = 14,
-  _FONT15,                                                       /* GENIUS */
-  _FONT16
+typedef enum
+{
+    _FONT08 =  8,
+    _FONT14 = 14,
+    _FONT15,                                                       /* GENIUS */
+    _FONT16
 } fontSize_t ;
 
 extern byte_t numFilas ;

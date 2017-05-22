@@ -7,7 +7,7 @@
 #ifndef PUERTOS_H
 #define PUERTOS_H
 
-#include "..\so1hpub.h\tipos.h"
+#include <so1hpub.h\tipos.h>
 
 #define PORT_DMA_ADDR_2        0x0004
 #define PORT_DMA_CNT_2         0x0005

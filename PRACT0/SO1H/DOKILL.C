@@ -4,11 +4,11 @@
 /*    codigo comun de la llamadas kill y de cerrar ventana con el raton    */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\tipos.h"
-#include "..\so1hpub.h\ptrc2c.h"
-#include "..\so1h.h\ajustes.h"
-#include "..\so1h.h\procs.h"
-#include "..\so1h.h\blockpr.h"                  /* buscarNuevoThreadActual */
+#include <so1hpub.h\tipos.h>
+#include <so1hpub.h\ptrc2c.h>
+#include <so1h.h\ajustes.h>
+#include <so1h.h\procs.h>
+#include <so1h.h\blockpr.h>                     /* buscarNuevoThreadActual */
 
 int doKill ( pindx_t pindx )                   /* el proceso pindx termina */
 {
@@ -32,22 +32,23 @@ int doKill ( pindx_t pindx )                   /* el proceso pindx termina */
         encolarPC2c(ppindx, (ptrC2c_t)&c2cPFR[TUrgentes]) ;
         eliminarPC2c(pindx, (ptrC2c_t)&descProceso[ppindx].c2cHijos) ;
         matarProcIndx(pindx) ;            /* matarProcIndx cierra la vent. */
-/*
-        if (pindx == indProcesoDeSuperficie)
-            focalizarWin(descProceso[ppindx].win) ;
-*/
+        /*
+                if (pindx == indProcesoDeSuperficie)
+                    focalizarWin(descProceso[ppindx].win) ;
+        */
     }
     else
-    {                                                      /* queda zombie */
+    {
+        /* queda zombie */
         descThread[pindx].estado = bloqueado ;
         descThread[pindx].esperandoPor = rec_zombie ;
         descThread[pindx].status = tramaThread->BX ;
         terminarProcIndx(pindx) ;                   /* cierra la vent. ... */
     }
 
-	if (pindx == indThreadActual)
-		buscarNuevoThreadActual() ;
+    if (pindx == indThreadActual)
+        buscarNuevoThreadActual() ;
 
-	return(err) ;
+    return(err) ;
 
 }

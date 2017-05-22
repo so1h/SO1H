@@ -4,7 +4,7 @@
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include "..\so1hpub.h\pantalla.h"
+#include <so1hpub.h\pantalla.h>
 
 word_t tamPantalla ( byte_t numFilas )
 {

@@ -7,12 +7,12 @@
 #ifndef PIC_H
 #define PIC_H
 
-#include "..\so1hpub.h\puertos.h"         /* PORT_PIC1, PORT_PIC2, PIC_EOI */
-#include "..\so1hpub.h\tipos.h"                                /* ptrTVI_t */
+#include <so1hpub.h\puertos.h>            /* PORT_PIC1, PORT_PIC2, PIC_EOI */
+#include <so1hpub.h\tipos.h>                                   /* ptrTVI_t */
 
 #define disable() { asm("cli") ; }
 
-#define enable() { asm("sti") ; } 
+#define enable() { asm("sti") ; }
 
 #define PIC1_IRQ0  (1 << 0)                /* PORT_PIC1 definicion de bits */
 #define PIC1_IRQ1  (1 << 1)
@@ -50,7 +50,7 @@ word_t valorIMR ( void ) ;
 
 void establecerIMR ( word_t nuevoIMR ) ;
 
-                                           /* fin de interrupcion generico */
+/* fin de interrupcion generico */
 
 #define eoi_pic1() {                                              /* macro */\
     asm                                                                      \
