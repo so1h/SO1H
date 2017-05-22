@@ -208,3 +208,50 @@
 1493412014 source:x:\so1h\pract0\so1hpub\tipos.c
 	<so1hpub.h\tipos.h>
 
+1495320986 source:x:\so1h\pract0\so1h_0\ajust_0.c
+	<so1hpub.h\tipos.h>
+	<so1h_0.h\ajustsp_0.h>
+	<so1hpub.h\seccion.h>
+	<so1hpub.h\main.h>
+
+1495413610 source:x:\so1h\pract0\so1h_0\inick.c
+	<so1hpub.h\def_proc.h>
+	<so1h_0.h\so1h_0.h>
+	<so1h_0.h\procs_x.h>
+	<string.h>
+	<ctype.h>
+
+1494350016 source:x:\so1h\pract0\so1h_0\procs_x.c
+	<so1hpub.h\def_proc.h>
+	<so1h_0.h\so1h_0.h>
+	<so1h_0.h\procs_x.h>
+	<so1hpub.h\caracter.h>
+	<so1hpub.h\puertos.h>
+	<string.h>
+	<so1hpub.h\fcntl.h>
+	<so1h.h\ajustes.h>
+	<so1hpub.h\main.h>
+	<so1h.h\blockpr.h>
+	<so1h.h\gm.h>
+	<so1h.h\procs.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\seccion.h>
+	<so1h.h\ajustsp.h>
+
+1495477619 source:x:\so1h\pract0\so1h_0\so1h_0.c
+	<so1hpub.h\def_proc.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\telon.h>
+	<so1hpub.h\debug.h>
+	<so1hpub.h\memvideo.h>
+	<so1hpub.h\bios_crt.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\seccion.h>
+	<so1h.h\so1dbg.h>
+	<so1h.h\s0.h>
+	<so1h_0.h\so1h_0.h>
+	<so1h_0.h\dirf.h>
+	<so1h_0.h\inick.h>
+	<string.h>
+

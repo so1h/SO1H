@@ -74,10 +74,12 @@
 #include <so1h_0.h\dirf.h>                                  /* entradaDF_t */
 #include <so1h_0.h\inick.h>                                  /* inicKernel */
 
+#include <string.h>                                             /* memmove */
+
 dword_t dirInicial ;
 
 dword_t dirCargaFichero ;
-	
+
 dword_t numEDF ;
 
 reubicacion_t reubicacion [ maxEDF ] ;
@@ -116,20 +118,20 @@ int main ( void )
 
 //  leer tabla dirf
 
-/*  la instrucción siguiente daba problemas con Smaller C porque en la     */ 
+/*  la instrucción siguiente daba problemas con Smaller C porque en la     */
 /*  funcion CSInicial simplemente se ponía el resultado en ax de manera    */
 /*  la palabra alta de eax (que es lo que realmente devuelve la funcion)   */
 /*  no se borraba. El problema se arreglo en CSInicial moviendo a eax el   */
 /*  resultado en vez de a ax.                                              */
-   
+
     dirInicial = (dword_t)(((dword_t)(CSInicial())) << 4) + sizeof(cabecera_t) ;
-	
+
 /*  CSInicial() indica el segmento de la cabecera del programa en el caso  */
 /*  so1himg.exe. En el caso so1himg.sys simula lo mismo apuntando al       */
 /*  que correspondería a la cabecera si la hubiera.                        */
-/*  dirInicial apunta en todos los casos al primer byte de código.         */  
+/*  dirInicial apunta en todos los casos al primer byte de código.         */
 
-	entradaDF_t * ptrDirf = (	
+	entradaDF_t * ptrDirf = (
 	(
 	    dirInicial +
 		(dword_t)(((int)&_start__bss) - ((int)&_start__text)) +
@@ -137,7 +139,7 @@ int main ( void )
 	) & (dword_t)0xFFFFFFF0) ;
 
 	numEDF = ptrDirf[1].tam/sizeof(entradaDF_t) ;
-	
+
     assert((numEDF <= maxEDF),
            "\a\n ERROR: SO1HIMG (numEDF > maxEDF)") ;       /* '\a' == BEL */
 
@@ -182,13 +184,26 @@ int main ( void )
 //  reubicar entradas de la 2 a numEDF-1
 
     dword_t dirReub = dirInicial ;
-	
-	if (modoSO1() != modoSO1_Exe) 
+
+	if (modoSO1() != modoSO1_Exe)
 		dirCargaFichero = dirInicial ;
 	else
 		dirCargaFichero = dirInicial - sizeof(cabecera_t) ;
 
+//  leerScancode() ;                          /* para detener la ejecucion */
+//  leerScancode() ;                            /* con las ints. inhibidas */
+
+//  printStrVideo("\n") ;
+
 	for ( int i = 2 ; i < numEDF ; i++ ) {
+
+	    printStrVideo("\n reubicando ind = ") ;
+	    printLIntVideo(i, 1) ;
+	    printStrVideo(" nombre = ") ;
+	    printStrVideo(ptrDirf[i].nombre) ;
+
+//	    while(TRUE) ;
+
 		memcpy(&reubicacion[i-2].entradaDF, &ptrDirf[i], sizeof(entradaDF_t)) ;
 	    reubicacion[i-2].origen = dirCargaFichero + ptrDirf[i].pos ;
 	    reubicacion[i-2].destino = dirReub ;
@@ -200,6 +215,7 @@ int main ( void )
 	    else
 		    dirReub = dirReub +
     			      ((ptrDirf[i].tam + 15) & (dword_t)0xFFFFFFF0) ;
+
 	}
 
     dword_t dirFinal = dirReub ;
@@ -217,13 +233,15 @@ int main ( void )
 //  que se va a copiar, por lo que es necesario utilizar memmove en vez de */
 //  memcpy.                                                                */
 
+    printStrVideo("\n") ;
+
 	for ( int i = 0 ; i < (numEDF-2) ; i++ ) {
 //     	memcpy(reubicacion[i].destino,        /* memcpy(d,o,n) d > o falla */
     	memmove(reubicacion[i].destino,       /* memmove(d,o,n) siempre ok */
         		reubicacion[i].origen,
 			    reubicacion[i].entradaDF.tam) ;
 
-	    printStrVideo("\n\n nombre = ") ;
+	    printStrVideo("\n nombre = ") ;
 	    printStrHastaVideo(reubicacion[i].entradaDF.nombre, 20, TRUE) ;
 	    printStrVideo(" origen = ") ;
     	printLHexVideo(reubicacion[i].origen, 8) ;
@@ -255,6 +273,6 @@ int main ( void )
 	}
 
 	inicKernel() ;          /* a partir de dirInicial, reubicacion, numEDF */
-	
+
     return(0) ;
 }

@@ -28,8 +28,8 @@ código de AJUST_0.C, luego SO1H_0.C y luego los demás.]]>
 					<Add after="cmd /C copy  $exe_output ..\SO1H_0\SO1H_0.exe" />
 					<Add after="$(UTMP):\BC5\BIN\EXE2BIN -c ..\SO1H_0\SO1H_0.exe" />
 					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 12 FFFF" />
-					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 16 9000" />
-					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 60 9000" />
+					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 16 FFFE" />
+					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 60 FFFE" />
 					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 20 0036" />
 					<Add after="$(UTMP):\PRGTOOLS\BIN\PARCHEAR ..\SO1H_0\SO1H_0.exe 22 FFFE" />
 					<Add after="$(UTMP):\BC5\BIN\EXE2BIN -c ..\SO1H_0\SO1H_0.exe" />
