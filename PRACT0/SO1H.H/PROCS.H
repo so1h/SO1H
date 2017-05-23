@@ -42,6 +42,8 @@ extern c2c_t c2cPFR [ numColasPFR ] ;                    /* indices cPFR_t */
 
 extern e2PFR_t e2PFR ;
 
+extern descCcb_t descCcbAlEpilogo ;
+
 extern ccb_t ccbAlEpilogo ;    /* cola de callBacks al epilogo de las int. */
 
 extern trama_t * tramaThread ;

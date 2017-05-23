@@ -4,7 +4,7 @@
 */
 
 /* ----------------------------------------------------------------------- */
-/*                                procs_0.c                                */
+/*                                procs_x.c                                */
 /* ----------------------------------------------------------------------- */
 /*                      Gestion de procesos y threads                      */
 /* ----------------------------------------------------------------------- */
@@ -15,24 +15,15 @@
 
 /* campos de descSO1H declarados como variables: NO MODIFICAR */
 
-camposDescSO1H(volatile) /* ¿¿¿¿ o static */
+camposDescSO1H(volatile) 
 
 /* fin campos de descSO1H declarados como variables */
-
-#define maxCbAlEpilogo 9
-
-descCcb_t descCcbAlEpilogo = { 0, 0, 0, maxCbAlEpilogo, (void *)NULL,
-    { cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo}
-} ;
 
 void inicProcesos_x ( void ) 
 {
     pindx_t i ;
 	int ind ;                          /* indice para la tabla reubicacion */
 	
-	
-    * ptrCcbAlEpilogo = (ccb_t)&descCcbAlEpilogo ;
-
 //  /* inicializamos las colas: */
 
     inicPC2c(&ptrC2cPFR[DPLibres],    &ptrE2PFR->e2DescProceso.Libres,   maxProcesos,     FALSE) ;

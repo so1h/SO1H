@@ -46,6 +46,9 @@ extern void cargarDescSO1H ( descSO1H_t * descSO1H ) ;         /* MANEJ_03 */
 
 int main ( void )     /* resultado: direccion de la funcion cargarDescSO1H */
 {
+	
+	indProcesoActual = 715 ;
+	
 //  return(0x12345678) ;
     return(&cargarDescSO1H) ;      /* funcion cargarDescSO1H en MANEJ_03.C */
 

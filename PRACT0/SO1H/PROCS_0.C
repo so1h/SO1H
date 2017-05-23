@@ -28,12 +28,6 @@
 #include <so1hpub.h\seccion.h>                /* _start__text, _stop__text */
 #include <so1h.h\ajustsp.h>                                    /* SP0_SO1H */
 
-#define maxCbAlEpilogo 9
-
-descCcb_t descCcbAlEpilogo = { 0, 0, 0, maxCbAlEpilogo, (void *)NULL,
-    { cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo}
-} ;
-
 char strSo1h [4][12] = { "SO1H.BIN", "SO1H.EXE", "SO1H.SLX" } ;
 
 char comandoSo1a [tamComando] = "boot de disquete" ;

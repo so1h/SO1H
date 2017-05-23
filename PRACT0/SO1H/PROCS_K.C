@@ -47,6 +47,12 @@ c2c_t c2cPFR [ numColasPFR ] ;                           /* indices cPFR_t */
 
 e2PFR_t e2PFR ;
 
+#define maxCbAlEpilogo 9
+
+descCcb_t descCcbAlEpilogo = { 0, 0, 0, maxCbAlEpilogo, (void *)NULL,
+    { cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo, cbNulo}
+} ;
+
 ccb_t ccbAlEpilogo ;
 
 word_t numPids = 0 ;          /* numero de pids asignados hasta el momento */

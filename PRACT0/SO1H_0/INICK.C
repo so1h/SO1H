@@ -56,6 +56,10 @@ void inicKernel ( void )
 
     printStrVideo("\n ptrIndProcesoActual = ") ;
     printLHexVideo(ptrIndProcesoActual, 8) ;
+	
+    printStrVideo("\n *ptrIndProcesoActual = ") ;
+    printIntVideo(*ptrIndProcesoActual, 1) ;
+	
 
     while (TRUE) ;
     asm("nop") ;

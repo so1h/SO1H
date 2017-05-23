@@ -120,9 +120,9 @@ int main ( void )
 
 /*  la instrucción siguiente daba problemas con Smaller C porque en la     */
 /*  funcion CSInicial simplemente se ponía el resultado en ax de manera    */
-/*  la palabra alta de eax (que es lo que realmente devuelve la funcion)   */
-/*  no se borraba. El problema se arreglo en CSInicial moviendo a eax el   */
-/*  resultado en vez de a ax.                                              */
+/*  que la palabra alta de eax (que es lo que realmente devuelve la        */
+/*  funcion) no se borraba. El problema se arreglo en CSInicial moviendo a */
+/*  eax el resultado en vez de a ax.                                       */
 
     dirInicial = (dword_t)(((dword_t)(CSInicial())) << 4) + sizeof(cabecera_t) ;
 

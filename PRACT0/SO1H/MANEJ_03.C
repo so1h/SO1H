@@ -45,6 +45,14 @@
 void cargarDescSO1H ( descSO1H_t * descSO1H )
 {
 
+//  /* en principio ccbAlEpilogo se inicializa en procs_0 para el caso de  */
+//  /* SO1H. No obstante en el caso de SO1HIMG como las inicializaciones   */
+//  /* no las hace SO1H_K sino SO1H_0 se debe ejecutar en este momento la  */
+//  /* inicilizacion del puntero ccbAlEpilogo que se utiliza en el campo   */
+//  /* descSO1H->ptrCcbAlEpilogo.                                          */  
+
+	ccbAlEpilogo = (ccb_t)&descCcbAlEpilogo ;   /* necesario si no procs_0 */
+
     descSO1H->ptrIndProcesoActual      = (pindx_t *)&indProcesoActual ;
     descSO1H->ptrTramaThread           = (trama_t * *)&tramaThread ;
     descSO1H->ptrActivarAlEpilogo      = (bool_t *)&activarAlEpilogo1 ;
@@ -57,7 +65,7 @@ void cargarDescSO1H ( descSO1H_t * descSO1H )
     descSO1H->ptrNivelActivacionSO1H   = (int *)&nivelActivacionSO1H ;
     descSO1H->ptrEnHalt                = (bool_t *)&enHalt ;
     descSO1H->ptrHayTic                = (bool_t *)&hayTic ;
-    descSO1H->ptrCcbAlEpilogo          = (ccb_t *)&ccbAlEpilogo ;
+    descSO1H->ptrCcbAlEpilogo          = (ccb_t *)&ccbAlEpilogo ; 
     descSO1H->ptrSS_Thread             = (word_t *)&SS_Thread ;
     descSO1H->ptrSP_Thread             = (word_t *)&SP_Thread ;
     descSO1H->ptrSS_Kernel             = (word_t *)&SS_Kernel ;
@@ -70,9 +78,9 @@ void cargarDescSO1H ( descSO1H_t * descSO1H )
         (sigThread_t)MK_P((word_t)&_start__text, (word_t)sigThread) ;
     descSO1H->activarThread            =
         (activarThread_t)MK_P((word_t)&_start__text, (word_t)activarThread) ;
-    descSO1H->buscarNuevoThreadActual =
+    descSO1H->buscarNuevoThreadActual  =
         (buscarNuevoThreadActual_t)MK_FP((word_t)&_start__text, (word_t)buscarNuevoThreadActual) ;
-    descSO1H->bloquearThreadActual    =
+    descSO1H->bloquearThreadActual     =
         (bloquearThreadActual_t)MK_FP((word_t)&_start__text, (word_t)bloquearThreadActual) ;
 }
 
