@@ -8,6 +8,8 @@
 
 int main ( void )
 {
+	while (TRUE) ;
+	asm(" dd 0x12345675") ;
     return(thread_self()) ;
 }
 

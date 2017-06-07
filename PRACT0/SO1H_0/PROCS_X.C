@@ -12,6 +12,8 @@
 #include <so1hpub.h\def_proc.h> /* descSO1H_t, camposDescSO1H, dirDescSO1H */
 #include <so1h_0.h\so1h_0.h>          /* dirInicial, reubicacion_t, numEDF */
 #include <so1h_0.h\procs_x.h>   
+#include <string.h>                                              /* strcpy */   
+
 
 /* campos de descSO1H declarados como variables: NO MODIFICAR */
 
@@ -19,11 +21,16 @@ camposDescSO1H(volatile)
 
 /* fin campos de descSO1H declarados como variables */
 
+#define numProcEnImagen numER-1                     /* 0, 1, ... , numER-1 */
+
+#undef DS                   /* para evitar la defincion de DS de DEF_TRM.H */
+
 void inicProcesos_x ( void ) 
 {
     pindx_t i ;
-	int ind ;                          /* indice para la tabla reubicacion */
 	
+	int ind ;                          /* indice para la tabla reubicacion */
+
 //  /* inicializamos las colas: */
 
     inicPC2c(&ptrC2cPFR[DPLibres],    &ptrE2PFR->e2DescProceso.Libres,   maxProcesos,     FALSE) ;
@@ -35,12 +42,13 @@ void inicProcesos_x ( void )
     inicPC2c(&ptrC2cPFR[POrdenados],  &ptrE2PFR->e2POrdenados,           maxProcesos,     FALSE) ;
     inicPC2c(&ptrC2cPFR[TDormidos],   &ptrE2PFR->e2TDormidos,            maxProcesos,     FALSE) ;
 
-	for ( ind = 2 ; ind < (numEDF-2) ; ind++ ) {       /* reubicacion[ind] */
-
-    	i = ind - 2 ;                      /* inicializamos descProceso[i] */
+	for ( i = 1 ; i < numProcEnImagen ; i++ ) {          /* reubicacion[i] */ /* 0: so1h_k proceso */
+                                                                              /* numEDF-3: es el disco ram  */ 
+        ind = i ;																			  
+                                           /* inicializamos descProceso[i] */
         ptrDescProceso[i].pid = i ;                          /* nuevoPid() */    
-        ptrDescProceso[i].uid = 0 ;                                /* root */
-        ptrDescProceso[i].gid = 0 ;                                /* root */
+//      ptrDescProceso[i].uid = 0 ;                                /* root */
+//      ptrDescProceso[i].gid = 0 ;                                /* root */
         ptrDescProceso[i].noStatus = TRUE ;    /* puede morir directamente */
         ptrDescProceso[i].ppindx = -1 ;                  /* no tiene padre */
         ptrDescProceso[i].hpindx = -1 ; /* no espera a que termine un hijo */
@@ -54,6 +62,7 @@ void inicProcesos_x ( void )
 //      ptrDescProceso[i].desplPila =                              /* ???? */
         ptrDescProceso[i].tamFichero = reubicacion[ind].entradaDF.tam ;
 //      ptrDescProceso[i].programa[0] = (char)0 ;
+        strcpy(&reubicacion[ind].entradaDF.nombre, &ptrDescProceso[i].programa) ;
 //      ptrDescProceso[i].tCPU = 0 ;      /* tiempo de CPU en (tics/2**16) */
         
 		apilarPC2c(i, (ptrC2c_t)&ptrC2cPFR[DPOcupados]) ;    /* apilamos i */
@@ -64,8 +73,26 @@ void inicProcesos_x ( void )
 //      ptrDescThread[i].SSThread =                                /* ???? */ 
         ptrDescThread[i].SP0 = reubicacion[ind].entradaDF.SP0 ;
         ptrDescThread[i].tid = i ;                           /* nuevoTid() */
-        ptrDescThread[i].estado = ejecutandose ;                   /* ???? */
+//      ptrDescThread[i].estado = ejecutandose ;                   /* ???? */
+        ptrDescThread[i].estado = preparado ;                      /* ???? */
+//      ptrDescThread[i].trama =                            /* (preparado) */
 //      ptrDescThread[i].trama = (trama_t *)NULL ;       /* (en ejecucion) */
+
+//      ptrDescThread[i].trama->DS = reubicacion[ind].entradaDF.DS ; 
+        ptrDescThread[i].trama->tw.DS = reubicacion[ind].entradaDF.DS ; 
+        ptrDescThread[i].trama->ES = ptrDescProceso[i].CSProc >> 4 ;  
+        ptrDescThread[i].trama->EDI = 0x000000000 ;      
+        ptrDescThread[i].trama->ESI = 0x000000000 ;      
+        ptrDescThread[i].trama->EBP = ptrDescThread[i].SP0 ; /* ?????? */    
+        ptrDescThread[i].trama->ESP = ptrDescThread[i].SP0 - 6 ;
+        ptrDescThread[i].trama->EBX = 0x000000000 ;      
+        ptrDescThread[i].trama->EDX = 0x000000000 ;      
+        ptrDescThread[i].trama->ECX = 0x000000000 ;      
+        ptrDescThread[i].trama->EAX = 0x000000000 ;      
+        ptrDescThread[i].trama->IP = reubicacion[ind].entradaDF.start ;
+        ptrDescThread[i].trama->CS = ptrDescProceso[i].CSProc >> 4 ;
+		ptrDescThread[i].trama->Flags = 0x0202 ; /* Ints. permitidas */
+		
         ptrDescThread[i].noStatus = TRUE ;     /* puede morir directamente */
 //      ptrDescThread[i].status = 0 ;
         ptrDescThread[i].ptindx = -1 ;    /* no lo creo ningun otro thread */
@@ -87,7 +114,7 @@ void inicProcesos_x ( void )
 //  /* inicializamos el resto de descriptores de proceso */
 //  /* en orden inverso por estetica */
 
-    for ( i = maxProcesos-1 ; i >= (numEDF - 3) ; i-- )  
+    for ( i = maxProcesos-1 ; i >= numProcEnImagen ; i-- )  
     {
         ptrDescProceso[i].pid = -1 ;
         ptrDescProceso[i].uid = -1 ;

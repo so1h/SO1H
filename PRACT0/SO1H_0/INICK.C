@@ -10,7 +10,7 @@
 /* ----------------------------------------------------------------------- */
 
 #include <so1hpub.h\def_proc.h> /* descSO1H_t, camposDescSO1H, dirDescSO1H */
-#include <so1h_0.h\so1h_0.h>          /* dirInicial, reubicacion_t, numEDF */
+#include <so1h_0.h\so1h_0.h>           /* dirInicial, reubicacion_t, numER */
 #include <so1h_0.h\procs_x.h>            /* camposDescSO1H, inicProcesos_x */
 #include <string.h>                                              /* strlen */
 #include <ctype.h>                                              /* toupper */
@@ -27,10 +27,7 @@ void inicKernel ( void )
         dirInicial + 
 		reubicacion[0].entradaDF.start ;
 		
-    printStrVideo("\n\n dirStartKernel = ") ;
-    printLHexVideo(dirStartKernel, 8) ;
-
-    typedef int ( * main_t ) ( void ) ;
+	typedef int ( * main_t ) ( void ) ;
 
     typedef void ( * cargarDescSO1H_t ) ( descSO1H_t * descSO1H ) ;
 
@@ -60,11 +57,15 @@ void inicKernel ( void )
     printStrVideo("\n *ptrIndProcesoActual = ") ;
     printIntVideo(*ptrIndProcesoActual, 1) ;
 	
+    inicProcesos_x() ;
 
+	inicGM_x() ;
+	
+//	activarThread(sigThread()) ;
+	
+	printStrVideo("\n\n ================") ;
     while (TRUE) ;
     asm("nop") ;
-
-    inicProcesos_x() ;
 
 //  inicializar el nucleo ==> PROCESOS.C
 //  reservar espacio y crear el proceso so1_k y demas procesos

@@ -277,6 +277,9 @@ modo   sigThread_t               sigThread ;                                 \
 modo   activarThread_t           activarThread ;                             \
 modo   buscarNuevoThreadActual_t buscarNuevoThreadActual ;                   \
 modo   bloquearThreadActual_t    bloquearThreadActual ;      /* no retorna */\
+modo   ptrBloque_t             * ptrListaLibres ;  /* lista bloques libres */\
+modo   word_t                  * ptrTamBloqueMax ;	
+	
 
 typedef struct
 {
@@ -291,12 +294,12 @@ typedef struct
     tindx_t                  * ptrIndThreadActual ;
     trama_t *                * ptrTramaThread ;
     bool_t                   * ptrActivarAlEpilogo ;
-    descProceso_t            * ptrDescProceso ;         /* tabla de procesos */
+    descProceso_t            * ptrDescProceso ;       /* tabla de procesos */
     word_t                     tamDescProceso ;
-    descThread_t             * ptrDescThread ;           /* tabla de threads */
+    descThread_t             * ptrDescThread ;         /* tabla de threads */
     word_t                     tamDescThread ;
-    descFichero_t            * ptrDescFichero ;         /* tabla de ficheros */
-    descRecurso_t            * ptrDescRecurso ;         /* tabla de recursos */
+    descFichero_t            * ptrDescFichero ;       /* tabla de ficheros */
+    descRecurso_t            * ptrDescRecurso ;       /* tabla de recursos */
     c2c_t                    * ptrC2cPFR ;
 //  e2cPFR_t                 * ptrE2PFR ;
     int                      * ptrNivelActivacionSO1H ;
@@ -305,7 +308,7 @@ typedef struct
     ccb_t                    * ptrCcbAlEpilogo ;
     word_t                   * ptrSS_Thread ;
     word_t                   * ptrSP_Thread ;
-    word_t                     SP0_So1h ;       /* SP0 del sistema operativo */
+    word_t                     SP0_So1h ;     /* SP0 del sistema operativo */
     dword_t                  * ptrContRodajas ;
     int                      * ptrContTicsRodaja ;
     rti_t                    * ptrVIOrg ;
@@ -313,7 +316,11 @@ typedef struct
     sigThread_t                sigThread ;
     activarThread_t            activarThread ;
     buscarNuevoThreadActual_t  buscarNuevoThreadActual ;
-    bloquearThreadActual_t     bloquearThreadActual ;          /* no retorna */
+    bloquearThreadActual_t     bloquearThreadActual ;        /* no retorna */
+	
+	ptrBloque_t              * ptrListaLibres ; /* lista de bloques libres */
+    word_t                   * ptrTamBloqueMax ;	
+	
 } descSO1H_t ;                              /* descriptor del sistema SO1H */
 
 #endif

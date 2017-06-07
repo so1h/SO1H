@@ -76,18 +76,26 @@
 
 #include <string.h>                                             /* memmove */
 
-dword_t dirInicial ;
+dword_t dirInicial ;        /* direccion correspondiente a CS:0000 de SO1H */
 
-dword_t dirCargaFichero ;
+dword_t dirCargaFichero ;                 /* direccion de carga de SO1HIMG */
 
-dword_t numEDF ;
+dword_t dirFinal ;                              /* primera direccion libre */
 
-reubicacion_t reubicacion [ maxEDF ] ;
+dword_t numEDF ;                        /* numero real de entradas de dirf */
+
+dword_t numER ;              /* numero de entradas de la tabla reubicacion */  
+
+#define maxER 8                /* numero maximo de entradas de reubicacion */
+
+reubicacion_t TR [ maxER ] ;                          /* tabla reubicacion */
+
+reubicacion_t * reubicacion = &TR ;                   /* tabla reubicacion */
 
 int main ( void )
 {
     word_t loQueHay ;
-
+	
     asm("cli") ;             /* se inhiben las interrupciones (SO1H_0.EXE) */
 
     if (modoSO1() == modoSO1_Exe) salvarPantallaInicial() ;
@@ -140,7 +148,7 @@ int main ( void )
 
 	numEDF = ptrDirf[1].tam/sizeof(entradaDF_t) ;
 
-    assert((numEDF <= maxEDF),
+    assert((numEDF <= maxER+2),
            "\a\n ERROR: SO1HIMG (numEDF > maxEDF)") ;       /* '\a' == BEL */
 
     printStrVideo("\n CSInicial = ") ;
@@ -171,8 +179,10 @@ int main ( void )
         printStrVideo(" ") ;
         printLHexVideo(ptrDirf[i].start, 5) ;
         printStrVideo(" ") ;
-//	    printLHexVideo(ptrDirf[i].otro, 8) ;
+//	    printHexVideo(ptrDirf[i].otro, 4) ;
 //      printStrVideo(" ") ;
+	    printHexVideo(ptrDirf[i].DS, 4) ;
+        printStrVideo(" ") ;
 	    printHexVideo(ptrDirf[i].SS, 4) ;
         printStrVideo(" ") ;
 	    printHexVideo(ptrDirf[i].SP0, 4) ;
@@ -197,7 +207,7 @@ int main ( void )
 
 	for ( int i = 2 ; i < numEDF ; i++ ) {
 
-	    printStrVideo("\n reubicando ind = ") ;
+	    printStrVideo("\n reubicando i = ") ;
 	    printLIntVideo(i, 1) ;
 	    printStrVideo(" nombre = ") ;
 	    printStrVideo(ptrDirf[i].nombre) ;
@@ -218,8 +228,10 @@ int main ( void )
 
 	}
 
-    dword_t dirFinal = dirReub ;
+    dirFinal = dirReub ;
 
+	numER = numEDF - 2 ; 
+	
 	printStrVideo("\n\n dirInicial = ") ;
 	printLHexVideo(dirInicial, 8) ;
 	printStrVideo(" dirFinal = ") ;
@@ -235,44 +247,44 @@ int main ( void )
 
     printStrVideo("\n") ;
 
-	for ( int i = 0 ; i < (numEDF-2) ; i++ ) {
-//     	memcpy(reubicacion[i].destino,        /* memcpy(d,o,n) d > o falla */
-    	memmove(reubicacion[i].destino,       /* memmove(d,o,n) siempre ok */
-        		reubicacion[i].origen,
-			    reubicacion[i].entradaDF.tam) ;
+	for ( int j = 0 ; j < numER ; j++ ) {
+//     	memcpy(reubicacion[j].destino,        /* memcpy(d,o,n) d > o falla */
+    	memmove(reubicacion[j].destino,       /* memmove(d,o,n) siempre ok */
+        		reubicacion[j].origen,
+			    reubicacion[j].entradaDF.tam) ;
 
 	    printStrVideo("\n nombre = ") ;
-	    printStrHastaVideo(reubicacion[i].entradaDF.nombre, 20, TRUE) ;
+	    printStrHastaVideo(reubicacion[j].entradaDF.nombre, 20, TRUE) ;
 	    printStrVideo(" origen = ") ;
-    	printLHexVideo(reubicacion[i].origen, 8) ;
+    	printLHexVideo(reubicacion[j].origen, 8) ;
 	    printStrVideo(" destino = ") ;
-	    printLHexVideo(reubicacion[i].destino, 8) ;
+	    printLHexVideo(reubicacion[j].destino, 8) ;
 	    printStrVideo(" tam = ") ;
-	    printLDecVideo(reubicacion[i].entradaDF.tam, 1) ;
+	    printLDecVideo(reubicacion[j].entradaDF.tam, 1) ;
     }
 
-	for ( int i = 0 ; i < (numEDF-2) ; i++ ) { /* inicializamos bss y pila */
-		if ((reubicacion[i].entradaDF.tipo == proceso_DF) ||
-		    (reubicacion[i].entradaDF.tipo == so1h_k_DF))
+	for ( int j = 0 ; j < numER ; j++ ) {      /* inicializamos bss y pila */
+		if ((reubicacion[j].entradaDF.tipo == proceso_DF) ||
+		    (reubicacion[j].entradaDF.tipo == so1h_k_DF))
 		{
 		    memset                         /* inicializamos a ceros el bss */
 		    (
-		        reubicacion[i].destino + reubicacion[i].entradaDF.tam,
+		        reubicacion[j].destino + reubicacion[j].entradaDF.tam,
 			    0,
-		        (((dword_t)reubicacion[i].entradaDF.SS) << 4) - reubicacion[i].entradaDF.tam
+		        (((dword_t)reubicacion[j].entradaDF.SS) << 4) - reubicacion[j].entradaDF.tam
 	        ) ;
 
     		memset            /* inicializamos a ceros el area de pila bss */
 	    	(
-		        reubicacion[i].destino + (((dword_t)reubicacion[i].entradaDF.SS) << 4),
+		        reubicacion[j].destino + (((dword_t)reubicacion[j].entradaDF.SS) << 4),
 			    0,
-			    ((dword_t)reubicacion[i].entradaDF.SP0 + 15) & (dword_t)0xFFFFFFF0
+			    ((dword_t)reubicacion[j].entradaDF.SP0 + 15) & (dword_t)0xFFFFFFF0
 		    ) ;
 		}
 
 	}
 
-	inicKernel() ;          /* a partir de dirInicial, reubicacion, numEDF */
+	inicKernel() ; /* a partir de dirInicial, dirFinal, reubicacion, numER */
 
     return(0) ;
 }

@@ -92,7 +92,7 @@ void resetPids ( void )
 
 void resetTids ( void )
 {
-    numPids = 1 ;                      /* primer pid de un proceso usuario */
+    numTids = 1 ;         /* primer tid de un thread de un proceso usuario */
 }
 
 tindx_t indice ( tid_t tid )

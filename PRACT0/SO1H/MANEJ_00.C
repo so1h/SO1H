@@ -134,7 +134,7 @@ void so1_manejador_00 ( void )                       /* ah = 00 ; int SO1H */
     switch (tramaThread->AL)
     {
 
-    case 0x00 :                                       /* thread_create */
+    case 0x00 :                                           /* thread_create */
     {
         tid_t * tid = tramaThread->ESI ;                /* tid */
         thread_attribs_t * attribs = tramaThread->EDX ; /* atr */

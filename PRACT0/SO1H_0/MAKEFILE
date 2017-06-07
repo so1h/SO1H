@@ -110,13 +110,14 @@ $(PROGRAMA).sys: $(PROGRAMA).exe
   EXTRAER $(PROGRAMA).exe 32 0 $(PROGRAMA).sys
   @echo.
 
-$(PROGRAMA).exe: ajust_0.o $(PROGRAMA).o inick.o procs_x.o c0dh.o s0.o 
+$(PROGRAMA).exe: ajust_0.o $(PROGRAMA).o inick.o procs_x.o gm_x.o c0dh.o s0.o 
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 obj\ajust_0.o\
 obj\$(PROGRAMA).o\
 #obj\dirf.o\
 obj\inick.o\
 obj\procs_x.o\
+obj\gm_x.o\
 $(C0DH)\
 ..\so1h\obj\s0.o\
 ..\so1h\obj\so1dbg.o\
