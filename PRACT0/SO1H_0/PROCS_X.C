@@ -23,8 +23,6 @@ camposDescSO1H(volatile)
 
 #define numProcEnImagen numER-1                     /* 0, 1, ... , numER-1 */
 
-#undef DS                   /* para evitar la defincion de DS de DEF_TRM.H */
-
 void inicProcesos_x ( void ) 
 {
     pindx_t i ;
@@ -78,8 +76,7 @@ void inicProcesos_x ( void )
 //      ptrDescThread[i].trama =                            /* (preparado) */
 //      ptrDescThread[i].trama = (trama_t *)NULL ;       /* (en ejecucion) */
 
-//      ptrDescThread[i].trama->DS = reubicacion[ind].entradaDF.DS ; 
-        ptrDescThread[i].trama->tw.DS = reubicacion[ind].entradaDF.DS ; 
+        ptrDescThread[i].trama->DS = ptrDescProceso[i].CSProc >> 4 ;  
         ptrDescThread[i].trama->ES = ptrDescProceso[i].CSProc >> 4 ;  
         ptrDescThread[i].trama->EDI = 0x000000000 ;      
         ptrDescThread[i].trama->ESI = 0x000000000 ;      

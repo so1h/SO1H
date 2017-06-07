@@ -179,10 +179,8 @@ int main ( void )
         printStrVideo(" ") ;
         printLHexVideo(ptrDirf[i].start, 5) ;
         printStrVideo(" ") ;
-//	    printHexVideo(ptrDirf[i].otro, 4) ;
+//	    printLHexVideo(ptrDirf[i].otro, 8) ;
 //      printStrVideo(" ") ;
-	    printHexVideo(ptrDirf[i].DS, 4) ;
-        printStrVideo(" ") ;
 	    printHexVideo(ptrDirf[i].SS, 4) ;
         printStrVideo(" ") ;
 	    printHexVideo(ptrDirf[i].SP0, 4) ;
