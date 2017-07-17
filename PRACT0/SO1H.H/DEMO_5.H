@@ -1,12 +1,12 @@
 /* ----------------------------------------------------------------------- */
-/*                                biosdata.c                               */
+/*                                demo_5.h                                 */
 /* ----------------------------------------------------------------------- */
 /*                                                                         */
 /* ----------------------------------------------------------------------- */
 
-#include <so1hpub.h\biosdata.h>
+#ifndef DEMO_5_H
+#define DEMO_5_H
 
-volatile BIOSAREA_t * ptrBiosArea = 0x00000000 ;
+void demo_5 ( char * frase, int f1, int c1, int f2, int c2 ) ;
 
-volatile pointer_t ptrFechaBios = (pointer_t) 0x000FFFF5 ;
-
+#endif /* DEMO_5_H */

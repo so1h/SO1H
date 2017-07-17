@@ -58,35 +58,11 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include <so1hpub.h\ll_s_thr.h>                            /* thread_yield */
 
+#include <so1h.h\demo_0.h>                                       /* demo_0 */
+
 #define pSV(x) printStrVideo(x)                                   /* macro */
 //#define E(x) x
 #define E(x) { pSV("\n ") ; pSV(#x) ; pSV(" ... ") ; x ; }        /* macro */
-
-void * funcion ( void * arg )
-{
-    int i, j ;
-
-//  i = *((int *)arg) ;
-    i = (int)arg ;
-    printStrVideo("\n\n soy el thread con tid = ") ;
-    printLIntVideo(thread_self(), 1) ;
-    printStrVideo(" arg = ") ;
-    printLIntVideo(arg, 1) ;
-    for ( j = 0 ; j < 10000 ; j ++ )
-    {
-//  while (TRUE) {
-//      printIntVideo(*((int *)arg), 2) ;
-//      (*((char *)(0xB8000+2*78)))++ ;
-//      *((char *)(0xB8000+2*78)) = *((char *)arg) ;
-//      (*((char *)(0xB8000+2*(78-*((int *)arg)))))++ ;
-        (*((char *)(0xB8000+2*(78-2*i))))++ ;
-//      thread_yield() ;
-        if ( j % 20 == 19)
-            thread_yield() ;                                    /* llamada */
-    }
-    thread_exit((void *)i) ;                                    /* llamada */
-//  return((void *)i) ;              /* llamada implicita (so1hpub\main.c) */
-}
 
 void main ( void )
 {
@@ -111,7 +87,8 @@ void main ( void )
     case modoSO1_Bin : /* SO1.BIN arrancado desde un disco/disquete (BIOS) */
     case modoSO1_Exe :                                          /* SO1.EXE */
         mostrarFlags() ;
-        printStrVideo("=> SO1H v 0.1.0 (C) P.P.Lopez.R. & J.Lozano.D.P.") ;
+        printStrVideo("=> SO1H v 0.1.2 ") ;
+//      printStrVideo("=> SO1H v 0.1.0 (C) P.P.Lopez.R. & J.Lozano.D.P.") ;
         printLnVideo() ;
         assert((valorFlags() & 0x0200) == 0x0000,
                "\a\n so1(): ERROR ints. no inhibidas") ;    /* '\a' == BEL */
@@ -235,72 +212,25 @@ void main ( void )
     printStrVideo(" isr_SO1H = 0x") ;
     printLHexVideo((dword_t)isr_SO1H, 5) ;
 
-//#define numThreads 10
-#define numThreads 5
-
-    for ( int i = 0 ; i < numThreads ; i++ )
-    {
-        tid_t tid ;
-//		thread_attribs_t attribs = { 0x4000, 0x0001 } ;
-        thread_attribs_t attribs = { 0x4000, 0x0000 } ;
-
-//      printStrVideo("\n thread_create(&tid, NULL, funcion, i) ") ;
-//      thread_create(&tid, NULL, funcion, i) ;
-        printStrVideo("\n thread_create(&tid, &attribs, funcion, i) ") ;
-        thread_create(&tid, &attribs, funcion, i) ;             /* llamada */
-
-        printStrVideo(" tid = ") ;
-        printLIntVideo(tid, 1) ;
-//      mostrarListaLibres() ;
-    }
-
-    printStrVideo("\n\n descThread[1].SSThread = ") ;
-    printHexVideo(descThread[1].SSThread, 4) ;
-    printStrVideo("\n\n descThread[1].trama = ") ;
-    printLHexVideo(descThread[1].trama, 8) ;
-
-    for ( int i = 1 ; i < (numThreads+1) ; i++ )
-    {
-        tid_t tid0, tid ;
-        void * ptrVoid ;
-        void * * res ;
-#if (0)
-        tid0 = -1 ;                                    /* cualquier thread */
-#elsif (0)
-        tid0 = i ;
-#else
-        tid0 = numThreads-i+1 ;  /* espera la terminacion en orden inverso */
-#endif
-
-#if (0)
-        res = NULL ;                          /* no se espera un resultado */
-#else
-        res = (void * *)&ptrVoid ;
-#endif
-
-        tid = thread_join(tid0, res) ;                          /* llamada */
-
-        printStrVideo(
-            "\n"
-            " fin llamada thread_join: thread_self tid0 tid   res     ptrVoid  \n"
-//        "                          =========== ==== === ========  ======== \n"
-            "                          "
-        ) ;
-        printLIntVideo(thread_self(), 11) ;
-        printLIntVideo(tid0, 5) ;
-        printLIntVideo(tid, 4) ;
-        printCarVideo(' ') ;
-        printLHexVideo(res, 8) ;
-        printStrVideo("  ") ;
-        if (res != NULL)
-            printLHexVideo(ptrVoid,8) ;
-        else printStrVideo("        ") ;
-
-    }
-
     printStrVideo("\n Pulse una tecla para continuar ... ") ;
 
-
+//	demo_0() ;
+//	demo_1() ;
+//	demo_2() ;
+//	demo_3() ;                                   /* 24 thread horizontales */
+//	demo_4() ;                                   /* 80 threads verticales  */
+//	demo_5("", 0, 0, 24, 79) ; /* 80 threads verticales con frase configurable  */
+//	demo_5("0123456789, 0, 0, 24, 79") ;
+//	demo_5("0 1 2 3 4 5 6 7 8 9 ", 0, 0, 24, 79) ;
+//	demo_5("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0, 0, 24, 79) ;
+//	demo_5("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ", 0, 0, 24, 79) ;
+//	demo_5(" ODIO ETERNO A LOS ROMANOS", 0, 0, 24, 79) ;
+//	demo_5("  O D I O  E T E R N O  A  L O S  R O M A N O S", 0, 0, 24, 79) ;
+//	demo_5("        U N I V E R S I D A D  P O L I T E C N I C A  D E  M A D R I D        ",
+//	       0, 0, 24, 79) ;
+	demo_5("       U N I V E R S I D A D _ P O L I T E C N I C A _ D E _  M A D R I D      ",
+	       3, 0, 21, 79) ;
+	
     /*  pasos siguientes:
           PROCESOS.C
           implementar la llamada al sistema fork()
@@ -313,6 +243,29 @@ void main ( void )
     leerScancode() ;                          /* para detener la ejecucion */
     leerScancode() ;                            /* con las ints. inhibidas */
 
+#if (1)
+
+    {
+		printStrVideo("\n") ;
+
+        mostrarListaLibres() ;
+		printStrVideo(
+			"\n"
+			"\n"
+			" tamBloqueMax = ") ;
+		printDecVideo(tamBloqueMax, 1) ;
+		printStrVideo(" paragrafos (") ;
+		printHexVideo(tamBloqueMax, 4) ;
+		printStrVideo(") = ") ;
+		printDecVideo(tamBloqueMax/(1024/16), 1) ;
+		printStrVideo(" KBytes") ;
+    }
+
+    leerScancode() ;                          /* para detener la ejecucion */
+    leerScancode() ;                            /* con las ints. inhibidas */
+
+#endif	
+	
     establecerIMR(IMRInicial) ;        /* mascara de interrupcion del 8259 */
 
     tirarS0(loQueHay) ;

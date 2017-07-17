@@ -9,7 +9,7 @@
 
 #define maxProcesos 16                        /* numero maximo de procesos */
 
-#define maxThreads 16                          /* numero maximo de threads */
+#define maxThreads 2010                       /* numero maximo de threads */
 
 #define dfMax 10   /* numero maximo de descriptores de fichero del proceso */
 

@@ -152,6 +152,24 @@
 		<Unit filename="../SO1H/BLOCKPR.C">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="../SO1H/DEMO_0.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_1.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_2.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_3.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_4.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_5.C">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../SO1H/DOKILL.C">
 			<Option compilerVar="CC" />
 		</Unit>

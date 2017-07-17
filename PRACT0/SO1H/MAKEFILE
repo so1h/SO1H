@@ -22,7 +22,7 @@ LCDH     = $(UTMP):\SmallerC\v0100\lib\lcdh.a
 .path.asm = .\asm
 .path.c   = .
 
-all: crearDirs $(PROGRAMA).exe $(PROGRAMA).sys
+all: crearDirs $(PROGRAMA).exe $(PROGRAMA).sys $(PROGRAMA).0 
 
 LISTAPUBS =\
 #si pongo main.o (finThread) al final funciona mal (procesos.c) al retornar
@@ -35,6 +35,12 @@ LISTAPUBS =\
 ..\so1hpub\obj\printvid.o ..\so1hpub\obj\c2c.o ..\so1hpub\obj\ptrc2c.o \
 ..\so1hpub\obj\ccb.o ..\so1hpub\obj\seccion.o ..\so1hpub\obj\ll_s_thr.o \
 
+$(PROGRAMA).0: $(PROGRAMA).sys
+  @echo.
+  copy $(UUSB):\SO\PRACT2\BOOT_PXE\boot_pxe.bs /B +\
+$(PROGRAMA).sys /B $(PROGRAMA).0 /B
+  @echo.
+  copy $(PROGRAMA).0 ..\DISQUETE > nul
 
 $(PROGRAMA).sys: $(PROGRAMA).exe
   @echo.
@@ -48,7 +54,13 @@ $(PROGRAMA).exe: $(PROGRAMA).o ajustes.o c0dh.o s0.o so1dbg.o gm_0.o gm_k.o bloc
 				 recurs_0.o recurs_k.o \
 				 matrix.o \
 				 manej_00.o manej_01.o ejecutar.o dokill.o \
-				 manej_02.o manej_03.o manej_0b.o manej_0f.o 
+				 manej_02.o manej_03.o manej_0b.o manej_0f.o \
+				 demo_0.o \
+				 demo_1.o \
+				 demo_2.o \
+				 demo_3.o \
+				 demo_4.o \
+				 demo_5.o
   $(CC) $(CFLAGS) -map $(PROGRAMA).map -o $(PROGRAMA).exe\
 obj\ajustes.o\
 obj\$(PROGRAMA).o\
@@ -73,6 +85,12 @@ obj\manej_02.o\
 obj\manej_03.o\
 obj\manej_0b.o\
 obj\manej_0f.o\
+obj\demo_0.o\
+obj\demo_1.o\
+obj\demo_2.o\
+obj\demo_3.o\
+obj\demo_4.o\
+obj\demo_5.o\
 $(LISTAPUBS)\
 $(LCDH)
 # para hacer maxAlloc = 0xFFFF (de manera que el programa al cargarse intente

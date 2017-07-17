@@ -172,6 +172,24 @@ código de AJUST_0.C, luego SO1H_0.C y luego los demás.]]>
 		<Unit filename="../SO1HPUB/TIPOS.C">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="../SO1H/DEMO_0.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_1.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_2.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_3.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_4.C">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../SO1H/DEMO_5.C">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="../SO1H/S0.C">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -186,6 +204,9 @@ código de AJUST_0.C, luego SO1H_0.C y luego los demás.]]>
 		<Unit filename="../SO1H_0/AJUST_0.C">
 			<Option compilerVar="CC" />
 			<Option weight="0" />
+		</Unit>
+		<Unit filename="../SO1H_0/GM_X.C">
+			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../SO1H_0/INICK.C">
 			<Option compilerVar="CC" />

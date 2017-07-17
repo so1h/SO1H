@@ -75,7 +75,7 @@
 	<so1hpub.h\bios_crt.h>
 	<so1hpub.h\biosdata.h>
 
-1493410516 source:x:\so1h\pract0\so1hpub\biosdata.c
+1499971544 source:x:\so1h\pract0\so1hpub\biosdata.c
 	<so1hpub.h\biosdata.h>
 
 1493410536 source:x:\so1h\pract0\so1hpub\c2c.c
@@ -214,17 +214,18 @@
 	<so1hpub.h\seccion.h>
 	<so1hpub.h\main.h>
 
-1495413610 source:x:\so1h\pract0\so1h_0\inick.c
+1495902201 source:x:\so1h\pract0\so1h_0\inick.c
 	<so1hpub.h\def_proc.h>
 	<so1h_0.h\so1h_0.h>
 	<so1h_0.h\procs_x.h>
 	<string.h>
 	<ctype.h>
 
-1494350016 source:x:\so1h\pract0\so1h_0\procs_x.c
+1500079312 source:x:\so1h\pract0\so1h_0\procs_x.c
 	<so1hpub.h\def_proc.h>
 	<so1h_0.h\so1h_0.h>
 	<so1h_0.h\procs_x.h>
+	<string.h>
 	<so1hpub.h\caracter.h>
 	<so1hpub.h\puertos.h>
 	<string.h>
@@ -239,7 +240,7 @@
 	<so1hpub.h\seccion.h>
 	<so1h.h\ajustsp.h>
 
-1495477619 source:x:\so1h\pract0\so1h_0\so1h_0.c
+1496875292 source:x:\so1h\pract0\so1h_0\so1h_0.c
 	<so1hpub.h\def_proc.h>
 	<so1hpub.h\bios_0.h>
 	<so1hpub.h\telon.h>
@@ -254,4 +255,73 @@
 	<so1h_0.h\dirf.h>
 	<so1h_0.h\inick.h>
 	<string.h>
+
+1499978979 source:x:\so1h\pract0\so1h\demo_0.c
+	<so1hpub.h\ll_s_thr.h>
+	<so1hpub.h\pantalla.h>
+	<so1hpub.h\memvideo.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\biosdata.h>
+
+1499990993 source:x:\so1h\pract0\so1h\demo_1.c
+	<so1hpub.h\ll_s_thr.h>
+	<so1hpub.h\pantalla.h>
+	<so1hpub.h\memvideo.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\biosdata.h>
+
+1499990968 source:x:\so1h\pract0\so1h\demo_2.c
+	<so1hpub.h\ll_s_thr.h>
+	<so1hpub.h\pantalla.h>
+	<so1hpub.h\memvideo.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\biosdata.h>
+
+1499991398 source:x:\so1h\pract0\so1h\demo_3.c
+	<so1hpub.h\ll_s_thr.h>
+	<so1hpub.h\pantalla.h>
+	<so1hpub.h\memvideo.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\biosdata.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\carsctrl.h>
+
+1499990916 source:x:\so1h\pract0\so1h\demo_4.c
+	<so1hpub.h\ll_s_thr.h>
+	<so1hpub.h\pantalla.h>
+	<so1hpub.h\memvideo.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\biosdata.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\carsctrl.h>
+
+1500322012 source:x:\so1h\pract0\so1h\demo_5.c
+	<so1hpub.h\ll_s_thr.h>
+	<so1hpub.h\def_pant.h>
+	<so1hpub.h\pantalla.h>
+	<so1hpub.h\memvideo.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\biosdata.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\carsctrl.h>
+	<so1h.h\gm.h>
+	<string.h>
+
+1495904859 source:x:\so1h\pract0\so1h_0\gm_x.c
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\msdos.h>
+	<so1hpub.h\def_proc.h>
+	<so1hpub.h\def_mem.h>
+	<so1h_0.h\ajust_0.h>
+	<so1h_0.h\so1h_0.h>
+	<so1h_0.h\procs_x.h>
+	<so1h_0.h\gm_x.h>
+	<so1hpub.h\bios_0.h>
+	<so1hpub.h\printvid.h>
+	<so1hpub.h\msdos.h>
+	<so1h.h\ajustsp.h>
+	<so1h.h\ajustes.h>
+	<so1h.h\procs.h>
+	<so1h.h\gm.h>
 

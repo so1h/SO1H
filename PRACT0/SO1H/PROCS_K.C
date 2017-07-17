@@ -575,10 +575,11 @@ pindx_t crearProceso ( word_t       segmento,
 
 bool_t devolverPila ( tindx_t tindx )                  /* para los threads */
 {
-    if (!estaPC2c(tindx, (ptrC2c_t)&c2cPFR[DTOcupados])) return(FALSE) ;
+//  printStrVideo("\n devolverPila ") ;
+//  if (!estaPC2c(tindx, (ptrC2c_t)&c2cPFR[DTOcupados])) return(FALSE) ;
     return(k_devolverBloque(
                descThread[tindx].SSThread,
-               descThread[tindx].SP0)
+               (descThread[tindx].SP0+15)/16)
           ) ;
 }
 

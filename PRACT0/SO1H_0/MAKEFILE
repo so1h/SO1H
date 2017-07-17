@@ -24,10 +24,13 @@ LCDH     = $(UTMP):\SmallerC\v0100\lib\lcdh.a
 .path.asm = .\asm
 .path.c   = .
 
-all: crearDirs ..\DISQUETE\so1himg.exe ..\DISQUETE\so1himg.sys
+all: crearDirs ..\DISQUETE\so1himg.exe ..\DISQUETE\so1himg.sys ..\DISQUETE\so1himg.0
+
+
 
 ..\DISQUETE\so1himg.exe \
-..\DISQUETE\so1himg.sys: $(PROGRAMA).exe $(PROGRAMA).sys
+..\DISQUETE\so1himg.sys \
+..\DISQUETE\so1himg.0: $(PROGRAMA).exe $(PROGRAMA).sys
 #
   copy $(PROGRAMA).sys ..\DISQUETE > nul
   copy $(PROGRAMA).exe ..\DISQUETE > nul
@@ -60,6 +63,8 @@ disco.rd            # disco ram
 #
 # componer so1himg.cfg so1himg.sys 
   componer so1himg.cfg so1himg.sys -q
+  copy $(UUSB):\SO\PRACT2\BOOT_PXE\boot_pxe.bs /B +\
+so1himg.sys /B so1himg.0
   @echo.
   @copy &&|
 #

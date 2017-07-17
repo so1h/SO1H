@@ -99,9 +99,9 @@ static int thr_exit ( void * res )                    /* el thread termina */
         for ( int i = 0 ; i < ptrC2cThreads->numElem ; i++ )
         {
             if ((descThread[tindx].estado == bloqueado) &&
-                    (descThread[tindx].esperandoPor == rec_thr_hijo) &&
-                    ((descThread[tindx].trama->ECX == indThreadActual) ||
-                     (descThread[tindx].trama->ECX == -1)))
+                (descThread[tindx].esperandoPor == rec_thr_hijo) &&
+                ((descThread[tindx].trama->ECX == indThreadActual) ||
+                 (descThread[tindx].trama->ECX == -1)))
             {
                 descThread[tindx].trama->EAX =
                     descThread[indThreadActual].tid ;           /* difunto */

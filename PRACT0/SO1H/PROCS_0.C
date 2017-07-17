@@ -49,10 +49,10 @@ void inicProcesos ( void )
     inicPC2c(&c2cPFR[DPOcupados],  &e2PFR.e2DescProceso.Ocupados, maxProcesos + 1, TRUE) ;
     inicPC2c(&c2cPFR[DTLibres],    &e2PFR.e2DescThread.Libres,    maxThreads,      FALSE) ;
     inicPC2c(&c2cPFR[DTOcupados],  &e2PFR.e2DescThread.Ocupados,  maxThreads + 1,  TRUE) ;
-    inicPC2c(&c2cPFR[TPreparados], &e2PFR.e2Preparados,           maxProcesos,     FALSE) ;
-    inicPC2c(&c2cPFR[TUrgentes],   &e2PFR.e2Urgentes,             maxProcesos,     FALSE) ;
+    inicPC2c(&c2cPFR[TPreparados], &e2PFR.e2Preparados,           maxThreads,      FALSE) ;
+    inicPC2c(&c2cPFR[TUrgentes],   &e2PFR.e2Urgentes,             maxThreads,      FALSE) ;
     inicPC2c(&c2cPFR[POrdenados],  &e2PFR.e2POrdenados,           maxProcesos,     FALSE) ;
-    inicPC2c(&c2cPFR[TDormidos],   &e2PFR.e2TDormidos,            maxProcesos,     FALSE) ;
+    inicPC2c(&c2cPFR[TDormidos],   &e2PFR.e2TDormidos,            maxThreads,      FALSE) ;
 
 //  /* inicializamos descProceso[0]: proceso SO1H y nucleo */
 
