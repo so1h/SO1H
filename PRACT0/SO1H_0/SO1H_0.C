@@ -115,7 +115,8 @@ int main ( void )
     case modoSO1_Bin :       /* SO1H_0.BIN arrancado desde un disco (BIOS) */
     case modoSO1_Exe :                                       /* SO1H_0.EXE */
         mostrarFlags() ;
-        printStrVideo("=> SO1H v 0.1.0 (C) P.P.Lopez.R. & J.Lozano.D.P.") ;
+        printStrVideo("=> SO1H v 0.1.2 ") ;
+//      printStrVideo("=> SO1H v 0.1.0 (C) P.P.Lopez.R. & J.Lozano.D.P.") ;
         printLnVideo() ;
         assert((valorFlags() & 0x0200) == 0x0000,
                "\a\n ERROR: ints. no inhibidas") ;    /* '\a' == BEL */
