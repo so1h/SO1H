@@ -1,0 +1,218 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb inportb : (
+    51                                  ; prm     port : unsigned short
+    52                                  ;     ) unsigned char
+    53                                  ; glb inport : (
+    54                                  ; prm     port : unsigned short
+    55                                  ;     ) unsigned short
+    56                                  ; glb outport : (
+    57                                  ; prm     port : unsigned short
+    58                                  ; prm     val : unsigned short
+    59                                  ;     ) void
+    60                                  ; glb outportb : (
+    61                                  ; prm     port : unsigned short
+    62                                  ; prm     val : unsigned char
+    63                                  ;     ) void
+    64                                  ; glb inportb_r : (
+    65                                  ; prm     port : unsigned char
+    66                                  ;     ) unsigned char
+    67                                  ; glb outportb_r : (
+    68                                  ; prm     port : unsigned char
+    69                                  ; prm     val : unsigned char
+    70                                  ;     ) void
+    71                                  ; glb contadorTimer0 : (void) unsigned short
+    72                                  ; glb puntoDeParadaSO1 : (void) void
+    73                                  section .text
+    74                                  	global	_puntoDeParadaSO1
+    75                                  _puntoDeParadaSO1:
+    76 00000000 6655                    	push	ebp
+    77 00000002 660FB7EC                	movzx	ebp, sp
+    78                                  	;sub	sp,          0
+    79 00000006 CB                         retf                      
+    80 00000007 50756E746F20446520-        db 'Punto De Parada SO1'  
+    80 00000010 50617261646120534F-
+    80 00000019 31                 
+    81                                  
+    82                                  L1:
+    83 0000001A 66                      	db	0x66
+    84 0000001B C9                      	leave
+    85 0000001C CB                      	retf
+    86                                  L3:
+    87                                  
+    88                                  section .fxnsz noalloc
+    89 00000000 1D000000                	dd	L3 - _puntoDeParadaSO1
+    90                                  
+    91                                   section .text               
+    92                                     global _leerScancodeListo 
+    93                                   _leerScancodeListo:         
+    94                                  
+    95                                   section .text             
+    96 0000001D E460                       in al,60h               
+    97                                  
+    98                                   section .text               
+    99 0000001F CB                         retf                      
+   100                                  
+   101                                   section .text          
+   102                                     global _leerScancode 
+   103                                   _leerScancode:         
+   104                                  
+   105                                   section .text           
+   106                                   .@1:                    
+   107 00000020 90                         nop                   
+   108 00000021 E464                       in al,64h             
+   109 00000023 2401                       and al,00000001b      
+   110 00000025 74F9                       je .@1                
+   111                                  
+   112                                   section .text             
+   113 00000027 E460                       in al,60h               
+   114                                  
+   115                                   section .text          
+   116 00000029 CB                         retf                 
+   117                                  
+   118                                  
+   119                                  
+   120                                  ; Syntax/declaration table/stack:
+   121                                  ; Bytes used: 1280/40960
+   122                                  
+   123                                  
+   124                                  ; Macro table:
+   125                                  ; Macro __SMALLER_C__ = `0x0100`
+   126                                  ; Macro __SMALLER_C_32__ = ``
+   127                                  ; Macro __HUGE__ = ``
+   128                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   129                                  ; Bytes used: 74/5120
+   130                                  
+   131                                  
+   132                                  ; Identifier table:
+   133                                  ; Ident __floatsisf
+   134                                  ; Ident __floatunsisf
+   135                                  ; Ident __fixsfsi
+   136                                  ; Ident __fixunssfsi
+   137                                  ; Ident __addsf3
+   138                                  ; Ident __subsf3
+   139                                  ; Ident __negsf2
+   140                                  ; Ident __mulsf3
+   141                                  ; Ident __divsf3
+   142                                  ; Ident __lesf2
+   143                                  ; Ident __gesf2
+   144                                  ; Ident intptr_t
+   145                                  ; Ident uintptr_t
+   146                                  ; Ident intmax_t
+   147                                  ; Ident uintmax_t
+   148                                  ; Ident int8_t
+   149                                  ; Ident int_least8_t
+   150                                  ; Ident int_fast8_t
+   151                                  ; Ident uint8_t
+   152                                  ; Ident uint_least8_t
+   153                                  ; Ident uint_fast8_t
+   154                                  ; Ident int16_t
+   155                                  ; Ident int_least16_t
+   156                                  ; Ident int_fast16_t
+   157                                  ; Ident uint16_t
+   158                                  ; Ident uint_least16_t
+   159                                  ; Ident uint_fast16_t
+   160                                  ; Ident int32_t
+   161                                  ; Ident int_least32_t
+   162                                  ; Ident int_fast32_t
+   163                                  ; Ident uint32_t
+   164                                  ; Ident uint_least32_t
+   165                                  ; Ident uint_fast32_t
+   166                                  ; Ident <something>
+   167                                  ; Ident quot
+   168                                  ; Ident rem
+   169                                  ; Ident imaxdiv_t
+   170                                  ; Ident FALSE
+   171                                  ; Ident TRUE
+   172                                  ; Ident bool_t
+   173                                  ; Ident pointer_t
+   174                                  ; Ident funcion_t
+   175                                  ; Ident manejador_t
+   176                                  ; Ident rti_t
+   177                                  ; Ident isr_t
+   178                                  ; Ident handler_t
+   179                                  ; Ident retardarThread_t
+   180                                  ; Ident ptrTVI_t
+   181                                  ; Ident modoSO1_Bin
+   182                                  ; Ident modoSO1_Exe
+   183                                  ; Ident modoSO1_Bs
+   184                                  ; Ident modoSO1_t
+   185                                  ; Ident lo
+   186                                  ; Ident hi
+   187                                  ; Ident lh_t
+   188                                  ; Ident offset
+   189                                  ; Ident segment
+   190                                  ; Ident address_t
+   191                                  ; Ident ptr
+   192                                  ; Ident adr
+   193                                  ; Ident uPtrAdr_t
+   194                                  ; Ident pid_t
+   195                                  ; Ident tid_t
+   196                                  ; Ident uid_t
+   197                                  ; Ident gid_t
+   198                                  ; Ident pindx_t
+   199                                  ; Ident tindx_t
+   200                                  ; Ident df_t
+   201                                  ; Ident dfs_t
+   202                                  ; Ident rindx_t
+   203                                  ; Ident inportb
+   204                                  ; Ident port
+   205                                  ; Ident inport
+   206                                  ; Ident outport
+   207                                  ; Ident val
+   208                                  ; Ident outportb
+   209                                  ; Ident inportb_r
+   210                                  ; Ident outportb_r
+   211                                  ; Ident contadorTimer0
+   212                                  ; Ident puntoDeParadaSO1
+   213                                  ; Bytes used: 822/16384
+   214                                  
+   215                                  ; Next label number: 4
+   216                                  ; Compilation succeeded.

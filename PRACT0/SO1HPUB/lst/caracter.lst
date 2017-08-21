@@ -1,0 +1,45 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; RPN'ized expression: "17 "
+     4                                  ; Expanded expression: "17 "
+     5                                  ; Expression value: 17
+     6                                  ; glb dig : [17u] char
+     7                                  section .data
+     8                                  	global	_dig
+     9                                  _dig:
+    10                                  ; =
+    11 00000000 303132333435363738-     	db	"0123456789ABCDEF"
+    11 00000009 39414243444546     
+    12 00000010 00                      	times	1 db 0
+    13                                  
+    14                                  
+    15                                  
+    16                                  ; Syntax/declaration table/stack:
+    17                                  ; Bytes used: 75/40960
+    18                                  
+    19                                  
+    20                                  ; Macro table:
+    21                                  ; Macro __SMALLER_C__ = `0x0100`
+    22                                  ; Macro __SMALLER_C_32__ = ``
+    23                                  ; Macro __HUGE__ = ``
+    24                                  ; Macro __SMALLER_C_SCHAR__ = ``
+    25                                  ; Bytes used: 74/5120
+    26                                  
+    27                                  
+    28                                  ; Identifier table:
+    29                                  ; Ident __floatsisf
+    30                                  ; Ident __floatunsisf
+    31                                  ; Ident __fixsfsi
+    32                                  ; Ident __fixunssfsi
+    33                                  ; Ident __addsf3
+    34                                  ; Ident __subsf3
+    35                                  ; Ident __negsf2
+    36                                  ; Ident __mulsf3
+    37                                  ; Ident __divsf3
+    38                                  ; Ident __lesf2
+    39                                  ; Ident __gesf2
+    40                                  ; Ident dig
+    41                                  ; Bytes used: 126/16384
+    42                                  
+    43                                  ; Next label number: 1
+    44                                  ; Compilation succeeded.

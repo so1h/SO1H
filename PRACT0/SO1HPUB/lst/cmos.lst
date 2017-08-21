@@ -1,0 +1,350 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb inportb : (
+    51                                  ; prm     port : unsigned short
+    52                                  ;     ) unsigned char
+    53                                  ; glb inport : (
+    54                                  ; prm     port : unsigned short
+    55                                  ;     ) unsigned short
+    56                                  ; glb outport : (
+    57                                  ; prm     port : unsigned short
+    58                                  ; prm     val : unsigned short
+    59                                  ;     ) void
+    60                                  ; glb outportb : (
+    61                                  ; prm     port : unsigned short
+    62                                  ; prm     val : unsigned char
+    63                                  ;     ) void
+    64                                  ; glb inportb_r : (
+    65                                  ; prm     port : unsigned char
+    66                                  ;     ) unsigned char
+    67                                  ; glb outportb_r : (
+    68                                  ; prm     port : unsigned char
+    69                                  ; prm     val : unsigned char
+    70                                  ;     ) void
+    71                                  ; glb contadorTimer0 : (void) unsigned short
+    72                                  ; glb leerCmos : (
+    73                                  ; prm     reg : unsigned char
+    74                                  ;     ) unsigned char
+    75                                  ; glb escribirCmos : (
+    76                                  ; prm     reg : unsigned char
+    77                                  ; prm     valor : unsigned char
+    78                                  ;     ) void
+    79                                  ; glb bcdToInt : (
+    80                                  ; prm     valorBCD : unsigned char
+    81                                  ;     ) unsigned char
+    82                                  ; glb leerCmos : (
+    83                                  ; prm     reg : unsigned char
+    84                                  ;     ) unsigned char
+    85                                  section .text
+    86                                  	global	_leerCmos
+    87                                  _leerCmos:
+    88 00000000 6655                    	push	ebp
+    89 00000002 660FB7EC                	movzx	ebp, sp
+    90 00000006 83EC04                  	 sub	sp,          4
+    91                                  ; loc     reg : (@8): unsigned char
+    92                                  ; loc     dato : (@-4): unsigned char
+    93                                  ; RPN'ized expression: "reg 128 |= "
+    94                                  ; Expanded expression: "(@8) 128 |=(1) "
+    95                                  ; Fused expression:    "|=(156) *(@8) 128 "
+    96 00000009 8A4608                  	mov	al, [bp+8]
+    97 0000000C 660FB6C0                	movzx	eax, al
+    98 00000010 660D80000000            	or	eax, 128
+    99 00000016 884608                  	mov	[bp+8], al
+   100 00000019 660FB6C0                	movzx	eax, al
+   101 0000001D 9C                       pushf 
+   102 0000001E FA                       cli 
+   103                                  
+   104                                  ; RPN'ized expression: "( reg , 112 outportb ) "
+   105                                  ; Expanded expression: " (@8) *(1)  112  outportb ()8 "
+   106                                  ; Fused expression:    "( *(1) (@8) , 112 , outportb )8 "
+   107 0000001F 8A4608                  	mov	al, [bp+8]
+   108 00000022 660FB6C0                	movzx	eax, al
+   109 00000026 6650                    	push	eax
+   110 00000028 666A70                  	push	dword 112
+   111 0000002B 9A                      	db	0x9A
+   112                                  section .relot
+   113 00000000 [2C000000]              	dd	L3
+   114                                  section .text
+   115                                  L3:
+   116 0000002C [00000000]              	dd	_outportb
+   117 00000030 83ECF8                  	sub	sp, -8
+   118                                  ; RPN'ized expression: "dato ( 113 inportb ) = "
+   119                                  ; Expanded expression: "(@-4)  113  inportb ()4 =(1) "
+   120                                  ; Fused expression:    "( 113 , inportb )4 =(156) *(@-4) ax "
+   121 00000033 666A71                  	push	dword 113
+   122 00000036 9A                      	db	0x9A
+   123                                  section .relot
+   124 00000004 [37000000]              	dd	L4
+   125                                  section .text
+   126                                  L4:
+   127 00000037 [00000000]              	dd	_inportb
+   128 0000003B 83ECFC                  	sub	sp, -4
+   129 0000003E 8846FC                  	mov	[bp-4], al
+   130 00000041 660FB6C0                	movzx	eax, al
+   131 00000045 9D                       popf 
+   132                                  
+   133                                  ; return
+   134                                  ; RPN'ized expression: "dato "
+   135                                  ; Expanded expression: "(@-4) *(1) "
+   136                                  ; Fused expression:    "*(1) (@-4)  "
+   137 00000046 8A46FC                  	mov	al, [bp-4]
+   138 00000049 660FB6C0                	movzx	eax, al
+   139                                  L1:
+   140 0000004D 66                      	db	0x66
+   141 0000004E C9                      	leave
+   142 0000004F CB                      	retf
+   143                                  L5:
+   144                                  
+   145                                  section .fxnsz noalloc
+   146 00000000 50000000                	dd	L5 - _leerCmos
+   147                                  
+   148                                  ; glb escribirCmos : (
+   149                                  ; prm     reg : unsigned char
+   150                                  ; prm     valor : unsigned char
+   151                                  ;     ) void
+   152                                  section .text
+   153                                  	global	_escribirCmos
+   154                                  _escribirCmos:
+   155 00000050 6655                    	push	ebp
+   156 00000052 660FB7EC                	movzx	ebp, sp
+   157                                  	;sub	sp,          0
+   158                                  ; loc     reg : (@8): unsigned char
+   159                                  ; loc     valor : (@12): unsigned char
+   160                                  ; RPN'ized expression: "reg 128 |= "
+   161                                  ; Expanded expression: "(@8) 128 |=(1) "
+   162                                  ; Fused expression:    "|=(156) *(@8) 128 "
+   163 00000056 8A4608                  	mov	al, [bp+8]
+   164 00000059 660FB6C0                	movzx	eax, al
+   165 0000005D 660D80000000            	or	eax, 128
+   166 00000063 884608                  	mov	[bp+8], al
+   167 00000066 660FB6C0                	movzx	eax, al
+   168 0000006A 9C                       pushf 
+   169 0000006B FA                       cli 
+   170                                  
+   171                                  ; RPN'ized expression: "( reg , 112 outportb ) "
+   172                                  ; Expanded expression: " (@8) *(1)  112  outportb ()8 "
+   173                                  ; Fused expression:    "( *(1) (@8) , 112 , outportb )8 "
+   174 0000006C 8A4608                  	mov	al, [bp+8]
+   175 0000006F 660FB6C0                	movzx	eax, al
+   176 00000073 6650                    	push	eax
+   177 00000075 666A70                  	push	dword 112
+   178 00000078 9A                      	db	0x9A
+   179                                  section .relot
+   180 00000008 [79000000]              	dd	L8
+   181                                  section .text
+   182                                  L8:
+   183 00000079 [00000000]              	dd	_outportb
+   184 0000007D 83ECF8                  	sub	sp, -8
+   185                                  ; RPN'ized expression: "( valor , 113 outportb ) "
+   186                                  ; Expanded expression: " (@12) *(1)  113  outportb ()8 "
+   187                                  ; Fused expression:    "( *(1) (@12) , 113 , outportb )8 "
+   188 00000080 8A460C                  	mov	al, [bp+12]
+   189 00000083 660FB6C0                	movzx	eax, al
+   190 00000087 6650                    	push	eax
+   191 00000089 666A71                  	push	dword 113
+   192 0000008C 9A                      	db	0x9A
+   193                                  section .relot
+   194 0000000C [8D000000]              	dd	L9
+   195                                  section .text
+   196                                  L9:
+   197 0000008D [00000000]              	dd	_outportb
+   198 00000091 83ECF8                  	sub	sp, -8
+   199 00000094 9D                       popf 
+   200                                  
+   201                                  L6:
+   202 00000095 66                      	db	0x66
+   203 00000096 C9                      	leave
+   204 00000097 CB                      	retf
+   205                                  L10:
+   206                                  
+   207                                  section .fxnsz
+   208 00000004 48000000                	dd	L10 - _escribirCmos
+   209                                  
+   210                                  ; glb bcdToInt : (
+   211                                  ; prm     valorBCD : unsigned char
+   212                                  ;     ) unsigned char
+   213                                  section .text
+   214                                  	global	_bcdToInt
+   215                                  _bcdToInt:
+   216 00000098 6655                    	push	ebp
+   217 0000009A 660FB7EC                	movzx	ebp, sp
+   218                                  	;sub	sp,          0
+   219                                  ; loc     valorBCD : (@8): unsigned char
+   220                                  ; return
+   221                                  ; RPN'ized expression: "valorBCD 4 >> 10 * valorBCD 15 & + "
+   222                                  ; Expanded expression: "(@8) *(1) 4 >> 10 * (@8) *(1) 15 & + "
+   223                                  ; Fused expression:    ">> *(@8) 4 * ax 10 push-ax & *(@8) 15 + *sp ax unsigned char  "
+   224 0000009E 8A4608                  	mov	al, [bp+8]
+   225 000000A1 660FB6C0                	movzx	eax, al
+   226 000000A5 66C1F804                	sar	eax, 4
+   227 000000A9 666BC00A                	imul	eax, eax, 10
+   228 000000AD 6650                    	push	eax
+   229 000000AF 8A4608                  	mov	al, [bp+8]
+   230 000000B2 660FB6C0                	movzx	eax, al
+   231 000000B6 6683E00F                	and	eax, 15
+   232 000000BA 6689C1                  	mov	ecx, eax
+   233 000000BD 6658                    	pop	eax
+   234 000000BF 6601C8                  	add	eax, ecx
+   235 000000C2 6625FF000000            	and	eax, 255
+   236                                  L11:
+   237 000000C8 66                      	db	0x66
+   238 000000C9 C9                      	leave
+   239 000000CA CB                      	retf
+   240                                  L13:
+   241                                  
+   242                                  section .fxnsz
+   243 00000008 33000000                	dd	L13 - _bcdToInt
+   244                                  
+   245                                  
+   246                                  	extern	_outportb
+   247                                  	extern	_inportb
+   248                                  
+   249                                  ; Syntax/declaration table/stack:
+   250                                  ; Bytes used: 1450/40960
+   251                                  
+   252                                  
+   253                                  ; Macro table:
+   254                                  ; Macro __SMALLER_C__ = `0x0100`
+   255                                  ; Macro __SMALLER_C_32__ = ``
+   256                                  ; Macro __HUGE__ = ``
+   257                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   258                                  ; Bytes used: 74/5120
+   259                                  
+   260                                  
+   261                                  ; Identifier table:
+   262                                  ; Ident __floatsisf
+   263                                  ; Ident __floatunsisf
+   264                                  ; Ident __fixsfsi
+   265                                  ; Ident __fixunssfsi
+   266                                  ; Ident __addsf3
+   267                                  ; Ident __subsf3
+   268                                  ; Ident __negsf2
+   269                                  ; Ident __mulsf3
+   270                                  ; Ident __divsf3
+   271                                  ; Ident __lesf2
+   272                                  ; Ident __gesf2
+   273                                  ; Ident intptr_t
+   274                                  ; Ident uintptr_t
+   275                                  ; Ident intmax_t
+   276                                  ; Ident uintmax_t
+   277                                  ; Ident int8_t
+   278                                  ; Ident int_least8_t
+   279                                  ; Ident int_fast8_t
+   280                                  ; Ident uint8_t
+   281                                  ; Ident uint_least8_t
+   282                                  ; Ident uint_fast8_t
+   283                                  ; Ident int16_t
+   284                                  ; Ident int_least16_t
+   285                                  ; Ident int_fast16_t
+   286                                  ; Ident uint16_t
+   287                                  ; Ident uint_least16_t
+   288                                  ; Ident uint_fast16_t
+   289                                  ; Ident int32_t
+   290                                  ; Ident int_least32_t
+   291                                  ; Ident int_fast32_t
+   292                                  ; Ident uint32_t
+   293                                  ; Ident uint_least32_t
+   294                                  ; Ident uint_fast32_t
+   295                                  ; Ident <something>
+   296                                  ; Ident quot
+   297                                  ; Ident rem
+   298                                  ; Ident imaxdiv_t
+   299                                  ; Ident FALSE
+   300                                  ; Ident TRUE
+   301                                  ; Ident bool_t
+   302                                  ; Ident pointer_t
+   303                                  ; Ident funcion_t
+   304                                  ; Ident manejador_t
+   305                                  ; Ident rti_t
+   306                                  ; Ident isr_t
+   307                                  ; Ident handler_t
+   308                                  ; Ident retardarThread_t
+   309                                  ; Ident ptrTVI_t
+   310                                  ; Ident modoSO1_Bin
+   311                                  ; Ident modoSO1_Exe
+   312                                  ; Ident modoSO1_Bs
+   313                                  ; Ident modoSO1_t
+   314                                  ; Ident lo
+   315                                  ; Ident hi
+   316                                  ; Ident lh_t
+   317                                  ; Ident offset
+   318                                  ; Ident segment
+   319                                  ; Ident address_t
+   320                                  ; Ident ptr
+   321                                  ; Ident adr
+   322                                  ; Ident uPtrAdr_t
+   323                                  ; Ident pid_t
+   324                                  ; Ident tid_t
+   325                                  ; Ident uid_t
+   326                                  ; Ident gid_t
+   327                                  ; Ident pindx_t
+   328                                  ; Ident tindx_t
+   329                                  ; Ident df_t
+   330                                  ; Ident dfs_t
+   331                                  ; Ident rindx_t
+   332                                  ; Ident inportb
+   333                                  ; Ident port
+   334                                  ; Ident inport
+   335                                  ; Ident outport
+   336                                  ; Ident val
+   337                                  ; Ident outportb
+   338                                  ; Ident inportb_r
+   339                                  ; Ident outportb_r
+   340                                  ; Ident contadorTimer0
+   341                                  ; Ident leerCmos
+   342                                  ; Ident reg
+   343                                  ; Ident escribirCmos
+   344                                  ; Ident valor
+   345                                  ; Ident bcdToInt
+   346                                  ; Ident valorBCD
+   347                                  ; Bytes used: 860/16384
+   348                                  
+   349                                  ; Next label number: 14
+   350                                  ; Compilation succeeded.

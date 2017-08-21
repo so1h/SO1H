@@ -1,0 +1,1130 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb dobleEnlace_t : struct <something>
+    51                                  ; glb c2c_t : struct <something>
+    52                                  ; glb posicionC2c : (
+    53                                  ; prm     i : int
+    54                                  ; prm     c2c : struct <something>
+    55                                  ;     ) int
+    56                                  ; glb eliminarC2c : (
+    57                                  ; prm     i : int
+    58                                  ; prm     c2c : struct <something>
+    59                                  ;     ) void
+    60                                  ; glb apilarC2c : (
+    61                                  ; prm     i : int
+    62                                  ; prm     c2c : struct <something>
+    63                                  ;     ) void
+    64                                  ; glb encolarC2c : (
+    65                                  ; prm     i : int
+    66                                  ; prm     c2c : struct <something>
+    67                                  ;     ) void
+    68                                  ; glb desencolarC2c : (
+    69                                  ; prm     c2c : struct <something>
+    70                                  ;     ) int
+    71                                  ; glb inicializarC2c : (
+    72                                  ; prm     c2c : * struct <something>
+    73                                  ; prm     e : * struct <something>
+    74                                  ; prm     cabecera : int
+    75                                  ; prm     compartida : int
+    76                                  ;     ) void
+    77                                  ; glb posicionC2c : (
+    78                                  ; prm     i : int
+    79                                  ; prm     c2c : struct <something>
+    80                                  ;     ) int
+    81                                  section .text
+    82                                  	global	_posicionC2c
+    83                                  _posicionC2c:
+    84 00000000 6655                    	push	ebp
+    85 00000002 660FB7EC                	movzx	ebp, sp
+    86 00000006 83EC14                  	 sub	sp,         20
+    87                                  ; loc     i : (@8): int
+    88                                  ; loc     c2c : (@12): struct <something>
+    89                                  ; {
+    90                                  ; loc         e : (@-4): * struct <something>
+    91                                  ; RPN'ized expression: "e c2c &u e -> *u = "
+    92                                  ; Expanded expression: "(@-4) (@24) *(4) =(4) "
+    93                                  ; Fused expression:    "=(204) *(@-4) *(@24) "
+    94 00000009 668B4618                	mov	eax, [bp+24]
+    95 0000000D 668946FC                	mov	[bp-4], eax
+    96                                  ; loc         cabecera : (@-8): int
+    97                                  ; RPN'ized expression: "cabecera c2c &u cabecera -> *u = "
+    98                                  ; Expanded expression: "(@-8) (@20) *(4) =(4) "
+    99                                  ; Fused expression:    "=(204) *(@-8) *(@20) "
+   100 00000011 668B4614                	mov	eax, [bp+20]
+   101 00000015 668946F8                	mov	[bp-8], eax
+   102                                  ; loc         primero : (@-12): int
+   103                                  ; RPN'ized expression: "primero c2c &u primero -> *u = "
+   104                                  ; Expanded expression: "(@-12) (@16) *(4) =(4) "
+   105                                  ; Fused expression:    "=(204) *(@-12) *(@16) "
+   106 00000019 668B4610                	mov	eax, [bp+16]
+   107 0000001D 668946F4                	mov	[bp-12], eax
+   108                                  ; {
+   109                                  ; loc             j : (@-16): int
+   110                                  ; loc             k : (@-20): int
+   111                                  ; if
+   112                                  ; RPN'ized expression: "i cabecera == "
+   113                                  ; Expanded expression: "(@8) *(4) (@-8) *(4) == "
+   114                                  ; Fused expression:    "== *(@8) *(@-8) IF! "
+   115 00000021 668B4608                	mov	eax, [bp+8]
+   116 00000025 663B46F8                	cmp	eax, [bp-8]
+   117 00000029 7509                    	jne	L3
+   118                                  ; return
+   119                                  ; RPN'ized expression: "0 "
+   120                                  ; Expanded expression: "0 "
+   121                                  ; Expression value: 0
+   122                                  ; Fused expression:    "0  "
+   123 0000002B 66B800000000            	mov	eax, 0
+   124 00000031 E98500                  	jmp	L1
+   125                                  L3:
+   126                                  ; RPN'ized expression: "j primero = "
+   127                                  ; Expanded expression: "(@-16) (@-12) *(4) =(4) "
+   128                                  ; Fused expression:    "=(204) *(@-16) *(@-12) "
+   129 00000034 668B46F4                	mov	eax, [bp-12]
+   130 00000038 668946F0                	mov	[bp-16], eax
+   131                                  ; RPN'ized expression: "k 1 = "
+   132                                  ; Expanded expression: "(@-20) 1 =(4) "
+   133                                  ; Fused expression:    "=(204) *(@-20) 1 "
+   134 0000003C 66B801000000            	mov	eax, 1
+   135 00000042 668946EC                	mov	[bp-20], eax
+   136                                  ; while
+   137                                  ; RPN'ized expression: "j cabecera != j i != && "
+   138                                  ; Expanded expression: "(@-16) *(4) (@-8) *(4) != [sh&&->7] (@-16) *(4) (@8) *(4) != &&[7] "
+   139                                  L5:
+   140                                  ; Fused expression:    "!= *(@-16) *(@-8) [sh&&->7] != *(@-16) *(@8) &&[7]  "
+   141 00000046 668B46F0                	mov	eax, [bp-16]
+   142 0000004A 663B46F8                	cmp	eax, [bp-8]
+   143 0000004E 0F95C0                  	setne	al
+   144 00000051 660FB6C0                	movzx	eax, al
+   145                                  ; JumpIfZero
+   146 00000055 6685C0                  	test	eax, eax
+   147 00000058 740F                    	je	L7
+   148 0000005A 668B46F0                	mov	eax, [bp-16]
+   149 0000005E 663B4608                	cmp	eax, [bp+8]
+   150 00000062 0F95C0                  	setne	al
+   151 00000065 660FB6C0                	movzx	eax, al
+   152                                  L7:
+   153                                  ; JumpIfZero
+   154 00000069 6685C0                  	test	eax, eax
+   155 0000006C 7433                    	je	L6
+   156                                  ; {
+   157                                  ; RPN'ized expression: "j e j + *u &u sig -> *u = "
+   158                                  ; Expanded expression: "(@-16) (@-4) *(4) (@-16) *(4) 12 * + 0 + *(4) =(4) "
+   159                                  ; Fused expression:    "* *(@-16) 12 + *(@-4) ax + ax 0 =(204) *(@-16) *ax "
+   160 0000006E 668B46F0                	mov	eax, [bp-16]
+   161 00000072 666BC00C                	imul	eax, eax, 12
+   162 00000076 6689C1                  	mov	ecx, eax
+   163 00000079 668B46FC                	mov	eax, [bp-4]
+   164 0000007D 6601C8                  	add	eax, ecx
+   165 00000080 6689C3                  	mov	ebx, eax
+   166 00000083 6689DE                  	mov	esi, ebx
+   167 00000086 66C1CE04                	ror	esi, 4
+   168 0000008A 8EDE                    	mov	ds, si
+   169 0000008C 66C1EE1C                	shr	esi, 28
+   170 00000090 668B04                  	mov	eax, [si]
+   171 00000093 668946F0                	mov	[bp-16], eax
+   172                                  ; RPN'ized expression: "k ++p "
+   173                                  ; Expanded expression: "(@-20) ++p(4) "
+   174                                  ; Fused expression:    "++p(4) *(@-20) "
+   175 00000097 668B46EC                	mov	eax, [bp-20]
+   176 0000009B 66FF46EC                	inc	dword [bp-20]
+   177                                  ; }
+   178 0000009F EBA5                    	jmp	L5
+   179                                  L6:
+   180                                  ; if
+   181                                  ; RPN'ized expression: "j cabecera != "
+   182                                  ; Expanded expression: "(@-16) *(4) (@-8) *(4) != "
+   183                                  ; Fused expression:    "!= *(@-16) *(@-8) IF! "
+   184 000000A1 668B46F0                	mov	eax, [bp-16]
+   185 000000A5 663B46F8                	cmp	eax, [bp-8]
+   186 000000A9 7406                    	je	L8
+   187                                  ; return
+   188                                  ; RPN'ized expression: "k "
+   189                                  ; Expanded expression: "(@-20) *(4) "
+   190                                  ; Fused expression:    "*(4) (@-20)  "
+   191 000000AB 668B46EC                	mov	eax, [bp-20]
+   192 000000AF EB08                    	jmp	L1
+   193                                  L8:
+   194                                  ; return
+   195                                  ; RPN'ized expression: "1 -u "
+   196                                  ; Expanded expression: "-1 "
+   197                                  ; Expression value: -1
+   198                                  ; Fused expression:    "-1  "
+   199 000000B1 66B8FFFFFFFF            	mov	eax, -1
+   200 000000B7 EB00                    	jmp	L1
+   201                                  ; }
+   202                                  ; }
+   203                                  L1:
+   204 000000B9 66                      	db	0x66
+   205 000000BA C9                      	leave
+   206 000000BB CB                      	retf
+   207                                  L10:
+   208                                  
+   209                                  section .fxnsz noalloc
+   210 00000000 BC000000                	dd	L10 - _posicionC2c
+   211                                  
+   212                                  ; glb eliminarC2c : (
+   213                                  ; prm     i : int
+   214                                  ; prm     c2c : struct <something>
+   215                                  ;     ) void
+   216                                  section .text
+   217                                  	global	_eliminarC2c
+   218                                  _eliminarC2c:
+   219 000000BC 6655                    	push	ebp
+   220 000000BE 660FB7EC                	movzx	ebp, sp
+   221 000000C2 83EC0C                  	 sub	sp,         12
+   222                                  ; loc     i : (@8): int
+   223                                  ; loc     c2c : (@12): struct <something>
+   224                                  ; {
+   225                                  ; loc         e : (@-4): * struct <something>
+   226                                  ; RPN'ized expression: "e c2c &u e -> *u = "
+   227                                  ; Expanded expression: "(@-4) (@24) *(4) =(4) "
+   228                                  ; Fused expression:    "=(204) *(@-4) *(@24) "
+   229 000000C5 668B4618                	mov	eax, [bp+24]
+   230 000000C9 668946FC                	mov	[bp-4], eax
+   231                                  ; {
+   232                                  ; loc             ant : (@-8): int
+   233                                  ; RPN'ized expression: "ant e i + *u &u ant -> *u = "
+   234                                  ; Expanded expression: "(@-8) (@-4) *(4) (@8) *(4) 12 * + 4 + *(4) =(4) "
+   235                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 4 =(204) *(@-8) *ax "
+   236 000000CD 668B4608                	mov	eax, [bp+8]
+   237 000000D1 666BC00C                	imul	eax, eax, 12
+   238 000000D5 6689C1                  	mov	ecx, eax
+   239 000000D8 668B46FC                	mov	eax, [bp-4]
+   240 000000DC 6601C8                  	add	eax, ecx
+   241 000000DF 6683C004                	add	eax, 4
+   242 000000E3 6689C3                  	mov	ebx, eax
+   243 000000E6 6689DE                  	mov	esi, ebx
+   244 000000E9 66C1CE04                	ror	esi, 4
+   245 000000ED 8EDE                    	mov	ds, si
+   246 000000EF 66C1EE1C                	shr	esi, 28
+   247 000000F3 668B04                  	mov	eax, [si]
+   248 000000F6 668946F8                	mov	[bp-8], eax
+   249                                  ; loc             sig : (@-12): int
+   250                                  ; RPN'ized expression: "sig e i + *u &u sig -> *u = "
+   251                                  ; Expanded expression: "(@-12) (@-4) *(4) (@8) *(4) 12 * + 0 + *(4) =(4) "
+   252                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 0 =(204) *(@-12) *ax "
+   253 000000FA 668B4608                	mov	eax, [bp+8]
+   254 000000FE 666BC00C                	imul	eax, eax, 12
+   255 00000102 6689C1                  	mov	ecx, eax
+   256 00000105 668B46FC                	mov	eax, [bp-4]
+   257 00000109 6601C8                  	add	eax, ecx
+   258 0000010C 6689C3                  	mov	ebx, eax
+   259 0000010F 6689DE                  	mov	esi, ebx
+   260 00000112 66C1CE04                	ror	esi, 4
+   261 00000116 8EDE                    	mov	ds, si
+   262 00000118 66C1EE1C                	shr	esi, 28
+   263 0000011C 668B04                  	mov	eax, [si]
+   264 0000011F 668946F4                	mov	[bp-12], eax
+   265                                  ; RPN'ized expression: "e ant + *u &u sig -> *u sig = "
+   266                                  ; Expanded expression: "(@-4) *(4) (@-8) *(4) 12 * + 0 + (@-12) *(4) =(4) "
+   267                                  ; Fused expression:    "* *(@-8) 12 + *(@-4) ax + ax 0 =(204) *ax *(@-12) "
+   268 00000123 668B46F8                	mov	eax, [bp-8]
+   269 00000127 666BC00C                	imul	eax, eax, 12
+   270 0000012B 6689C1                  	mov	ecx, eax
+   271 0000012E 668B46FC                	mov	eax, [bp-4]
+   272 00000132 6601C8                  	add	eax, ecx
+   273 00000135 6689C3                  	mov	ebx, eax
+   274 00000138 668B46F4                	mov	eax, [bp-12]
+   275 0000013C 6689DE                  	mov	esi, ebx
+   276 0000013F 66C1CE04                	ror	esi, 4
+   277 00000143 8EDE                    	mov	ds, si
+   278 00000145 66C1EE1C                	shr	esi, 28
+   279 00000149 668904                  	mov	[si], eax
+   280                                  ; RPN'ized expression: "e sig + *u &u ant -> *u ant = "
+   281                                  ; Expanded expression: "(@-4) *(4) (@-12) *(4) 12 * + 4 + (@-8) *(4) =(4) "
+   282                                  ; Fused expression:    "* *(@-12) 12 + *(@-4) ax + ax 4 =(204) *ax *(@-8) "
+   283 0000014C 668B46F4                	mov	eax, [bp-12]
+   284 00000150 666BC00C                	imul	eax, eax, 12
+   285 00000154 6689C1                  	mov	ecx, eax
+   286 00000157 668B46FC                	mov	eax, [bp-4]
+   287 0000015B 6601C8                  	add	eax, ecx
+   288 0000015E 6683C004                	add	eax, 4
+   289 00000162 6689C3                  	mov	ebx, eax
+   290 00000165 668B46F8                	mov	eax, [bp-8]
+   291 00000169 6689DE                  	mov	esi, ebx
+   292 0000016C 66C1CE04                	ror	esi, 4
+   293 00000170 8EDE                    	mov	ds, si
+   294 00000172 66C1EE1C                	shr	esi, 28
+   295 00000176 668904                  	mov	[si], eax
+   296                                  ; }
+   297                                  ; if
+   298                                  ; RPN'ized expression: "i c2c &u primero -> *u == "
+   299                                  ; Expanded expression: "(@8) *(4) (@16) *(4) == "
+   300                                  ; Fused expression:    "== *(@8) *(@16) IF! "
+   301 00000179 668B4608                	mov	eax, [bp+8]
+   302 0000017D 663B4610                	cmp	eax, [bp+16]
+   303 00000181 7529                    	jne	L13
+   304                                  ; RPN'ized expression: "c2c &u primero -> *u e i + *u &u sig -> *u = "
+   305                                  ; Expanded expression: "(@16) (@-4) *(4) (@8) *(4) 12 * + 0 + *(4) =(4) "
+   306                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 0 =(204) *(@16) *ax "
+   307 00000183 668B4608                	mov	eax, [bp+8]
+   308 00000187 666BC00C                	imul	eax, eax, 12
+   309 0000018B 6689C1                  	mov	ecx, eax
+   310 0000018E 668B46FC                	mov	eax, [bp-4]
+   311 00000192 6601C8                  	add	eax, ecx
+   312 00000195 6689C3                  	mov	ebx, eax
+   313 00000198 6689DE                  	mov	esi, ebx
+   314 0000019B 66C1CE04                	ror	esi, 4
+   315 0000019F 8EDE                    	mov	ds, si
+   316 000001A1 66C1EE1C                	shr	esi, 28
+   317 000001A5 668B04                  	mov	eax, [si]
+   318 000001A8 66894610                	mov	[bp+16], eax
+   319                                  L13:
+   320                                  ; loc         <something> : int
+   321                                  ; RPN'ized expression: "e i + *u &u sig -> *u 1 -u (something15) = "
+   322                                  ; Expanded expression: "(@-4) *(4) (@8) *(4) 12 * + 0 + -1 =(4) "
+   323                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 0 =(204) *ax -1 "
+   324 000001AC 668B4608                	mov	eax, [bp+8]
+   325 000001B0 666BC00C                	imul	eax, eax, 12
+   326 000001B4 6689C1                  	mov	ecx, eax
+   327 000001B7 668B46FC                	mov	eax, [bp-4]
+   328 000001BB 6601C8                  	add	eax, ecx
+   329 000001BE 6689C3                  	mov	ebx, eax
+   330 000001C1 66B8FFFFFFFF            	mov	eax, -1
+   331 000001C7 6689DE                  	mov	esi, ebx
+   332 000001CA 66C1CE04                	ror	esi, 4
+   333 000001CE 8EDE                    	mov	ds, si
+   334 000001D0 66C1EE1C                	shr	esi, 28
+   335 000001D4 668904                  	mov	[si], eax
+   336                                  ; loc         <something> : int
+   337                                  ; RPN'ized expression: "e i + *u &u ant -> *u 1 -u (something16) = "
+   338                                  ; Expanded expression: "(@-4) *(4) (@8) *(4) 12 * + 4 + -1 =(4) "
+   339                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 4 =(204) *ax -1 "
+   340 000001D7 668B4608                	mov	eax, [bp+8]
+   341 000001DB 666BC00C                	imul	eax, eax, 12
+   342 000001DF 6689C1                  	mov	ecx, eax
+   343 000001E2 668B46FC                	mov	eax, [bp-4]
+   344 000001E6 6601C8                  	add	eax, ecx
+   345 000001E9 6683C004                	add	eax, 4
+   346 000001ED 6689C3                  	mov	ebx, eax
+   347 000001F0 66B8FFFFFFFF            	mov	eax, -1
+   348 000001F6 6689DE                  	mov	esi, ebx
+   349 000001F9 66C1CE04                	ror	esi, 4
+   350 000001FD 8EDE                    	mov	ds, si
+   351 000001FF 66C1EE1C                	shr	esi, 28
+   352 00000203 668904                  	mov	[si], eax
+   353                                  ; loc         <something> : int
+   354                                  ; RPN'ized expression: "e i + *u &u cab -> *u 1 -u (something17) = "
+   355                                  ; Expanded expression: "(@-4) *(4) (@8) *(4) 12 * + 8 + -1 =(4) "
+   356                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 8 =(204) *ax -1 "
+   357 00000206 668B4608                	mov	eax, [bp+8]
+   358 0000020A 666BC00C                	imul	eax, eax, 12
+   359 0000020E 6689C1                  	mov	ecx, eax
+   360 00000211 668B46FC                	mov	eax, [bp-4]
+   361 00000215 6601C8                  	add	eax, ecx
+   362 00000218 6683C008                	add	eax, 8
+   363 0000021C 6689C3                  	mov	ebx, eax
+   364 0000021F 66B8FFFFFFFF            	mov	eax, -1
+   365 00000225 6689DE                  	mov	esi, ebx
+   366 00000228 66C1CE04                	ror	esi, 4
+   367 0000022C 8EDE                    	mov	ds, si
+   368 0000022E 66C1EE1C                	shr	esi, 28
+   369 00000232 668904                  	mov	[si], eax
+   370                                  ; RPN'ized expression: "c2c &u numElem -> *u --p "
+   371                                  ; Expanded expression: "(@12) --p(4) "
+   372                                  ; Fused expression:    "--p(4) *(@12) "
+   373 00000235 668B460C                	mov	eax, [bp+12]
+   374 00000239 66FF4E0C                	dec	dword [bp+12]
+   375                                  ; }
+   376                                  L11:
+   377 0000023D 66                      	db	0x66
+   378 0000023E C9                      	leave
+   379 0000023F CB                      	retf
+   380                                  L18:
+   381                                  
+   382                                  section .fxnsz
+   383 00000004 84010000                	dd	L18 - _eliminarC2c
+   384                                  
+   385                                  ; glb apilarC2c : (
+   386                                  ; prm     i : int
+   387                                  ; prm     c2c : struct <something>
+   388                                  ;     ) void
+   389                                  section .text
+   390                                  	global	_apilarC2c
+   391                                  _apilarC2c:
+   392 00000240 6655                    	push	ebp
+   393 00000242 660FB7EC                	movzx	ebp, sp
+   394 00000246 83EC0C                  	 sub	sp,         12
+   395                                  ; loc     i : (@8): int
+   396                                  ; loc     c2c : (@12): struct <something>
+   397                                  ; {
+   398                                  ; loc         e : (@-4): * struct <something>
+   399                                  ; RPN'ized expression: "e c2c &u e -> *u = "
+   400                                  ; Expanded expression: "(@-4) (@24) *(4) =(4) "
+   401                                  ; Fused expression:    "=(204) *(@-4) *(@24) "
+   402 00000249 668B4618                	mov	eax, [bp+24]
+   403 0000024D 668946FC                	mov	[bp-4], eax
+   404                                  ; loc         anterior : (@-8): int
+   405                                  ; RPN'ized expression: "anterior c2c &u cabecera -> *u = "
+   406                                  ; Expanded expression: "(@-8) (@20) *(4) =(4) "
+   407                                  ; Fused expression:    "=(204) *(@-8) *(@20) "
+   408 00000251 668B4614                	mov	eax, [bp+20]
+   409 00000255 668946F8                	mov	[bp-8], eax
+   410                                  ; loc         siguiente : (@-12): int
+   411                                  ; RPN'ized expression: "siguiente c2c &u primero -> *u = "
+   412                                  ; Expanded expression: "(@-12) (@16) *(4) =(4) "
+   413                                  ; Fused expression:    "=(204) *(@-12) *(@16) "
+   414 00000259 668B4610                	mov	eax, [bp+16]
+   415 0000025D 668946F4                	mov	[bp-12], eax
+   416                                  ; {
+   417                                  ; RPN'ized expression: "e i + *u &u sig -> *u siguiente = "
+   418                                  ; Expanded expression: "(@-4) *(4) (@8) *(4) 12 * + 0 + (@-12) *(4) =(4) "
+   419                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 0 =(204) *ax *(@-12) "
+   420 00000261 668B4608                	mov	eax, [bp+8]
+   421 00000265 666BC00C                	imul	eax, eax, 12
+   422 00000269 6689C1                  	mov	ecx, eax
+   423 0000026C 668B46FC                	mov	eax, [bp-4]
+   424 00000270 6601C8                  	add	eax, ecx
+   425 00000273 6689C3                  	mov	ebx, eax
+   426 00000276 668B46F4                	mov	eax, [bp-12]
+   427 0000027A 6689DE                  	mov	esi, ebx
+   428 0000027D 66C1CE04                	ror	esi, 4
+   429 00000281 8EDE                    	mov	ds, si
+   430 00000283 66C1EE1C                	shr	esi, 28
+   431 00000287 668904                  	mov	[si], eax
+   432                                  ; RPN'ized expression: "e i + *u &u ant -> *u anterior = "
+   433                                  ; Expanded expression: "(@-4) *(4) (@8) *(4) 12 * + 4 + (@-8) *(4) =(4) "
+   434                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 4 =(204) *ax *(@-8) "
+   435 0000028A 668B4608                	mov	eax, [bp+8]
+   436 0000028E 666BC00C                	imul	eax, eax, 12
+   437 00000292 6689C1                  	mov	ecx, eax
+   438 00000295 668B46FC                	mov	eax, [bp-4]
+   439 00000299 6601C8                  	add	eax, ecx
+   440 0000029C 6683C004                	add	eax, 4
+   441 000002A0 6689C3                  	mov	ebx, eax
+   442 000002A3 668B46F8                	mov	eax, [bp-8]
+   443 000002A7 6689DE                  	mov	esi, ebx
+   444 000002AA 66C1CE04                	ror	esi, 4
+   445 000002AE 8EDE                    	mov	ds, si
+   446 000002B0 66C1EE1C                	shr	esi, 28
+   447 000002B4 668904                  	mov	[si], eax
+   448                                  ; RPN'ized expression: "e anterior + *u &u sig -> *u i = "
+   449                                  ; Expanded expression: "(@-4) *(4) (@-8) *(4) 12 * + 0 + (@8) *(4) =(4) "
+   450                                  ; Fused expression:    "* *(@-8) 12 + *(@-4) ax + ax 0 =(204) *ax *(@8) "
+   451 000002B7 668B46F8                	mov	eax, [bp-8]
+   452 000002BB 666BC00C                	imul	eax, eax, 12
+   453 000002BF 6689C1                  	mov	ecx, eax
+   454 000002C2 668B46FC                	mov	eax, [bp-4]
+   455 000002C6 6601C8                  	add	eax, ecx
+   456 000002C9 6689C3                  	mov	ebx, eax
+   457 000002CC 668B4608                	mov	eax, [bp+8]
+   458 000002D0 6689DE                  	mov	esi, ebx
+   459 000002D3 66C1CE04                	ror	esi, 4
+   460 000002D7 8EDE                    	mov	ds, si
+   461 000002D9 66C1EE1C                	shr	esi, 28
+   462 000002DD 668904                  	mov	[si], eax
+   463                                  ; RPN'ized expression: "e siguiente + *u &u ant -> *u i = "
+   464                                  ; Expanded expression: "(@-4) *(4) (@-12) *(4) 12 * + 4 + (@8) *(4) =(4) "
+   465                                  ; Fused expression:    "* *(@-12) 12 + *(@-4) ax + ax 4 =(204) *ax *(@8) "
+   466 000002E0 668B46F4                	mov	eax, [bp-12]
+   467 000002E4 666BC00C                	imul	eax, eax, 12
+   468 000002E8 6689C1                  	mov	ecx, eax
+   469 000002EB 668B46FC                	mov	eax, [bp-4]
+   470 000002EF 6601C8                  	add	eax, ecx
+   471 000002F2 6683C004                	add	eax, 4
+   472 000002F6 6689C3                  	mov	ebx, eax
+   473 000002F9 668B4608                	mov	eax, [bp+8]
+   474 000002FD 6689DE                  	mov	esi, ebx
+   475 00000300 66C1CE04                	ror	esi, 4
+   476 00000304 8EDE                    	mov	ds, si
+   477 00000306 66C1EE1C                	shr	esi, 28
+   478 0000030A 668904                  	mov	[si], eax
+   479                                  ; }
+   480                                  ; RPN'ized expression: "c2c &u primero -> *u i = "
+   481                                  ; Expanded expression: "(@16) (@8) *(4) =(4) "
+   482                                  ; Fused expression:    "=(204) *(@16) *(@8) "
+   483 0000030D 668B4608                	mov	eax, [bp+8]
+   484 00000311 66894610                	mov	[bp+16], eax
+   485                                  ; RPN'ized expression: "c2c &u numElem -> *u ++p "
+   486                                  ; Expanded expression: "(@12) ++p(4) "
+   487                                  ; Fused expression:    "++p(4) *(@12) "
+   488 00000315 668B460C                	mov	eax, [bp+12]
+   489 00000319 66FF460C                	inc	dword [bp+12]
+   490                                  ; }
+   491                                  L19:
+   492 0000031D 66                      	db	0x66
+   493 0000031E C9                      	leave
+   494 0000031F CB                      	retf
+   495                                  L21:
+   496                                  
+   497                                  section .fxnsz
+   498 00000008 E0000000                	dd	L21 - _apilarC2c
+   499                                  
+   500                                  ; glb encolarC2c : (
+   501                                  ; prm     i : int
+   502                                  ; prm     c2c : struct <something>
+   503                                  ;     ) void
+   504                                  section .text
+   505                                  	global	_encolarC2c
+   506                                  _encolarC2c:
+   507 00000320 6655                    	push	ebp
+   508 00000322 660FB7EC                	movzx	ebp, sp
+   509 00000326 83EC0C                  	 sub	sp,         12
+   510                                  ; loc     i : (@8): int
+   511                                  ; loc     c2c : (@12): struct <something>
+   512                                  ; {
+   513                                  ; loc         e : (@-4): * struct <something>
+   514                                  ; RPN'ized expression: "e c2c &u e -> *u = "
+   515                                  ; Expanded expression: "(@-4) (@24) *(4) =(4) "
+   516                                  ; Fused expression:    "=(204) *(@-4) *(@24) "
+   517 00000329 668B4618                	mov	eax, [bp+24]
+   518 0000032D 668946FC                	mov	[bp-4], eax
+   519                                  ; loc         siguiente : (@-8): int
+   520                                  ; RPN'ized expression: "siguiente c2c &u cabecera -> *u = "
+   521                                  ; Expanded expression: "(@-8) (@20) *(4) =(4) "
+   522                                  ; Fused expression:    "=(204) *(@-8) *(@20) "
+   523 00000331 668B4614                	mov	eax, [bp+20]
+   524 00000335 668946F8                	mov	[bp-8], eax
+   525                                  ; loc         anterior : (@-12): int
+   526                                  ; RPN'ized expression: "anterior e siguiente + *u &u ant -> *u = "
+   527                                  ; Expanded expression: "(@-12) (@-4) *(4) (@-8) *(4) 12 * + 4 + *(4) =(4) "
+   528                                  ; Fused expression:    "* *(@-8) 12 + *(@-4) ax + ax 4 =(204) *(@-12) *ax "
+   529 00000339 668B46F8                	mov	eax, [bp-8]
+   530 0000033D 666BC00C                	imul	eax, eax, 12
+   531 00000341 6689C1                  	mov	ecx, eax
+   532 00000344 668B46FC                	mov	eax, [bp-4]
+   533 00000348 6601C8                  	add	eax, ecx
+   534 0000034B 6683C004                	add	eax, 4
+   535 0000034F 6689C3                  	mov	ebx, eax
+   536 00000352 6689DE                  	mov	esi, ebx
+   537 00000355 66C1CE04                	ror	esi, 4
+   538 00000359 8EDE                    	mov	ds, si
+   539 0000035B 66C1EE1C                	shr	esi, 28
+   540 0000035F 668B04                  	mov	eax, [si]
+   541 00000362 668946F4                	mov	[bp-12], eax
+   542                                  ; {
+   543                                  ; RPN'ized expression: "e i + *u &u sig -> *u siguiente = "
+   544                                  ; Expanded expression: "(@-4) *(4) (@8) *(4) 12 * + 0 + (@-8) *(4) =(4) "
+   545                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 0 =(204) *ax *(@-8) "
+   546 00000366 668B4608                	mov	eax, [bp+8]
+   547 0000036A 666BC00C                	imul	eax, eax, 12
+   548 0000036E 6689C1                  	mov	ecx, eax
+   549 00000371 668B46FC                	mov	eax, [bp-4]
+   550 00000375 6601C8                  	add	eax, ecx
+   551 00000378 6689C3                  	mov	ebx, eax
+   552 0000037B 668B46F8                	mov	eax, [bp-8]
+   553 0000037F 6689DE                  	mov	esi, ebx
+   554 00000382 66C1CE04                	ror	esi, 4
+   555 00000386 8EDE                    	mov	ds, si
+   556 00000388 66C1EE1C                	shr	esi, 28
+   557 0000038C 668904                  	mov	[si], eax
+   558                                  ; RPN'ized expression: "e i + *u &u ant -> *u anterior = "
+   559                                  ; Expanded expression: "(@-4) *(4) (@8) *(4) 12 * + 4 + (@-12) *(4) =(4) "
+   560                                  ; Fused expression:    "* *(@8) 12 + *(@-4) ax + ax 4 =(204) *ax *(@-12) "
+   561 0000038F 668B4608                	mov	eax, [bp+8]
+   562 00000393 666BC00C                	imul	eax, eax, 12
+   563 00000397 6689C1                  	mov	ecx, eax
+   564 0000039A 668B46FC                	mov	eax, [bp-4]
+   565 0000039E 6601C8                  	add	eax, ecx
+   566 000003A1 6683C004                	add	eax, 4
+   567 000003A5 6689C3                  	mov	ebx, eax
+   568 000003A8 668B46F4                	mov	eax, [bp-12]
+   569 000003AC 6689DE                  	mov	esi, ebx
+   570 000003AF 66C1CE04                	ror	esi, 4
+   571 000003B3 8EDE                    	mov	ds, si
+   572 000003B5 66C1EE1C                	shr	esi, 28
+   573 000003B9 668904                  	mov	[si], eax
+   574                                  ; RPN'ized expression: "e anterior + *u &u sig -> *u i = "
+   575                                  ; Expanded expression: "(@-4) *(4) (@-12) *(4) 12 * + 0 + (@8) *(4) =(4) "
+   576                                  ; Fused expression:    "* *(@-12) 12 + *(@-4) ax + ax 0 =(204) *ax *(@8) "
+   577 000003BC 668B46F4                	mov	eax, [bp-12]
+   578 000003C0 666BC00C                	imul	eax, eax, 12
+   579 000003C4 6689C1                  	mov	ecx, eax
+   580 000003C7 668B46FC                	mov	eax, [bp-4]
+   581 000003CB 6601C8                  	add	eax, ecx
+   582 000003CE 6689C3                  	mov	ebx, eax
+   583 000003D1 668B4608                	mov	eax, [bp+8]
+   584 000003D5 6689DE                  	mov	esi, ebx
+   585 000003D8 66C1CE04                	ror	esi, 4
+   586 000003DC 8EDE                    	mov	ds, si
+   587 000003DE 66C1EE1C                	shr	esi, 28
+   588 000003E2 668904                  	mov	[si], eax
+   589                                  ; RPN'ized expression: "e siguiente + *u &u ant -> *u i = "
+   590                                  ; Expanded expression: "(@-4) *(4) (@-8) *(4) 12 * + 4 + (@8) *(4) =(4) "
+   591                                  ; Fused expression:    "* *(@-8) 12 + *(@-4) ax + ax 4 =(204) *ax *(@8) "
+   592 000003E5 668B46F8                	mov	eax, [bp-8]
+   593 000003E9 666BC00C                	imul	eax, eax, 12
+   594 000003ED 6689C1                  	mov	ecx, eax
+   595 000003F0 668B46FC                	mov	eax, [bp-4]
+   596 000003F4 6601C8                  	add	eax, ecx
+   597 000003F7 6683C004                	add	eax, 4
+   598 000003FB 6689C3                  	mov	ebx, eax
+   599 000003FE 668B4608                	mov	eax, [bp+8]
+   600 00000402 6689DE                  	mov	esi, ebx
+   601 00000405 66C1CE04                	ror	esi, 4
+   602 00000409 8EDE                    	mov	ds, si
+   603 0000040B 66C1EE1C                	shr	esi, 28
+   604 0000040F 668904                  	mov	[si], eax
+   605                                  ; }
+   606                                  ; RPN'ized expression: "c2c &u primero -> *u c2c &u e -> *u siguiente + *u &u sig -> *u = "
+   607                                  ; Expanded expression: "(@16) (@24) *(4) (@-8) *(4) 12 * + 0 + *(4) =(4) "
+   608                                  ; Fused expression:    "* *(@-8) 12 + *(@24) ax + ax 0 =(204) *(@16) *ax "
+   609 00000412 668B46F8                	mov	eax, [bp-8]
+   610 00000416 666BC00C                	imul	eax, eax, 12
+   611 0000041A 6689C1                  	mov	ecx, eax
+   612 0000041D 668B4618                	mov	eax, [bp+24]
+   613 00000421 6601C8                  	add	eax, ecx
+   614 00000424 6689C3                  	mov	ebx, eax
+   615 00000427 6689DE                  	mov	esi, ebx
+   616 0000042A 66C1CE04                	ror	esi, 4
+   617 0000042E 8EDE                    	mov	ds, si
+   618 00000430 66C1EE1C                	shr	esi, 28
+   619 00000434 668B04                  	mov	eax, [si]
+   620 00000437 66894610                	mov	[bp+16], eax
+   621                                  ; RPN'ized expression: "c2c &u numElem -> *u ++p "
+   622                                  ; Expanded expression: "(@12) ++p(4) "
+   623                                  ; Fused expression:    "++p(4) *(@12) "
+   624 0000043B 668B460C                	mov	eax, [bp+12]
+   625 0000043F 66FF460C                	inc	dword [bp+12]
+   626                                  ; }
+   627                                  L22:
+   628 00000443 66                      	db	0x66
+   629 00000444 C9                      	leave
+   630 00000445 CB                      	retf
+   631                                  L24:
+   632                                  
+   633                                  section .fxnsz
+   634 0000000C 26010000                	dd	L24 - _encolarC2c
+   635                                  
+   636                                  ; glb desencolarC2c : (
+   637                                  ; prm     c2c : struct <something>
+   638                                  ;     ) int
+   639                                  section .text
+   640                                  	global	_desencolarC2c
+   641                                  _desencolarC2c:
+   642 00000446 6655                    	push	ebp
+   643 00000448 660FB7EC                	movzx	ebp, sp
+   644 0000044C 83EC10                  	 sub	sp,         16
+   645                                  ; loc     c2c : (@8): struct <something>
+   646                                  ; loc     i : (@-4): int
+   647                                  ; RPN'ized expression: "i c2c &u primero -> *u = "
+   648                                  ; Expanded expression: "(@-4) (@12) *(4) =(4) "
+   649                                  ; Fused expression:    "=(204) *(@-4) *(@12) "
+   650 0000044F 668B460C                	mov	eax, [bp+12]
+   651 00000453 668946FC                	mov	[bp-4], eax
+   652                                  ; {
+   653                                  ; loc         e : (@-8): * struct <something>
+   654                                  ; RPN'ized expression: "e c2c &u e -> *u = "
+   655                                  ; Expanded expression: "(@-8) (@20) *(4) =(4) "
+   656                                  ; Fused expression:    "=(204) *(@-8) *(@20) "
+   657 00000457 668B4614                	mov	eax, [bp+20]
+   658 0000045B 668946F8                	mov	[bp-8], eax
+   659                                  ; {
+   660                                  ; loc             ant : (@-12): int
+   661                                  ; RPN'ized expression: "ant e i + *u &u ant -> *u = "
+   662                                  ; Expanded expression: "(@-12) (@-8) *(4) (@-4) *(4) 12 * + 4 + *(4) =(4) "
+   663                                  ; Fused expression:    "* *(@-4) 12 + *(@-8) ax + ax 4 =(204) *(@-12) *ax "
+   664 0000045F 668B46FC                	mov	eax, [bp-4]
+   665 00000463 666BC00C                	imul	eax, eax, 12
+   666 00000467 6689C1                  	mov	ecx, eax
+   667 0000046A 668B46F8                	mov	eax, [bp-8]
+   668 0000046E 6601C8                  	add	eax, ecx
+   669 00000471 6683C004                	add	eax, 4
+   670 00000475 6689C3                  	mov	ebx, eax
+   671 00000478 6689DE                  	mov	esi, ebx
+   672 0000047B 66C1CE04                	ror	esi, 4
+   673 0000047F 8EDE                    	mov	ds, si
+   674 00000481 66C1EE1C                	shr	esi, 28
+   675 00000485 668B04                  	mov	eax, [si]
+   676 00000488 668946F4                	mov	[bp-12], eax
+   677                                  ; loc             sig : (@-16): int
+   678                                  ; RPN'ized expression: "sig e i + *u &u sig -> *u = "
+   679                                  ; Expanded expression: "(@-16) (@-8) *(4) (@-4) *(4) 12 * + 0 + *(4) =(4) "
+   680                                  ; Fused expression:    "* *(@-4) 12 + *(@-8) ax + ax 0 =(204) *(@-16) *ax "
+   681 0000048C 668B46FC                	mov	eax, [bp-4]
+   682 00000490 666BC00C                	imul	eax, eax, 12
+   683 00000494 6689C1                  	mov	ecx, eax
+   684 00000497 668B46F8                	mov	eax, [bp-8]
+   685 0000049B 6601C8                  	add	eax, ecx
+   686 0000049E 6689C3                  	mov	ebx, eax
+   687 000004A1 6689DE                  	mov	esi, ebx
+   688 000004A4 66C1CE04                	ror	esi, 4
+   689 000004A8 8EDE                    	mov	ds, si
+   690 000004AA 66C1EE1C                	shr	esi, 28
+   691 000004AE 668B04                  	mov	eax, [si]
+   692 000004B1 668946F0                	mov	[bp-16], eax
+   693                                  ; RPN'ized expression: "e ant + *u &u sig -> *u sig = "
+   694                                  ; Expanded expression: "(@-8) *(4) (@-12) *(4) 12 * + 0 + (@-16) *(4) =(4) "
+   695                                  ; Fused expression:    "* *(@-12) 12 + *(@-8) ax + ax 0 =(204) *ax *(@-16) "
+   696 000004B5 668B46F4                	mov	eax, [bp-12]
+   697 000004B9 666BC00C                	imul	eax, eax, 12
+   698 000004BD 6689C1                  	mov	ecx, eax
+   699 000004C0 668B46F8                	mov	eax, [bp-8]
+   700 000004C4 6601C8                  	add	eax, ecx
+   701 000004C7 6689C3                  	mov	ebx, eax
+   702 000004CA 668B46F0                	mov	eax, [bp-16]
+   703 000004CE 6689DE                  	mov	esi, ebx
+   704 000004D1 66C1CE04                	ror	esi, 4
+   705 000004D5 8EDE                    	mov	ds, si
+   706 000004D7 66C1EE1C                	shr	esi, 28
+   707 000004DB 668904                  	mov	[si], eax
+   708                                  ; RPN'ized expression: "e sig + *u &u ant -> *u ant = "
+   709                                  ; Expanded expression: "(@-8) *(4) (@-16) *(4) 12 * + 4 + (@-12) *(4) =(4) "
+   710                                  ; Fused expression:    "* *(@-16) 12 + *(@-8) ax + ax 4 =(204) *ax *(@-12) "
+   711 000004DE 668B46F0                	mov	eax, [bp-16]
+   712 000004E2 666BC00C                	imul	eax, eax, 12
+   713 000004E6 6689C1                  	mov	ecx, eax
+   714 000004E9 668B46F8                	mov	eax, [bp-8]
+   715 000004ED 6601C8                  	add	eax, ecx
+   716 000004F0 6683C004                	add	eax, 4
+   717 000004F4 6689C3                  	mov	ebx, eax
+   718 000004F7 668B46F4                	mov	eax, [bp-12]
+   719 000004FB 6689DE                  	mov	esi, ebx
+   720 000004FE 66C1CE04                	ror	esi, 4
+   721 00000502 8EDE                    	mov	ds, si
+   722 00000504 66C1EE1C                	shr	esi, 28
+   723 00000508 668904                  	mov	[si], eax
+   724                                  ; }
+   725                                  ; if
+   726                                  ; RPN'ized expression: "i c2c &u primero -> *u == "
+   727                                  ; Expanded expression: "(@-4) *(4) (@12) *(4) == "
+   728                                  ; Fused expression:    "== *(@-4) *(@12) IF! "
+   729 0000050B 668B46FC                	mov	eax, [bp-4]
+   730 0000050F 663B460C                	cmp	eax, [bp+12]
+   731 00000513 7529                    	jne	L27
+   732                                  ; RPN'ized expression: "c2c &u primero -> *u e i + *u &u sig -> *u = "
+   733                                  ; Expanded expression: "(@12) (@-8) *(4) (@-4) *(4) 12 * + 0 + *(4) =(4) "
+   734                                  ; Fused expression:    "* *(@-4) 12 + *(@-8) ax + ax 0 =(204) *(@12) *ax "
+   735 00000515 668B46FC                	mov	eax, [bp-4]
+   736 00000519 666BC00C                	imul	eax, eax, 12
+   737 0000051D 6689C1                  	mov	ecx, eax
+   738 00000520 668B46F8                	mov	eax, [bp-8]
+   739 00000524 6601C8                  	add	eax, ecx
+   740 00000527 6689C3                  	mov	ebx, eax
+   741 0000052A 6689DE                  	mov	esi, ebx
+   742 0000052D 66C1CE04                	ror	esi, 4
+   743 00000531 8EDE                    	mov	ds, si
+   744 00000533 66C1EE1C                	shr	esi, 28
+   745 00000537 668B04                  	mov	eax, [si]
+   746 0000053A 6689460C                	mov	[bp+12], eax
+   747                                  L27:
+   748                                  ; loc         <something> : int
+   749                                  ; RPN'ized expression: "e i + *u &u sig -> *u 1 -u (something29) = "
+   750                                  ; Expanded expression: "(@-8) *(4) (@-4) *(4) 12 * + 0 + -1 =(4) "
+   751                                  ; Fused expression:    "* *(@-4) 12 + *(@-8) ax + ax 0 =(204) *ax -1 "
+   752 0000053E 668B46FC                	mov	eax, [bp-4]
+   753 00000542 666BC00C                	imul	eax, eax, 12
+   754 00000546 6689C1                  	mov	ecx, eax
+   755 00000549 668B46F8                	mov	eax, [bp-8]
+   756 0000054D 6601C8                  	add	eax, ecx
+   757 00000550 6689C3                  	mov	ebx, eax
+   758 00000553 66B8FFFFFFFF            	mov	eax, -1
+   759 00000559 6689DE                  	mov	esi, ebx
+   760 0000055C 66C1CE04                	ror	esi, 4
+   761 00000560 8EDE                    	mov	ds, si
+   762 00000562 66C1EE1C                	shr	esi, 28
+   763 00000566 668904                  	mov	[si], eax
+   764                                  ; loc         <something> : int
+   765                                  ; RPN'ized expression: "e i + *u &u ant -> *u 1 -u (something30) = "
+   766                                  ; Expanded expression: "(@-8) *(4) (@-4) *(4) 12 * + 4 + -1 =(4) "
+   767                                  ; Fused expression:    "* *(@-4) 12 + *(@-8) ax + ax 4 =(204) *ax -1 "
+   768 00000569 668B46FC                	mov	eax, [bp-4]
+   769 0000056D 666BC00C                	imul	eax, eax, 12
+   770 00000571 6689C1                  	mov	ecx, eax
+   771 00000574 668B46F8                	mov	eax, [bp-8]
+   772 00000578 6601C8                  	add	eax, ecx
+   773 0000057B 6683C004                	add	eax, 4
+   774 0000057F 6689C3                  	mov	ebx, eax
+   775 00000582 66B8FFFFFFFF            	mov	eax, -1
+   776 00000588 6689DE                  	mov	esi, ebx
+   777 0000058B 66C1CE04                	ror	esi, 4
+   778 0000058F 8EDE                    	mov	ds, si
+   779 00000591 66C1EE1C                	shr	esi, 28
+   780 00000595 668904                  	mov	[si], eax
+   781                                  ; loc         <something> : int
+   782                                  ; RPN'ized expression: "e i + *u &u cab -> *u 1 -u (something31) = "
+   783                                  ; Expanded expression: "(@-8) *(4) (@-4) *(4) 12 * + 8 + -1 =(4) "
+   784                                  ; Fused expression:    "* *(@-4) 12 + *(@-8) ax + ax 8 =(204) *ax -1 "
+   785 00000598 668B46FC                	mov	eax, [bp-4]
+   786 0000059C 666BC00C                	imul	eax, eax, 12
+   787 000005A0 6689C1                  	mov	ecx, eax
+   788 000005A3 668B46F8                	mov	eax, [bp-8]
+   789 000005A7 6601C8                  	add	eax, ecx
+   790 000005AA 6683C008                	add	eax, 8
+   791 000005AE 6689C3                  	mov	ebx, eax
+   792 000005B1 66B8FFFFFFFF            	mov	eax, -1
+   793 000005B7 6689DE                  	mov	esi, ebx
+   794 000005BA 66C1CE04                	ror	esi, 4
+   795 000005BE 8EDE                    	mov	ds, si
+   796 000005C0 66C1EE1C                	shr	esi, 28
+   797 000005C4 668904                  	mov	[si], eax
+   798                                  ; RPN'ized expression: "c2c &u numElem -> *u --p "
+   799                                  ; Expanded expression: "(@8) --p(4) "
+   800                                  ; Fused expression:    "--p(4) *(@8) "
+   801 000005C7 668B4608                	mov	eax, [bp+8]
+   802 000005CB 66FF4E08                	dec	dword [bp+8]
+   803                                  ; }
+   804                                  ; return
+   805                                  ; RPN'ized expression: "i "
+   806                                  ; Expanded expression: "(@-4) *(4) "
+   807                                  ; Fused expression:    "*(4) (@-4)  "
+   808 000005CF 668B46FC                	mov	eax, [bp-4]
+   809                                  L25:
+   810 000005D3 66                      	db	0x66
+   811 000005D4 C9                      	leave
+   812 000005D5 CB                      	retf
+   813                                  L32:
+   814                                  
+   815                                  section .fxnsz
+   816 00000010 90010000                	dd	L32 - _desencolarC2c
+   817                                  
+   818                                  ; glb inicializarC2c : (
+   819                                  ; prm     c2c : * struct <something>
+   820                                  ; prm     e : * struct <something>
+   821                                  ; prm     cabecera : int
+   822                                  ; prm     compartida : int
+   823                                  ;     ) void
+   824                                  section .text
+   825                                  	global	_inicializarC2c
+   826                                  _inicializarC2c:
+   827 000005D6 6655                    	push	ebp
+   828 000005D8 660FB7EC                	movzx	ebp, sp
+   829 000005DC 83EC04                  	 sub	sp,          4
+   830                                  ; loc     c2c : (@8): * struct <something>
+   831                                  ; loc     e : (@12): * struct <something>
+   832                                  ; loc     cabecera : (@16): int
+   833                                  ; loc     compartida : (@20): int
+   834                                  ; RPN'ized expression: "c2c primero -> *u cabecera = "
+   835                                  ; Expanded expression: "(@8) *(4) 4 + (@16) *(4) =(4) "
+   836                                  ; Fused expression:    "+ *(@8) 4 =(204) *ax *(@16) "
+   837 000005DF 668B4608                	mov	eax, [bp+8]
+   838 000005E3 6683C004                	add	eax, 4
+   839 000005E7 6689C3                  	mov	ebx, eax
+   840 000005EA 668B4610                	mov	eax, [bp+16]
+   841 000005EE 6689DE                  	mov	esi, ebx
+   842 000005F1 66C1CE04                	ror	esi, 4
+   843 000005F5 8EDE                    	mov	ds, si
+   844 000005F7 66C1EE1C                	shr	esi, 28
+   845 000005FB 668904                  	mov	[si], eax
+   846                                  ; RPN'ized expression: "c2c cabecera -> *u cabecera = "
+   847                                  ; Expanded expression: "(@8) *(4) 8 + (@16) *(4) =(4) "
+   848                                  ; Fused expression:    "+ *(@8) 8 =(204) *ax *(@16) "
+   849 000005FE 668B4608                	mov	eax, [bp+8]
+   850 00000602 6683C008                	add	eax, 8
+   851 00000606 6689C3                  	mov	ebx, eax
+   852 00000609 668B4610                	mov	eax, [bp+16]
+   853 0000060D 6689DE                  	mov	esi, ebx
+   854 00000610 66C1CE04                	ror	esi, 4
+   855 00000614 8EDE                    	mov	ds, si
+   856 00000616 66C1EE1C                	shr	esi, 28
+   857 0000061A 668904                  	mov	[si], eax
+   858                                  ; RPN'ized expression: "c2c numElem -> *u 0 = "
+   859                                  ; Expanded expression: "(@8) *(4) 0 + 0 =(4) "
+   860                                  ; Fused expression:    "+ *(@8) 0 =(204) *ax 0 "
+   861 0000061D 668B4608                	mov	eax, [bp+8]
+   862 00000621 6689C3                  	mov	ebx, eax
+   863 00000624 66B800000000            	mov	eax, 0
+   864 0000062A 6689DE                  	mov	esi, ebx
+   865 0000062D 66C1CE04                	ror	esi, 4
+   866 00000631 8EDE                    	mov	ds, si
+   867 00000633 66C1EE1C                	shr	esi, 28
+   868 00000637 668904                  	mov	[si], eax
+   869                                  ; RPN'ized expression: "c2c e -> *u e = "
+   870                                  ; Expanded expression: "(@8) *(4) 12 + (@12) *(4) =(4) "
+   871                                  ; Fused expression:    "+ *(@8) 12 =(204) *ax *(@12) "
+   872 0000063A 668B4608                	mov	eax, [bp+8]
+   873 0000063E 6683C00C                	add	eax, 12
+   874 00000642 6689C3                  	mov	ebx, eax
+   875 00000645 668B460C                	mov	eax, [bp+12]
+   876 00000649 6689DE                  	mov	esi, ebx
+   877 0000064C 66C1CE04                	ror	esi, 4
+   878 00000650 8EDE                    	mov	ds, si
+   879 00000652 66C1EE1C                	shr	esi, 28
+   880 00000656 668904                  	mov	[si], eax
+   881                                  ; {
+   882                                  ; loc         i : (@-4): int
+   883                                  ; RPN'ized expression: "e cabecera + *u &u sig -> *u cabecera = "
+   884                                  ; Expanded expression: "(@12) *(4) (@16) *(4) 12 * + 0 + (@16) *(4) =(4) "
+   885                                  ; Fused expression:    "* *(@16) 12 + *(@12) ax + ax 0 =(204) *ax *(@16) "
+   886 00000659 668B4610                	mov	eax, [bp+16]
+   887 0000065D 666BC00C                	imul	eax, eax, 12
+   888 00000661 6689C1                  	mov	ecx, eax
+   889 00000664 668B460C                	mov	eax, [bp+12]
+   890 00000668 6601C8                  	add	eax, ecx
+   891 0000066B 6689C3                  	mov	ebx, eax
+   892 0000066E 668B4610                	mov	eax, [bp+16]
+   893 00000672 6689DE                  	mov	esi, ebx
+   894 00000675 66C1CE04                	ror	esi, 4
+   895 00000679 8EDE                    	mov	ds, si
+   896 0000067B 66C1EE1C                	shr	esi, 28
+   897 0000067F 668904                  	mov	[si], eax
+   898                                  ; RPN'ized expression: "e cabecera + *u &u ant -> *u cabecera = "
+   899                                  ; Expanded expression: "(@12) *(4) (@16) *(4) 12 * + 4 + (@16) *(4) =(4) "
+   900                                  ; Fused expression:    "* *(@16) 12 + *(@12) ax + ax 4 =(204) *ax *(@16) "
+   901 00000682 668B4610                	mov	eax, [bp+16]
+   902 00000686 666BC00C                	imul	eax, eax, 12
+   903 0000068A 6689C1                  	mov	ecx, eax
+   904 0000068D 668B460C                	mov	eax, [bp+12]
+   905 00000691 6601C8                  	add	eax, ecx
+   906 00000694 6683C004                	add	eax, 4
+   907 00000698 6689C3                  	mov	ebx, eax
+   908 0000069B 668B4610                	mov	eax, [bp+16]
+   909 0000069F 6689DE                  	mov	esi, ebx
+   910 000006A2 66C1CE04                	ror	esi, 4
+   911 000006A6 8EDE                    	mov	ds, si
+   912 000006A8 66C1EE1C                	shr	esi, 28
+   913 000006AC 668904                  	mov	[si], eax
+   914                                  ; RPN'ized expression: "e cabecera + *u &u cab -> *u cabecera = "
+   915                                  ; Expanded expression: "(@12) *(4) (@16) *(4) 12 * + 8 + (@16) *(4) =(4) "
+   916                                  ; Fused expression:    "* *(@16) 12 + *(@12) ax + ax 8 =(204) *ax *(@16) "
+   917 000006AF 668B4610                	mov	eax, [bp+16]
+   918 000006B3 666BC00C                	imul	eax, eax, 12
+   919 000006B7 6689C1                  	mov	ecx, eax
+   920 000006BA 668B460C                	mov	eax, [bp+12]
+   921 000006BE 6601C8                  	add	eax, ecx
+   922 000006C1 6683C008                	add	eax, 8
+   923 000006C5 6689C3                  	mov	ebx, eax
+   924 000006C8 668B4610                	mov	eax, [bp+16]
+   925 000006CC 6689DE                  	mov	esi, ebx
+   926 000006CF 66C1CE04                	ror	esi, 4
+   927 000006D3 8EDE                    	mov	ds, si
+   928 000006D5 66C1EE1C                	shr	esi, 28
+   929 000006D9 668904                  	mov	[si], eax
+   930                                  ; if
+   931                                  ; RPN'ized expression: "compartida "
+   932                                  ; Expanded expression: "(@20) *(4) "
+   933                                  ; Fused expression:    "*(4) (@20)  "
+   934 000006DC 668B4614                	mov	eax, [bp+20]
+   935                                  ; JumpIfZero
+   936 000006E0 6685C0                  	test	eax, eax
+   937 000006E3 7403                    	je	L35
+   938                                  ; return
+   939 000006E5 E9AA00                  	jmp	L33
+   940                                  L35:
+   941                                  ; for
+   942                                  ; RPN'ized expression: "i 0 = "
+   943                                  ; Expanded expression: "(@-4) 0 =(4) "
+   944                                  ; Fused expression:    "=(204) *(@-4) 0 "
+   945 000006E8 66B800000000            	mov	eax, 0
+   946 000006EE 668946FC                	mov	[bp-4], eax
+   947                                  L37:
+   948                                  ; RPN'ized expression: "i cabecera < "
+   949                                  ; Expanded expression: "(@-4) *(4) (@16) *(4) < "
+   950                                  ; Fused expression:    "< *(@-4) *(@16) IF! "
+   951 000006F2 668B46FC                	mov	eax, [bp-4]
+   952 000006F6 663B4610                	cmp	eax, [bp+16]
+   953 000006FA 0F8D9400                	jge	L40
+   954                                  ; RPN'ized expression: "i ++p "
+   955                                  ; Expanded expression: "(@-4) ++p(4) "
+   956                                  ; {
+   957                                  ; loc             <something> : int
+   958                                  ; RPN'ized expression: "e i + *u &u sig -> *u 1 -u (something41) = "
+   959                                  ; Expanded expression: "(@12) *(4) (@-4) *(4) 12 * + 0 + -1 =(4) "
+   960                                  ; Fused expression:    "* *(@-4) 12 + *(@12) ax + ax 0 =(204) *ax -1 "
+   961 000006FE 668B46FC                	mov	eax, [bp-4]
+   962 00000702 666BC00C                	imul	eax, eax, 12
+   963 00000706 6689C1                  	mov	ecx, eax
+   964 00000709 668B460C                	mov	eax, [bp+12]
+   965 0000070D 6601C8                  	add	eax, ecx
+   966 00000710 6689C3                  	mov	ebx, eax
+   967 00000713 66B8FFFFFFFF            	mov	eax, -1
+   968 00000719 6689DE                  	mov	esi, ebx
+   969 0000071C 66C1CE04                	ror	esi, 4
+   970 00000720 8EDE                    	mov	ds, si
+   971 00000722 66C1EE1C                	shr	esi, 28
+   972 00000726 668904                  	mov	[si], eax
+   973                                  ; loc             <something> : int
+   974                                  ; RPN'ized expression: "e i + *u &u ant -> *u 1 -u (something42) = "
+   975                                  ; Expanded expression: "(@12) *(4) (@-4) *(4) 12 * + 4 + -1 =(4) "
+   976                                  ; Fused expression:    "* *(@-4) 12 + *(@12) ax + ax 4 =(204) *ax -1 "
+   977 00000729 668B46FC                	mov	eax, [bp-4]
+   978 0000072D 666BC00C                	imul	eax, eax, 12
+   979 00000731 6689C1                  	mov	ecx, eax
+   980 00000734 668B460C                	mov	eax, [bp+12]
+   981 00000738 6601C8                  	add	eax, ecx
+   982 0000073B 6683C004                	add	eax, 4
+   983 0000073F 6689C3                  	mov	ebx, eax
+   984 00000742 66B8FFFFFFFF            	mov	eax, -1
+   985 00000748 6689DE                  	mov	esi, ebx
+   986 0000074B 66C1CE04                	ror	esi, 4
+   987 0000074F 8EDE                    	mov	ds, si
+   988 00000751 66C1EE1C                	shr	esi, 28
+   989 00000755 668904                  	mov	[si], eax
+   990                                  ; loc             <something> : int
+   991                                  ; RPN'ized expression: "e i + *u &u cab -> *u 1 -u (something43) = "
+   992                                  ; Expanded expression: "(@12) *(4) (@-4) *(4) 12 * + 8 + -1 =(4) "
+   993                                  ; Fused expression:    "* *(@-4) 12 + *(@12) ax + ax 8 =(204) *ax -1 "
+   994 00000758 668B46FC                	mov	eax, [bp-4]
+   995 0000075C 666BC00C                	imul	eax, eax, 12
+   996 00000760 6689C1                  	mov	ecx, eax
+   997 00000763 668B460C                	mov	eax, [bp+12]
+   998 00000767 6601C8                  	add	eax, ecx
+   999 0000076A 6683C008                	add	eax, 8
+  1000 0000076E 6689C3                  	mov	ebx, eax
+  1001 00000771 66B8FFFFFFFF            	mov	eax, -1
+  1002 00000777 6689DE                  	mov	esi, ebx
+  1003 0000077A 66C1CE04                	ror	esi, 4
+  1004 0000077E 8EDE                    	mov	ds, si
+  1005 00000780 66C1EE1C                	shr	esi, 28
+  1006 00000784 668904                  	mov	[si], eax
+  1007                                  ; }
+  1008                                  L38:
+  1009                                  ; Fused expression:    "++p(4) *(@-4) "
+  1010 00000787 668B46FC                	mov	eax, [bp-4]
+  1011 0000078B 66FF46FC                	inc	dword [bp-4]
+  1012 0000078F E960FF                  	jmp	L37
+  1013                                  L40:
+  1014                                  ; }
+  1015                                  L33:
+  1016 00000792 66                      	db	0x66
+  1017 00000793 C9                      	leave
+  1018 00000794 CB                      	retf
+  1019                                  L44:
+  1020                                  
+  1021                                  section .fxnsz
+  1022 00000014 BF010000                	dd	L44 - _inicializarC2c
+  1023                                  
+  1024                                  
+  1025                                  
+  1026                                  ; Syntax/declaration table/stack:
+  1027                                  ; Bytes used: 1720/40960
+  1028                                  
+  1029                                  
+  1030                                  ; Macro table:
+  1031                                  ; Macro __SMALLER_C__ = `0x0100`
+  1032                                  ; Macro __SMALLER_C_32__ = ``
+  1033                                  ; Macro __HUGE__ = ``
+  1034                                  ; Macro __SMALLER_C_SCHAR__ = ``
+  1035                                  ; Bytes used: 74/5120
+  1036                                  
+  1037                                  
+  1038                                  ; Identifier table:
+  1039                                  ; Ident __floatsisf
+  1040                                  ; Ident __floatunsisf
+  1041                                  ; Ident __fixsfsi
+  1042                                  ; Ident __fixunssfsi
+  1043                                  ; Ident __addsf3
+  1044                                  ; Ident __subsf3
+  1045                                  ; Ident __negsf2
+  1046                                  ; Ident __mulsf3
+  1047                                  ; Ident __divsf3
+  1048                                  ; Ident __lesf2
+  1049                                  ; Ident __gesf2
+  1050                                  ; Ident intptr_t
+  1051                                  ; Ident uintptr_t
+  1052                                  ; Ident intmax_t
+  1053                                  ; Ident uintmax_t
+  1054                                  ; Ident int8_t
+  1055                                  ; Ident int_least8_t
+  1056                                  ; Ident int_fast8_t
+  1057                                  ; Ident uint8_t
+  1058                                  ; Ident uint_least8_t
+  1059                                  ; Ident uint_fast8_t
+  1060                                  ; Ident int16_t
+  1061                                  ; Ident int_least16_t
+  1062                                  ; Ident int_fast16_t
+  1063                                  ; Ident uint16_t
+  1064                                  ; Ident uint_least16_t
+  1065                                  ; Ident uint_fast16_t
+  1066                                  ; Ident int32_t
+  1067                                  ; Ident int_least32_t
+  1068                                  ; Ident int_fast32_t
+  1069                                  ; Ident uint32_t
+  1070                                  ; Ident uint_least32_t
+  1071                                  ; Ident uint_fast32_t
+  1072                                  ; Ident <something>
+  1073                                  ; Ident quot
+  1074                                  ; Ident rem
+  1075                                  ; Ident imaxdiv_t
+  1076                                  ; Ident FALSE
+  1077                                  ; Ident TRUE
+  1078                                  ; Ident bool_t
+  1079                                  ; Ident pointer_t
+  1080                                  ; Ident funcion_t
+  1081                                  ; Ident manejador_t
+  1082                                  ; Ident rti_t
+  1083                                  ; Ident isr_t
+  1084                                  ; Ident handler_t
+  1085                                  ; Ident retardarThread_t
+  1086                                  ; Ident ptrTVI_t
+  1087                                  ; Ident modoSO1_Bin
+  1088                                  ; Ident modoSO1_Exe
+  1089                                  ; Ident modoSO1_Bs
+  1090                                  ; Ident modoSO1_t
+  1091                                  ; Ident lo
+  1092                                  ; Ident hi
+  1093                                  ; Ident lh_t
+  1094                                  ; Ident offset
+  1095                                  ; Ident segment
+  1096                                  ; Ident address_t
+  1097                                  ; Ident ptr
+  1098                                  ; Ident adr
+  1099                                  ; Ident uPtrAdr_t
+  1100                                  ; Ident pid_t
+  1101                                  ; Ident tid_t
+  1102                                  ; Ident uid_t
+  1103                                  ; Ident gid_t
+  1104                                  ; Ident pindx_t
+  1105                                  ; Ident tindx_t
+  1106                                  ; Ident df_t
+  1107                                  ; Ident dfs_t
+  1108                                  ; Ident rindx_t
+  1109                                  ; Ident sig
+  1110                                  ; Ident ant
+  1111                                  ; Ident cab
+  1112                                  ; Ident dobleEnlace_t
+  1113                                  ; Ident numElem
+  1114                                  ; Ident primero
+  1115                                  ; Ident cabecera
+  1116                                  ; Ident e
+  1117                                  ; Ident c2c_t
+  1118                                  ; Ident posicionC2c
+  1119                                  ; Ident i
+  1120                                  ; Ident c2c
+  1121                                  ; Ident eliminarC2c
+  1122                                  ; Ident apilarC2c
+  1123                                  ; Ident encolarC2c
+  1124                                  ; Ident desencolarC2c
+  1125                                  ; Ident inicializarC2c
+  1126                                  ; Ident compartida
+  1127                                  ; Bytes used: 886/16384
+  1128                                  
+  1129                                  ; Next label number: 45
+  1130                                  ; Compilation succeeded.

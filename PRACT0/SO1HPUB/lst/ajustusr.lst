@@ -1,0 +1,69 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb _start : (void) void
+     4                                  ; glb __start__ : (void) void
+     5                                  ; glb main : (void) void
+     6                                  ; glb finProceso : (void) void
+     7                                  ; glb finThread : (void) void
+     8                                  ; glb __start__ : (void) void
+     9                                  section .text
+    10                                  	global	___start__
+    11                                  ___start__:
+    12 00000000 6655                    	push	ebp
+    13 00000002 660FB7EC                	movzx	ebp, sp
+    14                                  	;sub	sp,          0
+    15                                  ; RPN'ized expression: "( main ) "
+    16                                  ; Expanded expression: " main ()0 "
+    17                                  ; Fused expression:    "( main )0 "
+    18 00000006 9A                      	db	0x9A
+    19                                  section .relot
+    20 00000000 [07000000]              	dd	L3
+    21                                  section .text
+    22                                  L3:
+    23 00000007 [00000000]              	dd	_main
+    24                                  L1:
+    25 0000000B 66                      	db	0x66
+    26 0000000C C9                      	leave
+    27 0000000D CB                      	retf
+    28                                  L4:
+    29                                  
+    30                                  section .fxnsz noalloc
+    31 00000000 0E000000                	dd	L4 - ___start__
+    32                                  
+    33                                  
+    34                                  	extern	_main
+    35                                  
+    36                                  ; Syntax/declaration table/stack:
+    37                                  ; Bytes used: 230/40960
+    38                                  
+    39                                  
+    40                                  ; Macro table:
+    41                                  ; Macro __SMALLER_C__ = `0x0100`
+    42                                  ; Macro __SMALLER_C_32__ = ``
+    43                                  ; Macro __HUGE__ = ``
+    44                                  ; Macro __SMALLER_C_SCHAR__ = ``
+    45                                  ; Bytes used: 74/5120
+    46                                  
+    47                                  
+    48                                  ; Identifier table:
+    49                                  ; Ident __floatsisf
+    50                                  ; Ident __floatunsisf
+    51                                  ; Ident __fixsfsi
+    52                                  ; Ident __fixunssfsi
+    53                                  ; Ident __addsf3
+    54                                  ; Ident __subsf3
+    55                                  ; Ident __negsf2
+    56                                  ; Ident __mulsf3
+    57                                  ; Ident __divsf3
+    58                                  ; Ident __lesf2
+    59                                  ; Ident __gesf2
+    60                                  ; Ident _start
+    61                                  ; Ident <something>
+    62                                  ; Ident __start__
+    63                                  ; Ident main
+    64                                  ; Ident finProceso
+    65                                  ; Ident finThread
+    66                                  ; Bytes used: 182/16384
+    67                                  
+    68                                  ; Next label number: 5
+    69                                  ; Compilation succeeded.

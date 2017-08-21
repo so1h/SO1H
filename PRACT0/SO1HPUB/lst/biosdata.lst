@@ -1,0 +1,318 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb HWLIST_t : unsigned short
+    51                                  ; glb KBDFLAGS_t : unsigned short
+    52                                  ; glb KBDSTATUS_t : unsigned short
+    53                                  ; glb VIDEOCONTROL_t : unsigned char
+    54                                  ; glb DRECSTATUS_t : unsigned char
+    55                                  ; glb DMOTORSTATUS_t : unsigned char
+    56                                  ; glb FDOPSTATUS_t : unsigned char
+    57                                  ; glb VIDEOSWITCHES_t : unsigned char
+    58                                  ; glb VGAOPTIONS_t : unsigned char
+    59                                  ; glb VIDEOSAVETBL_t : struct <something>
+    60                                  ; RPN'ized expression: "4 "
+    61                                  ; Expanded expression: "4 "
+    62                                  ; Expression value: 4
+    63                                  ; RPN'ized expression: "25 "
+    64                                  ; Expanded expression: "25 "
+    65                                  ; Expression value: 25
+    66                                  ; RPN'ized expression: "20 "
+    67                                  ; Expanded expression: "20 "
+    68                                  ; Expression value: 20
+    69                                  ; RPN'ized expression: "9 "
+    70                                  ; Expanded expression: "9 "
+    71                                  ; Expression value: 9
+    72                                  ; glb VIDEOPARAM_t : struct <something>
+    73                                  ; RPN'ized expression: "256 "
+    74                                  ; Expanded expression: "256 "
+    75                                  ; Expression value: 256
+    76                                  ; RPN'ized expression: "4 "
+    77                                  ; Expanded expression: "4 "
+    78                                  ; Expression value: 4
+    79                                  ; RPN'ized expression: "3 "
+    80                                  ; Expanded expression: "3 "
+    81                                  ; Expression value: 3
+    82                                  ; RPN'ized expression: "16 "
+    83                                  ; Expanded expression: "16 "
+    84                                  ; Expression value: 16
+    85                                  ; RPN'ized expression: "7 "
+    86                                  ; Expanded expression: "7 "
+    87                                  ; Expression value: 7
+    88                                  ; RPN'ized expression: "8 "
+    89                                  ; Expanded expression: "8 "
+    90                                  ; Expression value: 8
+    91                                  ; RPN'ized expression: "2 "
+    92                                  ; Expanded expression: "2 "
+    93                                  ; Expression value: 2
+    94                                  ; RPN'ized expression: "2 "
+    95                                  ; Expanded expression: "2 "
+    96                                  ; Expression value: 2
+    97                                  ; RPN'ized expression: "5 "
+    98                                  ; Expanded expression: "5 "
+    99                                  ; Expression value: 5
+   100                                  ; RPN'ized expression: "2 "
+   101                                  ; Expanded expression: "2 "
+   102                                  ; Expression value: 2
+   103                                  ; RPN'ized expression: "3 "
+   104                                  ; Expanded expression: "3 "
+   105                                  ; Expression value: 3
+   106                                  ; RPN'ized expression: "4 "
+   107                                  ; Expanded expression: "4 "
+   108                                  ; Expression value: 4
+   109                                  ; RPN'ized expression: "11 "
+   110                                  ; Expanded expression: "11 "
+   111                                  ; Expression value: 11
+   112                                  ; RPN'ized expression: "7 "
+   113                                  ; Expanded expression: "7 "
+   114                                  ; Expression value: 7
+   115                                  ; RPN'ized expression: "68 "
+   116                                  ; Expanded expression: "68 "
+   117                                  ; Expression value: 68
+   118                                  ; RPN'ized expression: "16 "
+   119                                  ; Expanded expression: "16 "
+   120                                  ; Expression value: 16
+   121                                  ; glb BIOSAREA_t : struct <something>
+   122                                  ; glb ptrBiosArea : * struct <something>
+   123                                  ; glb ptrFechaBios : * unsigned char
+   124                                  ; glb ptrBiosArea : * struct <something>
+   125                                  section .data
+   126                                  	align 4
+   127                                  	global	_ptrBiosArea
+   128                                  _ptrBiosArea:
+   129                                  ; =
+   130                                  ; RPN'ized expression: "0 "
+   131                                  ; Expanded expression: "0 "
+   132                                  ; Expression value: 0
+   133 00000000 00000000                	dd	0
+   134                                  
+   135                                  ; glb ptrFechaBios : * unsigned char
+   136                                  section .data
+   137                                  	align 4
+   138                                  	global	_ptrFechaBios
+   139                                  _ptrFechaBios:
+   140                                  ; =
+   141                                  ; glb <something> : * unsigned char
+   142                                  ; RPN'ized expression: "1048565 (something1) "
+   143                                  ; Expanded expression: "1048565 "
+   144 00000004 F5FF0F00                	dd	1048565
+   145                                  
+   146                                  
+   147                                  
+   148                                  ; Syntax/declaration table/stack:
+   149                                  ; Bytes used: 2655/40960
+   150                                  
+   151                                  
+   152                                  ; Macro table:
+   153                                  ; Macro __SMALLER_C__ = `0x0100`
+   154                                  ; Macro __SMALLER_C_32__ = ``
+   155                                  ; Macro __HUGE__ = ``
+   156                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   157                                  ; Bytes used: 74/5120
+   158                                  
+   159                                  
+   160                                  ; Identifier table:
+   161                                  ; Ident __floatsisf
+   162                                  ; Ident __floatunsisf
+   163                                  ; Ident __fixsfsi
+   164                                  ; Ident __fixunssfsi
+   165                                  ; Ident __addsf3
+   166                                  ; Ident __subsf3
+   167                                  ; Ident __negsf2
+   168                                  ; Ident __mulsf3
+   169                                  ; Ident __divsf3
+   170                                  ; Ident __lesf2
+   171                                  ; Ident __gesf2
+   172                                  ; Ident intptr_t
+   173                                  ; Ident uintptr_t
+   174                                  ; Ident intmax_t
+   175                                  ; Ident uintmax_t
+   176                                  ; Ident int8_t
+   177                                  ; Ident int_least8_t
+   178                                  ; Ident int_fast8_t
+   179                                  ; Ident uint8_t
+   180                                  ; Ident uint_least8_t
+   181                                  ; Ident uint_fast8_t
+   182                                  ; Ident int16_t
+   183                                  ; Ident int_least16_t
+   184                                  ; Ident int_fast16_t
+   185                                  ; Ident uint16_t
+   186                                  ; Ident uint_least16_t
+   187                                  ; Ident uint_fast16_t
+   188                                  ; Ident int32_t
+   189                                  ; Ident int_least32_t
+   190                                  ; Ident int_fast32_t
+   191                                  ; Ident uint32_t
+   192                                  ; Ident uint_least32_t
+   193                                  ; Ident uint_fast32_t
+   194                                  ; Ident <something>
+   195                                  ; Ident quot
+   196                                  ; Ident rem
+   197                                  ; Ident imaxdiv_t
+   198                                  ; Ident FALSE
+   199                                  ; Ident TRUE
+   200                                  ; Ident bool_t
+   201                                  ; Ident pointer_t
+   202                                  ; Ident funcion_t
+   203                                  ; Ident manejador_t
+   204                                  ; Ident rti_t
+   205                                  ; Ident isr_t
+   206                                  ; Ident handler_t
+   207                                  ; Ident retardarThread_t
+   208                                  ; Ident ptrTVI_t
+   209                                  ; Ident modoSO1_Bin
+   210                                  ; Ident modoSO1_Exe
+   211                                  ; Ident modoSO1_Bs
+   212                                  ; Ident modoSO1_t
+   213                                  ; Ident lo
+   214                                  ; Ident hi
+   215                                  ; Ident lh_t
+   216                                  ; Ident offset
+   217                                  ; Ident segment
+   218                                  ; Ident address_t
+   219                                  ; Ident ptr
+   220                                  ; Ident adr
+   221                                  ; Ident uPtrAdr_t
+   222                                  ; Ident pid_t
+   223                                  ; Ident tid_t
+   224                                  ; Ident uid_t
+   225                                  ; Ident gid_t
+   226                                  ; Ident pindx_t
+   227                                  ; Ident tindx_t
+   228                                  ; Ident df_t
+   229                                  ; Ident dfs_t
+   230                                  ; Ident rindx_t
+   231                                  ; Ident HWLIST_t
+   232                                  ; Ident KBDFLAGS_t
+   233                                  ; Ident KBDSTATUS_t
+   234                                  ; Ident VIDEOCONTROL_t
+   235                                  ; Ident DRECSTATUS_t
+   236                                  ; Ident DMOTORSTATUS_t
+   237                                  ; Ident FDOPSTATUS_t
+   238                                  ; Ident VIDEOSWITCHES_t
+   239                                  ; Ident VGAOPTIONS_t
+   240                                  ; Ident VIDEO_paramtbl
+   241                                  ; Ident VIDEO_dynsavearea
+   242                                  ; Ident VIDEO_text_charset
+   243                                  ; Ident VIDEO_graph_charset
+   244                                  ; Ident VIDEO_savetbl2
+   245                                  ; Ident VIDEOSAVETBL_t
+   246                                  ; Ident VPARAM_width
+   247                                  ; Ident VPARAM_height
+   248                                  ; Ident VPARAM_hchar
+   249                                  ; Ident VPARAM_pagesize
+   250                                  ; Ident VPARAM_SEQC
+   251                                  ; Ident VPARAM_MISC
+   252                                  ; Ident VPARAM_CRTC
+   253                                  ; Ident VPARAM_ATC
+   254                                  ; Ident VPARAM_GRC
+   255                                  ; Ident VIDEOPARAM_t
+   256                                  ; Ident IVT
+   257                                  ; Ident COM_base
+   258                                  ; Ident LPT_base
+   259                                  ; Ident XBDA_seg
+   260                                  ; Ident HW_list
+   261                                  ; Ident relleno1
+   262                                  ; Ident basemem_K
+   263                                  ; Ident relleno2
+   264                                  ; Ident KBD_flags
+   265                                  ; Ident relleno3
+   266                                  ; Ident KBD_bufhead
+   267                                  ; Ident KBD_buftail
+   268                                  ; Ident KBD_buffer
+   269                                  ; Ident dRecStatus
+   270                                  ; Ident dMotorStatus
+   271                                  ; Ident motorShutoffCounter
+   272                                  ; Ident fdOpStatus
+   273                                  ; Ident relleno4
+   274                                  ; Ident VIDEO_mode
+   275                                  ; Ident VIDEO_width
+   276                                  ; Ident VIDEO_pagesize
+   277                                  ; Ident VIDEO_pageoff
+   278                                  ; Ident CURSOR_pos
+   279                                  ; Ident CURSOR_shape
+   280                                  ; Ident VIDEO_pagActiva
+   281                                  ; Ident CRTC_base
+   282                                  ; Ident CRT_MODE
+   283                                  ; Ident CRT_PALETTE
+   284                                  ; Ident relleno5
+   285                                  ; Ident BIOS_timer
+   286                                  ; Ident BIOS_overflow
+   287                                  ; Ident BIOS_ctrlbreak
+   288                                  ; Ident BIOS_POSTreset
+   289                                  ; Ident relleno6
+   290                                  ; Ident BIOS_HD_cnt
+   291                                  ; Ident relleno7
+   292                                  ; Ident LPT_timeout
+   293                                  ; Ident BIOS_4B_flags
+   294                                  ; Ident COM_timeout
+   295                                  ; Ident KBD_start
+   296                                  ; Ident KBD_end1
+   297                                  ; Ident VIDEO_lastrow
+   298                                  ; Ident VIDEO_hchar
+   299                                  ; Ident VIDEO_control
+   300                                  ; Ident VIDEO_switches
+   301                                  ; Ident VGA_options
+   302                                  ; Ident VGA_DCC_index
+   303                                  ; Ident relleno8
+   304                                  ; Ident KBD_status
+   305                                  ; Ident TIMER_waitflag
+   306                                  ; Ident TIMER_waitmks
+   307                                  ; Ident TIMER_active
+   308                                  ; Ident relleno9
+   309                                  ; Ident VIDEO_ptrtable
+   310                                  ; Ident relleno10
+   311                                  ; Ident IAC
+   312                                  ; Ident BIOSAREA_t
+   313                                  ; Ident ptrBiosArea
+   314                                  ; Ident ptrFechaBios
+   315                                  ; Bytes used: 1824/16384
+   316                                  
+   317                                  ; Next label number: 2
+   318                                  ; Compilation succeeded.

@@ -1,0 +1,2557 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb startBin : (void) void
+    51                                  ; glb modoSO1 : (void) int
+    52                                  ; glb unidadBIOS : (void) unsigned char
+    53                                  ; glb CS_SO1H : unsigned short
+    54                                  ; glb RO_SO1H : unsigned short
+    55                                  ; glb DS_SO1H : unsigned short
+    56                                  ; glb BSS_SO1H : unsigned short
+    57                                  ; glb SS_SO1H : unsigned short
+    58                                  ; glb SS_Kernel : unsigned short
+    59                                  ; glb IMRInicial : unsigned short
+    60                                  ; glb obtenerMapa : (void) void
+    61                                  ; glb HWLIST_t : unsigned short
+    62                                  ; glb KBDFLAGS_t : unsigned short
+    63                                  ; glb KBDSTATUS_t : unsigned short
+    64                                  ; glb VIDEOCONTROL_t : unsigned char
+    65                                  ; glb DRECSTATUS_t : unsigned char
+    66                                  ; glb DMOTORSTATUS_t : unsigned char
+    67                                  ; glb FDOPSTATUS_t : unsigned char
+    68                                  ; glb VIDEOSWITCHES_t : unsigned char
+    69                                  ; glb VGAOPTIONS_t : unsigned char
+    70                                  ; glb VIDEOSAVETBL_t : struct <something>
+    71                                  ; RPN'ized expression: "4 "
+    72                                  ; Expanded expression: "4 "
+    73                                  ; Expression value: 4
+    74                                  ; RPN'ized expression: "25 "
+    75                                  ; Expanded expression: "25 "
+    76                                  ; Expression value: 25
+    77                                  ; RPN'ized expression: "20 "
+    78                                  ; Expanded expression: "20 "
+    79                                  ; Expression value: 20
+    80                                  ; RPN'ized expression: "9 "
+    81                                  ; Expanded expression: "9 "
+    82                                  ; Expression value: 9
+    83                                  ; glb VIDEOPARAM_t : struct <something>
+    84                                  ; RPN'ized expression: "256 "
+    85                                  ; Expanded expression: "256 "
+    86                                  ; Expression value: 256
+    87                                  ; RPN'ized expression: "4 "
+    88                                  ; Expanded expression: "4 "
+    89                                  ; Expression value: 4
+    90                                  ; RPN'ized expression: "3 "
+    91                                  ; Expanded expression: "3 "
+    92                                  ; Expression value: 3
+    93                                  ; RPN'ized expression: "16 "
+    94                                  ; Expanded expression: "16 "
+    95                                  ; Expression value: 16
+    96                                  ; RPN'ized expression: "7 "
+    97                                  ; Expanded expression: "7 "
+    98                                  ; Expression value: 7
+    99                                  ; RPN'ized expression: "8 "
+   100                                  ; Expanded expression: "8 "
+   101                                  ; Expression value: 8
+   102                                  ; RPN'ized expression: "2 "
+   103                                  ; Expanded expression: "2 "
+   104                                  ; Expression value: 2
+   105                                  ; RPN'ized expression: "2 "
+   106                                  ; Expanded expression: "2 "
+   107                                  ; Expression value: 2
+   108                                  ; RPN'ized expression: "5 "
+   109                                  ; Expanded expression: "5 "
+   110                                  ; Expression value: 5
+   111                                  ; RPN'ized expression: "2 "
+   112                                  ; Expanded expression: "2 "
+   113                                  ; Expression value: 2
+   114                                  ; RPN'ized expression: "3 "
+   115                                  ; Expanded expression: "3 "
+   116                                  ; Expression value: 3
+   117                                  ; RPN'ized expression: "4 "
+   118                                  ; Expanded expression: "4 "
+   119                                  ; Expression value: 4
+   120                                  ; RPN'ized expression: "11 "
+   121                                  ; Expanded expression: "11 "
+   122                                  ; Expression value: 11
+   123                                  ; RPN'ized expression: "7 "
+   124                                  ; Expanded expression: "7 "
+   125                                  ; Expression value: 7
+   126                                  ; RPN'ized expression: "68 "
+   127                                  ; Expanded expression: "68 "
+   128                                  ; Expression value: 68
+   129                                  ; RPN'ized expression: "16 "
+   130                                  ; Expanded expression: "16 "
+   131                                  ; Expression value: 16
+   132                                  ; glb BIOSAREA_t : struct <something>
+   133                                  ; glb ptrBiosArea : * struct <something>
+   134                                  ; glb ptrFechaBios : * unsigned char
+   135                                  ; glb salvarPantallaInicial : (void) void
+   136                                  ; glb restaurarPantallaInicial : (void) void
+   137                                  ; glb finProgDOS : (
+   138                                  ; prm     error : int
+   139                                  ;     ) void
+   140                                  ; RPN'ized expression: "21 "
+   141                                  ; Expanded expression: "21 "
+   142                                  ; Expression value: 21
+   143                                  ; RPN'ized expression: "13 "
+   144                                  ; Expanded expression: "13 "
+   145                                  ; Expression value: 13
+   146                                  ; glb hayMSDOS : (void) int
+   147                                  ; glb hayDOSBox : (void) int
+   148                                  ; glb hayWindowsNT : (void) int
+   149                                  ; glb segPSP : (void) unsigned short
+   150                                  ; glb versionMSDOS : (void) unsigned short
+   151                                  ; glb entornoMSDOS : (void) * unsigned char
+   152                                  ; glb valorMSDOS : (
+   153                                  ; prm     str : * char
+   154                                  ;     ) * unsigned char
+   155                                  ; glb argcMSDOS : (void) int
+   156                                  ; glb getArgvMSDOS : (
+   157                                  ; prm     n : unsigned short
+   158                                  ; prm     str : * char
+   159                                  ;     ) int
+   160                                  ; glb openDOS : (
+   161                                  ; prm     nombre : * unsigned char
+   162                                  ; prm     modo : unsigned char
+   163                                  ;     ) int
+   164                                  ; glb extendedOpenDOS : (
+   165                                  ; prm     nombre : * unsigned char
+   166                                  ; prm     modo : unsigned short
+   167                                  ; prm     atr : unsigned short
+   168                                  ; prm     accion : * unsigned short
+   169                                  ; prm     error : * unsigned short
+   170                                  ;     ) int
+   171                                  ; glb closeDOS : (
+   172                                  ; prm     df : int
+   173                                  ;     ) int
+   174                                  ; glb commitFileDOS : (
+   175                                  ; prm     df : int
+   176                                  ;     ) int
+   177                                  ; glb createDOS : (
+   178                                  ; prm     nombre : * unsigned char
+   179                                  ; prm     atributo : unsigned short
+   180                                  ;     ) int
+   181                                  ; glb readDOS : (
+   182                                  ; prm     df : int
+   183                                  ; prm     buf : * char
+   184                                  ; prm     n : int
+   185                                  ;     ) int
+   186                                  ; glb writeDOS : (
+   187                                  ; prm     df : int
+   188                                  ; prm     buf : * char
+   189                                  ; prm     n : int
+   190                                  ;     ) int
+   191                                  ; glb lseekDOS : (
+   192                                  ; prm     df : int
+   193                                  ; prm     pos : * unsigned
+   194                                  ; prm     whence : int
+   195                                  ;     ) int
+   196                                  ; glb getdiskDOS : (void) int
+   197                                  ; glb setdiskDOS : (
+   198                                  ; prm     drive : int
+   199                                  ;     ) int
+   200                                  ; glb getcurdirDOS : (
+   201                                  ; prm     drive : int
+   202                                  ; prm     direc : * char
+   203                                  ;     ) int
+   204                                  ; glb chdirDOS : (
+   205                                  ; prm     path : * char
+   206                                  ;     ) int
+   207                                  ; glb findfirstDOS : (
+   208                                  ; prm     pathname : * char
+   209                                  ; prm     ffblk : * struct ffblk
+   210                                  ; prm     attrib : int
+   211                                  ;     ) int
+   212                                  ; glb findnextDOS : (
+   213                                  ; prm     ffblk : * struct ffblk
+   214                                  ;     ) int
+   215                                  ; glb tipoOrdenador : (void) unsigned char
+   216                                  ; glb rebootLegacy : (void) void
+   217                                  ; glb tipoTeclado : (void) unsigned char
+   218                                  ; glb leerTeclaBIOS : (void) unsigned short
+   219                                  ; glb leerTeclaExtBIOS : (void) unsigned short
+   220                                  ; glb teclaListaBIOS : (void) unsigned short
+   221                                  ; glb leerTeclaListaBDA : (void) unsigned short
+   222                                  ; glb teclaListaBDA : (void) unsigned short
+   223                                  ; glb printCarBIOS : (
+   224                                  ; prm     car : char
+   225                                  ;     ) int
+   226                                  ; glb printCarPagBIOS : (
+   227                                  ; prm     car : char
+   228                                  ; prm     pag : unsigned char
+   229                                  ;     ) int
+   230                                  ; glb printCarAtrPagBIOS : (
+   231                                  ; prm     car : char
+   232                                  ; prm     atr : unsigned char
+   233                                  ; prm     pag : unsigned char
+   234                                  ;     ) int
+   235                                  ; glb printLnBIOS : (void) int
+   236                                  ; glb printStrBIOS : (
+   237                                  ; prm     str : * char
+   238                                  ;     ) int
+   239                                  ; glb printStrHastaBIOS : (
+   240                                  ; prm     str : * char
+   241                                  ; prm     n : unsigned short
+   242                                  ; prm     lleno : int
+   243                                  ;     ) int
+   244                                  ; glb printDecBIOS : (
+   245                                  ; prm     num : unsigned short
+   246                                  ; prm     l : unsigned short
+   247                                  ;     ) int
+   248                                  ; glb printLDecBIOS : (
+   249                                  ; prm     num : unsigned
+   250                                  ; prm     l : unsigned short
+   251                                  ;     ) int
+   252                                  ; glb printIntBIOS : (
+   253                                  ; prm     num : short
+   254                                  ; prm     l : unsigned short
+   255                                  ;     ) int
+   256                                  ; glb printLIntBIOS : (
+   257                                  ; prm     num : int
+   258                                  ; prm     l : unsigned short
+   259                                  ;     ) int
+   260                                  ; glb printHexBIOS : (
+   261                                  ; prm     num : unsigned short
+   262                                  ; prm     l : unsigned short
+   263                                  ;     ) int
+   264                                  ; glb printLHexBIOS : (
+   265                                  ; prm     num : unsigned
+   266                                  ; prm     l : unsigned short
+   267                                  ;     ) int
+   268                                  ; glb printBinBIOS : (
+   269                                  ; prm     num : unsigned short
+   270                                  ; prm     l : unsigned short
+   271                                  ;     ) int
+   272                                  ; glb printLBinBIOS : (
+   273                                  ; prm     num : unsigned
+   274                                  ; prm     l : unsigned short
+   275                                  ;     ) int
+   276                                  ; glb printPtrBIOS : (
+   277                                  ; prm     ptr : * unsigned char
+   278                                  ;     ) int
+   279                                  ; glb printByteBIOS : (
+   280                                  ; prm     b : unsigned char
+   281                                  ;     ) int
+   282                                  ; glb printWordBIOS : (
+   283                                  ; prm     w : unsigned short
+   284                                  ;     ) int
+   285                                  ; glb printCadBIOS : (
+   286                                  ; prm     cad : * char
+   287                                  ;     ) int
+   288                                  ; glb esperarTicsBIOS : (
+   289                                  ; prm     tics : unsigned short
+   290                                  ;     ) void
+   291                                  ; glb modoDeVideo : (void) unsigned char
+   292                                  ; glb establecerModoDeVideo : (
+   293                                  ; prm     modo : unsigned char
+   294                                  ;     ) void
+   295                                  ; glb paginaActiva : (void) unsigned char
+   296                                  ; glb establecerPaginaActiva : (
+   297                                  ; prm     num : unsigned char
+   298                                  ;     ) void
+   299                                  ; glb numPagsVideo : (void) unsigned char
+   300                                  ; glb scrollPagBDA : (
+   301                                  ; prm     numLineas : unsigned char
+   302                                  ; prm     pag : unsigned char
+   303                                  ;     ) void
+   304                                  ; glb scrollPagBIOS : (
+   305                                  ; prm     numLineas : unsigned char
+   306                                  ; prm     pag : unsigned char
+   307                                  ;     ) void
+   308                                  ; glb scrollBIOS : (
+   309                                  ; prm     numLineas : unsigned char
+   310                                  ;     ) void
+   311                                  ; glb goToXYPag : (
+   312                                  ; prm     fila : unsigned char
+   313                                  ; prm     columna : unsigned char
+   314                                  ; prm     pag : unsigned char
+   315                                  ;     ) void
+   316                                  ; glb goToXYBIOS : (
+   317                                  ; prm     fila : unsigned char
+   318                                  ; prm     columna : unsigned char
+   319                                  ;     ) void
+   320                                  ; glb setCursorBIOS : (
+   321                                  ; prm     linea1 : unsigned char
+   322                                  ; prm     linea2 : unsigned char
+   323                                  ;     ) void
+   324                                  ; glb ocultaCursorBIOS : (void) void
+   325                                  ; glb readXYPagBIOS : (
+   326                                  ; prm     fila : * unsigned char
+   327                                  ; prm     columna : * unsigned char
+   328                                  ; prm     linea1 : * unsigned char
+   329                                  ; prm     linea2 : * unsigned char
+   330                                  ; prm     pag : unsigned char
+   331                                  ;     ) void
+   332                                  ; glb readXYBIOS : (
+   333                                  ; prm     fila : * unsigned char
+   334                                  ; prm     columna : * unsigned char
+   335                                  ; prm     linea1 : * unsigned char
+   336                                  ; prm     linea2 : * unsigned char
+   337                                  ;     ) void
+   338                                  ; glb memBIOS : (void) unsigned short
+   339                                  ; glb enviarBIOS : (
+   340                                  ; prm     car : char
+   341                                  ;     ) void
+   342                                  ; glb recibirBIOS : (void) char
+   343                                  ; glb hayApmBIOS : (
+   344                                  ; prm     version : * unsigned short
+   345                                  ;     ) int
+   346                                  ; glb connectApmBIOS : (void) int
+   347                                  ; glb disconnectApmBIOS : (void) int
+   348                                  ; glb cpuIdleBIOS : (void) void
+   349                                  ; glb cpuBusyBIOS : (void) void
+   350                                  ; glb pos_t : struct <something>
+   351                                  ; RPN'ized expression: "50 "
+   352                                  ; Expanded expression: "50 "
+   353                                  ; Expression value: 50
+   354                                  ; RPN'ized expression: "80 "
+   355                                  ; Expanded expression: "80 "
+   356                                  ; Expression value: 80
+   357                                  ; glb pantalla_t : union <something>
+   358                                  ; glb tamPantalla : (
+   359                                  ; prm     numFilas : unsigned char
+   360                                  ;     ) unsigned short
+   361                                  ; glb pantallazo : (
+   362                                  ; prm     pantalla : * union <something>
+   363                                  ; prm     numFilas : unsigned short
+   364                                  ; prm     car : char
+   365                                  ; prm     atr : char
+   366                                  ; prm     esqSupDeF : unsigned char
+   367                                  ; prm     esqSupDeC : unsigned char
+   368                                  ; prm     esqInfIzF : unsigned char
+   369                                  ; prm     esqInfIzC : unsigned char
+   370                                  ;     ) void
+   371                                  ; glb borrarPantalla : (
+   372                                  ; prm     pantalla : * union <something>
+   373                                  ; prm     numFilas : unsigned short
+   374                                  ;     ) void
+   375                                  ; glb borrarCPantalla : (
+   376                                  ; prm     pantalla : * union <something>
+   377                                  ; prm     numFilas : unsigned short
+   378                                  ;     ) void
+   379                                  ; glb copiarPantalla : (
+   380                                  ; prm     p1 : * union <something>
+   381                                  ; prm     p2 : * union <something>
+   382                                  ; prm     numFilas : unsigned short
+   383                                  ;     ) void
+   384                                  ; glb copiarCPantalla : (
+   385                                  ; prm     p1 : * union <something>
+   386                                  ; prm     p2 : * union <something>
+   387                                  ; prm     numFilas : unsigned short
+   388                                  ;     ) void
+   389                                  ; glb scrollPantalla : (
+   390                                  ; prm     pantalla : * union <something>
+   391                                  ; prm     numFilas : unsigned short
+   392                                  ;     ) void
+   393                                  ; glb scrollCPantalla : (
+   394                                  ; prm     pantalla : * union <something>
+   395                                  ; prm     numFilas : unsigned short
+   396                                  ;     ) void
+   397                                  ; RPN'ized expression: "4 "
+   398                                  ; Expanded expression: "4 "
+   399                                  ; Expression value: 4
+   400                                  ; RPN'ized expression: "7 "
+   401                                  ; Expanded expression: "7 "
+   402                                  ; Expression value: 7
+   403                                  ; RPN'ized expression: "10 "
+   404                                  ; Expanded expression: "10 "
+   405                                  ; Expression value: 10
+   406                                  ; RPN'ized expression: "48 "
+   407                                  ; Expanded expression: "48 "
+   408                                  ; Expression value: 48
+   409                                  ; glb tipoAdaptador_t : int
+   410                                  ; RPN'ized expression: "8 "
+   411                                  ; Expanded expression: "8 "
+   412                                  ; Expression value: 8
+   413                                  ; RPN'ized expression: "14 "
+   414                                  ; Expanded expression: "14 "
+   415                                  ; Expression value: 14
+   416                                  ; glb fontSize_t : int
+   417                                  ; glb numFilas : unsigned char
+   418                                  ; glb numColumnas : unsigned char
+   419                                  ; glb ptrPant : * union <something>
+   420                                  ; glb tipoAdaptador : int
+   421                                  ; glb redimensionable : int
+   422                                  ; glb fontSize : unsigned char
+   423                                  ; glb visibilidad : unsigned char
+   424                                  ; glb inicBiosCrt : (void) void
+   425                                  ; glb finBiosCrt : (void) void
+   426                                  ; glb getFontSize : (void) int
+   427                                  ; glb getFilas : (void) unsigned char
+   428                                  ; glb comprobarAdaptador : (
+   429                                  ; prm     tipoAdaptador : int
+   430                                  ;     ) int
+   431                                  ; glb tipoDeAdaptador : (void) int
+   432                                  ; glb setCursorVisibilidad : (
+   433                                  ; prm     valorDeVisibilidad : int
+   434                                  ;     ) unsigned char
+   435                                  ; glb setFontSize : (
+   436                                  ; prm     size : int
+   437                                  ;     ) void
+   438                                  ; glb set25x80 : (void) void
+   439                                  ; glb redimensionar : (
+   440                                  ; prm     nFilas : unsigned char
+   441                                  ; prm     nCols : unsigned char
+   442                                  ;     ) void
+   443                                  ; glb printCarVideo : (
+   444                                  ; prm     car : char
+   445                                  ;     ) int
+   446                                  ; glb printLnVideo : (void) int
+   447                                  ; glb printStrVideo : (
+   448                                  ; prm     str : * char
+   449                                  ;     ) int
+   450                                  ; glb printStrHastaVideo : (
+   451                                  ; prm     str : * char
+   452                                  ; prm     n : unsigned short
+   453                                  ; prm     lleno : int
+   454                                  ;     ) int
+   455                                  ; glb printDecVideo : (
+   456                                  ; prm     num : unsigned short
+   457                                  ; prm     l : unsigned short
+   458                                  ;     ) int
+   459                                  ; glb printLDecVideo : (
+   460                                  ; prm     num : unsigned
+   461                                  ; prm     l : unsigned short
+   462                                  ;     ) int
+   463                                  ; glb printIntVideo : (
+   464                                  ; prm     num : int
+   465                                  ; prm     l : unsigned short
+   466                                  ;     ) int
+   467                                  ; glb printLIntVideo : (
+   468                                  ; prm     num : int
+   469                                  ; prm     l : unsigned short
+   470                                  ;     ) int
+   471                                  ; glb printHexVideo : (
+   472                                  ; prm     num : unsigned short
+   473                                  ; prm     l : unsigned short
+   474                                  ;     ) int
+   475                                  ; glb printLHexVideo : (
+   476                                  ; prm     num : unsigned
+   477                                  ; prm     l : unsigned short
+   478                                  ;     ) int
+   479                                  ; glb printBinVideo : (
+   480                                  ; prm     num : unsigned short
+   481                                  ; prm     l : unsigned short
+   482                                  ;     ) int
+   483                                  ; glb printLBinVideo : (
+   484                                  ; prm     num : unsigned
+   485                                  ; prm     l : unsigned short
+   486                                  ;     ) int
+   487                                  ; glb printPtrVideo : (
+   488                                  ; prm     ptr : * unsigned char
+   489                                  ;     ) int
+   490                                  ; glb printByteVideo : (
+   491                                  ; prm     b : unsigned char
+   492                                  ;     ) int
+   493                                  ; glb printWordVideo : (
+   494                                  ; prm     w : unsigned short
+   495                                  ;     ) int
+   496                                  ; glb printCadVideo : (
+   497                                  ; prm     cad : * char
+   498                                  ;     ) int
+   499                                  ; glb puntoDeParadaSO1 : (void) void
+   500                                  ; glb leerScancodeListo : (void) unsigned char
+   501                                  ; glb leerScancode : (void) unsigned char
+   502                                  ; glb mirarLoQueHay : (
+   503                                  ; prm     loQueHay : * unsigned short
+   504                                  ;     ) void
+   505                                  ; glb mostrarLoQueHay : (
+   506                                  ; prm     loQueHay : unsigned short
+   507                                  ;     ) void
+   508                                  ; glb tirarS0 : (
+   509                                  ; prm     loQueHay : unsigned short
+   510                                  ;     ) void
+   511                                  ; glb fechaCompactada : (
+   512                                  ; prm     ptrFecha : * char
+   513                                  ;     ) unsigned short
+   514                                  section .text
+   515                                  	global	_fechaCompactada
+   516                                  _fechaCompactada:
+   517 00000000 6655                    	push	ebp
+   518 00000002 660FB7EC                	movzx	ebp, sp
+   519 00000006 83EC0C                  	 sub	sp,         12
+   520                                  ; loc     ptrFecha : (@8): * char
+   521                                  ; loc     mes : (@-4): unsigned short
+   522                                  ; loc     dia : (@-8): unsigned short
+   523                                  ; loc     anio : (@-12): unsigned short
+   524                                  ; if
+   525                                  ; RPN'ized expression: "ptrFecha 2 + *u 47 != ptrFecha 5 + *u 47 != || "
+   526                                  ; Expanded expression: "(@8) *(4) 2 + *(-1) 47 != [sh||->5] (@8) *(4) 5 + *(-1) 47 != ||[5] "
+   527                                  ; Fused expression:    "+ *(@8) 2 != *ax 47 [sh||->5] + *(@8) 5 != *ax 47 ||[5]  "
+   528 00000009 668B4608                	mov	eax, [bp+8]
+   529 0000000D 6683C002                	add	eax, 2
+   530 00000011 6689C3                  	mov	ebx, eax
+   531 00000014 6689DE                  	mov	esi, ebx
+   532 00000017 66C1CE04                	ror	esi, 4
+   533 0000001B 8EDE                    	mov	ds, si
+   534 0000001D 66C1EE1C                	shr	esi, 28
+   535 00000021 8A04                    	mov	al, [si]
+   536 00000023 660FBEC0                	movsx	eax, al
+   537 00000027 6683F82F                	cmp	eax, 47
+   538 0000002B 0F95C0                  	setne	al
+   539 0000002E 660FB6C0                	movzx	eax, al
+   540                                  ; JumpIfNotZero
+   541 00000032 6685C0                  	test	eax, eax
+   542 00000035 7529                    	jne	L5
+   543 00000037 668B4608                	mov	eax, [bp+8]
+   544 0000003B 6683C005                	add	eax, 5
+   545 0000003F 6689C3                  	mov	ebx, eax
+   546 00000042 6689DE                  	mov	esi, ebx
+   547 00000045 66C1CE04                	ror	esi, 4
+   548 00000049 8EDE                    	mov	ds, si
+   549 0000004B 66C1EE1C                	shr	esi, 28
+   550 0000004F 8A04                    	mov	al, [si]
+   551 00000051 660FBEC0                	movsx	eax, al
+   552 00000055 6683F82F                	cmp	eax, 47
+   553 00000059 0F95C0                  	setne	al
+   554 0000005C 660FB6C0                	movzx	eax, al
+   555                                  L5:
+   556                                  ; JumpIfZero
+   557 00000060 6685C0                  	test	eax, eax
+   558 00000063 7409                    	je	L3
+   559                                  ; return
+   560                                  ; RPN'ized expression: "0 "
+   561                                  ; Expanded expression: "0 "
+   562                                  ; Expression value: 0
+   563                                  ; Fused expression:    "0  "
+   564 00000065 66B800000000            	mov	eax, 0
+   565 0000006B E9B701                  	jmp	L1
+   566                                  L3:
+   567                                  ; RPN'ized expression: "mes 10 ptrFecha 0 + *u 48 - * ptrFecha 1 + *u 48 - + = "
+   568                                  ; Expanded expression: "(@-4) 10 (@8) *(4) 0 + *(-1) 48 - * (@8) *(4) 1 + *(-1) 48 - + =(2) "
+   569                                  ; Fused expression:    "+ *(@8) 0 - *ax 48 * 10 ax push-ax + *(@8) 1 - *ax 48 + *sp ax =(172) *(@-4) ax "
+   570 0000006E 668B4608                	mov	eax, [bp+8]
+   571 00000072 6689C3                  	mov	ebx, eax
+   572 00000075 6689DE                  	mov	esi, ebx
+   573 00000078 66C1CE04                	ror	esi, 4
+   574 0000007C 8EDE                    	mov	ds, si
+   575 0000007E 66C1EE1C                	shr	esi, 28
+   576 00000082 8A04                    	mov	al, [si]
+   577 00000084 660FBEC0                	movsx	eax, al
+   578 00000088 6683E830                	sub	eax, 48
+   579 0000008C 6689C1                  	mov	ecx, eax
+   580 0000008F 66B80A000000            	mov	eax, 10
+   581 00000095 66F7E1                  	mul	ecx
+   582 00000098 6650                    	push	eax
+   583 0000009A 668B4608                	mov	eax, [bp+8]
+   584 0000009E 6640                    	inc	eax
+   585 000000A0 6689C3                  	mov	ebx, eax
+   586 000000A3 6689DE                  	mov	esi, ebx
+   587 000000A6 66C1CE04                	ror	esi, 4
+   588 000000AA 8EDE                    	mov	ds, si
+   589 000000AC 66C1EE1C                	shr	esi, 28
+   590 000000B0 8A04                    	mov	al, [si]
+   591 000000B2 660FBEC0                	movsx	eax, al
+   592 000000B6 6683E830                	sub	eax, 48
+   593 000000BA 6689C1                  	mov	ecx, eax
+   594 000000BD 6658                    	pop	eax
+   595 000000BF 6601C8                  	add	eax, ecx
+   596 000000C2 8946FC                  	mov	[bp-4], ax
+   597 000000C5 660FB7C0                	movzx	eax, ax
+   598                                  ; if
+   599                                  ; RPN'ized expression: "mes 0 == mes 12 > || "
+   600                                  ; Expanded expression: "(@-4) *(2) 0 == [sh||->8] (@-4) *(2) 12 > ||[8] "
+   601                                  ; Fused expression:    "== *(@-4) 0 [sh||->8] > *(@-4) 12 ||[8]  "
+   602 000000C9 8B46FC                  	mov	ax, [bp-4]
+   603 000000CC 660FB7C0                	movzx	eax, ax
+   604 000000D0 6683F800                	cmp	eax, 0
+   605 000000D4 0F94C0                  	sete	al
+   606 000000D7 660FB6C0                	movzx	eax, al
+   607                                  ; JumpIfNotZero
+   608 000000DB 6685C0                  	test	eax, eax
+   609 000000DE 7512                    	jne	L8
+   610 000000E0 8B46FC                  	mov	ax, [bp-4]
+   611 000000E3 660FB7C0                	movzx	eax, ax
+   612 000000E7 6683F80C                	cmp	eax, 12
+   613 000000EB 0F9FC0                  	setg	al
+   614 000000EE 660FB6C0                	movzx	eax, al
+   615                                  L8:
+   616                                  ; JumpIfZero
+   617 000000F2 6685C0                  	test	eax, eax
+   618 000000F5 7409                    	je	L6
+   619                                  ; return
+   620                                  ; RPN'ized expression: "0 "
+   621                                  ; Expanded expression: "0 "
+   622                                  ; Expression value: 0
+   623                                  ; Fused expression:    "0  "
+   624 000000F7 66B800000000            	mov	eax, 0
+   625 000000FD E92501                  	jmp	L1
+   626                                  L6:
+   627                                  ; RPN'ized expression: "dia 10 ptrFecha 3 + *u 48 - * ptrFecha 4 + *u 48 - + = "
+   628                                  ; Expanded expression: "(@-8) 10 (@8) *(4) 3 + *(-1) 48 - * (@8) *(4) 4 + *(-1) 48 - + =(2) "
+   629                                  ; Fused expression:    "+ *(@8) 3 - *ax 48 * 10 ax push-ax + *(@8) 4 - *ax 48 + *sp ax =(172) *(@-8) ax "
+   630 00000100 668B4608                	mov	eax, [bp+8]
+   631 00000104 6683C003                	add	eax, 3
+   632 00000108 6689C3                  	mov	ebx, eax
+   633 0000010B 6689DE                  	mov	esi, ebx
+   634 0000010E 66C1CE04                	ror	esi, 4
+   635 00000112 8EDE                    	mov	ds, si
+   636 00000114 66C1EE1C                	shr	esi, 28
+   637 00000118 8A04                    	mov	al, [si]
+   638 0000011A 660FBEC0                	movsx	eax, al
+   639 0000011E 6683E830                	sub	eax, 48
+   640 00000122 6689C1                  	mov	ecx, eax
+   641 00000125 66B80A000000            	mov	eax, 10
+   642 0000012B 66F7E1                  	mul	ecx
+   643 0000012E 6650                    	push	eax
+   644 00000130 668B4608                	mov	eax, [bp+8]
+   645 00000134 6683C004                	add	eax, 4
+   646 00000138 6689C3                  	mov	ebx, eax
+   647 0000013B 6689DE                  	mov	esi, ebx
+   648 0000013E 66C1CE04                	ror	esi, 4
+   649 00000142 8EDE                    	mov	ds, si
+   650 00000144 66C1EE1C                	shr	esi, 28
+   651 00000148 8A04                    	mov	al, [si]
+   652 0000014A 660FBEC0                	movsx	eax, al
+   653 0000014E 6683E830                	sub	eax, 48
+   654 00000152 6689C1                  	mov	ecx, eax
+   655 00000155 6658                    	pop	eax
+   656 00000157 6601C8                  	add	eax, ecx
+   657 0000015A 8946F8                  	mov	[bp-8], ax
+   658 0000015D 660FB7C0                	movzx	eax, ax
+   659                                  ; if
+   660                                  ; RPN'ized expression: "dia 0 == dia 31 > || "
+   661                                  ; Expanded expression: "(@-8) *(2) 0 == [sh||->11] (@-8) *(2) 31 > ||[11] "
+   662                                  ; Fused expression:    "== *(@-8) 0 [sh||->11] > *(@-8) 31 ||[11]  "
+   663 00000161 8B46F8                  	mov	ax, [bp-8]
+   664 00000164 660FB7C0                	movzx	eax, ax
+   665 00000168 6683F800                	cmp	eax, 0
+   666 0000016C 0F94C0                  	sete	al
+   667 0000016F 660FB6C0                	movzx	eax, al
+   668                                  ; JumpIfNotZero
+   669 00000173 6685C0                  	test	eax, eax
+   670 00000176 7512                    	jne	L11
+   671 00000178 8B46F8                  	mov	ax, [bp-8]
+   672 0000017B 660FB7C0                	movzx	eax, ax
+   673 0000017F 6683F81F                	cmp	eax, 31
+   674 00000183 0F9FC0                  	setg	al
+   675 00000186 660FB6C0                	movzx	eax, al
+   676                                  L11:
+   677                                  ; JumpIfZero
+   678 0000018A 6685C0                  	test	eax, eax
+   679 0000018D 7409                    	je	L9
+   680                                  ; return
+   681                                  ; RPN'ized expression: "0 "
+   682                                  ; Expanded expression: "0 "
+   683                                  ; Expression value: 0
+   684                                  ; Fused expression:    "0  "
+   685 0000018F 66B800000000            	mov	eax, 0
+   686 00000195 E98D00                  	jmp	L1
+   687                                  L9:
+   688                                  ; RPN'ized expression: "anio 10 ptrFecha 6 + *u 48 - * ptrFecha 7 + *u 48 - + = "
+   689                                  ; Expanded expression: "(@-12) 10 (@8) *(4) 6 + *(-1) 48 - * (@8) *(4) 7 + *(-1) 48 - + =(2) "
+   690                                  ; Fused expression:    "+ *(@8) 6 - *ax 48 * 10 ax push-ax + *(@8) 7 - *ax 48 + *sp ax =(172) *(@-12) ax "
+   691 00000198 668B4608                	mov	eax, [bp+8]
+   692 0000019C 6683C006                	add	eax, 6
+   693 000001A0 6689C3                  	mov	ebx, eax
+   694 000001A3 6689DE                  	mov	esi, ebx
+   695 000001A6 66C1CE04                	ror	esi, 4
+   696 000001AA 8EDE                    	mov	ds, si
+   697 000001AC 66C1EE1C                	shr	esi, 28
+   698 000001B0 8A04                    	mov	al, [si]
+   699 000001B2 660FBEC0                	movsx	eax, al
+   700 000001B6 6683E830                	sub	eax, 48
+   701 000001BA 6689C1                  	mov	ecx, eax
+   702 000001BD 66B80A000000            	mov	eax, 10
+   703 000001C3 66F7E1                  	mul	ecx
+   704 000001C6 6650                    	push	eax
+   705 000001C8 668B4608                	mov	eax, [bp+8]
+   706 000001CC 6683C007                	add	eax, 7
+   707 000001D0 6689C3                  	mov	ebx, eax
+   708 000001D3 6689DE                  	mov	esi, ebx
+   709 000001D6 66C1CE04                	ror	esi, 4
+   710 000001DA 8EDE                    	mov	ds, si
+   711 000001DC 66C1EE1C                	shr	esi, 28
+   712 000001E0 8A04                    	mov	al, [si]
+   713 000001E2 660FBEC0                	movsx	eax, al
+   714 000001E6 6683E830                	sub	eax, 48
+   715 000001EA 6689C1                  	mov	ecx, eax
+   716 000001ED 6658                    	pop	eax
+   717 000001EF 6601C8                  	add	eax, ecx
+   718 000001F2 8946F4                  	mov	[bp-12], ax
+   719 000001F5 660FB7C0                	movzx	eax, ax
+   720                                  ; return
+   721                                  ; RPN'ized expression: "anio 9 << mes 5 << | dia | "
+   722                                  ; Expanded expression: "(@-12) *(2) 9 << (@-4) *(2) 5 << | (@-8) *(2) | "
+   723                                  ; Fused expression:    "<< *(@-12) 9 push-ax << *(@-4) 5 | *sp ax | ax *(@-8) unsigned short  "
+   724 000001F9 8B46F4                  	mov	ax, [bp-12]
+   725 000001FC 660FB7C0                	movzx	eax, ax
+   726 00000200 66C1E009                	shl	eax, 9
+   727 00000204 6650                    	push	eax
+   728 00000206 8B46FC                  	mov	ax, [bp-4]
+   729 00000209 660FB7C0                	movzx	eax, ax
+   730 0000020D 66C1E005                	shl	eax, 5
+   731 00000211 6689C1                  	mov	ecx, eax
+   732 00000214 6658                    	pop	eax
+   733 00000216 6609C8                  	or	eax, ecx
+   734 00000219 660FB74EF8              	movzx	ecx, word [bp-8]
+   735 0000021E 6609C8                  	or	eax, ecx
+   736 00000221 660FB7C0                	movzx	eax, ax
+   737                                  L1:
+   738 00000225 66                      	db	0x66
+   739 00000226 C9                      	leave
+   740 00000227 CB                      	retf
+   741                                  L12:
+   742                                  
+   743                                  section .fxnsz noalloc
+   744 00000000 28020000                	dd	L12 - _fechaCompactada
+   745                                  
+   746                                  ; glb mirarLoQueHay : (
+   747                                  ; prm     loQueHay : * unsigned short
+   748                                  ;     ) void
+   749                                  section .text
+   750                                  	global	_mirarLoQueHay
+   751                                  _mirarLoQueHay:
+   752 00000228 6655                    	push	ebp
+   753 0000022A 660FB7EC                	movzx	ebp, sp
+   754 0000022E 83EC04                  	 sub	sp,          4
+   755                                  ; loc     loQueHay : (@8): * unsigned short
+   756                                  ; RPN'ized expression: "loQueHay *u 0 = "
+   757                                  ; Expanded expression: "(@8) *(4) 0 =(2) "
+   758                                  ; Fused expression:    "*(4) (@8) =(172) *ax 0 "
+   759 00000231 668B4608                	mov	eax, [bp+8]
+   760 00000235 6689C3                  	mov	ebx, eax
+   761 00000238 66B800000000            	mov	eax, 0
+   762 0000023E 6689DE                  	mov	esi, ebx
+   763 00000241 66C1CE04                	ror	esi, 4
+   764 00000245 8EDE                    	mov	ds, si
+   765 00000247 66C1EE1C                	shr	esi, 28
+   766 0000024B 8904                    	mov	[si], ax
+   767 0000024D 660FB7C0                	movzx	eax, ax
+   768                                  ; switch
+   769                                  ; RPN'ized expression: "( modoSO1 ) "
+   770                                  ; Expanded expression: " modoSO1 ()0 "
+   771                                  ; Fused expression:    "( modoSO1 )0  "
+   772 00000251 9A                      	db	0x9A
+   773                                  section .relot
+   774 00000000 [52020000]              	dd	L17
+   775                                  section .text
+   776                                  L17:
+   777 00000252 [00000000]              	dd	_modoSO1
+   778 00000256 E9AD00                  	jmp	L16
+   779                                  ; {
+   780                                  ; case
+   781                                  ; RPN'ized expression: "modoSO1_Bin "
+   782                                  ; Expanded expression: "0 "
+   783                                  ; Expression value: 0
+   784                                  L18:
+   785                                  ; break
+   786 00000259 E9BC00                  	jmp	L15
+   787                                  ; case
+   788                                  ; RPN'ized expression: "modoSO1_Exe "
+   789                                  ; Expanded expression: "1 "
+   790                                  ; Expression value: 1
+   791                                  L19:
+   792                                  ; RPN'ized expression: "loQueHay *u 1 |= "
+   793                                  ; Expanded expression: "(@8) *(4) 1 |=(2) "
+   794                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 1 "
+   795 0000025C 668B4608                	mov	eax, [bp+8]
+   796 00000260 6689C3                  	mov	ebx, eax
+   797 00000263 6689DE                  	mov	esi, ebx
+   798 00000266 66C1CE04                	ror	esi, 4
+   799 0000026A 8EDE                    	mov	ds, si
+   800 0000026C 66C1EE1C                	shr	esi, 28
+   801 00000270 8B04                    	mov	ax, [si]
+   802 00000272 660FB7C0                	movzx	eax, ax
+   803 00000276 6683C801                	or	eax, 1
+   804 0000027A 6689DE                  	mov	esi, ebx
+   805 0000027D 66C1CE04                	ror	esi, 4
+   806 00000281 8EDE                    	mov	ds, si
+   807 00000283 66C1EE1C                	shr	esi, 28
+   808 00000287 8904                    	mov	[si], ax
+   809 00000289 660FB7C0                	movzx	eax, ax
+   810                                  ; if
+   811                                  ; RPN'ized expression: "( hayWindowsNT ) "
+   812                                  ; Expanded expression: " hayWindowsNT ()0 "
+   813                                  ; Fused expression:    "( hayWindowsNT )0  "
+   814 0000028D 9A                      	db	0x9A
+   815                                  section .relot
+   816 00000004 [8E020000]              	dd	L22
+   817                                  section .text
+   818                                  L22:
+   819 0000028E [00000000]              	dd	_hayWindowsNT
+   820                                  ; JumpIfZero
+   821 00000292 6685C0                  	test	eax, eax
+   822 00000295 7431                    	je	L20
+   823                                  ; RPN'ized expression: "loQueHay *u 2 |= "
+   824                                  ; Expanded expression: "(@8) *(4) 2 |=(2) "
+   825                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 2 "
+   826 00000297 668B4608                	mov	eax, [bp+8]
+   827 0000029B 6689C3                  	mov	ebx, eax
+   828 0000029E 6689DE                  	mov	esi, ebx
+   829 000002A1 66C1CE04                	ror	esi, 4
+   830 000002A5 8EDE                    	mov	ds, si
+   831 000002A7 66C1EE1C                	shr	esi, 28
+   832 000002AB 8B04                    	mov	ax, [si]
+   833 000002AD 660FB7C0                	movzx	eax, ax
+   834 000002B1 6683C802                	or	eax, 2
+   835 000002B5 6689DE                  	mov	esi, ebx
+   836 000002B8 66C1CE04                	ror	esi, 4
+   837 000002BC 8EDE                    	mov	ds, si
+   838 000002BE 66C1EE1C                	shr	esi, 28
+   839 000002C2 8904                    	mov	[si], ax
+   840 000002C4 660FB7C0                	movzx	eax, ax
+   841                                  L20:
+   842                                  ; break
+   843 000002C8 EB4E                    	jmp	L15
+   844                                  ; default
+   845                                  L23:
+   846                                  
+   847                                  section .rodata
+   848                                  L24:
+   849 00000000 070A20534F31282920-     	db	7,10," SO1() ERROR: modoSO1() = "
+   849 00000009 4552524F523A206D6F-
+   849 00000012 646F534F312829203D-
+   849 0000001B 20                 
+   850 0000001C 00                      	times	1 db 0
+   851                                  
+   852                                  section .text
+   853                                  ; RPN'ized expression: "( L24 , FALSE assert ) "
+   854                                  ; Expanded expression: " L24  0  assert ()8 "
+   855                                  ; Fused expression:    "( L24 , 0 , assert )8 "
+   856                                  section .relod
+   857 00000000 [CC020000]              	dd	L25
+   858                                  section .text
+   859 000002CA 6668                    	db	0x66, 0x68
+   860                                  L25:
+   861 000002CC [00000000]              	dd	L24
+   862 000002D0 666A00                  	push	dword 0
+   863 000002D3 9A                      	db	0x9A
+   864                                  section .relot
+   865 00000008 [D4020000]              	dd	L26
+   866                                  section .text
+   867                                  L26:
+   868 000002D4 [00000000]              	dd	_assert
+   869 000002D8 83ECF8                  	sub	sp, -8
+   870                                  ; RPN'ized expression: "( 2 , ( modoSO1 ) printHexVideo ) "
+   871                                  ; Expanded expression: " 2   modoSO1 ()0  printHexVideo ()8 "
+   872                                  ; Fused expression:    "( 2 , ( modoSO1 )0 , printHexVideo )8 "
+   873 000002DB 666A02                  	push	dword 2
+   874 000002DE 9A                      	db	0x9A
+   875                                  section .relot
+   876 0000000C [DF020000]              	dd	L27
+   877                                  section .text
+   878                                  L27:
+   879 000002DF [00000000]              	dd	_modoSO1
+   880 000002E3 6650                    	push	eax
+   881 000002E5 9A                      	db	0x9A
+   882                                  section .relot
+   883 00000010 [E6020000]              	dd	L28
+   884                                  section .text
+   885                                  L28:
+   886 000002E6 [00000000]              	dd	_printHexVideo
+   887 000002EA 83ECF8                  	sub	sp, -8
+   888                                  ; RPN'ized expression: "( leerScancode ) "
+   889                                  ; Expanded expression: " leerScancode ()0 "
+   890                                  ; Fused expression:    "( leerScancode )0 "
+   891 000002ED 9A                      	db	0x9A
+   892                                  section .relot
+   893 00000014 [EE020000]              	dd	L29
+   894                                  section .text
+   895                                  L29:
+   896 000002EE [00000000]              	dd	_leerScancode
+   897                                  ; RPN'ized expression: "( 1 finProgDOS ) "
+   898                                  ; Expanded expression: " 1  finProgDOS ()4 "
+   899                                  ; Fused expression:    "( 1 , finProgDOS )4 "
+   900 000002F2 666A01                  	push	dword 1
+   901 000002F5 9A                      	db	0x9A
+   902                                  section .relot
+   903 00000018 [F6020000]              	dd	L30
+   904                                  section .text
+   905                                  L30:
+   906 000002F6 [00000000]              	dd	_finProgDOS
+   907 000002FA 83ECFC                  	sub	sp, -4
+   908                                  ; {
+   909 000002FD CD19                    int 19h
+   910                                  ; }
+   911                                  ; RPN'ized expression: "( rebootLegacy ) "
+   912                                  ; Expanded expression: " rebootLegacy ()0 "
+   913                                  ; Fused expression:    "( rebootLegacy )0 "
+   914 000002FF 9A                      	db	0x9A
+   915                                  section .relot
+   916 0000001C [00030000]              	dd	L31
+   917                                  section .text
+   918                                  L31:
+   919 00000300 [00000000]              	dd	_rebootLegacy
+   920                                  ; }
+   921 00000304 EB12                    	jmp	L15
+   922                                  L16:
+   923 00000306 6683F800                	cmp	eax, 0
+   924 0000030A 0F844BFF                	je	L18
+   925 0000030E 6683F801                	cmp	eax, 1
+   926 00000312 0F8446FF                	je	L19
+   927 00000316 EBB2                    	jmp	L23
+   928                                  L15:
+   929                                  ; switch
+   930                                  ; RPN'ized expression: "( ptrFechaBios fechaCompactada ) "
+   931                                  ; Expanded expression: " ptrFechaBios *(4)  fechaCompactada ()4 "
+   932                                  ; Fused expression:    "( ptrFechaBios *(4) ax , fechaCompactada )4  "
+   933                                  section .relod
+   934 00000004 [1A030000]              	dd	L34
+   935                                  section .text
+   936 00000318 66B8                    	db	0x66, 0xB8
+   937                                  L34:
+   938 0000031A [00000000]              	dd	_ptrFechaBios
+   939 0000031E 6689C3                  	mov	ebx, eax
+   940 00000321 6689DE                  	mov	esi, ebx
+   941 00000324 66C1CE04                	ror	esi, 4
+   942 00000328 8EDE                    	mov	ds, si
+   943 0000032A 66C1EE1C                	shr	esi, 28
+   944 0000032E 66FF34                  	push	dword [si]
+   945 00000331 9A                      	db	0x9A
+   946                                  section .relot
+   947 00000020 [32030000]              	dd	L35
+   948                                  section .text
+   949                                  L35:
+   950 00000332 [00000000]              	dd	_fechaCompactada
+   951 00000336 83ECFC                  	sub	sp, -4
+   952 00000339 E95B02                  	jmp	L33
+   953                                  ; {
+   954                                  ; case
+   955                                  ; RPN'ized expression: "50903 "
+   956                                  ; Expanded expression: "50903 "
+   957                                  ; Expression value: 50903
+   958                                  L36:
+   959                                  ; RPN'ized expression: "loQueHay *u 4 |= "
+   960                                  ; Expanded expression: "(@8) *(4) 4 |=(2) "
+   961                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 4 "
+   962 0000033C 668B4608                	mov	eax, [bp+8]
+   963 00000340 6689C3                  	mov	ebx, eax
+   964 00000343 6689DE                  	mov	esi, ebx
+   965 00000346 66C1CE04                	ror	esi, 4
+   966 0000034A 8EDE                    	mov	ds, si
+   967 0000034C 66C1EE1C                	shr	esi, 28
+   968 00000350 8B04                    	mov	ax, [si]
+   969 00000352 660FB7C0                	movzx	eax, ax
+   970 00000356 6683C804                	or	eax, 4
+   971 0000035A 6689DE                  	mov	esi, ebx
+   972 0000035D 66C1CE04                	ror	esi, 4
+   973 00000361 8EDE                    	mov	ds, si
+   974 00000363 66C1EE1C                	shr	esi, 28
+   975 00000367 8904                    	mov	[si], ax
+   976 00000369 660FB7C0                	movzx	eax, ax
+   977                                  ; break
+   978 0000036D E98402                  	jmp	L32
+   979                                  ; case
+   980                                  ; RPN'ized expression: "5706 "
+   981                                  ; Expanded expression: "5706 "
+   982                                  ; Expression value: 5706
+   983                                  L37:
+   984                                  ; case
+   985                                  ; RPN'ized expression: "7578 "
+   986                                  ; Expanded expression: "7578 "
+   987                                  ; Expression value: 7578
+   988                                  L38:
+   989                                  ; case
+   990                                  ; RPN'ized expression: "8784 "
+   991                                  ; Expanded expression: "8784 "
+   992                                  ; Expression value: 8784
+   993                                  L39:
+   994                                  ; RPN'ized expression: "loQueHay *u 8 |= "
+   995                                  ; Expanded expression: "(@8) *(4) 8 |=(2) "
+   996                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 8 "
+   997 00000370 668B4608                	mov	eax, [bp+8]
+   998 00000374 6689C3                  	mov	ebx, eax
+   999 00000377 6689DE                  	mov	esi, ebx
+  1000 0000037A 66C1CE04                	ror	esi, 4
+  1001 0000037E 8EDE                    	mov	ds, si
+  1002 00000380 66C1EE1C                	shr	esi, 28
+  1003 00000384 8B04                    	mov	ax, [si]
+  1004 00000386 660FB7C0                	movzx	eax, ax
+  1005 0000038A 6683C808                	or	eax, 8
+  1006 0000038E 6689DE                  	mov	esi, ebx
+  1007 00000391 66C1CE04                	ror	esi, 4
+  1008 00000395 8EDE                    	mov	ds, si
+  1009 00000397 66C1EE1C                	shr	esi, 28
+  1010 0000039B 8904                    	mov	[si], ax
+  1011 0000039D 660FB7C0                	movzx	eax, ax
+  1012                                  ; break
+  1013 000003A1 E95002                  	jmp	L32
+  1014                                  ; case
+  1015                                  ; RPN'ized expression: "47137 "
+  1016                                  ; Expanded expression: "47137 "
+  1017                                  ; Expression value: 47137
+  1018                                  L40:
+  1019                                  ; RPN'ized expression: "loQueHay *u 16 |= "
+  1020                                  ; Expanded expression: "(@8) *(4) 16 |=(2) "
+  1021                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 16 "
+  1022 000003A4 668B4608                	mov	eax, [bp+8]
+  1023 000003A8 6689C3                  	mov	ebx, eax
+  1024 000003AB 6689DE                  	mov	esi, ebx
+  1025 000003AE 66C1CE04                	ror	esi, 4
+  1026 000003B2 8EDE                    	mov	ds, si
+  1027 000003B4 66C1EE1C                	shr	esi, 28
+  1028 000003B8 8B04                    	mov	ax, [si]
+  1029 000003BA 660FB7C0                	movzx	eax, ax
+  1030 000003BE 6683C810                	or	eax, 16
+  1031 000003C2 6689DE                  	mov	esi, ebx
+  1032 000003C5 66C1CE04                	ror	esi, 4
+  1033 000003C9 8EDE                    	mov	ds, si
+  1034 000003CB 66C1EE1C                	shr	esi, 28
+  1035 000003CF 8904                    	mov	[si], ax
+  1036 000003D1 660FB7C0                	movzx	eax, ax
+  1037                                  ; break
+  1038 000003D5 E91C02                  	jmp	L32
+  1039                                  ; case
+  1040                                  ; RPN'ized expression: "48867 "
+  1041                                  ; Expanded expression: "48867 "
+  1042                                  ; Expression value: 48867
+  1043                                  L41:
+  1044                                  ; RPN'ized expression: "loQueHay *u 32 |= "
+  1045                                  ; Expanded expression: "(@8) *(4) 32 |=(2) "
+  1046                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 32 "
+  1047 000003D8 668B4608                	mov	eax, [bp+8]
+  1048 000003DC 6689C3                  	mov	ebx, eax
+  1049 000003DF 6689DE                  	mov	esi, ebx
+  1050 000003E2 66C1CE04                	ror	esi, 4
+  1051 000003E6 8EDE                    	mov	ds, si
+  1052 000003E8 66C1EE1C                	shr	esi, 28
+  1053 000003EC 8B04                    	mov	ax, [si]
+  1054 000003EE 660FB7C0                	movzx	eax, ax
+  1055 000003F2 6683C820                	or	eax, 32
+  1056 000003F6 6689DE                  	mov	esi, ebx
+  1057 000003F9 66C1CE04                	ror	esi, 4
+  1058 000003FD 8EDE                    	mov	ds, si
+  1059 000003FF 66C1EE1C                	shr	esi, 28
+  1060 00000403 8904                    	mov	[si], ax
+  1061 00000405 660FB7C0                	movzx	eax, ax
+  1062                                  ; break
+  1063 00000409 E9E801                  	jmp	L32
+  1064                                  ; case
+  1065                                  ; RPN'ized expression: "6306 "
+  1066                                  ; Expanded expression: "6306 "
+  1067                                  ; Expression value: 6306
+  1068                                  L42:
+  1069                                  ; RPN'ized expression: "loQueHay *u 64 |= "
+  1070                                  ; Expanded expression: "(@8) *(4) 64 |=(2) "
+  1071                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 64 "
+  1072 0000040C 668B4608                	mov	eax, [bp+8]
+  1073 00000410 6689C3                  	mov	ebx, eax
+  1074 00000413 6689DE                  	mov	esi, ebx
+  1075 00000416 66C1CE04                	ror	esi, 4
+  1076 0000041A 8EDE                    	mov	ds, si
+  1077 0000041C 66C1EE1C                	shr	esi, 28
+  1078 00000420 8B04                    	mov	ax, [si]
+  1079 00000422 660FB7C0                	movzx	eax, ax
+  1080 00000426 6683C840                	or	eax, 64
+  1081 0000042A 6689DE                  	mov	esi, ebx
+  1082 0000042D 66C1CE04                	ror	esi, 4
+  1083 00000431 8EDE                    	mov	ds, si
+  1084 00000433 66C1EE1C                	shr	esi, 28
+  1085 00000437 8904                    	mov	[si], ax
+  1086 00000439 660FB7C0                	movzx	eax, ax
+  1087                                  ; break
+  1088 0000043D E9B401                  	jmp	L32
+  1089                                  ; case
+  1090                                  ; RPN'ized expression: "50721 "
+  1091                                  ; Expanded expression: "50721 "
+  1092                                  ; Expression value: 50721
+  1093                                  L43:
+  1094                                  ; RPN'ized expression: "loQueHay *u 128 |= "
+  1095                                  ; Expanded expression: "(@8) *(4) 128 |=(2) "
+  1096                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 128 "
+  1097 00000440 668B4608                	mov	eax, [bp+8]
+  1098 00000444 6689C3                  	mov	ebx, eax
+  1099 00000447 6689DE                  	mov	esi, ebx
+  1100 0000044A 66C1CE04                	ror	esi, 4
+  1101 0000044E 8EDE                    	mov	ds, si
+  1102 00000450 66C1EE1C                	shr	esi, 28
+  1103 00000454 8B04                    	mov	ax, [si]
+  1104 00000456 660FB7C0                	movzx	eax, ax
+  1105 0000045A 660D80000000            	or	eax, 128
+  1106 00000460 6689DE                  	mov	esi, ebx
+  1107 00000463 66C1CE04                	ror	esi, 4
+  1108 00000467 8EDE                    	mov	ds, si
+  1109 00000469 66C1EE1C                	shr	esi, 28
+  1110 0000046D 8904                    	mov	[si], ax
+  1111 0000046F 660FB7C0                	movzx	eax, ax
+  1112                                  ; break
+  1113 00000473 E97E01                  	jmp	L32
+  1114                                  ; case
+  1115                                  ; RPN'ized expression: "3158 "
+  1116                                  ; Expanded expression: "3158 "
+  1117                                  ; Expression value: 3158
+  1118                                  L44:
+  1119                                  ; RPN'ized expression: "loQueHay *u 256 |= "
+  1120                                  ; Expanded expression: "(@8) *(4) 256 |=(2) "
+  1121                                  ; Fused expression:    "*(4) (@8) |=(172) *ax 256 "
+  1122 00000476 668B4608                	mov	eax, [bp+8]
+  1123 0000047A 6689C3                  	mov	ebx, eax
+  1124 0000047D 6689DE                  	mov	esi, ebx
+  1125 00000480 66C1CE04                	ror	esi, 4
+  1126 00000484 8EDE                    	mov	ds, si
+  1127 00000486 66C1EE1C                	shr	esi, 28
+  1128 0000048A 8B04                    	mov	ax, [si]
+  1129 0000048C 660FB7C0                	movzx	eax, ax
+  1130 00000490 660D00010000            	or	eax, 256
+  1131 00000496 6689DE                  	mov	esi, ebx
+  1132 00000499 66C1CE04                	ror	esi, 4
+  1133 0000049D 8EDE                    	mov	ds, si
+  1134 0000049F 66C1EE1C                	shr	esi, 28
+  1135 000004A3 8904                    	mov	[si], ax
+  1136 000004A5 660FB7C0                	movzx	eax, ax
+  1137                                  ; break
+  1138 000004A9 E94801                  	jmp	L32
+  1139                                  ; default
+  1140                                  L45:
+  1141                                  ; if
+  1142                                  ; RPN'ized expression: "( modoSO1 ) modoSO1_Bin == ( modoSO1 ) modoSO1_Exe == || "
+  1143                                  ; Expanded expression: " modoSO1 ()0 0 == [sh||->48]  modoSO1 ()0 1 == ||[48] "
+  1144                                  ; Fused expression:    "( modoSO1 )0 == ax 0 [sh||->48] ( modoSO1 )0 == ax 1 ||[48]  "
+  1145 000004AC 9A                      	db	0x9A
+  1146                                  section .relot
+  1147 00000024 [AD040000]              	dd	L49
+  1148                                  section .text
+  1149                                  L49:
+  1150 000004AD [00000000]              	dd	_modoSO1
+  1151 000004B1 6683F800                	cmp	eax, 0
+  1152 000004B5 0F94C0                  	sete	al
+  1153 000004B8 660FB6C0                	movzx	eax, al
+  1154                                  ; JumpIfNotZero
+  1155 000004BC 6685C0                  	test	eax, eax
+  1156 000004BF 7510                    	jne	L48
+  1157 000004C1 9A                      	db	0x9A
+  1158                                  section .relot
+  1159 00000028 [C2040000]              	dd	L50
+  1160                                  section .text
+  1161                                  L50:
+  1162 000004C2 [00000000]              	dd	_modoSO1
+  1163 000004C6 6683F801                	cmp	eax, 1
+  1164 000004CA 0F94C0                  	sete	al
+  1165 000004CD 660FB6C0                	movzx	eax, al
+  1166                                  L48:
+  1167                                  ; JumpIfZero
+  1168 000004D1 6685C0                  	test	eax, eax
+  1169 000004D4 0F84BD00                	je	L46
+  1170                                  ; {
+  1171                                  ; RPN'ized expression: "( printLnVideo ) "
+  1172                                  ; Expanded expression: " printLnVideo ()0 "
+  1173                                  ; Fused expression:    "( printLnVideo )0 "
+  1174 000004D8 9A                      	db	0x9A
+  1175                                  section .relot
+  1176 0000002C [D9040000]              	dd	L51
+  1177                                  section .text
+  1178                                  L51:
+  1179 000004D9 [00000000]              	dd	_printLnVideo
+  1180                                  
+  1181                                  section .rodata
+  1182                                  L52:
+  1183 0000001D 070A20736F3128293A-     	db	7,10," so1(): fecha del BIOS = "
+  1183 00000026 206665636861206465-
+  1183 0000002F 6C2042494F53203D20 
+  1184 00000038 00                      	times	1 db 0
+  1185                                  
+  1186                                  section .text
+  1187                                  ; RPN'ized expression: "( L52 printStrVideo ) "
+  1188                                  ; Expanded expression: " L52  printStrVideo ()4 "
+  1189                                  ; Fused expression:    "( L52 , printStrVideo )4 "
+  1190                                  section .relod
+  1191 00000008 [DF040000]              	dd	L53
+  1192                                  section .text
+  1193 000004DD 6668                    	db	0x66, 0x68
+  1194                                  L53:
+  1195 000004DF [1D000000]              	dd	L52
+  1196 000004E3 9A                      	db	0x9A
+  1197                                  section .relot
+  1198 00000030 [E4040000]              	dd	L54
+  1199                                  section .text
+  1200                                  L54:
+  1201 000004E4 [00000000]              	dd	_printStrVideo
+  1202 000004E8 83ECFC                  	sub	sp, -4
+  1203                                  ; for
+  1204                                  ; loc             i : (@-4): int
+  1205                                  ; RPN'ized expression: "i 0 = "
+  1206                                  ; Expanded expression: "(@-4) 0 =(4) "
+  1207                                  ; Fused expression:    "=(204) *(@-4) 0 "
+  1208 000004EB 66B800000000            	mov	eax, 0
+  1209 000004F1 668946FC                	mov	[bp-4], eax
+  1210                                  L55:
+  1211                                  ; RPN'ized expression: "i 8 < "
+  1212                                  ; Expanded expression: "(@-4) *(4) 8 < "
+  1213                                  ; Fused expression:    "< *(@-4) 8 IF! "
+  1214 000004F5 668B46FC                	mov	eax, [bp-4]
+  1215 000004F9 6683F808                	cmp	eax, 8
+  1216 000004FD 7D47                    	jge	L58
+  1217                                  ; RPN'ized expression: "i ++p "
+  1218                                  ; Expanded expression: "(@-4) ++p(4) "
+  1219                                  ; RPN'ized expression: "( ptrFechaBios i + *u printCarVideo ) "
+  1220                                  ; Expanded expression: " ptrFechaBios *(4) (@-4) *(4) + *(1)  printCarVideo ()4 "
+  1221                                  ; Fused expression:    "( ptrFechaBios + *ax *(@-4) *(1) ax , printCarVideo )4 "
+  1222                                  section .relod
+  1223 0000000C [01050000]              	dd	L59
+  1224                                  section .text
+  1225 000004FF 66B8                    	db	0x66, 0xB8
+  1226                                  L59:
+  1227 00000501 [00000000]              	dd	_ptrFechaBios
+  1228 00000505 6689C3                  	mov	ebx, eax
+  1229 00000508 6689DE                  	mov	esi, ebx
+  1230 0000050B 66C1CE04                	ror	esi, 4
+  1231 0000050F 8EDE                    	mov	ds, si
+  1232 00000511 66C1EE1C                	shr	esi, 28
+  1233 00000515 668B04                  	mov	eax, [si]
+  1234 00000518 660346FC                	add	eax, [bp-4]
+  1235 0000051C 6689C3                  	mov	ebx, eax
+  1236 0000051F 6689DE                  	mov	esi, ebx
+  1237 00000522 66C1CE04                	ror	esi, 4
+  1238 00000526 8EDE                    	mov	ds, si
+  1239 00000528 66C1EE1C                	shr	esi, 28
+  1240 0000052C 8A04                    	mov	al, [si]
+  1241 0000052E 660FB6C0                	movzx	eax, al
+  1242 00000532 6650                    	push	eax
+  1243 00000534 9A                      	db	0x9A
+  1244                                  section .relot
+  1245 00000034 [35050000]              	dd	L60
+  1246                                  section .text
+  1247                                  L60:
+  1248 00000535 [00000000]              	dd	_printCarVideo
+  1249 00000539 83ECFC                  	sub	sp, -4
+  1250                                  L56:
+  1251                                  ; Fused expression:    "++p(4) *(@-4) "
+  1252 0000053C 668B46FC                	mov	eax, [bp-4]
+  1253 00000540 66FF46FC                	inc	dword [bp-4]
+  1254 00000544 EBAF                    	jmp	L55
+  1255                                  L58:
+  1256                                  
+  1257                                  section .rodata
+  1258                                  L61:
+  1259 00000039 0A0A20666563686120-     	db	10,10," fecha compactada = "
+  1259 00000042 636F6D706163746164-
+  1259 0000004B 61203D20           
+  1260 0000004F 00                      	times	1 db 0
+  1261                                  
+  1262                                  section .text
+  1263                                  ; RPN'ized expression: "( L61 printStrVideo ) "
+  1264                                  ; Expanded expression: " L61  printStrVideo ()4 "
+  1265                                  ; Fused expression:    "( L61 , printStrVideo )4 "
+  1266                                  section .relod
+  1267 00000010 [48050000]              	dd	L62
+  1268                                  section .text
+  1269 00000546 6668                    	db	0x66, 0x68
+  1270                                  L62:
+  1271 00000548 [39000000]              	dd	L61
+  1272 0000054C 9A                      	db	0x9A
+  1273                                  section .relot
+  1274 00000038 [4D050000]              	dd	L63
+  1275                                  section .text
+  1276                                  L63:
+  1277 0000054D [00000000]              	dd	_printStrVideo
+  1278 00000551 83ECFC                  	sub	sp, -4
+  1279                                  ; RPN'ized expression: "( 1 , ( ptrFechaBios fechaCompactada ) printLDecVideo ) "
+  1280                                  ; Expanded expression: " 1   ptrFechaBios *(4)  fechaCompactada ()4  printLDecVideo ()8 "
+  1281                                  ; Fused expression:    "( 1 , ( ptrFechaBios *(4) ax , fechaCompactada )4 , printLDecVideo )8 "
+  1282 00000554 666A01                  	push	dword 1
+  1283                                  section .relod
+  1284 00000014 [59050000]              	dd	L64
+  1285                                  section .text
+  1286 00000557 66B8                    	db	0x66, 0xB8
+  1287                                  L64:
+  1288 00000559 [00000000]              	dd	_ptrFechaBios
+  1289 0000055D 6689C3                  	mov	ebx, eax
+  1290 00000560 6689DE                  	mov	esi, ebx
+  1291 00000563 66C1CE04                	ror	esi, 4
+  1292 00000567 8EDE                    	mov	ds, si
+  1293 00000569 66C1EE1C                	shr	esi, 28
+  1294 0000056D 66FF34                  	push	dword [si]
+  1295 00000570 9A                      	db	0x9A
+  1296                                  section .relot
+  1297 0000003C [71050000]              	dd	L65
+  1298                                  section .text
+  1299                                  L65:
+  1300 00000571 [00000000]              	dd	_fechaCompactada
+  1301 00000575 83ECFC                  	sub	sp, -4
+  1302 00000578 6650                    	push	eax
+  1303 0000057A 9A                      	db	0x9A
+  1304                                  section .relot
+  1305 00000040 [7B050000]              	dd	L66
+  1306                                  section .text
+  1307                                  L66:
+  1308 0000057B [00000000]              	dd	_printLDecVideo
+  1309 0000057F 83ECF8                  	sub	sp, -8
+  1310                                  
+  1311                                  section .rodata
+  1312                                  L67:
+  1313 00000050 203D3D3E204D617175-     	db	" ==> Maquina (virtual) inexplorada",10
+  1313 00000059 696E61202876697274-
+  1313 00000062 75616C2920696E6578-
+  1313 0000006B 706C6F726164610A   
+  1314 00000073 0A                      	db	10
+  1315 00000074 2070726573696F6E65-     	db	" presione una tecla para continuar "
+  1315 0000007D 20756E61207465636C-
+  1315 00000086 61207061726120636F-
+  1315 0000008F 6E74696E75617220   
+  1316 00000097 00                      	times	1 db 0
+  1317                                  
+  1318                                  section .text
+  1319                                  ; RPN'ized expression: "( L67 printStrVideo ) "
+  1320                                  ; Expanded expression: " L67  printStrVideo ()4 "
+  1321                                  ; Fused expression:    "( L67 , printStrVideo )4 "
+  1322                                  section .relod
+  1323 00000018 [84050000]              	dd	L68
+  1324                                  section .text
+  1325 00000582 6668                    	db	0x66, 0x68
+  1326                                  L68:
+  1327 00000584 [50000000]              	dd	L67
+  1328 00000588 9A                      	db	0x9A
+  1329                                  section .relot
+  1330 00000044 [89050000]              	dd	L69
+  1331                                  section .text
+  1332                                  L69:
+  1333 00000589 [00000000]              	dd	_printStrVideo
+  1334 0000058D 83ECFC                  	sub	sp, -4
+  1335                                  ; RPN'ized expression: "( leerScancode ) "
+  1336                                  ; Expanded expression: " leerScancode ()0 "
+  1337                                  ; Fused expression:    "( leerScancode )0 "
+  1338 00000590 9A                      	db	0x9A
+  1339                                  section .relot
+  1340 00000048 [91050000]              	dd	L70
+  1341                                  section .text
+  1342                                  L70:
+  1343 00000591 [00000000]              	dd	_leerScancode
+  1344                                  ; }
+  1345                                  L46:
+  1346                                  ; }
+  1347 00000595 EB5D                    	jmp	L32
+  1348                                  L33:
+  1349 00000597 663DD7C60000            	cmp	eax, 50903
+  1350 0000059D 0F849BFD                	je	L36
+  1351 000005A1 663D4A160000            	cmp	eax, 5706
+  1352 000005A7 0F84C5FD                	je	L37
+  1353 000005AB 663D9A1D0000            	cmp	eax, 7578
+  1354 000005B1 0F84BBFD                	je	L38
+  1355 000005B5 663D50220000            	cmp	eax, 8784
+  1356 000005BB 0F84B1FD                	je	L39
+  1357 000005BF 663D21B80000            	cmp	eax, 47137
+  1358 000005C5 0F84DBFD                	je	L40
+  1359 000005C9 663DE3BE0000            	cmp	eax, 48867
+  1360 000005CF 0F8405FE                	je	L41
+  1361 000005D3 663DA2180000            	cmp	eax, 6306
+  1362 000005D9 0F842FFE                	je	L42
+  1363 000005DD 663D21C60000            	cmp	eax, 50721
+  1364 000005E3 0F8459FE                	je	L43
+  1365 000005E7 663D560C0000            	cmp	eax, 3158
+  1366 000005ED 0F8485FE                	je	L44
+  1367 000005F1 E9B8FE                  	jmp	L45
+  1368                                  L32:
+  1369                                  L13:
+  1370 000005F4 66                      	db	0x66
+  1371 000005F5 C9                      	leave
+  1372 000005F6 CB                      	retf
+  1373                                  L71:
+  1374                                  
+  1375                                  section .fxnsz
+  1376 00000004 CF030000                	dd	L71 - _mirarLoQueHay
+  1377                                  
+  1378                                  ; glb ponerMuescaX : (
+  1379                                  ; prm     nombreSistema : * char
+  1380                                  ; prm     hayEseSistema : int
+  1381                                  ;     ) void
+  1382                                  section .text
+  1383                                  	global	_ponerMuescaX
+  1384                                  _ponerMuescaX:
+  1385 000005F7 6655                    	push	ebp
+  1386 000005F9 660FB7EC                	movzx	ebp, sp
+  1387                                  	;sub	sp,          0
+  1388                                  ; loc     nombreSistema : (@8): * char
+  1389                                  ; loc     hayEseSistema : (@12): int
+  1390                                  ; RPN'ized expression: "( nombreSistema printStrVideo ) "
+  1391                                  ; Expanded expression: " (@8) *(4)  printStrVideo ()4 "
+  1392                                  ; Fused expression:    "( *(4) (@8) , printStrVideo )4 "
+  1393 000005FD 66FF7608                	push	dword [bp+8]
+  1394 00000601 9A                      	db	0x9A
+  1395                                  section .relot
+  1396 0000004C [02060000]              	dd	L74
+  1397                                  section .text
+  1398                                  L74:
+  1399 00000602 [00000000]              	dd	_printStrVideo
+  1400 00000606 83ECFC                  	sub	sp, -4
+  1401                                  ; RPN'ized expression: "( 91 printCarVideo ) "
+  1402                                  ; Expanded expression: " 91  printCarVideo ()4 "
+  1403                                  ; Fused expression:    "( 91 , printCarVideo )4 "
+  1404 00000609 666A5B                  	push	dword 91
+  1405 0000060C 9A                      	db	0x9A
+  1406                                  section .relot
+  1407 00000050 [0D060000]              	dd	L75
+  1408                                  section .text
+  1409                                  L75:
+  1410 0000060D [00000000]              	dd	_printCarVideo
+  1411 00000611 83ECFC                  	sub	sp, -4
+  1412                                  ; if
+  1413                                  ; RPN'ized expression: "hayEseSistema "
+  1414                                  ; Expanded expression: "(@12) *(4) "
+  1415                                  ; Fused expression:    "*(4) (@12)  "
+  1416 00000614 668B460C                	mov	eax, [bp+12]
+  1417                                  ; JumpIfZero
+  1418 00000618 6685C0                  	test	eax, eax
+  1419 0000061B 740D                    	je	L76
+  1420                                  ; RPN'ized expression: "( 88 printCarVideo ) "
+  1421                                  ; Expanded expression: " 88  printCarVideo ()4 "
+  1422                                  ; Fused expression:    "( 88 , printCarVideo )4 "
+  1423 0000061D 666A58                  	push	dword 88
+  1424 00000620 9A                      	db	0x9A
+  1425                                  section .relot
+  1426 00000054 [21060000]              	dd	L78
+  1427                                  section .text
+  1428                                  L78:
+  1429 00000621 [00000000]              	dd	_printCarVideo
+  1430 00000625 83ECFC                  	sub	sp, -4
+  1431 00000628 EB0B                    	jmp	L77
+  1432                                  L76:
+  1433                                  ; else
+  1434                                  ; RPN'ized expression: "( 32 printCarVideo ) "
+  1435                                  ; Expanded expression: " 32  printCarVideo ()4 "
+  1436                                  ; Fused expression:    "( 32 , printCarVideo )4 "
+  1437 0000062A 666A20                  	push	dword 32
+  1438 0000062D 9A                      	db	0x9A
+  1439                                  section .relot
+  1440 00000058 [2E060000]              	dd	L79
+  1441                                  section .text
+  1442                                  L79:
+  1443 0000062E [00000000]              	dd	_printCarVideo
+  1444 00000632 83ECFC                  	sub	sp, -4
+  1445                                  L77:
+  1446                                  
+  1447                                  section .rodata
+  1448                                  L80:
+  1449 00000098 5D2020                  	db	"]  "
+  1450 0000009B 00                      	times	1 db 0
+  1451                                  
+  1452                                  section .text
+  1453                                  ; RPN'ized expression: "( L80 printStrVideo ) "
+  1454                                  ; Expanded expression: " L80  printStrVideo ()4 "
+  1455                                  ; Fused expression:    "( L80 , printStrVideo )4 "
+  1456                                  section .relod
+  1457 0000001C [37060000]              	dd	L81
+  1458                                  section .text
+  1459 00000635 6668                    	db	0x66, 0x68
+  1460                                  L81:
+  1461 00000637 [98000000]              	dd	L80
+  1462 0000063B 9A                      	db	0x9A
+  1463                                  section .relot
+  1464 0000005C [3C060000]              	dd	L82
+  1465                                  section .text
+  1466                                  L82:
+  1467 0000063C [00000000]              	dd	_printStrVideo
+  1468 00000640 83ECFC                  	sub	sp, -4
+  1469                                  L72:
+  1470 00000643 66                      	db	0x66
+  1471 00000644 C9                      	leave
+  1472 00000645 CB                      	retf
+  1473                                  L83:
+  1474                                  
+  1475                                  section .fxnsz
+  1476 00000008 4F000000                	dd	L83 - _ponerMuescaX
+  1477                                  
+  1478                                  ; glb mostrarLoQueHay : (
+  1479                                  ; prm     loQueHay : unsigned short
+  1480                                  ;     ) void
+  1481                                  section .text
+  1482                                  	global	_mostrarLoQueHay
+  1483                                  _mostrarLoQueHay:
+  1484 00000646 6655                    	push	ebp
+  1485 00000648 660FB7EC                	movzx	ebp, sp
+  1486                                  	;sub	sp,          0
+  1487                                  ; loc     loQueHay : (@8): unsigned short
+  1488                                  ; RPN'ized expression: "( 12 printCarVideo ) "
+  1489                                  ; Expanded expression: " 12  printCarVideo ()4 "
+  1490                                  ; Fused expression:    "( 12 , printCarVideo )4 "
+  1491 0000064C 666A0C                  	push	dword 12
+  1492 0000064F 9A                      	db	0x9A
+  1493                                  section .relot
+  1494 00000060 [50060000]              	dd	L86
+  1495                                  section .text
+  1496                                  L86:
+  1497 00000650 [00000000]              	dd	_printCarVideo
+  1498 00000654 83ECFC                  	sub	sp, -4
+  1499                                  ; RPN'ized expression: "( 0 , 1 goToXYVideo ) "
+  1500                                  ; Expanded expression: " 0  1  goToXYVideo ()8 "
+  1501                                  ; Fused expression:    "( 0 , 1 , goToXYVideo )8 "
+  1502 00000657 666A00                  	push	dword 0
+  1503 0000065A 666A01                  	push	dword 1
+  1504 0000065D 9A                      	db	0x9A
+  1505                                  section .relot
+  1506 00000064 [5E060000]              	dd	L87
+  1507                                  section .text
+  1508                                  L87:
+  1509 0000065E [00000000]              	dd	_goToXYVideo
+  1510 00000662 83ECF8                  	sub	sp, -8
+  1511                                  ; switch
+  1512                                  ; RPN'ized expression: "( modoSO1 ) "
+  1513                                  ; Expanded expression: " modoSO1 ()0 "
+  1514                                  ; Fused expression:    "( modoSO1 )0  "
+  1515 00000665 9A                      	db	0x9A
+  1516                                  section .relot
+  1517 00000068 [66060000]              	dd	L90
+  1518                                  section .text
+  1519                                  L90:
+  1520 00000666 [00000000]              	dd	_modoSO1
+  1521 0000066A EB22                    	jmp	L89
+  1522                                  ; {
+  1523                                  ; case
+  1524                                  ; RPN'ized expression: "modoSO1_Bin "
+  1525                                  ; Expanded expression: "0 "
+  1526                                  ; Expression value: 0
+  1527                                  L91:
+  1528                                  
+  1529                                  section .rodata
+  1530                                  L92:
+  1531 0000009C 20736F31682E62696E      	db	" so1h.bin"
+  1532 000000A5 00                      	times	1 db 0
+  1533                                  
+  1534                                  section .text
+  1535                                  ; RPN'ized expression: "( L92 printStrVideo ) "
+  1536                                  ; Expanded expression: " L92  printStrVideo ()4 "
+  1537                                  ; Fused expression:    "( L92 , printStrVideo )4 "
+  1538                                  section .relod
+  1539 00000020 [6E060000]              	dd	L93
+  1540                                  section .text
+  1541 0000066C 6668                    	db	0x66, 0x68
+  1542                                  L93:
+  1543 0000066E [9C000000]              	dd	L92
+  1544 00000672 9A                      	db	0x9A
+  1545                                  section .relot
+  1546 0000006C [73060000]              	dd	L94
+  1547                                  section .text
+  1548                                  L94:
+  1549 00000673 [00000000]              	dd	_printStrVideo
+  1550 00000677 83ECFC                  	sub	sp, -4
+  1551                                  ; break
+  1552 0000067A EB1E                    	jmp	L88
+  1553                                  ; case
+  1554                                  ; RPN'ized expression: "modoSO1_Exe "
+  1555                                  ; Expanded expression: "1 "
+  1556                                  ; Expression value: 1
+  1557                                  L95:
+  1558                                  
+  1559                                  section .rodata
+  1560                                  L96:
+  1561 000000A6 20736F31682E657865      	db	" so1h.exe"
+  1562 000000AF 00                      	times	1 db 0
+  1563                                  
+  1564                                  section .text
+  1565                                  ; RPN'ized expression: "( L96 printStrVideo ) "
+  1566                                  ; Expanded expression: " L96  printStrVideo ()4 "
+  1567                                  ; Fused expression:    "( L96 , printStrVideo )4 "
+  1568                                  section .relod
+  1569 00000024 [7E060000]              	dd	L97
+  1570                                  section .text
+  1571 0000067C 6668                    	db	0x66, 0x68
+  1572                                  L97:
+  1573 0000067E [A6000000]              	dd	L96
+  1574 00000682 9A                      	db	0x9A
+  1575                                  section .relot
+  1576 00000070 [83060000]              	dd	L98
+  1577                                  section .text
+  1578                                  L98:
+  1579 00000683 [00000000]              	dd	_printStrVideo
+  1580 00000687 83ECFC                  	sub	sp, -4
+  1581                                  ; break
+  1582 0000068A EB0E                    	jmp	L88
+  1583                                  ; }
+  1584 0000068C EB0C                    	jmp	L88
+  1585                                  L89:
+  1586 0000068E 6683F800                	cmp	eax, 0
+  1587 00000692 74D8                    	je	L91
+  1588 00000694 6683F801                	cmp	eax, 1
+  1589 00000698 74E2                    	je	L95
+  1590                                  L88:
+  1591                                  
+  1592                                  section .rodata
+  1593                                  L99:
+  1594 000000B0 2020                    	db	"  "
+  1595 000000B2 00                      	times	1 db 0
+  1596                                  
+  1597                                  section .text
+  1598                                  ; RPN'ized expression: "( L99 printStrVideo ) "
+  1599                                  ; Expanded expression: " L99  printStrVideo ()4 "
+  1600                                  ; Fused expression:    "( L99 , printStrVideo )4 "
+  1601                                  section .relod
+  1602 00000028 [9C060000]              	dd	L100
+  1603                                  section .text
+  1604 0000069A 6668                    	db	0x66, 0x68
+  1605                                  L100:
+  1606 0000069C [B0000000]              	dd	L99
+  1607 000006A0 9A                      	db	0x9A
+  1608                                  section .relot
+  1609 00000074 [A1060000]              	dd	L101
+  1610                                  section .text
+  1611                                  L101:
+  1612 000006A1 [00000000]              	dd	_printStrVideo
+  1613 000006A5 83ECFC                  	sub	sp, -4
+  1614                                  
+  1615                                  section .rodata
+  1616                                  L102:
+  1617 000000B3 4D53444F53              	db	"MSDOS"
+  1618 000000B8 00                      	times	1 db 0
+  1619                                  
+  1620                                  section .text
+  1621                                  ; loc     <something> : int
+  1622                                  ; RPN'ized expression: "( loQueHay 1 & (something103) , L102 ponerMuescaX ) "
+  1623                                  ; Expanded expression: " (@8) *(2) 1 &  L102  ponerMuescaX ()8 "
+  1624                                  ; Fused expression:    "( & *(@8) 1 , L102 , ponerMuescaX )8 "
+  1625 000006A8 8B4608                  	mov	ax, [bp+8]
+  1626 000006AB 660FB7C0                	movzx	eax, ax
+  1627 000006AF 6683E001                	and	eax, 1
+  1628 000006B3 6650                    	push	eax
+  1629                                  section .relod
+  1630 0000002C [B7060000]              	dd	L104
+  1631                                  section .text
+  1632 000006B5 6668                    	db	0x66, 0x68
+  1633                                  L104:
+  1634 000006B7 [B3000000]              	dd	L102
+  1635 000006BB 9A                      	db	0x9A
+  1636                                  section .relot
+  1637 00000078 [BC060000]              	dd	L105
+  1638                                  section .text
+  1639                                  L105:
+  1640 000006BC [F7050000]              	dd	_ponerMuescaX
+  1641 000006C0 83ECF8                  	sub	sp, -8
+  1642                                  
+  1643                                  section .rodata
+  1644                                  L106:
+  1645 000000B9 57696E4E54              	db	"WinNT"
+  1646 000000BE 00                      	times	1 db 0
+  1647                                  
+  1648                                  section .text
+  1649                                  ; loc     <something> : int
+  1650                                  ; RPN'ized expression: "( loQueHay 2 & (something107) , L106 ponerMuescaX ) "
+  1651                                  ; Expanded expression: " (@8) *(2) 2 &  L106  ponerMuescaX ()8 "
+  1652                                  ; Fused expression:    "( & *(@8) 2 , L106 , ponerMuescaX )8 "
+  1653 000006C3 8B4608                  	mov	ax, [bp+8]
+  1654 000006C6 660FB7C0                	movzx	eax, ax
+  1655 000006CA 6683E002                	and	eax, 2
+  1656 000006CE 6650                    	push	eax
+  1657                                  section .relod
+  1658 00000030 [D2060000]              	dd	L108
+  1659                                  section .text
+  1660 000006D0 6668                    	db	0x66, 0x68
+  1661                                  L108:
+  1662 000006D2 [B9000000]              	dd	L106
+  1663 000006D6 9A                      	db	0x9A
+  1664                                  section .relot
+  1665 0000007C [D7060000]              	dd	L109
+  1666                                  section .text
+  1667                                  L109:
+  1668 000006D7 [F7050000]              	dd	_ponerMuescaX
+  1669 000006DB 83ECF8                  	sub	sp, -8
+  1670                                  ; switch
+  1671                                  ; RPN'ized expression: "loQueHay 65532 & "
+  1672                                  ; Expanded expression: "(@8) *(2) 65532 & "
+  1673                                  ; Fused expression:    "& *(@8) 65532  "
+  1674 000006DE 8B4608                  	mov	ax, [bp+8]
+  1675 000006E1 660FB7C0                	movzx	eax, ax
+  1676 000006E5 6625FCFF0000            	and	eax, 65532
+  1677 000006EB E99800                  	jmp	L111
+  1678                                  ; {
+  1679                                  ; case
+  1680                                  ; RPN'ized expression: "4 "
+  1681                                  ; Expanded expression: "4 "
+  1682                                  ; Expression value: 4
+  1683                                  L112:
+  1684                                  
+  1685                                  section .rodata
+  1686                                  L113:
+  1687 000000BF 51656D75                	db	"Qemu"
+  1688 000000C3 00                      	times	1 db 0
+  1689                                  
+  1690                                  section .text
+  1691                                  ; RPN'ized expression: "( TRUE , L113 ponerMuescaX ) "
+  1692                                  ; Expanded expression: " 1  L113  ponerMuescaX ()8 "
+  1693                                  ; Fused expression:    "( 1 , L113 , ponerMuescaX )8 "
+  1694 000006EE 666A01                  	push	dword 1
+  1695                                  section .relod
+  1696 00000034 [F3060000]              	dd	L114
+  1697                                  section .text
+  1698 000006F1 6668                    	db	0x66, 0x68
+  1699                                  L114:
+  1700 000006F3 [BF000000]              	dd	L113
+  1701 000006F7 9A                      	db	0x9A
+  1702                                  section .relot
+  1703 00000080 [F8060000]              	dd	L115
+  1704                                  section .text
+  1705                                  L115:
+  1706 000006F8 [F7050000]              	dd	_ponerMuescaX
+  1707 000006FC 83ECF8                  	sub	sp, -8
+  1708                                  ; break
+  1709 000006FF E9BA00                  	jmp	L110
+  1710                                  ; case
+  1711                                  ; RPN'ized expression: "8 "
+  1712                                  ; Expanded expression: "8 "
+  1713                                  ; Expression value: 8
+  1714                                  L116:
+  1715                                  
+  1716                                  section .rodata
+  1717                                  L117:
+  1718 000000C4 426F636873              	db	"Bochs"
+  1719 000000C9 00                      	times	1 db 0
+  1720                                  
+  1721                                  section .text
+  1722                                  ; RPN'ized expression: "( TRUE , L117 ponerMuescaX ) "
+  1723                                  ; Expanded expression: " 1  L117  ponerMuescaX ()8 "
+  1724                                  ; Fused expression:    "( 1 , L117 , ponerMuescaX )8 "
+  1725 00000702 666A01                  	push	dword 1
+  1726                                  section .relod
+  1727 00000038 [07070000]              	dd	L118
+  1728                                  section .text
+  1729 00000705 6668                    	db	0x66, 0x68
+  1730                                  L118:
+  1731 00000707 [C4000000]              	dd	L117
+  1732 0000070B 9A                      	db	0x9A
+  1733                                  section .relot
+  1734 00000084 [0C070000]              	dd	L119
+  1735                                  section .text
+  1736                                  L119:
+  1737 0000070C [F7050000]              	dd	_ponerMuescaX
+  1738 00000710 83ECF8                  	sub	sp, -8
+  1739                                  ; break
+  1740 00000713 E9A600                  	jmp	L110
+  1741                                  ; case
+  1742                                  ; RPN'ized expression: "16 "
+  1743                                  ; Expanded expression: "16 "
+  1744                                  ; Expression value: 16
+  1745                                  L120:
+  1746                                  
+  1747                                  section .rodata
+  1748                                  L121:
+  1749 000000CA 444F53426F78            	db	"DOSBox"
+  1750 000000D0 00                      	times	1 db 0
+  1751                                  
+  1752                                  section .text
+  1753                                  ; RPN'ized expression: "( TRUE , L121 ponerMuescaX ) "
+  1754                                  ; Expanded expression: " 1  L121  ponerMuescaX ()8 "
+  1755                                  ; Fused expression:    "( 1 , L121 , ponerMuescaX )8 "
+  1756 00000716 666A01                  	push	dword 1
+  1757                                  section .relod
+  1758 0000003C [1B070000]              	dd	L122
+  1759                                  section .text
+  1760 00000719 6668                    	db	0x66, 0x68
+  1761                                  L122:
+  1762 0000071B [CA000000]              	dd	L121
+  1763 0000071F 9A                      	db	0x9A
+  1764                                  section .relot
+  1765 00000088 [20070000]              	dd	L123
+  1766                                  section .text
+  1767                                  L123:
+  1768 00000720 [F7050000]              	dd	_ponerMuescaX
+  1769 00000724 83ECF8                  	sub	sp, -8
+  1770                                  ; break
+  1771 00000727 E99200                  	jmp	L110
+  1772                                  ; case
+  1773                                  ; RPN'ized expression: "32 "
+  1774                                  ; Expanded expression: "32 "
+  1775                                  ; Expression value: 32
+  1776                                  L124:
+  1777                                  
+  1778                                  section .rodata
+  1779                                  L125:
+  1780 000000D1 4E5456444D              	db	"NTVDM"
+  1781 000000D6 00                      	times	1 db 0
+  1782                                  
+  1783                                  section .text
+  1784                                  ; RPN'ized expression: "( TRUE , L125 ponerMuescaX ) "
+  1785                                  ; Expanded expression: " 1  L125  ponerMuescaX ()8 "
+  1786                                  ; Fused expression:    "( 1 , L125 , ponerMuescaX )8 "
+  1787 0000072A 666A01                  	push	dword 1
+  1788                                  section .relod
+  1789 00000040 [2F070000]              	dd	L126
+  1790                                  section .text
+  1791 0000072D 6668                    	db	0x66, 0x68
+  1792                                  L126:
+  1793 0000072F [D1000000]              	dd	L125
+  1794 00000733 9A                      	db	0x9A
+  1795                                  section .relot
+  1796 0000008C [34070000]              	dd	L127
+  1797                                  section .text
+  1798                                  L127:
+  1799 00000734 [F7050000]              	dd	_ponerMuescaX
+  1800 00000738 83ECF8                  	sub	sp, -8
+  1801                                  ; break
+  1802 0000073B EB7F                    	jmp	L110
+  1803                                  ; case
+  1804                                  ; RPN'ized expression: "64 "
+  1805                                  ; Expanded expression: "64 "
+  1806                                  ; Expression value: 64
+  1807                                  L128:
+  1808                                  
+  1809                                  section .rodata
+  1810                                  L129:
+  1811 000000D7 46616B653836            	db	"Fake86"
+  1812 000000DD 00                      	times	1 db 0
+  1813                                  
+  1814                                  section .text
+  1815                                  ; RPN'ized expression: "( TRUE , L129 ponerMuescaX ) "
+  1816                                  ; Expanded expression: " 1  L129  ponerMuescaX ()8 "
+  1817                                  ; Fused expression:    "( 1 , L129 , ponerMuescaX )8 "
+  1818 0000073D 666A01                  	push	dword 1
+  1819                                  section .relod
+  1820 00000044 [42070000]              	dd	L130
+  1821                                  section .text
+  1822 00000740 6668                    	db	0x66, 0x68
+  1823                                  L130:
+  1824 00000742 [D7000000]              	dd	L129
+  1825 00000746 9A                      	db	0x9A
+  1826                                  section .relot
+  1827 00000090 [47070000]              	dd	L131
+  1828                                  section .text
+  1829                                  L131:
+  1830 00000747 [F7050000]              	dd	_ponerMuescaX
+  1831 0000074B 83ECF8                  	sub	sp, -8
+  1832                                  ; break
+  1833 0000074E EB6C                    	jmp	L110
+  1834                                  ; case
+  1835                                  ; RPN'ized expression: "128 "
+  1836                                  ; Expanded expression: "128 "
+  1837                                  ; Expression value: 128
+  1838                                  L132:
+  1839                                  
+  1840                                  section .rodata
+  1841                                  L133:
+  1842 000000DE 56446F73                	db	"VDos"
+  1843 000000E2 00                      	times	1 db 0
+  1844                                  
+  1845                                  section .text
+  1846                                  ; RPN'ized expression: "( TRUE , L133 ponerMuescaX ) "
+  1847                                  ; Expanded expression: " 1  L133  ponerMuescaX ()8 "
+  1848                                  ; Fused expression:    "( 1 , L133 , ponerMuescaX )8 "
+  1849 00000750 666A01                  	push	dword 1
+  1850                                  section .relod
+  1851 00000048 [55070000]              	dd	L134
+  1852                                  section .text
+  1853 00000753 6668                    	db	0x66, 0x68
+  1854                                  L134:
+  1855 00000755 [DE000000]              	dd	L133
+  1856 00000759 9A                      	db	0x9A
+  1857                                  section .relot
+  1858 00000094 [5A070000]              	dd	L135
+  1859                                  section .text
+  1860                                  L135:
+  1861 0000075A [F7050000]              	dd	_ponerMuescaX
+  1862 0000075E 83ECF8                  	sub	sp, -8
+  1863                                  ; break
+  1864 00000761 EB59                    	jmp	L110
+  1865                                  ; case
+  1866                                  ; RPN'ized expression: "256 "
+  1867                                  ; Expanded expression: "256 "
+  1868                                  ; Expression value: 256
+  1869                                  L136:
+  1870                                  
+  1871                                  section .rodata
+  1872                                  L137:
+  1873 000000E3 6D73646F73              	db	"msdos"
+  1874 000000E8 00                      	times	1 db 0
+  1875                                  
+  1876                                  section .text
+  1877                                  ; RPN'ized expression: "( TRUE , L137 ponerMuescaX ) "
+  1878                                  ; Expanded expression: " 1  L137  ponerMuescaX ()8 "
+  1879                                  ; Fused expression:    "( 1 , L137 , ponerMuescaX )8 "
+  1880 00000763 666A01                  	push	dword 1
+  1881                                  section .relod
+  1882 0000004C [68070000]              	dd	L138
+  1883                                  section .text
+  1884 00000766 6668                    	db	0x66, 0x68
+  1885                                  L138:
+  1886 00000768 [E3000000]              	dd	L137
+  1887 0000076C 9A                      	db	0x9A
+  1888                                  section .relot
+  1889 00000098 [6D070000]              	dd	L139
+  1890                                  section .text
+  1891                                  L139:
+  1892 0000076D [F7050000]              	dd	_ponerMuescaX
+  1893 00000771 83ECF8                  	sub	sp, -8
+  1894                                  ; break
+  1895 00000774 EB46                    	jmp	L110
+  1896                                  ; default
+  1897                                  L140:
+  1898                                  
+  1899                                  section .rodata
+  1900                                  L141:
+  1901 000000E9 074D617175696E6120-     	db	7,"Maquina (virtual) inexplorada "
+  1901 000000F2 287669727475616C29-
+  1901 000000FB 20696E6578706C6F72-
+  1901 00000104 61646120           
+  1902 00000108 00                      	times	1 db 0
+  1903                                  
+  1904                                  section .text
+  1905                                  ; RPN'ized expression: "( L141 printStrVideo ) "
+  1906                                  ; Expanded expression: " L141  printStrVideo ()4 "
+  1907                                  ; Fused expression:    "( L141 , printStrVideo )4 "
+  1908                                  section .relod
+  1909 00000050 [78070000]              	dd	L142
+  1910                                  section .text
+  1911 00000776 6668                    	db	0x66, 0x68
+  1912                                  L142:
+  1913 00000778 [E9000000]              	dd	L141
+  1914 0000077C 9A                      	db	0x9A
+  1915                                  section .relot
+  1916 0000009C [7D070000]              	dd	L143
+  1917                                  section .text
+  1918                                  L143:
+  1919 0000077D [00000000]              	dd	_printStrVideo
+  1920 00000781 83ECFC                  	sub	sp, -4
+  1921                                  ; }
+  1922 00000784 EB36                    	jmp	L110
+  1923                                  L111:
+  1924 00000786 6683F804                	cmp	eax, 4
+  1925 0000078A 0F8460FF                	je	L112
+  1926 0000078E 6683F808                	cmp	eax, 8
+  1927 00000792 0F846CFF                	je	L116
+  1928 00000796 6683F810                	cmp	eax, 16
+  1929 0000079A 0F8478FF                	je	L120
+  1930 0000079E 6683F820                	cmp	eax, 32
+  1931 000007A2 7486                    	je	L124
+  1932 000007A4 6683F840                	cmp	eax, 64
+  1933 000007A8 7493                    	je	L128
+  1934 000007AA 663D80000000            	cmp	eax, 128
+  1935 000007B0 749E                    	je	L132
+  1936 000007B2 663D00010000            	cmp	eax, 256
+  1937 000007B8 74A9                    	je	L136
+  1938 000007BA EBBA                    	jmp	L140
+  1939                                  L110:
+  1940                                  ; RPN'ized expression: "( printLnVideo ) "
+  1941                                  ; Expanded expression: " printLnVideo ()0 "
+  1942                                  ; Fused expression:    "( printLnVideo )0 "
+  1943 000007BC 9A                      	db	0x9A
+  1944                                  section .relot
+  1945 000000A0 [BD070000]              	dd	L144
+  1946                                  section .text
+  1947                                  L144:
+  1948 000007BD [00000000]              	dd	_printLnVideo
+  1949                                  L84:
+  1950 000007C1 66                      	db	0x66
+  1951 000007C2 C9                      	leave
+  1952 000007C3 CB                      	retf
+  1953                                  L145:
+  1954                                  
+  1955                                  section .fxnsz
+  1956 0000000C 7E010000                	dd	L145 - _mostrarLoQueHay
+  1957                                  
+  1958                                  ; glb tirarS0 : (
+  1959                                  ; prm     loQueHay : unsigned short
+  1960                                  ;     ) void
+  1961                                  section .text
+  1962                                  	global	_tirarS0
+  1963                                  _tirarS0:
+  1964 000007C4 6655                    	push	ebp
+  1965 000007C6 660FB7EC                	movzx	ebp, sp
+  1966                                  	;sub	sp,          0
+  1967                                  ; loc     loQueHay : (@8): unsigned short
+  1968                                  ; if
+  1969                                  ; RPN'ized expression: "( modoSO1 ) modoSO1_Exe == "
+  1970                                  ; Expanded expression: " modoSO1 ()0 1 == "
+  1971                                  ; Fused expression:    "( modoSO1 )0 == ax 1 IF! "
+  1972 000007CA 9A                      	db	0x9A
+  1973                                  section .relot
+  1974 000000A4 [CB070000]              	dd	L150
+  1975                                  section .text
+  1976                                  L150:
+  1977 000007CB [00000000]              	dd	_modoSO1
+  1978 000007CF 6683F801                	cmp	eax, 1
+  1979 000007D3 751D                    	jne	L148
+  1980                                  ; {
+  1981                                  ; RPN'ized expression: "( restaurarPantallaInicial ) "
+  1982                                  ; Expanded expression: " restaurarPantallaInicial ()0 "
+  1983                                  ; Fused expression:    "( restaurarPantallaInicial )0 "
+  1984 000007D5 9A                      	db	0x9A
+  1985                                  section .relot
+  1986 000000A8 [D6070000]              	dd	L151
+  1987                                  section .text
+  1988                                  L151:
+  1989 000007D6 [00000000]              	dd	_restaurarPantallaInicial
+  1990                                  ; RPN'ized expression: "( 1 setCursorVisibilidad ) "
+  1991                                  ; Expanded expression: " 1  setCursorVisibilidad ()4 "
+  1992                                  ; Fused expression:    "( 1 , setCursorVisibilidad )4 "
+  1993 000007DA 666A01                  	push	dword 1
+  1994 000007DD 9A                      	db	0x9A
+  1995                                  section .relot
+  1996 000000AC [DE070000]              	dd	L152
+  1997                                  section .text
+  1998                                  L152:
+  1999 000007DE [00000000]              	dd	_setCursorVisibilidad
+  2000 000007E2 83ECFC                  	sub	sp, -4
+  2001                                  ; RPN'ized expression: "( 0 finProgDOS ) "
+  2002                                  ; Expanded expression: " 0  finProgDOS ()4 "
+  2003                                  ; Fused expression:    "( 0 , finProgDOS )4 "
+  2004 000007E5 666A00                  	push	dword 0
+  2005 000007E8 9A                      	db	0x9A
+  2006                                  section .relot
+  2007 000000B0 [E9070000]              	dd	L153
+  2008                                  section .text
+  2009                                  L153:
+  2010 000007E9 [00000000]              	dd	_finProgDOS
+  2011 000007ED 83ECFC                  	sub	sp, -4
+  2012                                  ; }
+  2013 000007F0 EB62                    	jmp	L149
+  2014                                  L148:
+  2015                                  ; else
+  2016                                  ; if
+  2017                                  ; RPN'ized expression: "loQueHay 16 128 | & "
+  2018                                  ; Expanded expression: "(@8) *(2) 144 & "
+  2019                                  ; Fused expression:    "& *(@8) 144  "
+  2020 000007F2 8B4608                  	mov	ax, [bp+8]
+  2021 000007F5 660FB7C0                	movzx	eax, ax
+  2022 000007F9 662590000000            	and	eax, 144
+  2023                                  ; JumpIfZero
+  2024 000007FF 6685C0                  	test	eax, eax
+  2025 00000802 7430                    	je	L154
+  2026                                  ; {
+  2027                                  ; RPN'ized expression: "( 12 printCarVideo ) "
+  2028                                  ; Expanded expression: " 12  printCarVideo ()4 "
+  2029                                  ; Fused expression:    "( 12 , printCarVideo )4 "
+  2030 00000804 666A0C                  	push	dword 12
+  2031 00000807 9A                      	db	0x9A
+  2032                                  section .relot
+  2033 000000B4 [08080000]              	dd	L156
+  2034                                  section .text
+  2035                                  L156:
+  2036 00000808 [00000000]              	dd	_printCarVideo
+  2037 0000080C 83ECFC                  	sub	sp, -4
+  2038                                  ; RPN'ized expression: "( 14 , 11 goToXYVideo ) "
+  2039                                  ; Expanded expression: " 14  11  goToXYVideo ()8 "
+  2040                                  ; Fused expression:    "( 14 , 11 , goToXYVideo )8 "
+  2041 0000080F 666A0E                  	push	dword 14
+  2042 00000812 666A0B                  	push	dword 11
+  2043 00000815 9A                      	db	0x9A
+  2044                                  section .relot
+  2045 000000B8 [16080000]              	dd	L157
+  2046                                  section .text
+  2047                                  L157:
+  2048 00000816 [00000000]              	dd	_goToXYVideo
+  2049 0000081A 83ECF8                  	sub	sp, -8
+  2050                                  ; RPN'ized expression: "( ocultaCursorBIOS ) "
+  2051                                  ; Expanded expression: " ocultaCursorBIOS ()0 "
+  2052                                  ; Fused expression:    "( ocultaCursorBIOS )0 "
+  2053 0000081D 9A                      	db	0x9A
+  2054                                  section .relot
+  2055 000000BC [1E080000]              	dd	L158
+  2056                                  section .text
+  2057                                  L158:
+  2058 0000081E [00000000]              	dd	_ocultaCursorBIOS
+  2059                                  
+  2060                                  section .rodata
+  2061                                  L159:
+  2062 00000109 207075656465206170-     	db	" puede apagar la maquina virtual DOSBox (Ctrl+F9) o VDos"
+  2062 00000112 61676172206C61206D-
+  2062 0000011B 617175696E61207669-
+  2062 00000124 727475616C20444F53-
+  2062 0000012D 426F7820284374726C-
+  2062 00000136 2B463929206F205644-
+  2062 0000013F 6F73               
+  2063 00000141 00                      	times	1 db 0
+  2064                                  
+  2065                                  section .text
+  2066                                  ; RPN'ized expression: "( L159 printStrVideo ) "
+  2067                                  ; Expanded expression: " L159  printStrVideo ()4 "
+  2068                                  ; Fused expression:    "( L159 , printStrVideo )4 "
+  2069                                  section .relod
+  2070 00000054 [24080000]              	dd	L160
+  2071                                  section .text
+  2072 00000822 6668                    	db	0x66, 0x68
+  2073                                  L160:
+  2074 00000824 [09010000]              	dd	L159
+  2075 00000828 9A                      	db	0x9A
+  2076                                  section .relot
+  2077 000000C0 [29080000]              	dd	L161
+  2078                                  section .text
+  2079                                  L161:
+  2080 00000829 [00000000]              	dd	_printStrVideo
+  2081 0000082D 83ECFC                  	sub	sp, -4
+  2082 00000830 FA                       cli 
+  2083 00000831 F4                       hlt 
+  2084                                  
+  2085                                  ; }
+  2086 00000832 EB20                    	jmp	L155
+  2087                                  L154:
+  2088                                  ; else
+  2089                                  ; {
+  2090                                  ; RPN'ized expression: "( 0 scrollBIOS ) "
+  2091                                  ; Expanded expression: " 0  scrollBIOS ()4 "
+  2092                                  ; Fused expression:    "( 0 , scrollBIOS )4 "
+  2093 00000834 666A00                  	push	dword 0
+  2094 00000837 9A                      	db	0x9A
+  2095                                  section .relot
+  2096 000000C4 [38080000]              	dd	L162
+  2097                                  section .text
+  2098                                  L162:
+  2099 00000838 [00000000]              	dd	_scrollBIOS
+  2100 0000083C 83ECFC                  	sub	sp, -4
+  2101                                  ; RPN'ized expression: "( 1 , 1 goToXYBIOS ) "
+  2102                                  ; Expanded expression: " 1  1  goToXYBIOS ()8 "
+  2103                                  ; Fused expression:    "( 1 , 1 , goToXYBIOS )8 "
+  2104 0000083F 666A01                  	push	dword 1
+  2105 00000842 666A01                  	push	dword 1
+  2106 00000845 9A                      	db	0x9A
+  2107                                  section .relot
+  2108 000000C8 [46080000]              	dd	L163
+  2109                                  section .text
+  2110                                  L163:
+  2111 00000846 [00000000]              	dd	_goToXYBIOS
+  2112 0000084A 83ECF8                  	sub	sp, -8
+  2113                                  ; RPN'ized expression: "( ocultaCursorBIOS ) "
+  2114                                  ; Expanded expression: " ocultaCursorBIOS ()0 "
+  2115                                  ; Fused expression:    "( ocultaCursorBIOS )0 "
+  2116 0000084D 9A                      	db	0x9A
+  2117                                  section .relot
+  2118 000000CC [4E080000]              	dd	L164
+  2119                                  section .text
+  2120                                  L164:
+  2121 0000084E [00000000]              	dd	_ocultaCursorBIOS
+  2122                                  ; {
+  2123 00000852 CD19                    int 19h
+  2124                                  ; }
+  2125                                  ; }
+  2126                                  L155:
+  2127                                  L149:
+  2128                                  L146:
+  2129 00000854 66                      	db	0x66
+  2130 00000855 C9                      	leave
+  2131 00000856 CB                      	retf
+  2132                                  L165:
+  2133                                  
+  2134                                  section .fxnsz
+  2135 00000010 93000000                	dd	L165 - _tirarS0
+  2136                                  
+  2137                                  
+  2138                                  	extern	_modoSO1
+  2139                                  	extern	_hayWindowsNT
+  2140                                  	extern	_assert
+  2141                                  	extern	_printHexVideo
+  2142                                  	extern	_leerScancode
+  2143                                  	extern	_finProgDOS
+  2144                                  	extern	_rebootLegacy
+  2145                                  	extern	_ptrFechaBios
+  2146                                  	extern	_printLnVideo
+  2147                                  	extern	_printStrVideo
+  2148                                  	extern	_printCarVideo
+  2149                                  	extern	_printLDecVideo
+  2150                                  	extern	_goToXYVideo
+  2151                                  	extern	_restaurarPantallaInicial
+  2152                                  	extern	_setCursorVisibilidad
+  2153                                  	extern	_ocultaCursorBIOS
+  2154                                  	extern	_scrollBIOS
+  2155                                  	extern	_goToXYBIOS
+  2156                                  
+  2157                                  ; Syntax/declaration table/stack:
+  2158                                  ; Bytes used: 7910/40960
+  2159                                  
+  2160                                  
+  2161                                  ; Macro table:
+  2162                                  ; Macro __SMALLER_C__ = `0x0100`
+  2163                                  ; Macro __SMALLER_C_32__ = ``
+  2164                                  ; Macro __HUGE__ = ``
+  2165                                  ; Macro __SMALLER_C_SCHAR__ = ``
+  2166                                  ; Bytes used: 74/5120
+  2167                                  
+  2168                                  
+  2169                                  ; Identifier table:
+  2170                                  ; Ident __floatsisf
+  2171                                  ; Ident __floatunsisf
+  2172                                  ; Ident __fixsfsi
+  2173                                  ; Ident __fixunssfsi
+  2174                                  ; Ident __addsf3
+  2175                                  ; Ident __subsf3
+  2176                                  ; Ident __negsf2
+  2177                                  ; Ident __mulsf3
+  2178                                  ; Ident __divsf3
+  2179                                  ; Ident __lesf2
+  2180                                  ; Ident __gesf2
+  2181                                  ; Ident intptr_t
+  2182                                  ; Ident uintptr_t
+  2183                                  ; Ident intmax_t
+  2184                                  ; Ident uintmax_t
+  2185                                  ; Ident int8_t
+  2186                                  ; Ident int_least8_t
+  2187                                  ; Ident int_fast8_t
+  2188                                  ; Ident uint8_t
+  2189                                  ; Ident uint_least8_t
+  2190                                  ; Ident uint_fast8_t
+  2191                                  ; Ident int16_t
+  2192                                  ; Ident int_least16_t
+  2193                                  ; Ident int_fast16_t
+  2194                                  ; Ident uint16_t
+  2195                                  ; Ident uint_least16_t
+  2196                                  ; Ident uint_fast16_t
+  2197                                  ; Ident int32_t
+  2198                                  ; Ident int_least32_t
+  2199                                  ; Ident int_fast32_t
+  2200                                  ; Ident uint32_t
+  2201                                  ; Ident uint_least32_t
+  2202                                  ; Ident uint_fast32_t
+  2203                                  ; Ident <something>
+  2204                                  ; Ident quot
+  2205                                  ; Ident rem
+  2206                                  ; Ident imaxdiv_t
+  2207                                  ; Ident FALSE
+  2208                                  ; Ident TRUE
+  2209                                  ; Ident bool_t
+  2210                                  ; Ident pointer_t
+  2211                                  ; Ident funcion_t
+  2212                                  ; Ident manejador_t
+  2213                                  ; Ident rti_t
+  2214                                  ; Ident isr_t
+  2215                                  ; Ident handler_t
+  2216                                  ; Ident retardarThread_t
+  2217                                  ; Ident ptrTVI_t
+  2218                                  ; Ident modoSO1_Bin
+  2219                                  ; Ident modoSO1_Exe
+  2220                                  ; Ident modoSO1_Bs
+  2221                                  ; Ident modoSO1_t
+  2222                                  ; Ident lo
+  2223                                  ; Ident hi
+  2224                                  ; Ident lh_t
+  2225                                  ; Ident offset
+  2226                                  ; Ident segment
+  2227                                  ; Ident address_t
+  2228                                  ; Ident ptr
+  2229                                  ; Ident adr
+  2230                                  ; Ident uPtrAdr_t
+  2231                                  ; Ident pid_t
+  2232                                  ; Ident tid_t
+  2233                                  ; Ident uid_t
+  2234                                  ; Ident gid_t
+  2235                                  ; Ident pindx_t
+  2236                                  ; Ident tindx_t
+  2237                                  ; Ident df_t
+  2238                                  ; Ident dfs_t
+  2239                                  ; Ident rindx_t
+  2240                                  ; Ident startBin
+  2241                                  ; Ident modoSO1
+  2242                                  ; Ident unidadBIOS
+  2243                                  ; Ident CS_SO1H
+  2244                                  ; Ident RO_SO1H
+  2245                                  ; Ident DS_SO1H
+  2246                                  ; Ident BSS_SO1H
+  2247                                  ; Ident SS_SO1H
+  2248                                  ; Ident SS_Kernel
+  2249                                  ; Ident IMRInicial
+  2250                                  ; Ident obtenerMapa
+  2251                                  ; Ident HWLIST_t
+  2252                                  ; Ident KBDFLAGS_t
+  2253                                  ; Ident KBDSTATUS_t
+  2254                                  ; Ident VIDEOCONTROL_t
+  2255                                  ; Ident DRECSTATUS_t
+  2256                                  ; Ident DMOTORSTATUS_t
+  2257                                  ; Ident FDOPSTATUS_t
+  2258                                  ; Ident VIDEOSWITCHES_t
+  2259                                  ; Ident VGAOPTIONS_t
+  2260                                  ; Ident VIDEO_paramtbl
+  2261                                  ; Ident VIDEO_dynsavearea
+  2262                                  ; Ident VIDEO_text_charset
+  2263                                  ; Ident VIDEO_graph_charset
+  2264                                  ; Ident VIDEO_savetbl2
+  2265                                  ; Ident VIDEOSAVETBL_t
+  2266                                  ; Ident VPARAM_width
+  2267                                  ; Ident VPARAM_height
+  2268                                  ; Ident VPARAM_hchar
+  2269                                  ; Ident VPARAM_pagesize
+  2270                                  ; Ident VPARAM_SEQC
+  2271                                  ; Ident VPARAM_MISC
+  2272                                  ; Ident VPARAM_CRTC
+  2273                                  ; Ident VPARAM_ATC
+  2274                                  ; Ident VPARAM_GRC
+  2275                                  ; Ident VIDEOPARAM_t
+  2276                                  ; Ident IVT
+  2277                                  ; Ident COM_base
+  2278                                  ; Ident LPT_base
+  2279                                  ; Ident XBDA_seg
+  2280                                  ; Ident HW_list
+  2281                                  ; Ident relleno1
+  2282                                  ; Ident basemem_K
+  2283                                  ; Ident relleno2
+  2284                                  ; Ident KBD_flags
+  2285                                  ; Ident relleno3
+  2286                                  ; Ident KBD_bufhead
+  2287                                  ; Ident KBD_buftail
+  2288                                  ; Ident KBD_buffer
+  2289                                  ; Ident dRecStatus
+  2290                                  ; Ident dMotorStatus
+  2291                                  ; Ident motorShutoffCounter
+  2292                                  ; Ident fdOpStatus
+  2293                                  ; Ident relleno4
+  2294                                  ; Ident VIDEO_mode
+  2295                                  ; Ident VIDEO_width
+  2296                                  ; Ident VIDEO_pagesize
+  2297                                  ; Ident VIDEO_pageoff
+  2298                                  ; Ident CURSOR_pos
+  2299                                  ; Ident CURSOR_shape
+  2300                                  ; Ident VIDEO_pagActiva
+  2301                                  ; Ident CRTC_base
+  2302                                  ; Ident CRT_MODE
+  2303                                  ; Ident CRT_PALETTE
+  2304                                  ; Ident relleno5
+  2305                                  ; Ident BIOS_timer
+  2306                                  ; Ident BIOS_overflow
+  2307                                  ; Ident BIOS_ctrlbreak
+  2308                                  ; Ident BIOS_POSTreset
+  2309                                  ; Ident relleno6
+  2310                                  ; Ident BIOS_HD_cnt
+  2311                                  ; Ident relleno7
+  2312                                  ; Ident LPT_timeout
+  2313                                  ; Ident BIOS_4B_flags
+  2314                                  ; Ident COM_timeout
+  2315                                  ; Ident KBD_start
+  2316                                  ; Ident KBD_end1
+  2317                                  ; Ident VIDEO_lastrow
+  2318                                  ; Ident VIDEO_hchar
+  2319                                  ; Ident VIDEO_control
+  2320                                  ; Ident VIDEO_switches
+  2321                                  ; Ident VGA_options
+  2322                                  ; Ident VGA_DCC_index
+  2323                                  ; Ident relleno8
+  2324                                  ; Ident KBD_status
+  2325                                  ; Ident TIMER_waitflag
+  2326                                  ; Ident TIMER_waitmks
+  2327                                  ; Ident TIMER_active
+  2328                                  ; Ident relleno9
+  2329                                  ; Ident VIDEO_ptrtable
+  2330                                  ; Ident relleno10
+  2331                                  ; Ident IAC
+  2332                                  ; Ident BIOSAREA_t
+  2333                                  ; Ident ptrBiosArea
+  2334                                  ; Ident ptrFechaBios
+  2335                                  ; Ident salvarPantallaInicial
+  2336                                  ; Ident restaurarPantallaInicial
+  2337                                  ; Ident finProgDOS
+  2338                                  ; Ident error
+  2339                                  ; Ident ffblk
+  2340                                  ; Ident ff_reserved
+  2341                                  ; Ident ff_attrib
+  2342                                  ; Ident ff_ftime
+  2343                                  ; Ident ff_fdate
+  2344                                  ; Ident ff_fsize
+  2345                                  ; Ident ff_name
+  2346                                  ; Ident hayMSDOS
+  2347                                  ; Ident hayDOSBox
+  2348                                  ; Ident hayWindowsNT
+  2349                                  ; Ident segPSP
+  2350                                  ; Ident versionMSDOS
+  2351                                  ; Ident entornoMSDOS
+  2352                                  ; Ident valorMSDOS
+  2353                                  ; Ident str
+  2354                                  ; Ident argcMSDOS
+  2355                                  ; Ident getArgvMSDOS
+  2356                                  ; Ident n
+  2357                                  ; Ident openDOS
+  2358                                  ; Ident nombre
+  2359                                  ; Ident modo
+  2360                                  ; Ident extendedOpenDOS
+  2361                                  ; Ident atr
+  2362                                  ; Ident accion
+  2363                                  ; Ident closeDOS
+  2364                                  ; Ident df
+  2365                                  ; Ident commitFileDOS
+  2366                                  ; Ident createDOS
+  2367                                  ; Ident atributo
+  2368                                  ; Ident readDOS
+  2369                                  ; Ident buf
+  2370                                  ; Ident writeDOS
+  2371                                  ; Ident lseekDOS
+  2372                                  ; Ident pos
+  2373                                  ; Ident whence
+  2374                                  ; Ident getdiskDOS
+  2375                                  ; Ident setdiskDOS
+  2376                                  ; Ident drive
+  2377                                  ; Ident getcurdirDOS
+  2378                                  ; Ident direc
+  2379                                  ; Ident chdirDOS
+  2380                                  ; Ident path
+  2381                                  ; Ident findfirstDOS
+  2382                                  ; Ident pathname
+  2383                                  ; Ident attrib
+  2384                                  ; Ident findnextDOS
+  2385                                  ; Ident tipoOrdenador
+  2386                                  ; Ident rebootLegacy
+  2387                                  ; Ident tipoTeclado
+  2388                                  ; Ident leerTeclaBIOS
+  2389                                  ; Ident leerTeclaExtBIOS
+  2390                                  ; Ident teclaListaBIOS
+  2391                                  ; Ident leerTeclaListaBDA
+  2392                                  ; Ident teclaListaBDA
+  2393                                  ; Ident printCarBIOS
+  2394                                  ; Ident car
+  2395                                  ; Ident printCarPagBIOS
+  2396                                  ; Ident pag
+  2397                                  ; Ident printCarAtrPagBIOS
+  2398                                  ; Ident printLnBIOS
+  2399                                  ; Ident printStrBIOS
+  2400                                  ; Ident printStrHastaBIOS
+  2401                                  ; Ident lleno
+  2402                                  ; Ident printDecBIOS
+  2403                                  ; Ident num
+  2404                                  ; Ident l
+  2405                                  ; Ident printLDecBIOS
+  2406                                  ; Ident printIntBIOS
+  2407                                  ; Ident printLIntBIOS
+  2408                                  ; Ident printHexBIOS
+  2409                                  ; Ident printLHexBIOS
+  2410                                  ; Ident printBinBIOS
+  2411                                  ; Ident printLBinBIOS
+  2412                                  ; Ident printPtrBIOS
+  2413                                  ; Ident printByteBIOS
+  2414                                  ; Ident b
+  2415                                  ; Ident printWordBIOS
+  2416                                  ; Ident w
+  2417                                  ; Ident printCadBIOS
+  2418                                  ; Ident cad
+  2419                                  ; Ident esperarTicsBIOS
+  2420                                  ; Ident tics
+  2421                                  ; Ident modoDeVideo
+  2422                                  ; Ident establecerModoDeVideo
+  2423                                  ; Ident paginaActiva
+  2424                                  ; Ident establecerPaginaActiva
+  2425                                  ; Ident numPagsVideo
+  2426                                  ; Ident scrollPagBDA
+  2427                                  ; Ident numLineas
+  2428                                  ; Ident scrollPagBIOS
+  2429                                  ; Ident scrollBIOS
+  2430                                  ; Ident goToXYPag
+  2431                                  ; Ident fila
+  2432                                  ; Ident columna
+  2433                                  ; Ident goToXYBIOS
+  2434                                  ; Ident setCursorBIOS
+  2435                                  ; Ident linea1
+  2436                                  ; Ident linea2
+  2437                                  ; Ident ocultaCursorBIOS
+  2438                                  ; Ident readXYPagBIOS
+  2439                                  ; Ident readXYBIOS
+  2440                                  ; Ident memBIOS
+  2441                                  ; Ident enviarBIOS
+  2442                                  ; Ident recibirBIOS
+  2443                                  ; Ident hayApmBIOS
+  2444                                  ; Ident version
+  2445                                  ; Ident connectApmBIOS
+  2446                                  ; Ident disconnectApmBIOS
+  2447                                  ; Ident cpuIdleBIOS
+  2448                                  ; Ident cpuBusyBIOS
+  2449                                  ; Ident pos_t
+  2450                                  ; Ident t
+  2451                                  ; Ident pantalla_t
+  2452                                  ; Ident tamPantalla
+  2453                                  ; Ident numFilas
+  2454                                  ; Ident pantallazo
+  2455                                  ; Ident pantalla
+  2456                                  ; Ident esqSupDeF
+  2457                                  ; Ident esqSupDeC
+  2458                                  ; Ident esqInfIzF
+  2459                                  ; Ident esqInfIzC
+  2460                                  ; Ident borrarPantalla
+  2461                                  ; Ident borrarCPantalla
+  2462                                  ; Ident copiarPantalla
+  2463                                  ; Ident p1
+  2464                                  ; Ident p2
+  2465                                  ; Ident copiarCPantalla
+  2466                                  ; Ident scrollPantalla
+  2467                                  ; Ident scrollCPantalla
+  2468                                  ; Ident _NONE
+  2469                                  ; Ident _MDA
+  2470                                  ; Ident _CGA
+  2471                                  ; Ident _EGACOLOR
+  2472                                  ; Ident _EGAMONO
+  2473                                  ; Ident _VGACOLOR
+  2474                                  ; Ident _VGAMONO
+  2475                                  ; Ident _MCGACOLOR
+  2476                                  ; Ident _MCGAMONO
+  2477                                  ; Ident _MDS_GENIUS
+  2478                                  ; Ident tipoAdaptador_t
+  2479                                  ; Ident _FONT08
+  2480                                  ; Ident _FONT14
+  2481                                  ; Ident _FONT15
+  2482                                  ; Ident _FONT16
+  2483                                  ; Ident fontSize_t
+  2484                                  ; Ident numColumnas
+  2485                                  ; Ident ptrPant
+  2486                                  ; Ident tipoAdaptador
+  2487                                  ; Ident redimensionable
+  2488                                  ; Ident fontSize
+  2489                                  ; Ident visibilidad
+  2490                                  ; Ident inicBiosCrt
+  2491                                  ; Ident finBiosCrt
+  2492                                  ; Ident getFontSize
+  2493                                  ; Ident getFilas
+  2494                                  ; Ident comprobarAdaptador
+  2495                                  ; Ident tipoDeAdaptador
+  2496                                  ; Ident setCursorVisibilidad
+  2497                                  ; Ident valorDeVisibilidad
+  2498                                  ; Ident setFontSize
+  2499                                  ; Ident size
+  2500                                  ; Ident set25x80
+  2501                                  ; Ident redimensionar
+  2502                                  ; Ident nFilas
+  2503                                  ; Ident nCols
+  2504                                  ; Ident printCarVideo
+  2505                                  ; Ident printLnVideo
+  2506                                  ; Ident printStrVideo
+  2507                                  ; Ident printStrHastaVideo
+  2508                                  ; Ident printDecVideo
+  2509                                  ; Ident printLDecVideo
+  2510                                  ; Ident printIntVideo
+  2511                                  ; Ident printLIntVideo
+  2512                                  ; Ident printHexVideo
+  2513                                  ; Ident printLHexVideo
+  2514                                  ; Ident printBinVideo
+  2515                                  ; Ident printLBinVideo
+  2516                                  ; Ident printPtrVideo
+  2517                                  ; Ident printByteVideo
+  2518                                  ; Ident printWordVideo
+  2519                                  ; Ident printCadVideo
+  2520                                  ; Ident puntoDeParadaSO1
+  2521                                  ; Ident leerScancodeListo
+  2522                                  ; Ident leerScancode
+  2523                                  ; Ident mirarLoQueHay
+  2524                                  ; Ident loQueHay
+  2525                                  ; Ident mostrarLoQueHay
+  2526                                  ; Ident tirarS0
+  2527                                  ; Ident fechaCompactada
+  2528                                  ; Ident ptrFecha
+  2529                                  ; Ident ponerMuescaX
+  2530                                  ; Ident nombreSistema
+  2531                                  ; Ident hayEseSistema
+  2532                                  ; Bytes used: 4345/16384
+  2533                                  
+  2534                                  ; Next label number: 166
+  2535                                  ; Compilation succeeded.

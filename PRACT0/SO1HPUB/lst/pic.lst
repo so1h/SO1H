@@ -1,0 +1,794 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb inportb : (
+    51                                  ; prm     port : unsigned short
+    52                                  ;     ) unsigned char
+    53                                  ; glb inport : (
+    54                                  ; prm     port : unsigned short
+    55                                  ;     ) unsigned short
+    56                                  ; glb outport : (
+    57                                  ; prm     port : unsigned short
+    58                                  ; prm     val : unsigned short
+    59                                  ;     ) void
+    60                                  ; glb outportb : (
+    61                                  ; prm     port : unsigned short
+    62                                  ; prm     val : unsigned char
+    63                                  ;     ) void
+    64                                  ; glb inportb_r : (
+    65                                  ; prm     port : unsigned char
+    66                                  ;     ) unsigned char
+    67                                  ; glb outportb_r : (
+    68                                  ; prm     port : unsigned char
+    69                                  ; prm     val : unsigned char
+    70                                  ;     ) void
+    71                                  ; glb contadorTimer0 : (void) unsigned short
+    72                                  ; glb ptrTVI : * * (void) void
+    73                                  ; glb valorIMR : (void) unsigned short
+    74                                  ; glb establecerIMR : (
+    75                                  ; prm     nuevoIMR : unsigned short
+    76                                  ;     ) void
+    77                                  ; glb mask_pic1 : (
+    78                                  ; prm     irq : unsigned char
+    79                                  ;     ) void
+    80                                  ; glb mask_pic2 : (
+    81                                  ; prm     irq : unsigned char
+    82                                  ;     ) void
+    83                                  ; glb unmask_pic1 : (
+    84                                  ; prm     irq : unsigned char
+    85                                  ;     ) void
+    86                                  ; glb unmask_pic2 : (
+    87                                  ; prm     irq : unsigned char
+    88                                  ;     ) void
+    89                                  ; glb get_pic1_isr : (void) unsigned char
+    90                                  ; glb get_pic2_isr : (void) unsigned char
+    91                                  ; glb set_pics : (
+    92                                  ; prm     irq0 : unsigned char
+    93                                  ; prm     irq8 : unsigned char
+    94                                  ;     ) void
+    95                                  ; glb pic_setup : (void) void
+    96                                  ; glb enable_hwirq : (
+    97                                  ; prm     hwirq : int
+    98                                  ; prm     rti : * (void) void
+    99                                  ;     ) void
+   100                                  ; glb ptrTVI : * * (void) void
+   101                                  section .data
+   102                                  	align 4
+   103                                  	global	_ptrTVI
+   104                                  _ptrTVI:
+   105                                  ; =
+   106                                  ; glb <something> : * * (void) void
+   107                                  ; RPN'ized expression: "0 (something1) "
+   108                                  ; Expanded expression: "0 "
+   109 00000000 00000000                	dd	0
+   110                                  
+   111                                   section .text      
+   112                                     global _valorIMR 
+   113                                   _valorIMR:         
+   114 00000000 E4A1                       in al,0a1h       
+   115 00000002 88C4                       mov ah,al        
+   116 00000004 E421                       in al,021h       
+   117 00000006 CB                         retf             
+   118                                  
+   119                                  ; glb establecerIMR : (
+   120                                  ; prm     nuevoIMR : unsigned short
+   121                                  ;     ) void
+   122                                  section .text
+   123                                  	global	_establecerIMR
+   124                                  _establecerIMR:
+   125 00000007 6655                    	push	ebp
+   126 00000009 660FB7EC                	movzx	ebp, sp
+   127                                  	;sub	sp,          0
+   128                                  ; loc     nuevoIMR : (@8): unsigned short
+   129 0000000D 8B4608                     mov ax,[bp+8] 
+   130 00000010 E621                       out 021h,al   
+   131 00000012 88E0                       mov al,ah     
+   132 00000014 E6A1                       out 0a1h,al   
+   133                                  
+   134                                  L2:
+   135 00000016 66                      	db	0x66
+   136 00000017 C9                      	leave
+   137 00000018 CB                      	retf
+   138                                  L4:
+   139                                  
+   140                                  section .fxnsz noalloc
+   141 00000000 12000000                	dd	L4 - _establecerIMR
+   142                                  
+   143                                  ; glb mask_pic1 : (
+   144                                  ; prm     irq : unsigned char
+   145                                  ;     ) void
+   146                                  section .text
+   147                                  	global	_mask_pic1
+   148                                  _mask_pic1:
+   149 00000019 6655                    	push	ebp
+   150 0000001B 660FB7EC                	movzx	ebp, sp
+   151                                  	;sub	sp,          0
+   152                                  ; loc     irq : (@8): unsigned char
+   153                                  ; RPN'ized expression: "( ( 33 inportb ) irq | , 33 outportb ) "
+   154                                  ; Expanded expression: "  33  inportb ()4 (@8) *(1) |  33  outportb ()8 "
+   155                                  ; Fused expression:    "( ( 33 , inportb )4 | ax *(@8) , 33 , outportb )8 "
+   156 0000001F 666A21                  	push	dword 33
+   157 00000022 9A                      	db	0x9A
+   158                                  section .relot
+   159 00000000 [23000000]              	dd	L7
+   160                                  section .text
+   161                                  L7:
+   162 00000023 [00000000]              	dd	_inportb
+   163 00000027 83ECFC                  	sub	sp, -4
+   164 0000002A 660FB64E08              	movzx	ecx, byte [bp+8]
+   165 0000002F 6609C8                  	or	eax, ecx
+   166 00000032 6650                    	push	eax
+   167 00000034 666A21                  	push	dword 33
+   168 00000037 9A                      	db	0x9A
+   169                                  section .relot
+   170 00000004 [38000000]              	dd	L8
+   171                                  section .text
+   172                                  L8:
+   173 00000038 [00000000]              	dd	_outportb
+   174 0000003C 83ECF8                  	sub	sp, -8
+   175                                  L5:
+   176 0000003F 66                      	db	0x66
+   177 00000040 C9                      	leave
+   178 00000041 CB                      	retf
+   179                                  L9:
+   180                                  
+   181                                  section .fxnsz
+   182 00000004 29000000                	dd	L9 - _mask_pic1
+   183                                  
+   184                                  ; glb mask_pic2 : (
+   185                                  ; prm     irq : unsigned char
+   186                                  ;     ) void
+   187                                  section .text
+   188                                  	global	_mask_pic2
+   189                                  _mask_pic2:
+   190 00000042 6655                    	push	ebp
+   191 00000044 660FB7EC                	movzx	ebp, sp
+   192                                  	;sub	sp,          0
+   193                                  ; loc     irq : (@8): unsigned char
+   194                                  ; RPN'ized expression: "( ( 161 inportb ) irq | , 161 outportb ) "
+   195                                  ; Expanded expression: "  161  inportb ()4 (@8) *(1) |  161  outportb ()8 "
+   196                                  ; Fused expression:    "( ( 161 , inportb )4 | ax *(@8) , 161 , outportb )8 "
+   197 00000048 6668A1000000            	push	dword 161
+   198 0000004E 9A                      	db	0x9A
+   199                                  section .relot
+   200 00000008 [4F000000]              	dd	L12
+   201                                  section .text
+   202                                  L12:
+   203 0000004F [00000000]              	dd	_inportb
+   204 00000053 83ECFC                  	sub	sp, -4
+   205 00000056 660FB64E08              	movzx	ecx, byte [bp+8]
+   206 0000005B 6609C8                  	or	eax, ecx
+   207 0000005E 6650                    	push	eax
+   208 00000060 6668A1000000            	push	dword 161
+   209 00000066 9A                      	db	0x9A
+   210                                  section .relot
+   211 0000000C [67000000]              	dd	L13
+   212                                  section .text
+   213                                  L13:
+   214 00000067 [00000000]              	dd	_outportb
+   215 0000006B 83ECF8                  	sub	sp, -8
+   216                                  L10:
+   217 0000006E 66                      	db	0x66
+   218 0000006F C9                      	leave
+   219 00000070 CB                      	retf
+   220                                  L14:
+   221                                  
+   222                                  section .fxnsz
+   223 00000008 2F000000                	dd	L14 - _mask_pic2
+   224                                  
+   225                                  ; glb unmask_pic1 : (
+   226                                  ; prm     irq : unsigned char
+   227                                  ;     ) void
+   228                                  section .text
+   229                                  	global	_unmask_pic1
+   230                                  _unmask_pic1:
+   231 00000071 6655                    	push	ebp
+   232 00000073 660FB7EC                	movzx	ebp, sp
+   233                                  	;sub	sp,          0
+   234                                  ; loc     irq : (@8): unsigned char
+   235                                  ; RPN'ized expression: "( ( 33 inportb ) irq ~ & , 33 outportb ) "
+   236                                  ; Expanded expression: "  33  inportb ()4 (@8) *(1) ~ &  33  outportb ()8 "
+   237                                  ; Fused expression:    "( ( 33 , inportb )4 push-ax *(1) (@8) ~ & *sp ax , 33 , outportb )8 "
+   238 00000077 666A21                  	push	dword 33
+   239 0000007A 9A                      	db	0x9A
+   240                                  section .relot
+   241 00000010 [7B000000]              	dd	L17
+   242                                  section .text
+   243                                  L17:
+   244 0000007B [00000000]              	dd	_inportb
+   245 0000007F 83ECFC                  	sub	sp, -4
+   246 00000082 6650                    	push	eax
+   247 00000084 8A4608                  	mov	al, [bp+8]
+   248 00000087 660FB6C0                	movzx	eax, al
+   249 0000008B 66F7D0                  	not	eax
+   250 0000008E 6689C1                  	mov	ecx, eax
+   251 00000091 6658                    	pop	eax
+   252 00000093 6621C8                  	and	eax, ecx
+   253 00000096 6650                    	push	eax
+   254 00000098 666A21                  	push	dword 33
+   255 0000009B 9A                      	db	0x9A
+   256                                  section .relot
+   257 00000014 [9C000000]              	dd	L18
+   258                                  section .text
+   259                                  L18:
+   260 0000009C [00000000]              	dd	_outportb
+   261 000000A0 83ECF8                  	sub	sp, -8
+   262                                  L15:
+   263 000000A3 66                      	db	0x66
+   264 000000A4 C9                      	leave
+   265 000000A5 CB                      	retf
+   266                                  L19:
+   267                                  
+   268                                  section .fxnsz
+   269 0000000C 35000000                	dd	L19 - _unmask_pic1
+   270                                  
+   271                                  ; glb unmask_pic2 : (
+   272                                  ; prm     irq : unsigned char
+   273                                  ;     ) void
+   274                                  section .text
+   275                                  	global	_unmask_pic2
+   276                                  _unmask_pic2:
+   277 000000A6 6655                    	push	ebp
+   278 000000A8 660FB7EC                	movzx	ebp, sp
+   279                                  	;sub	sp,          0
+   280                                  ; loc     irq : (@8): unsigned char
+   281                                  ; RPN'ized expression: "( ( 161 inportb ) irq ~ & , 161 outportb ) "
+   282                                  ; Expanded expression: "  161  inportb ()4 (@8) *(1) ~ &  161  outportb ()8 "
+   283                                  ; Fused expression:    "( ( 161 , inportb )4 push-ax *(1) (@8) ~ & *sp ax , 161 , outportb )8 "
+   284 000000AC 6668A1000000            	push	dword 161
+   285 000000B2 9A                      	db	0x9A
+   286                                  section .relot
+   287 00000018 [B3000000]              	dd	L22
+   288                                  section .text
+   289                                  L22:
+   290 000000B3 [00000000]              	dd	_inportb
+   291 000000B7 83ECFC                  	sub	sp, -4
+   292 000000BA 6650                    	push	eax
+   293 000000BC 8A4608                  	mov	al, [bp+8]
+   294 000000BF 660FB6C0                	movzx	eax, al
+   295 000000C3 66F7D0                  	not	eax
+   296 000000C6 6689C1                  	mov	ecx, eax
+   297 000000C9 6658                    	pop	eax
+   298 000000CB 6621C8                  	and	eax, ecx
+   299 000000CE 6650                    	push	eax
+   300 000000D0 6668A1000000            	push	dword 161
+   301 000000D6 9A                      	db	0x9A
+   302                                  section .relot
+   303 0000001C [D7000000]              	dd	L23
+   304                                  section .text
+   305                                  L23:
+   306 000000D7 [00000000]              	dd	_outportb
+   307 000000DB 83ECF8                  	sub	sp, -8
+   308                                  L20:
+   309 000000DE 66                      	db	0x66
+   310 000000DF C9                      	leave
+   311 000000E0 CB                      	retf
+   312                                  L24:
+   313                                  
+   314                                  section .fxnsz
+   315 00000010 3B000000                	dd	L24 - _unmask_pic2
+   316                                  
+   317                                  ; glb get_pic1_isr : (void) unsigned char
+   318                                  section .text
+   319                                  	global	_get_pic1_isr
+   320                                  _get_pic1_isr:
+   321 000000E1 6655                    	push	ebp
+   322 000000E3 660FB7EC                	movzx	ebp, sp
+   323                                  	;sub	sp,          0
+   324                                  ; RPN'ized expression: "( 11 , 32 outportb ) "
+   325                                  ; Expanded expression: " 11  32  outportb ()8 "
+   326                                  ; Fused expression:    "( 11 , 32 , outportb )8 "
+   327 000000E7 666A0B                  	push	dword 11
+   328 000000EA 666A20                  	push	dword 32
+   329 000000ED 9A                      	db	0x9A
+   330                                  section .relot
+   331 00000020 [EE000000]              	dd	L27
+   332                                  section .text
+   333                                  L27:
+   334 000000EE [00000000]              	dd	_outportb
+   335 000000F2 83ECF8                  	sub	sp, -8
+   336                                  ; return
+   337                                  ; RPN'ized expression: "( 32 inportb ) "
+   338                                  ; Expanded expression: " 32  inportb ()4 "
+   339                                  ; Fused expression:    "( 32 , inportb )4  "
+   340 000000F5 666A20                  	push	dword 32
+   341 000000F8 9A                      	db	0x9A
+   342                                  section .relot
+   343 00000024 [F9000000]              	dd	L28
+   344                                  section .text
+   345                                  L28:
+   346 000000F9 [00000000]              	dd	_inportb
+   347 000000FD 83ECFC                  	sub	sp, -4
+   348                                  L25:
+   349 00000100 66                      	db	0x66
+   350 00000101 C9                      	leave
+   351 00000102 CB                      	retf
+   352                                  L29:
+   353                                  
+   354                                  section .fxnsz
+   355 00000014 22000000                	dd	L29 - _get_pic1_isr
+   356                                  
+   357                                  ; glb get_pic2_isr : (void) unsigned char
+   358                                  section .text
+   359                                  	global	_get_pic2_isr
+   360                                  _get_pic2_isr:
+   361 00000103 6655                    	push	ebp
+   362 00000105 660FB7EC                	movzx	ebp, sp
+   363                                  	;sub	sp,          0
+   364                                  ; RPN'ized expression: "( 11 , 160 outportb ) "
+   365                                  ; Expanded expression: " 11  160  outportb ()8 "
+   366                                  ; Fused expression:    "( 11 , 160 , outportb )8 "
+   367 00000109 666A0B                  	push	dword 11
+   368 0000010C 6668A0000000            	push	dword 160
+   369 00000112 9A                      	db	0x9A
+   370                                  section .relot
+   371 00000028 [13010000]              	dd	L32
+   372                                  section .text
+   373                                  L32:
+   374 00000113 [00000000]              	dd	_outportb
+   375 00000117 83ECF8                  	sub	sp, -8
+   376                                  ; return
+   377                                  ; RPN'ized expression: "( 160 inportb ) "
+   378                                  ; Expanded expression: " 160  inportb ()4 "
+   379                                  ; Fused expression:    "( 160 , inportb )4  "
+   380 0000011A 6668A0000000            	push	dword 160
+   381 00000120 9A                      	db	0x9A
+   382                                  section .relot
+   383 0000002C [21010000]              	dd	L33
+   384                                  section .text
+   385                                  L33:
+   386 00000121 [00000000]              	dd	_inportb
+   387 00000125 83ECFC                  	sub	sp, -4
+   388                                  L30:
+   389 00000128 66                      	db	0x66
+   390 00000129 C9                      	leave
+   391 0000012A CB                      	retf
+   392                                  L34:
+   393                                  
+   394                                  section .fxnsz
+   395 00000018 28000000                	dd	L34 - _get_pic2_isr
+   396                                  
+   397                                  ; glb set_pics : (
+   398                                  ; prm     irq0 : unsigned char
+   399                                  ; prm     irq8 : unsigned char
+   400                                  ;     ) void
+   401                                  section .text
+   402                                  	global	_set_pics
+   403                                  _set_pics:
+   404 0000012B 6655                    	push	ebp
+   405 0000012D 660FB7EC                	movzx	ebp, sp
+   406                                  	;sub	sp,          0
+   407                                  ; loc     irq0 : (@8): unsigned char
+   408                                  ; loc     irq8 : (@12): unsigned char
+   409                                  ; RPN'ized expression: "( 17 , 32 outportb ) "
+   410                                  ; Expanded expression: " 17  32  outportb ()8 "
+   411                                  ; Fused expression:    "( 17 , 32 , outportb )8 "
+   412 00000131 666A11                  	push	dword 17
+   413 00000134 666A20                  	push	dword 32
+   414 00000137 9A                      	db	0x9A
+   415                                  section .relot
+   416 00000030 [38010000]              	dd	L37
+   417                                  section .text
+   418                                  L37:
+   419 00000138 [00000000]              	dd	_outportb
+   420 0000013C 83ECF8                  	sub	sp, -8
+   421                                  ; RPN'ized expression: "( 17 , 160 outportb ) "
+   422                                  ; Expanded expression: " 17  160  outportb ()8 "
+   423                                  ; Fused expression:    "( 17 , 160 , outportb )8 "
+   424 0000013F 666A11                  	push	dword 17
+   425 00000142 6668A0000000            	push	dword 160
+   426 00000148 9A                      	db	0x9A
+   427                                  section .relot
+   428 00000034 [49010000]              	dd	L38
+   429                                  section .text
+   430                                  L38:
+   431 00000149 [00000000]              	dd	_outportb
+   432 0000014D 83ECF8                  	sub	sp, -8
+   433                                  ; RPN'ized expression: "( irq0 , 33 outportb ) "
+   434                                  ; Expanded expression: " (@8) *(1)  33  outportb ()8 "
+   435                                  ; Fused expression:    "( *(1) (@8) , 33 , outportb )8 "
+   436 00000150 8A4608                  	mov	al, [bp+8]
+   437 00000153 660FB6C0                	movzx	eax, al
+   438 00000157 6650                    	push	eax
+   439 00000159 666A21                  	push	dword 33
+   440 0000015C 9A                      	db	0x9A
+   441                                  section .relot
+   442 00000038 [5D010000]              	dd	L39
+   443                                  section .text
+   444                                  L39:
+   445 0000015D [00000000]              	dd	_outportb
+   446 00000161 83ECF8                  	sub	sp, -8
+   447                                  ; RPN'ized expression: "( irq8 , 161 outportb ) "
+   448                                  ; Expanded expression: " (@12) *(1)  161  outportb ()8 "
+   449                                  ; Fused expression:    "( *(1) (@12) , 161 , outportb )8 "
+   450 00000164 8A460C                  	mov	al, [bp+12]
+   451 00000167 660FB6C0                	movzx	eax, al
+   452 0000016B 6650                    	push	eax
+   453 0000016D 6668A1000000            	push	dword 161
+   454 00000173 9A                      	db	0x9A
+   455                                  section .relot
+   456 0000003C [74010000]              	dd	L40
+   457                                  section .text
+   458                                  L40:
+   459 00000174 [00000000]              	dd	_outportb
+   460 00000178 83ECF8                  	sub	sp, -8
+   461                                  ; RPN'ized expression: "( 4 , 33 outportb ) "
+   462                                  ; Expanded expression: " 4  33  outportb ()8 "
+   463                                  ; Fused expression:    "( 4 , 33 , outportb )8 "
+   464 0000017B 666A04                  	push	dword 4
+   465 0000017E 666A21                  	push	dword 33
+   466 00000181 9A                      	db	0x9A
+   467                                  section .relot
+   468 00000040 [82010000]              	dd	L41
+   469                                  section .text
+   470                                  L41:
+   471 00000182 [00000000]              	dd	_outportb
+   472 00000186 83ECF8                  	sub	sp, -8
+   473                                  ; RPN'ized expression: "( 2 , 161 outportb ) "
+   474                                  ; Expanded expression: " 2  161  outportb ()8 "
+   475                                  ; Fused expression:    "( 2 , 161 , outportb )8 "
+   476 00000189 666A02                  	push	dword 2
+   477 0000018C 6668A1000000            	push	dword 161
+   478 00000192 9A                      	db	0x9A
+   479                                  section .relot
+   480 00000044 [93010000]              	dd	L42
+   481                                  section .text
+   482                                  L42:
+   483 00000193 [00000000]              	dd	_outportb
+   484 00000197 83ECF8                  	sub	sp, -8
+   485                                  ; RPN'ized expression: "( 1 , 33 outportb ) "
+   486                                  ; Expanded expression: " 1  33  outportb ()8 "
+   487                                  ; Fused expression:    "( 1 , 33 , outportb )8 "
+   488 0000019A 666A01                  	push	dword 1
+   489 0000019D 666A21                  	push	dword 33
+   490 000001A0 9A                      	db	0x9A
+   491                                  section .relot
+   492 00000048 [A1010000]              	dd	L43
+   493                                  section .text
+   494                                  L43:
+   495 000001A1 [00000000]              	dd	_outportb
+   496 000001A5 83ECF8                  	sub	sp, -8
+   497                                  ; RPN'ized expression: "( 1 , 161 outportb ) "
+   498                                  ; Expanded expression: " 1  161  outportb ()8 "
+   499                                  ; Fused expression:    "( 1 , 161 , outportb )8 "
+   500 000001A8 666A01                  	push	dword 1
+   501 000001AB 6668A1000000            	push	dword 161
+   502 000001B1 9A                      	db	0x9A
+   503                                  section .relot
+   504 0000004C [B2010000]              	dd	L44
+   505                                  section .text
+   506                                  L44:
+   507 000001B2 [00000000]              	dd	_outportb
+   508 000001B6 83ECF8                  	sub	sp, -8
+   509                                  ; RPN'ized expression: "( 1 2 << ~ , 33 outportb ) "
+   510                                  ; Expanded expression: " -5  33  outportb ()8 "
+   511                                  ; Fused expression:    "( -5 , 33 , outportb )8 "
+   512 000001B9 666AFB                  	push	dword -5
+   513 000001BC 666A21                  	push	dword 33
+   514 000001BF 9A                      	db	0x9A
+   515                                  section .relot
+   516 00000050 [C0010000]              	dd	L45
+   517                                  section .text
+   518                                  L45:
+   519 000001C0 [00000000]              	dd	_outportb
+   520 000001C4 83ECF8                  	sub	sp, -8
+   521                                  ; RPN'ized expression: "( 0 ~ , 161 outportb ) "
+   522                                  ; Expanded expression: " -1  161  outportb ()8 "
+   523                                  ; Fused expression:    "( -1 , 161 , outportb )8 "
+   524 000001C7 666AFF                  	push	dword -1
+   525 000001CA 6668A1000000            	push	dword 161
+   526 000001D0 9A                      	db	0x9A
+   527                                  section .relot
+   528 00000054 [D1010000]              	dd	L46
+   529                                  section .text
+   530                                  L46:
+   531 000001D1 [00000000]              	dd	_outportb
+   532 000001D5 83ECF8                  	sub	sp, -8
+   533                                  L35:
+   534 000001D8 66                      	db	0x66
+   535 000001D9 C9                      	leave
+   536 000001DA CB                      	retf
+   537                                  L47:
+   538                                  
+   539                                  section .fxnsz
+   540 0000001C B0000000                	dd	L47 - _set_pics
+   541                                  
+   542                                  ; glb pic_setup : (void) void
+   543                                  section .text
+   544                                  	global	_pic_setup
+   545                                  _pic_setup:
+   546 000001DB 6655                    	push	ebp
+   547 000001DD 660FB7EC                	movzx	ebp, sp
+   548                                  	;sub	sp,          0
+   549                                  ; RPN'ized expression: "( 112 , 8 set_pics ) "
+   550                                  ; Expanded expression: " 112  8  set_pics ()8 "
+   551                                  ; Fused expression:    "( 112 , 8 , set_pics )8 "
+   552 000001E1 666A70                  	push	dword 112
+   553 000001E4 666A08                  	push	dword 8
+   554 000001E7 9A                      	db	0x9A
+   555                                  section .relot
+   556 00000058 [E8010000]              	dd	L50
+   557                                  section .text
+   558                                  L50:
+   559 000001E8 [2B010000]              	dd	_set_pics
+   560 000001EC 83ECF8                  	sub	sp, -8
+   561                                  L48:
+   562 000001EF 66                      	db	0x66
+   563 000001F0 C9                      	leave
+   564 000001F1 CB                      	retf
+   565                                  L51:
+   566                                  
+   567                                  section .fxnsz
+   568 00000020 17000000                	dd	L51 - _pic_setup
+   569                                  
+   570                                  ; glb enable_hwirq : (
+   571                                  ; prm     hwirq : int
+   572                                  ; prm     rti : * (void) void
+   573                                  ;     ) void
+   574                                  section .text
+   575                                  	global	_enable_hwirq
+   576                                  _enable_hwirq:
+   577 000001F2 6655                    	push	ebp
+   578 000001F4 660FB7EC                	movzx	ebp, sp
+   579 000001F8 83EC04                  	 sub	sp,          4
+   580                                  ; loc     hwirq : (@8): int
+   581                                  ; loc     rti : (@12): * (void) void
+   582                                  ; loc     vector : (@-4): int
+   583                                  ; if
+   584                                  ; RPN'ized expression: "hwirq 8 < "
+   585                                  ; Expanded expression: "(@8) *(4) 8 < "
+   586                                  ; Fused expression:    "< *(@8) 8 IF! "
+   587 000001FB 668B4608                	mov	eax, [bp+8]
+   588 000001FF 6683F808                	cmp	eax, 8
+   589 00000203 7D26                    	jge	L54
+   590                                  ; {
+   591                                  ; RPN'ized expression: "( 1 hwirq << unmask_pic1 ) "
+   592                                  ; Expanded expression: " 1 (@8) *(4) <<  unmask_pic1 ()4 "
+   593                                  ; Fused expression:    "( << 1 *(@8) , unmask_pic1 )4 "
+   594 00000205 66B801000000            	mov	eax, 1
+   595 0000020B 8A4E08                  	mov	cl, [bp+8]
+   596 0000020E 66D3E0                  	shl	eax, cl
+   597 00000211 6650                    	push	eax
+   598 00000213 9A                      	db	0x9A
+   599                                  section .relot
+   600 0000005C [14020000]              	dd	L56
+   601                                  section .text
+   602                                  L56:
+   603 00000214 [71000000]              	dd	_unmask_pic1
+   604 00000218 83ECFC                  	sub	sp, -4
+   605                                  ; RPN'ized expression: "vector 8 hwirq + = "
+   606                                  ; Expanded expression: "(@-4) 8 (@8) *(4) + =(4) "
+   607                                  ; Fused expression:    "+ 8 *(@8) =(204) *(@-4) ax "
+   608 0000021B 66B808000000            	mov	eax, 8
+   609 00000221 66034608                	add	eax, [bp+8]
+   610 00000225 668946FC                	mov	[bp-4], eax
+   611                                  ; }
+   612 00000229 EB30                    	jmp	L55
+   613                                  L54:
+   614                                  ; else
+   615                                  ; {
+   616                                  ; RPN'ized expression: "( 1 hwirq 8 - << unmask_pic2 ) "
+   617                                  ; Expanded expression: " 1 (@8) *(4) 8 - <<  unmask_pic2 ()4 "
+   618                                  ; Fused expression:    "( - *(@8) 8 << 1 ax , unmask_pic2 )4 "
+   619 0000022B 668B4608                	mov	eax, [bp+8]
+   620 0000022F 6683E808                	sub	eax, 8
+   621 00000233 6689C1                  	mov	ecx, eax
+   622 00000236 66B801000000            	mov	eax, 1
+   623 0000023C 66D3E0                  	shl	eax, cl
+   624 0000023F 6650                    	push	eax
+   625 00000241 9A                      	db	0x9A
+   626                                  section .relot
+   627 00000060 [42020000]              	dd	L57
+   628                                  section .text
+   629                                  L57:
+   630 00000242 [A6000000]              	dd	_unmask_pic2
+   631 00000246 83ECFC                  	sub	sp, -4
+   632                                  ; RPN'ized expression: "vector 112 hwirq + 8 - = "
+   633                                  ; Expanded expression: "(@-4) 112 (@8) *(4) + 8 - =(4) "
+   634                                  ; Fused expression:    "+ 112 *(@8) - ax 8 =(204) *(@-4) ax "
+   635 00000249 66B870000000            	mov	eax, 112
+   636 0000024F 66034608                	add	eax, [bp+8]
+   637 00000253 6683E808                	sub	eax, 8
+   638 00000257 668946FC                	mov	[bp-4], eax
+   639                                  ; }
+   640                                  L55:
+   641                                  ; RPN'ized expression: "ptrTVI vector + *u rti = "
+   642                                  ; Expanded expression: "ptrTVI *(4) (@-4) *(4) 4 * + (@12) *(4) =(4) "
+   643                                  ; Fused expression:    "ptrTVI push-ax * *(@-4) 4 + **sp ax =(204) *ax *(@12) "
+   644                                  section .relod
+   645 00000000 [5D020000]              	dd	L58
+   646                                  section .text
+   647 0000025B 66B8                    	db	0x66, 0xB8
+   648                                  L58:
+   649 0000025D [00000000]              	dd	_ptrTVI
+   650 00000261 6650                    	push	eax
+   651 00000263 668B46FC                	mov	eax, [bp-4]
+   652 00000267 666BC004                	imul	eax, eax, 4
+   653 0000026B 6689C1                  	mov	ecx, eax
+   654 0000026E 665B                    	pop	ebx
+   655 00000270 6689DE                  	mov	esi, ebx
+   656 00000273 66C1CE04                	ror	esi, 4
+   657 00000277 8EDE                    	mov	ds, si
+   658 00000279 66C1EE1C                	shr	esi, 28
+   659 0000027D 668B04                  	mov	eax, [si]
+   660 00000280 6601C8                  	add	eax, ecx
+   661 00000283 6689C3                  	mov	ebx, eax
+   662 00000286 668B460C                	mov	eax, [bp+12]
+   663 0000028A 6689DE                  	mov	esi, ebx
+   664 0000028D 66C1CE04                	ror	esi, 4
+   665 00000291 8EDE                    	mov	ds, si
+   666 00000293 66C1EE1C                	shr	esi, 28
+   667 00000297 668904                  	mov	[si], eax
+   668                                  L52:
+   669 0000029A 66                      	db	0x66
+   670 0000029B C9                      	leave
+   671 0000029C CB                      	retf
+   672                                  L59:
+   673                                  
+   674                                  section .fxnsz
+   675 00000024 AB000000                	dd	L59 - _enable_hwirq
+   676                                  
+   677                                  
+   678                                  	extern	_inportb
+   679                                  	extern	_outportb
+   680                                  
+   681                                  ; Syntax/declaration table/stack:
+   682                                  ; Bytes used: 2050/40960
+   683                                  
+   684                                  
+   685                                  ; Macro table:
+   686                                  ; Macro __SMALLER_C__ = `0x0100`
+   687                                  ; Macro __SMALLER_C_32__ = ``
+   688                                  ; Macro __HUGE__ = ``
+   689                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   690                                  ; Bytes used: 74/5120
+   691                                  
+   692                                  
+   693                                  ; Identifier table:
+   694                                  ; Ident __floatsisf
+   695                                  ; Ident __floatunsisf
+   696                                  ; Ident __fixsfsi
+   697                                  ; Ident __fixunssfsi
+   698                                  ; Ident __addsf3
+   699                                  ; Ident __subsf3
+   700                                  ; Ident __negsf2
+   701                                  ; Ident __mulsf3
+   702                                  ; Ident __divsf3
+   703                                  ; Ident __lesf2
+   704                                  ; Ident __gesf2
+   705                                  ; Ident intptr_t
+   706                                  ; Ident uintptr_t
+   707                                  ; Ident intmax_t
+   708                                  ; Ident uintmax_t
+   709                                  ; Ident int8_t
+   710                                  ; Ident int_least8_t
+   711                                  ; Ident int_fast8_t
+   712                                  ; Ident uint8_t
+   713                                  ; Ident uint_least8_t
+   714                                  ; Ident uint_fast8_t
+   715                                  ; Ident int16_t
+   716                                  ; Ident int_least16_t
+   717                                  ; Ident int_fast16_t
+   718                                  ; Ident uint16_t
+   719                                  ; Ident uint_least16_t
+   720                                  ; Ident uint_fast16_t
+   721                                  ; Ident int32_t
+   722                                  ; Ident int_least32_t
+   723                                  ; Ident int_fast32_t
+   724                                  ; Ident uint32_t
+   725                                  ; Ident uint_least32_t
+   726                                  ; Ident uint_fast32_t
+   727                                  ; Ident <something>
+   728                                  ; Ident quot
+   729                                  ; Ident rem
+   730                                  ; Ident imaxdiv_t
+   731                                  ; Ident FALSE
+   732                                  ; Ident TRUE
+   733                                  ; Ident bool_t
+   734                                  ; Ident pointer_t
+   735                                  ; Ident funcion_t
+   736                                  ; Ident manejador_t
+   737                                  ; Ident rti_t
+   738                                  ; Ident isr_t
+   739                                  ; Ident handler_t
+   740                                  ; Ident retardarThread_t
+   741                                  ; Ident ptrTVI_t
+   742                                  ; Ident modoSO1_Bin
+   743                                  ; Ident modoSO1_Exe
+   744                                  ; Ident modoSO1_Bs
+   745                                  ; Ident modoSO1_t
+   746                                  ; Ident lo
+   747                                  ; Ident hi
+   748                                  ; Ident lh_t
+   749                                  ; Ident offset
+   750                                  ; Ident segment
+   751                                  ; Ident address_t
+   752                                  ; Ident ptr
+   753                                  ; Ident adr
+   754                                  ; Ident uPtrAdr_t
+   755                                  ; Ident pid_t
+   756                                  ; Ident tid_t
+   757                                  ; Ident uid_t
+   758                                  ; Ident gid_t
+   759                                  ; Ident pindx_t
+   760                                  ; Ident tindx_t
+   761                                  ; Ident df_t
+   762                                  ; Ident dfs_t
+   763                                  ; Ident rindx_t
+   764                                  ; Ident inportb
+   765                                  ; Ident port
+   766                                  ; Ident inport
+   767                                  ; Ident outport
+   768                                  ; Ident val
+   769                                  ; Ident outportb
+   770                                  ; Ident inportb_r
+   771                                  ; Ident outportb_r
+   772                                  ; Ident contadorTimer0
+   773                                  ; Ident ptrTVI
+   774                                  ; Ident valorIMR
+   775                                  ; Ident establecerIMR
+   776                                  ; Ident nuevoIMR
+   777                                  ; Ident mask_pic1
+   778                                  ; Ident irq
+   779                                  ; Ident mask_pic2
+   780                                  ; Ident unmask_pic1
+   781                                  ; Ident unmask_pic2
+   782                                  ; Ident get_pic1_isr
+   783                                  ; Ident get_pic2_isr
+   784                                  ; Ident set_pics
+   785                                  ; Ident irq0
+   786                                  ; Ident irq8
+   787                                  ; Ident pic_setup
+   788                                  ; Ident enable_hwirq
+   789                                  ; Ident hwirq
+   790                                  ; Ident rti
+   791                                  ; Bytes used: 987/16384
+   792                                  
+   793                                  ; Next label number: 60
+   794                                  ; Compilation succeeded.

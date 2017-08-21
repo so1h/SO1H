@@ -1,0 +1,372 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb inportb : (
+    51                                  ; prm     port : unsigned short
+    52                                  ;     ) unsigned char
+    53                                  ; glb inport : (
+    54                                  ; prm     port : unsigned short
+    55                                  ;     ) unsigned short
+    56                                  ; glb outport : (
+    57                                  ; prm     port : unsigned short
+    58                                  ; prm     val : unsigned short
+    59                                  ;     ) void
+    60                                  ; glb outportb : (
+    61                                  ; prm     port : unsigned short
+    62                                  ; prm     val : unsigned char
+    63                                  ;     ) void
+    64                                  ; glb inportb_r : (
+    65                                  ; prm     port : unsigned char
+    66                                  ;     ) unsigned char
+    67                                  ; glb outportb_r : (
+    68                                  ; prm     port : unsigned char
+    69                                  ; prm     val : unsigned char
+    70                                  ;     ) void
+    71                                  ; glb contadorTimer0 : (void) unsigned short
+    72                                  ; glb inportb : (
+    73                                  ; prm     port : unsigned short
+    74                                  ;     ) unsigned char
+    75                                  section .text
+    76                                  	global	_inportb
+    77                                  _inportb:
+    78 00000000 6655                    	push	ebp
+    79 00000002 660FB7EC                	movzx	ebp, sp
+    80                                  	;sub	sp,          0
+    81                                  ; loc     port : (@8): unsigned short
+    82 00000006 8B5608                     mov dx,[bp+8] 
+    83 00000009 EC                         in al,dx      
+    84 0000000A 30E4                       xor ah,ah     
+    85                                  
+    86                                  L1:
+    87 0000000C 66                      	db	0x66
+    88 0000000D C9                      	leave
+    89 0000000E CB                      	retf
+    90                                  L3:
+    91                                  
+    92                                  section .fxnsz noalloc
+    93 00000000 0F000000                	dd	L3 - _inportb
+    94                                  
+    95                                  ; glb inport : (
+    96                                  ; prm     port : unsigned short
+    97                                  ;     ) unsigned short
+    98                                  section .text
+    99                                  	global	_inport
+   100                                  _inport:
+   101 0000000F 6655                    	push	ebp
+   102 00000011 660FB7EC                	movzx	ebp, sp
+   103                                  	;sub	sp,          0
+   104                                  ; loc     port : (@8): unsigned short
+   105 00000015 8B5608                     mov dx,[bp+8] 
+   106 00000018 ED                         in ax,dx      
+   107                                  
+   108                                  L4:
+   109 00000019 66                      	db	0x66
+   110 0000001A C9                      	leave
+   111 0000001B CB                      	retf
+   112                                  L6:
+   113                                  
+   114                                  section .fxnsz
+   115 00000004 0D000000                	dd	L6 - _inport
+   116                                  
+   117                                  ; glb outportb : (
+   118                                  ; prm     port : unsigned short
+   119                                  ; prm     val : unsigned char
+   120                                  ;     ) void
+   121                                  section .text
+   122                                  	global	_outportb
+   123                                  _outportb:
+   124 0000001C 6655                    	push	ebp
+   125 0000001E 660FB7EC                	movzx	ebp, sp
+   126                                  	;sub	sp,          0
+   127                                  ; loc     port : (@8): unsigned short
+   128                                  ; loc     val : (@12): unsigned char
+   129 00000022 8B5608                     mov dx,[bp+ 8] 
+   130 00000025 8A460C                     mov al,[bp+12] 
+   131 00000028 EE                         out dx,al      
+   132                                  
+   133                                  L7:
+   134 00000029 66                      	db	0x66
+   135 0000002A C9                      	leave
+   136 0000002B CB                      	retf
+   137                                  L9:
+   138                                  
+   139                                  section .fxnsz
+   140 00000008 10000000                	dd	L9 - _outportb
+   141                                  
+   142                                  ; glb outport : (
+   143                                  ; prm     port : unsigned short
+   144                                  ; prm     val : unsigned short
+   145                                  ;     ) void
+   146                                  section .text
+   147                                  	global	_outport
+   148                                  _outport:
+   149 0000002C 6655                    	push	ebp
+   150 0000002E 660FB7EC                	movzx	ebp, sp
+   151                                  	;sub	sp,          0
+   152                                  ; loc     port : (@8): unsigned short
+   153                                  ; loc     val : (@12): unsigned short
+   154 00000032 8B5608                     mov dx,[bp+ 8] 
+   155 00000035 8B460C                     mov ax,[bp+12] 
+   156 00000038 EF                         out dx,ax      
+   157                                  
+   158                                  L10:
+   159 00000039 66                      	db	0x66
+   160 0000003A C9                      	leave
+   161 0000003B CB                      	retf
+   162                                  L12:
+   163                                  
+   164                                  section .fxnsz
+   165 0000000C 10000000                	dd	L12 - _outport
+   166                                  
+   167                                  ; glb inportb_r : (
+   168                                  ; prm     port : unsigned char
+   169                                  ;     ) unsigned char
+   170                                  section .text
+   171                                  	global	_inportb_r
+   172                                  _inportb_r:
+   173 0000003C 6655                    	push	ebp
+   174 0000003E 660FB7EC                	movzx	ebp, sp
+   175 00000042 83EC04                  	 sub	sp,          4
+   176                                  ; loc     port : (@8): unsigned char
+   177                                  ; loc     __ret : (@-4): int
+   178                                  ; RPN'ized expression: "__ret ( port inportb ) = "
+   179                                  ; Expanded expression: "(@-4)  (@8) *(1)  inportb ()4 =(4) "
+   180                                  ; Fused expression:    "( *(1) (@8) , inportb )4 =(204) *(@-4) ax "
+   181 00000045 8A4608                  	mov	al, [bp+8]
+   182 00000048 660FB6C0                	movzx	eax, al
+   183 0000004C 6650                    	push	eax
+   184 0000004E 9A                      	db	0x9A
+   185                                  section .relot
+   186 00000000 [4F000000]              	dd	L15
+   187                                  section .text
+   188                                  L15:
+   189 0000004F [00000000]              	dd	_inportb
+   190 00000053 83ECFC                  	sub	sp, -4
+   191 00000056 668946FC                	mov	[bp-4], eax
+   192 0000005A EB00                    jmp $+2 
+   193 0000005C EB00                     jmp $+2 
+   194                                  
+   195                                  ; return
+   196                                  ; RPN'ized expression: "__ret "
+   197                                  ; Expanded expression: "(@-4) *(4) "
+   198                                  ; Fused expression:    "*(4) (@-4) unsigned char  "
+   199 0000005E 668B46FC                	mov	eax, [bp-4]
+   200 00000062 6625FF000000            	and	eax, 255
+   201                                  L13:
+   202 00000068 66                      	db	0x66
+   203 00000069 C9                      	leave
+   204 0000006A CB                      	retf
+   205                                  L16:
+   206                                  
+   207                                  section .fxnsz
+   208 00000010 2F000000                	dd	L16 - _inportb_r
+   209                                  
+   210                                  ; glb outportb_r : (
+   211                                  ; prm     port : unsigned char
+   212                                  ; prm     val : unsigned char
+   213                                  ;     ) void
+   214                                  section .text
+   215                                  	global	_outportb_r
+   216                                  _outportb_r:
+   217 0000006B 6655                    	push	ebp
+   218 0000006D 660FB7EC                	movzx	ebp, sp
+   219                                  	;sub	sp,          0
+   220                                  ; loc     port : (@8): unsigned char
+   221                                  ; loc     val : (@12): unsigned char
+   222                                  ; RPN'ized expression: "( val , port outportb ) "
+   223                                  ; Expanded expression: " (@12) *(1)  (@8) *(1)  outportb ()8 "
+   224                                  ; Fused expression:    "( *(1) (@12) , *(1) (@8) , outportb )8 "
+   225 00000071 8A460C                  	mov	al, [bp+12]
+   226 00000074 660FB6C0                	movzx	eax, al
+   227 00000078 6650                    	push	eax
+   228 0000007A 8A4608                  	mov	al, [bp+8]
+   229 0000007D 660FB6C0                	movzx	eax, al
+   230 00000081 6650                    	push	eax
+   231 00000083 9A                      	db	0x9A
+   232                                  section .relot
+   233 00000004 [84000000]              	dd	L19
+   234                                  section .text
+   235                                  L19:
+   236 00000084 [1C000000]              	dd	_outportb
+   237 00000088 83ECF8                  	sub	sp, -8
+   238 0000008B EB00                    jmp $+2 
+   239 0000008D EB00                     jmp $+2 
+   240                                  
+   241                                  L17:
+   242 0000008F 66                      	db	0x66
+   243 00000090 C9                      	leave
+   244 00000091 CB                      	retf
+   245                                  L20:
+   246                                  
+   247                                  section .fxnsz
+   248 00000014 27000000                	dd	L20 - _outportb_r
+   249                                  
+   250                                  ; glb contadorTimer0 : (void) unsigned short
+   251                                  section .text
+   252                                  	global	_contadorTimer0
+   253                                  _contadorTimer0:
+   254 00000092 6655                    	push	ebp
+   255 00000094 660FB7EC                	movzx	ebp, sp
+   256                                  	;sub	sp,          0
+   257 00000098 B0D2                       mov al,11010010b 
+   258 0000009A E643                       out 01000011b,al 
+   259 0000009C EB00                       jmp $+2          
+   260 0000009E E440                       in al,01000000b  
+   261 000000A0 88C4                       mov ah,al        
+   262 000000A2 EB00                       jmp $+2          
+   263 000000A4 E440                       in al,01000000b  
+   264 000000A6 86E0                       xchg ah,al       
+   265                                  
+   266                                  L21:
+   267 000000A8 66                      	db	0x66
+   268 000000A9 C9                      	leave
+   269 000000AA CB                      	retf
+   270                                  L23:
+   271                                  
+   272                                  section .fxnsz
+   273 00000018 19000000                	dd	L23 - _contadorTimer0
+   274                                  
+   275                                  
+   276                                  
+   277                                  ; Syntax/declaration table/stack:
+   278                                  ; Bytes used: 1490/40960
+   279                                  
+   280                                  
+   281                                  ; Macro table:
+   282                                  ; Macro __SMALLER_C__ = `0x0100`
+   283                                  ; Macro __SMALLER_C_32__ = ``
+   284                                  ; Macro __HUGE__ = ``
+   285                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   286                                  ; Bytes used: 74/5120
+   287                                  
+   288                                  
+   289                                  ; Identifier table:
+   290                                  ; Ident __floatsisf
+   291                                  ; Ident __floatunsisf
+   292                                  ; Ident __fixsfsi
+   293                                  ; Ident __fixunssfsi
+   294                                  ; Ident __addsf3
+   295                                  ; Ident __subsf3
+   296                                  ; Ident __negsf2
+   297                                  ; Ident __mulsf3
+   298                                  ; Ident __divsf3
+   299                                  ; Ident __lesf2
+   300                                  ; Ident __gesf2
+   301                                  ; Ident intptr_t
+   302                                  ; Ident uintptr_t
+   303                                  ; Ident intmax_t
+   304                                  ; Ident uintmax_t
+   305                                  ; Ident int8_t
+   306                                  ; Ident int_least8_t
+   307                                  ; Ident int_fast8_t
+   308                                  ; Ident uint8_t
+   309                                  ; Ident uint_least8_t
+   310                                  ; Ident uint_fast8_t
+   311                                  ; Ident int16_t
+   312                                  ; Ident int_least16_t
+   313                                  ; Ident int_fast16_t
+   314                                  ; Ident uint16_t
+   315                                  ; Ident uint_least16_t
+   316                                  ; Ident uint_fast16_t
+   317                                  ; Ident int32_t
+   318                                  ; Ident int_least32_t
+   319                                  ; Ident int_fast32_t
+   320                                  ; Ident uint32_t
+   321                                  ; Ident uint_least32_t
+   322                                  ; Ident uint_fast32_t
+   323                                  ; Ident <something>
+   324                                  ; Ident quot
+   325                                  ; Ident rem
+   326                                  ; Ident imaxdiv_t
+   327                                  ; Ident FALSE
+   328                                  ; Ident TRUE
+   329                                  ; Ident bool_t
+   330                                  ; Ident pointer_t
+   331                                  ; Ident funcion_t
+   332                                  ; Ident manejador_t
+   333                                  ; Ident rti_t
+   334                                  ; Ident isr_t
+   335                                  ; Ident handler_t
+   336                                  ; Ident retardarThread_t
+   337                                  ; Ident ptrTVI_t
+   338                                  ; Ident modoSO1_Bin
+   339                                  ; Ident modoSO1_Exe
+   340                                  ; Ident modoSO1_Bs
+   341                                  ; Ident modoSO1_t
+   342                                  ; Ident lo
+   343                                  ; Ident hi
+   344                                  ; Ident lh_t
+   345                                  ; Ident offset
+   346                                  ; Ident segment
+   347                                  ; Ident address_t
+   348                                  ; Ident ptr
+   349                                  ; Ident adr
+   350                                  ; Ident uPtrAdr_t
+   351                                  ; Ident pid_t
+   352                                  ; Ident tid_t
+   353                                  ; Ident uid_t
+   354                                  ; Ident gid_t
+   355                                  ; Ident pindx_t
+   356                                  ; Ident tindx_t
+   357                                  ; Ident df_t
+   358                                  ; Ident dfs_t
+   359                                  ; Ident rindx_t
+   360                                  ; Ident inportb
+   361                                  ; Ident port
+   362                                  ; Ident inport
+   363                                  ; Ident outport
+   364                                  ; Ident val
+   365                                  ; Ident outportb
+   366                                  ; Ident inportb_r
+   367                                  ; Ident outportb_r
+   368                                  ; Ident contadorTimer0
+   369                                  ; Bytes used: 804/16384
+   370                                  
+   371                                  ; Next label number: 24
+   372                                  ; Compilation succeeded.

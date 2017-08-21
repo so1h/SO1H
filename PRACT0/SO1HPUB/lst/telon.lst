@@ -1,0 +1,1038 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb pos_t : struct <something>
+    51                                  ; RPN'ized expression: "50 "
+    52                                  ; Expanded expression: "50 "
+    53                                  ; Expression value: 50
+    54                                  ; RPN'ized expression: "80 "
+    55                                  ; Expanded expression: "80 "
+    56                                  ; Expression value: 80
+    57                                  ; glb pantalla_t : union <something>
+    58                                  ; glb tamPantalla : (
+    59                                  ; prm     numFilas : unsigned char
+    60                                  ;     ) unsigned short
+    61                                  ; glb pantallazo : (
+    62                                  ; prm     pantalla : * union <something>
+    63                                  ; prm     numFilas : unsigned short
+    64                                  ; prm     car : char
+    65                                  ; prm     atr : char
+    66                                  ; prm     esqSupDeF : unsigned char
+    67                                  ; prm     esqSupDeC : unsigned char
+    68                                  ; prm     esqInfIzF : unsigned char
+    69                                  ; prm     esqInfIzC : unsigned char
+    70                                  ;     ) void
+    71                                  ; glb borrarPantalla : (
+    72                                  ; prm     pantalla : * union <something>
+    73                                  ; prm     numFilas : unsigned short
+    74                                  ;     ) void
+    75                                  ; glb borrarCPantalla : (
+    76                                  ; prm     pantalla : * union <something>
+    77                                  ; prm     numFilas : unsigned short
+    78                                  ;     ) void
+    79                                  ; glb copiarPantalla : (
+    80                                  ; prm     p1 : * union <something>
+    81                                  ; prm     p2 : * union <something>
+    82                                  ; prm     numFilas : unsigned short
+    83                                  ;     ) void
+    84                                  ; glb copiarCPantalla : (
+    85                                  ; prm     p1 : * union <something>
+    86                                  ; prm     p2 : * union <something>
+    87                                  ; prm     numFilas : unsigned short
+    88                                  ;     ) void
+    89                                  ; glb scrollPantalla : (
+    90                                  ; prm     pantalla : * union <something>
+    91                                  ; prm     numFilas : unsigned short
+    92                                  ;     ) void
+    93                                  ; glb scrollCPantalla : (
+    94                                  ; prm     pantalla : * union <something>
+    95                                  ; prm     numFilas : unsigned short
+    96                                  ;     ) void
+    97                                  ; glb tipoOrdenador : (void) unsigned char
+    98                                  ; glb rebootLegacy : (void) void
+    99                                  ; glb tipoTeclado : (void) unsigned char
+   100                                  ; glb leerTeclaBIOS : (void) unsigned short
+   101                                  ; glb leerTeclaExtBIOS : (void) unsigned short
+   102                                  ; glb teclaListaBIOS : (void) unsigned short
+   103                                  ; glb leerTeclaListaBDA : (void) unsigned short
+   104                                  ; glb teclaListaBDA : (void) unsigned short
+   105                                  ; glb printCarBIOS : (
+   106                                  ; prm     car : char
+   107                                  ;     ) int
+   108                                  ; glb printCarPagBIOS : (
+   109                                  ; prm     car : char
+   110                                  ; prm     pag : unsigned char
+   111                                  ;     ) int
+   112                                  ; glb printCarAtrPagBIOS : (
+   113                                  ; prm     car : char
+   114                                  ; prm     atr : unsigned char
+   115                                  ; prm     pag : unsigned char
+   116                                  ;     ) int
+   117                                  ; glb printLnBIOS : (void) int
+   118                                  ; glb printStrBIOS : (
+   119                                  ; prm     str : * char
+   120                                  ;     ) int
+   121                                  ; glb printStrHastaBIOS : (
+   122                                  ; prm     str : * char
+   123                                  ; prm     n : unsigned short
+   124                                  ; prm     lleno : int
+   125                                  ;     ) int
+   126                                  ; glb printDecBIOS : (
+   127                                  ; prm     num : unsigned short
+   128                                  ; prm     l : unsigned short
+   129                                  ;     ) int
+   130                                  ; glb printLDecBIOS : (
+   131                                  ; prm     num : unsigned
+   132                                  ; prm     l : unsigned short
+   133                                  ;     ) int
+   134                                  ; glb printIntBIOS : (
+   135                                  ; prm     num : short
+   136                                  ; prm     l : unsigned short
+   137                                  ;     ) int
+   138                                  ; glb printLIntBIOS : (
+   139                                  ; prm     num : int
+   140                                  ; prm     l : unsigned short
+   141                                  ;     ) int
+   142                                  ; glb printHexBIOS : (
+   143                                  ; prm     num : unsigned short
+   144                                  ; prm     l : unsigned short
+   145                                  ;     ) int
+   146                                  ; glb printLHexBIOS : (
+   147                                  ; prm     num : unsigned
+   148                                  ; prm     l : unsigned short
+   149                                  ;     ) int
+   150                                  ; glb printBinBIOS : (
+   151                                  ; prm     num : unsigned short
+   152                                  ; prm     l : unsigned short
+   153                                  ;     ) int
+   154                                  ; glb printLBinBIOS : (
+   155                                  ; prm     num : unsigned
+   156                                  ; prm     l : unsigned short
+   157                                  ;     ) int
+   158                                  ; glb printPtrBIOS : (
+   159                                  ; prm     ptr : * unsigned char
+   160                                  ;     ) int
+   161                                  ; glb printByteBIOS : (
+   162                                  ; prm     b : unsigned char
+   163                                  ;     ) int
+   164                                  ; glb printWordBIOS : (
+   165                                  ; prm     w : unsigned short
+   166                                  ;     ) int
+   167                                  ; glb printCadBIOS : (
+   168                                  ; prm     cad : * char
+   169                                  ;     ) int
+   170                                  ; glb esperarTicsBIOS : (
+   171                                  ; prm     tics : unsigned short
+   172                                  ;     ) void
+   173                                  ; glb modoDeVideo : (void) unsigned char
+   174                                  ; glb establecerModoDeVideo : (
+   175                                  ; prm     modo : unsigned char
+   176                                  ;     ) void
+   177                                  ; glb paginaActiva : (void) unsigned char
+   178                                  ; glb establecerPaginaActiva : (
+   179                                  ; prm     num : unsigned char
+   180                                  ;     ) void
+   181                                  ; glb numPagsVideo : (void) unsigned char
+   182                                  ; glb scrollPagBDA : (
+   183                                  ; prm     numLineas : unsigned char
+   184                                  ; prm     pag : unsigned char
+   185                                  ;     ) void
+   186                                  ; glb scrollPagBIOS : (
+   187                                  ; prm     numLineas : unsigned char
+   188                                  ; prm     pag : unsigned char
+   189                                  ;     ) void
+   190                                  ; glb scrollBIOS : (
+   191                                  ; prm     numLineas : unsigned char
+   192                                  ;     ) void
+   193                                  ; glb goToXYPag : (
+   194                                  ; prm     fila : unsigned char
+   195                                  ; prm     columna : unsigned char
+   196                                  ; prm     pag : unsigned char
+   197                                  ;     ) void
+   198                                  ; glb goToXYBIOS : (
+   199                                  ; prm     fila : unsigned char
+   200                                  ; prm     columna : unsigned char
+   201                                  ;     ) void
+   202                                  ; glb setCursorBIOS : (
+   203                                  ; prm     linea1 : unsigned char
+   204                                  ; prm     linea2 : unsigned char
+   205                                  ;     ) void
+   206                                  ; glb ocultaCursorBIOS : (void) void
+   207                                  ; glb readXYPagBIOS : (
+   208                                  ; prm     fila : * unsigned char
+   209                                  ; prm     columna : * unsigned char
+   210                                  ; prm     linea1 : * unsigned char
+   211                                  ; prm     linea2 : * unsigned char
+   212                                  ; prm     pag : unsigned char
+   213                                  ;     ) void
+   214                                  ; glb readXYBIOS : (
+   215                                  ; prm     fila : * unsigned char
+   216                                  ; prm     columna : * unsigned char
+   217                                  ; prm     linea1 : * unsigned char
+   218                                  ; prm     linea2 : * unsigned char
+   219                                  ;     ) void
+   220                                  ; glb memBIOS : (void) unsigned short
+   221                                  ; glb enviarBIOS : (
+   222                                  ; prm     car : char
+   223                                  ;     ) void
+   224                                  ; glb recibirBIOS : (void) char
+   225                                  ; glb hayApmBIOS : (
+   226                                  ; prm     version : * unsigned short
+   227                                  ;     ) int
+   228                                  ; glb connectApmBIOS : (void) int
+   229                                  ; glb disconnectApmBIOS : (void) int
+   230                                  ; glb cpuIdleBIOS : (void) void
+   231                                  ; glb cpuBusyBIOS : (void) void
+   232                                  ; glb HWLIST_t : unsigned short
+   233                                  ; glb KBDFLAGS_t : unsigned short
+   234                                  ; glb KBDSTATUS_t : unsigned short
+   235                                  ; glb VIDEOCONTROL_t : unsigned char
+   236                                  ; glb DRECSTATUS_t : unsigned char
+   237                                  ; glb DMOTORSTATUS_t : unsigned char
+   238                                  ; glb FDOPSTATUS_t : unsigned char
+   239                                  ; glb VIDEOSWITCHES_t : unsigned char
+   240                                  ; glb VGAOPTIONS_t : unsigned char
+   241                                  ; glb VIDEOSAVETBL_t : struct <something>
+   242                                  ; RPN'ized expression: "4 "
+   243                                  ; Expanded expression: "4 "
+   244                                  ; Expression value: 4
+   245                                  ; RPN'ized expression: "25 "
+   246                                  ; Expanded expression: "25 "
+   247                                  ; Expression value: 25
+   248                                  ; RPN'ized expression: "20 "
+   249                                  ; Expanded expression: "20 "
+   250                                  ; Expression value: 20
+   251                                  ; RPN'ized expression: "9 "
+   252                                  ; Expanded expression: "9 "
+   253                                  ; Expression value: 9
+   254                                  ; glb VIDEOPARAM_t : struct <something>
+   255                                  ; RPN'ized expression: "256 "
+   256                                  ; Expanded expression: "256 "
+   257                                  ; Expression value: 256
+   258                                  ; RPN'ized expression: "4 "
+   259                                  ; Expanded expression: "4 "
+   260                                  ; Expression value: 4
+   261                                  ; RPN'ized expression: "3 "
+   262                                  ; Expanded expression: "3 "
+   263                                  ; Expression value: 3
+   264                                  ; RPN'ized expression: "16 "
+   265                                  ; Expanded expression: "16 "
+   266                                  ; Expression value: 16
+   267                                  ; RPN'ized expression: "7 "
+   268                                  ; Expanded expression: "7 "
+   269                                  ; Expression value: 7
+   270                                  ; RPN'ized expression: "8 "
+   271                                  ; Expanded expression: "8 "
+   272                                  ; Expression value: 8
+   273                                  ; RPN'ized expression: "2 "
+   274                                  ; Expanded expression: "2 "
+   275                                  ; Expression value: 2
+   276                                  ; RPN'ized expression: "2 "
+   277                                  ; Expanded expression: "2 "
+   278                                  ; Expression value: 2
+   279                                  ; RPN'ized expression: "5 "
+   280                                  ; Expanded expression: "5 "
+   281                                  ; Expression value: 5
+   282                                  ; RPN'ized expression: "2 "
+   283                                  ; Expanded expression: "2 "
+   284                                  ; Expression value: 2
+   285                                  ; RPN'ized expression: "3 "
+   286                                  ; Expanded expression: "3 "
+   287                                  ; Expression value: 3
+   288                                  ; RPN'ized expression: "4 "
+   289                                  ; Expanded expression: "4 "
+   290                                  ; Expression value: 4
+   291                                  ; RPN'ized expression: "11 "
+   292                                  ; Expanded expression: "11 "
+   293                                  ; Expression value: 11
+   294                                  ; RPN'ized expression: "7 "
+   295                                  ; Expanded expression: "7 "
+   296                                  ; Expression value: 7
+   297                                  ; RPN'ized expression: "68 "
+   298                                  ; Expanded expression: "68 "
+   299                                  ; Expression value: 68
+   300                                  ; RPN'ized expression: "16 "
+   301                                  ; Expanded expression: "16 "
+   302                                  ; Expression value: 16
+   303                                  ; glb BIOSAREA_t : struct <something>
+   304                                  ; glb ptrBiosArea : * struct <something>
+   305                                  ; glb ptrFechaBios : * unsigned char
+   306                                  ; glb ptrPant : * union <something>
+   307                                  section .bss
+   308                                  	alignb 4
+   309                                  _ptrPant:
+   310 00000000 <res 00000004>          	resb	4
+   311                                  
+   312                                  ; glb cursorOriginalF : unsigned char
+   313                                  section .bss
+   314                                  _cursorOriginalF:
+   315 00000004 <res 00000001>          	resb	1
+   316                                  
+   317                                  ; glb cursorOriginalC : unsigned char
+   318                                  section .bss
+   319                                  _cursorOriginalC:
+   320 00000005 <res 00000001>          	resb	1
+   321                                  
+   322                                  ; glb lineaOriginal1 : unsigned char
+   323                                  section .bss
+   324                                  _lineaOriginal1:
+   325 00000006 <res 00000001>          	resb	1
+   326                                  
+   327                                  ; glb lineaOriginal2 : unsigned char
+   328                                  section .bss
+   329                                  _lineaOriginal2:
+   330 00000007 <res 00000001>          	resb	1
+   331                                  
+   332                                  ; glb VIDEO_mode : unsigned char
+   333                                  section .bss
+   334                                  _VIDEO_mode:
+   335 00000008 <res 00000001>          	resb	1
+   336                                  
+   337                                  ; glb copiaDeLaPantallaOriginal : * union <something>
+   338                                  section .bss
+   339 00000009 <res 00000003>          	alignb 4
+   340                                  _copiaDeLaPantallaOriginal:
+   341 0000000C <res 00000004>          	resb	4
+   342                                  
+   343                                  ; glb segMemVideo : unsigned short
+   344                                  section .bss
+   345                                  	alignb 4
+   346                                  _segMemVideo:
+   347 00000010 <res 00000002>          	resb	2
+   348                                  
+   349                                  ; glb salvarPantallaInicial : (void) void
+   350                                  section .text
+   351                                  	global	_salvarPantallaInicial
+   352                                  _salvarPantallaInicial:
+   353 00000000 6655                    	push	ebp
+   354 00000002 660FB7EC                	movzx	ebp, sp
+   355 00000006 83EC08                  	 sub	sp,          8
+   356                                  ; loc     F : (@-4): unsigned char
+   357                                  ; loc     C : (@-8): unsigned char
+   358                                  ; RPN'ized expression: "( lineaOriginal2 &u , lineaOriginal1 &u , cursorOriginalC &u , cursorOriginalF &u readXYBIOS ) "
+   359                                  ; Expanded expression: " lineaOriginal2  lineaOriginal1  cursorOriginalC  cursorOriginalF  readXYBIOS ()16 "
+   360                                  ; Fused expression:    "( lineaOriginal2 , lineaOriginal1 , cursorOriginalC , cursorOriginalF , readXYBIOS )16 "
+   361                                  section .relod
+   362 00000000 [0B000000]              	dd	L3
+   363                                  section .text
+   364 00000009 6668                    	db	0x66, 0x68
+   365                                  L3:
+   366 0000000B [07000000]              	dd	_lineaOriginal2
+   367                                  section .relod
+   368 00000004 [11000000]              	dd	L4
+   369                                  section .text
+   370 0000000F 6668                    	db	0x66, 0x68
+   371                                  L4:
+   372 00000011 [06000000]              	dd	_lineaOriginal1
+   373                                  section .relod
+   374 00000008 [17000000]              	dd	L5
+   375                                  section .text
+   376 00000015 6668                    	db	0x66, 0x68
+   377                                  L5:
+   378 00000017 [05000000]              	dd	_cursorOriginalC
+   379                                  section .relod
+   380 0000000C [1D000000]              	dd	L6
+   381                                  section .text
+   382 0000001B 6668                    	db	0x66, 0x68
+   383                                  L6:
+   384 0000001D [04000000]              	dd	_cursorOriginalF
+   385 00000021 9A                      	db	0x9A
+   386                                  section .relot
+   387 00000000 [22000000]              	dd	L7
+   388                                  section .text
+   389                                  L7:
+   390 00000022 [00000000]              	dd	_readXYBIOS
+   391 00000026 83ECF0                  	sub	sp, -16
+   392                                  ; RPN'ized expression: "VIDEO_mode ptrBiosArea VIDEO_mode -> *u = "
+   393                                  ; Expanded expression: "VIDEO_mode ptrBiosArea *(4) 1097 + *(1) =(1) "
+   394                                  ; Fused expression:    "VIDEO_mode push-ax ptrBiosArea + *ax 1097 =(153) **sp *ax "
+   395                                  section .relod
+   396 00000010 [2B000000]              	dd	L8
+   397                                  section .text
+   398 00000029 66B8                    	db	0x66, 0xB8
+   399                                  L8:
+   400 0000002B [08000000]              	dd	_VIDEO_mode
+   401 0000002F 6650                    	push	eax
+   402                                  section .relod
+   403 00000014 [33000000]              	dd	L9
+   404                                  section .text
+   405 00000031 66B8                    	db	0x66, 0xB8
+   406                                  L9:
+   407 00000033 [00000000]              	dd	_ptrBiosArea
+   408 00000037 6689C3                  	mov	ebx, eax
+   409 0000003A 6689DE                  	mov	esi, ebx
+   410 0000003D 66C1CE04                	ror	esi, 4
+   411 00000041 8EDE                    	mov	ds, si
+   412 00000043 66C1EE1C                	shr	esi, 28
+   413 00000047 668B04                  	mov	eax, [si]
+   414 0000004A 660549040000            	add	eax, 1097
+   415 00000050 6689C3                  	mov	ebx, eax
+   416 00000053 6689DE                  	mov	esi, ebx
+   417 00000056 66C1CE04                	ror	esi, 4
+   418 0000005A 8EDE                    	mov	ds, si
+   419 0000005C 66C1EE1C                	shr	esi, 28
+   420 00000060 8A04                    	mov	al, [si]
+   421 00000062 660FB6C0                	movzx	eax, al
+   422 00000066 665B                    	pop	ebx
+   423 00000068 6689DE                  	mov	esi, ebx
+   424 0000006B 66C1CE04                	ror	esi, 4
+   425 0000006F 8EDE                    	mov	ds, si
+   426 00000071 66C1EE1C                	shr	esi, 28
+   427 00000075 8804                    	mov	[si], al
+   428 00000077 660FB6C0                	movzx	eax, al
+   429                                  ; if
+   430                                  ; RPN'ized expression: "VIDEO_mode 7 != "
+   431                                  ; Expanded expression: "VIDEO_mode *(1) 7 != "
+   432                                  ; Fused expression:    "VIDEO_mode != *ax 7 IF! "
+   433                                  section .relod
+   434 00000018 [7D000000]              	dd	L12
+   435                                  section .text
+   436 0000007B 66B8                    	db	0x66, 0xB8
+   437                                  L12:
+   438 0000007D [08000000]              	dd	_VIDEO_mode
+   439 00000081 6689C3                  	mov	ebx, eax
+   440 00000084 6689DE                  	mov	esi, ebx
+   441 00000087 66C1CE04                	ror	esi, 4
+   442 0000008B 8EDE                    	mov	ds, si
+   443 0000008D 66C1EE1C                	shr	esi, 28
+   444 00000091 8A04                    	mov	al, [si]
+   445 00000093 660FB6C0                	movzx	eax, al
+   446 00000097 6683F807                	cmp	eax, 7
+   447 0000009B 7424                    	je	L10
+   448                                  ; RPN'ized expression: "segMemVideo 47104 = "
+   449                                  ; Expanded expression: "segMemVideo 47104 =(2) "
+   450                                  ; Fused expression:    "segMemVideo =(172) *ax 47104 "
+   451                                  section .relod
+   452 0000001C [9F000000]              	dd	L13
+   453                                  section .text
+   454 0000009D 66B8                    	db	0x66, 0xB8
+   455                                  L13:
+   456 0000009F [10000000]              	dd	_segMemVideo
+   457 000000A3 6689C3                  	mov	ebx, eax
+   458 000000A6 66B800B80000            	mov	eax, 47104
+   459 000000AC 6689DE                  	mov	esi, ebx
+   460 000000AF 66C1CE04                	ror	esi, 4
+   461 000000B3 8EDE                    	mov	ds, si
+   462 000000B5 66C1EE1C                	shr	esi, 28
+   463 000000B9 8904                    	mov	[si], ax
+   464 000000BB 660FB7C0                	movzx	eax, ax
+   465 000000BF EB22                    	jmp	L11
+   466                                  L10:
+   467                                  ; else
+   468                                  ; RPN'ized expression: "segMemVideo 45056 = "
+   469                                  ; Expanded expression: "segMemVideo 45056 =(2) "
+   470                                  ; Fused expression:    "segMemVideo =(172) *ax 45056 "
+   471                                  section .relod
+   472 00000020 [C3000000]              	dd	L14
+   473                                  section .text
+   474 000000C1 66B8                    	db	0x66, 0xB8
+   475                                  L14:
+   476 000000C3 [10000000]              	dd	_segMemVideo
+   477 000000C7 6689C3                  	mov	ebx, eax
+   478 000000CA 66B800B00000            	mov	eax, 45056
+   479 000000D0 6689DE                  	mov	esi, ebx
+   480 000000D3 66C1CE04                	ror	esi, 4
+   481 000000D7 8EDE                    	mov	ds, si
+   482 000000D9 66C1EE1C                	shr	esi, 28
+   483 000000DD 8904                    	mov	[si], ax
+   484 000000DF 660FB7C0                	movzx	eax, ax
+   485                                  L11:
+   486                                  ; loc     <something> : * union <something>
+   487                                  ; RPN'ized expression: "ptrPant segMemVideo 4 << (something15) = "
+   488                                  ; Expanded expression: "ptrPant segMemVideo *(2) 4 << =(4) "
+   489                                  ; Fused expression:    "ptrPant push-ax segMemVideo << *ax 4 =(204) **sp ax "
+   490                                  section .relod
+   491 00000024 [E5000000]              	dd	L16
+   492                                  section .text
+   493 000000E3 66B8                    	db	0x66, 0xB8
+   494                                  L16:
+   495 000000E5 [00000000]              	dd	_ptrPant
+   496 000000E9 6650                    	push	eax
+   497                                  section .relod
+   498 00000028 [ED000000]              	dd	L17
+   499                                  section .text
+   500 000000EB 66B8                    	db	0x66, 0xB8
+   501                                  L17:
+   502 000000ED [10000000]              	dd	_segMemVideo
+   503 000000F1 6689C3                  	mov	ebx, eax
+   504 000000F4 6689DE                  	mov	esi, ebx
+   505 000000F7 66C1CE04                	ror	esi, 4
+   506 000000FB 8EDE                    	mov	ds, si
+   507 000000FD 66C1EE1C                	shr	esi, 28
+   508 00000101 8B04                    	mov	ax, [si]
+   509 00000103 660FB7C0                	movzx	eax, ax
+   510 00000107 66C1E004                	shl	eax, 4
+   511 0000010B 665B                    	pop	ebx
+   512 0000010D 6689DE                  	mov	esi, ebx
+   513 00000110 66C1CE04                	ror	esi, 4
+   514 00000114 8EDE                    	mov	ds, si
+   515 00000116 66C1EE1C                	shr	esi, 28
+   516 0000011A 668904                  	mov	[si], eax
+   517                                  ; loc     <something> : * union <something>
+   518                                  ; RPN'ized expression: "copiaDeLaPantallaOriginal ptrPant t -> *u 50 + *u 0 + *u &u (something18) = "
+   519                                  ; Expanded expression: "copiaDeLaPantallaOriginal ptrPant *(4) 8000 + =(4) "
+   520                                  ; Fused expression:    "copiaDeLaPantallaOriginal push-ax ptrPant + *ax 8000 =(204) **sp ax "
+   521                                  section .relod
+   522 0000002C [1F010000]              	dd	L19
+   523                                  section .text
+   524 0000011D 66B8                    	db	0x66, 0xB8
+   525                                  L19:
+   526 0000011F [0C000000]              	dd	_copiaDeLaPantallaOriginal
+   527 00000123 6650                    	push	eax
+   528                                  section .relod
+   529 00000030 [27010000]              	dd	L20
+   530                                  section .text
+   531 00000125 66B8                    	db	0x66, 0xB8
+   532                                  L20:
+   533 00000127 [00000000]              	dd	_ptrPant
+   534 0000012B 6689C3                  	mov	ebx, eax
+   535 0000012E 6689DE                  	mov	esi, ebx
+   536 00000131 66C1CE04                	ror	esi, 4
+   537 00000135 8EDE                    	mov	ds, si
+   538 00000137 66C1EE1C                	shr	esi, 28
+   539 0000013B 668B04                  	mov	eax, [si]
+   540 0000013E 6605401F0000            	add	eax, 8000
+   541 00000144 665B                    	pop	ebx
+   542 00000146 6689DE                  	mov	esi, ebx
+   543 00000149 66C1CE04                	ror	esi, 4
+   544 0000014D 8EDE                    	mov	ds, si
+   545 0000014F 66C1EE1C                	shr	esi, 28
+   546 00000153 668904                  	mov	[si], eax
+   547                                  ; RPN'ized expression: "( 50 , copiaDeLaPantallaOriginal , ptrPant copiarPantalla ) "
+   548                                  ; Expanded expression: " 50  copiaDeLaPantallaOriginal *(4)  ptrPant *(4)  copiarPantalla ()12 "
+   549                                  ; Fused expression:    "( 50 , copiaDeLaPantallaOriginal *(4) ax , ptrPant *(4) ax , copiarPantalla )12 "
+   550 00000156 666A32                  	push	dword 50
+   551                                  section .relod
+   552 00000034 [5B010000]              	dd	L21
+   553                                  section .text
+   554 00000159 66B8                    	db	0x66, 0xB8
+   555                                  L21:
+   556 0000015B [0C000000]              	dd	_copiaDeLaPantallaOriginal
+   557 0000015F 6689C3                  	mov	ebx, eax
+   558 00000162 6689DE                  	mov	esi, ebx
+   559 00000165 66C1CE04                	ror	esi, 4
+   560 00000169 8EDE                    	mov	ds, si
+   561 0000016B 66C1EE1C                	shr	esi, 28
+   562 0000016F 66FF34                  	push	dword [si]
+   563                                  section .relod
+   564 00000038 [74010000]              	dd	L22
+   565                                  section .text
+   566 00000172 66B8                    	db	0x66, 0xB8
+   567                                  L22:
+   568 00000174 [00000000]              	dd	_ptrPant
+   569 00000178 6689C3                  	mov	ebx, eax
+   570 0000017B 6689DE                  	mov	esi, ebx
+   571 0000017E 66C1CE04                	ror	esi, 4
+   572 00000182 8EDE                    	mov	ds, si
+   573 00000184 66C1EE1C                	shr	esi, 28
+   574 00000188 66FF34                  	push	dword [si]
+   575 0000018B 9A                      	db	0x9A
+   576                                  section .relot
+   577 00000004 [8C010000]              	dd	L23
+   578                                  section .text
+   579                                  L23:
+   580 0000018C [00000000]              	dd	_copiarPantalla
+   581 00000190 83ECF4                  	sub	sp, -12
+   582                                  ; for
+   583                                  ; RPN'ized expression: "F 0 = "
+   584                                  ; Expanded expression: "(@-4) 0 =(1) "
+   585                                  ; Fused expression:    "=(156) *(@-4) 0 "
+   586 00000193 66B800000000            	mov	eax, 0
+   587 00000199 8846FC                  	mov	[bp-4], al
+   588 0000019C 660FB6C0                	movzx	eax, al
+   589                                  L24:
+   590                                  ; RPN'ized expression: "F 50 < "
+   591                                  ; Expanded expression: "(@-4) *(1) 50 < "
+   592                                  ; Fused expression:    "< *(@-4) 50 IF! "
+   593 000001A0 8A46FC                  	mov	al, [bp-4]
+   594 000001A3 660FB6C0                	movzx	eax, al
+   595 000001A7 6683F832                	cmp	eax, 50
+   596 000001AB 0F8D9700                	jge	L27
+   597                                  ; RPN'ized expression: "F ++p "
+   598                                  ; Expanded expression: "(@-4) ++p(1) "
+   599                                  ; for
+   600                                  ; RPN'ized expression: "C 0 = "
+   601                                  ; Expanded expression: "(@-8) 0 =(1) "
+   602                                  ; Fused expression:    "=(156) *(@-8) 0 "
+   603 000001AF 66B800000000            	mov	eax, 0
+   604 000001B5 8846F8                  	mov	[bp-8], al
+   605 000001B8 660FB6C0                	movzx	eax, al
+   606                                  L28:
+   607                                  ; RPN'ized expression: "C 80 < "
+   608                                  ; Expanded expression: "(@-8) *(1) 80 < "
+   609                                  ; Fused expression:    "< *(@-8) 80 IF! "
+   610 000001BC 8A46F8                  	mov	al, [bp-8]
+   611 000001BF 660FB6C0                	movzx	eax, al
+   612 000001C3 6683F850                	cmp	eax, 80
+   613 000001C7 7D70                    	jge	L31
+   614                                  ; RPN'ized expression: "C ++p "
+   615                                  ; Expanded expression: "(@-8) ++p(1) "
+   616                                  ; RPN'ized expression: "ptrPant t -> *u F + *u C + *u &u atr -> *u 7 = "
+   617                                  ; Expanded expression: "ptrPant *(4) 0 + (@-4) *(1) 160 * + (@-8) *(1) 2 * + 1 + 7 =(1) "
+   618                                  ; Fused expression:    "ptrPant + *ax 0 push-ax * *(@-4) 160 + *sp ax push-ax * *(@-8) 2 + *sp ax + ax 1 =(156) *ax 7 "
+   619                                  section .relod
+   620 0000003C [CB010000]              	dd	L32
+   621                                  section .text
+   622 000001C9 66B8                    	db	0x66, 0xB8
+   623                                  L32:
+   624 000001CB [00000000]              	dd	_ptrPant
+   625 000001CF 6689C3                  	mov	ebx, eax
+   626 000001D2 6689DE                  	mov	esi, ebx
+   627 000001D5 66C1CE04                	ror	esi, 4
+   628 000001D9 8EDE                    	mov	ds, si
+   629 000001DB 66C1EE1C                	shr	esi, 28
+   630 000001DF 668B04                  	mov	eax, [si]
+   631 000001E2 6650                    	push	eax
+   632 000001E4 8A46FC                  	mov	al, [bp-4]
+   633 000001E7 660FB6C0                	movzx	eax, al
+   634 000001EB 6669C0A0000000          	imul	eax, eax, 160
+   635 000001F2 6689C1                  	mov	ecx, eax
+   636 000001F5 6658                    	pop	eax
+   637 000001F7 6601C8                  	add	eax, ecx
+   638 000001FA 6650                    	push	eax
+   639 000001FC 8A46F8                  	mov	al, [bp-8]
+   640 000001FF 660FB6C0                	movzx	eax, al
+   641 00000203 666BC002                	imul	eax, eax, 2
+   642 00000207 6689C1                  	mov	ecx, eax
+   643 0000020A 6658                    	pop	eax
+   644 0000020C 6601C8                  	add	eax, ecx
+   645 0000020F 6640                    	inc	eax
+   646 00000211 6689C3                  	mov	ebx, eax
+   647 00000214 66B807000000            	mov	eax, 7
+   648 0000021A 6689DE                  	mov	esi, ebx
+   649 0000021D 66C1CE04                	ror	esi, 4
+   650 00000221 8EDE                    	mov	ds, si
+   651 00000223 66C1EE1C                	shr	esi, 28
+   652 00000227 8804                    	mov	[si], al
+   653 00000229 660FB6C0                	movzx	eax, al
+   654                                  L29:
+   655                                  ; Fused expression:    "++p(1) *(@-8) "
+   656 0000022D 8A46F8                  	mov	al, [bp-8]
+   657 00000230 660FB6C0                	movzx	eax, al
+   658 00000234 FE46F8                  	inc	byte [bp-8]
+   659 00000237 EB83                    	jmp	L28
+   660                                  L31:
+   661                                  L25:
+   662                                  ; Fused expression:    "++p(1) *(@-4) "
+   663 00000239 8A46FC                  	mov	al, [bp-4]
+   664 0000023C 660FB6C0                	movzx	eax, al
+   665 00000240 FE46FC                  	inc	byte [bp-4]
+   666 00000243 E95AFF                  	jmp	L24
+   667                                  L27:
+   668                                  L1:
+   669 00000246 66                      	db	0x66
+   670 00000247 C9                      	leave
+   671 00000248 CB                      	retf
+   672                                  L33:
+   673                                  
+   674                                  section .fxnsz noalloc
+   675 00000000 49020000                	dd	L33 - _salvarPantallaInicial
+   676                                  
+   677                                  ; glb restaurarPantallaInicial : (void) void
+   678                                  section .text
+   679                                  	global	_restaurarPantallaInicial
+   680                                  _restaurarPantallaInicial:
+   681 00000249 6655                    	push	ebp
+   682 0000024B 660FB7EC                	movzx	ebp, sp
+   683                                  	;sub	sp,          0
+   684                                  ; RPN'ized expression: "( 50 , ptrPant , copiaDeLaPantallaOriginal copiarPantalla ) "
+   685                                  ; Expanded expression: " 50  ptrPant *(4)  copiaDeLaPantallaOriginal *(4)  copiarPantalla ()12 "
+   686                                  ; Fused expression:    "( 50 , ptrPant *(4) ax , copiaDeLaPantallaOriginal *(4) ax , copiarPantalla )12 "
+   687 0000024F 666A32                  	push	dword 50
+   688                                  section .relod
+   689 00000040 [54020000]              	dd	L36
+   690                                  section .text
+   691 00000252 66B8                    	db	0x66, 0xB8
+   692                                  L36:
+   693 00000254 [00000000]              	dd	_ptrPant
+   694 00000258 6689C3                  	mov	ebx, eax
+   695 0000025B 6689DE                  	mov	esi, ebx
+   696 0000025E 66C1CE04                	ror	esi, 4
+   697 00000262 8EDE                    	mov	ds, si
+   698 00000264 66C1EE1C                	shr	esi, 28
+   699 00000268 66FF34                  	push	dword [si]
+   700                                  section .relod
+   701 00000044 [6D020000]              	dd	L37
+   702                                  section .text
+   703 0000026B 66B8                    	db	0x66, 0xB8
+   704                                  L37:
+   705 0000026D [0C000000]              	dd	_copiaDeLaPantallaOriginal
+   706 00000271 6689C3                  	mov	ebx, eax
+   707 00000274 6689DE                  	mov	esi, ebx
+   708 00000277 66C1CE04                	ror	esi, 4
+   709 0000027B 8EDE                    	mov	ds, si
+   710 0000027D 66C1EE1C                	shr	esi, 28
+   711 00000281 66FF34                  	push	dword [si]
+   712 00000284 9A                      	db	0x9A
+   713                                  section .relot
+   714 00000008 [85020000]              	dd	L38
+   715                                  section .text
+   716                                  L38:
+   717 00000285 [00000000]              	dd	_copiarPantalla
+   718 00000289 83ECF4                  	sub	sp, -12
+   719                                  ; RPN'ized expression: "( cursorOriginalC , cursorOriginalF goToXYBIOS ) "
+   720                                  ; Expanded expression: " cursorOriginalC *(1)  cursorOriginalF *(1)  goToXYBIOS ()8 "
+   721                                  ; Fused expression:    "( cursorOriginalC *(1) ax , cursorOriginalF *(1) ax , goToXYBIOS )8 "
+   722                                  section .relod
+   723 00000048 [8E020000]              	dd	L39
+   724                                  section .text
+   725 0000028C 66B8                    	db	0x66, 0xB8
+   726                                  L39:
+   727 0000028E [05000000]              	dd	_cursorOriginalC
+   728 00000292 6689C3                  	mov	ebx, eax
+   729 00000295 6689DE                  	mov	esi, ebx
+   730 00000298 66C1CE04                	ror	esi, 4
+   731 0000029C 8EDE                    	mov	ds, si
+   732 0000029E 66C1EE1C                	shr	esi, 28
+   733 000002A2 8A04                    	mov	al, [si]
+   734 000002A4 660FB6C0                	movzx	eax, al
+   735 000002A8 6650                    	push	eax
+   736                                  section .relod
+   737 0000004C [AC020000]              	dd	L40
+   738                                  section .text
+   739 000002AA 66B8                    	db	0x66, 0xB8
+   740                                  L40:
+   741 000002AC [04000000]              	dd	_cursorOriginalF
+   742 000002B0 6689C3                  	mov	ebx, eax
+   743 000002B3 6689DE                  	mov	esi, ebx
+   744 000002B6 66C1CE04                	ror	esi, 4
+   745 000002BA 8EDE                    	mov	ds, si
+   746 000002BC 66C1EE1C                	shr	esi, 28
+   747 000002C0 8A04                    	mov	al, [si]
+   748 000002C2 660FB6C0                	movzx	eax, al
+   749 000002C6 6650                    	push	eax
+   750 000002C8 9A                      	db	0x9A
+   751                                  section .relot
+   752 0000000C [C9020000]              	dd	L41
+   753                                  section .text
+   754                                  L41:
+   755 000002C9 [00000000]              	dd	_goToXYBIOS
+   756 000002CD 83ECF8                  	sub	sp, -8
+   757                                  L34:
+   758 000002D0 66                      	db	0x66
+   759 000002D1 C9                      	leave
+   760 000002D2 CB                      	retf
+   761                                  L42:
+   762                                  
+   763                                  section .fxnsz
+   764 00000004 8A000000                	dd	L42 - _restaurarPantallaInicial
+   765                                  
+   766                                  
+   767                                  	extern	_readXYBIOS
+   768                                  	extern	_ptrBiosArea
+   769                                  	extern	_copiarPantalla
+   770                                  	extern	_goToXYBIOS
+   771                                  
+   772                                  ; Syntax/declaration table/stack:
+   773                                  ; Bytes used: 5160/40960
+   774                                  
+   775                                  
+   776                                  ; Macro table:
+   777                                  ; Macro __SMALLER_C__ = `0x0100`
+   778                                  ; Macro __SMALLER_C_32__ = ``
+   779                                  ; Macro __HUGE__ = ``
+   780                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   781                                  ; Bytes used: 74/5120
+   782                                  
+   783                                  
+   784                                  ; Identifier table:
+   785                                  ; Ident __floatsisf
+   786                                  ; Ident __floatunsisf
+   787                                  ; Ident __fixsfsi
+   788                                  ; Ident __fixunssfsi
+   789                                  ; Ident __addsf3
+   790                                  ; Ident __subsf3
+   791                                  ; Ident __negsf2
+   792                                  ; Ident __mulsf3
+   793                                  ; Ident __divsf3
+   794                                  ; Ident __lesf2
+   795                                  ; Ident __gesf2
+   796                                  ; Ident intptr_t
+   797                                  ; Ident uintptr_t
+   798                                  ; Ident intmax_t
+   799                                  ; Ident uintmax_t
+   800                                  ; Ident int8_t
+   801                                  ; Ident int_least8_t
+   802                                  ; Ident int_fast8_t
+   803                                  ; Ident uint8_t
+   804                                  ; Ident uint_least8_t
+   805                                  ; Ident uint_fast8_t
+   806                                  ; Ident int16_t
+   807                                  ; Ident int_least16_t
+   808                                  ; Ident int_fast16_t
+   809                                  ; Ident uint16_t
+   810                                  ; Ident uint_least16_t
+   811                                  ; Ident uint_fast16_t
+   812                                  ; Ident int32_t
+   813                                  ; Ident int_least32_t
+   814                                  ; Ident int_fast32_t
+   815                                  ; Ident uint32_t
+   816                                  ; Ident uint_least32_t
+   817                                  ; Ident uint_fast32_t
+   818                                  ; Ident <something>
+   819                                  ; Ident quot
+   820                                  ; Ident rem
+   821                                  ; Ident imaxdiv_t
+   822                                  ; Ident FALSE
+   823                                  ; Ident TRUE
+   824                                  ; Ident bool_t
+   825                                  ; Ident pointer_t
+   826                                  ; Ident funcion_t
+   827                                  ; Ident manejador_t
+   828                                  ; Ident rti_t
+   829                                  ; Ident isr_t
+   830                                  ; Ident handler_t
+   831                                  ; Ident retardarThread_t
+   832                                  ; Ident ptrTVI_t
+   833                                  ; Ident modoSO1_Bin
+   834                                  ; Ident modoSO1_Exe
+   835                                  ; Ident modoSO1_Bs
+   836                                  ; Ident modoSO1_t
+   837                                  ; Ident lo
+   838                                  ; Ident hi
+   839                                  ; Ident lh_t
+   840                                  ; Ident offset
+   841                                  ; Ident segment
+   842                                  ; Ident address_t
+   843                                  ; Ident ptr
+   844                                  ; Ident adr
+   845                                  ; Ident uPtrAdr_t
+   846                                  ; Ident pid_t
+   847                                  ; Ident tid_t
+   848                                  ; Ident uid_t
+   849                                  ; Ident gid_t
+   850                                  ; Ident pindx_t
+   851                                  ; Ident tindx_t
+   852                                  ; Ident df_t
+   853                                  ; Ident dfs_t
+   854                                  ; Ident rindx_t
+   855                                  ; Ident car
+   856                                  ; Ident atr
+   857                                  ; Ident pos_t
+   858                                  ; Ident t
+   859                                  ; Ident pantalla_t
+   860                                  ; Ident tamPantalla
+   861                                  ; Ident numFilas
+   862                                  ; Ident pantallazo
+   863                                  ; Ident pantalla
+   864                                  ; Ident esqSupDeF
+   865                                  ; Ident esqSupDeC
+   866                                  ; Ident esqInfIzF
+   867                                  ; Ident esqInfIzC
+   868                                  ; Ident borrarPantalla
+   869                                  ; Ident borrarCPantalla
+   870                                  ; Ident copiarPantalla
+   871                                  ; Ident p1
+   872                                  ; Ident p2
+   873                                  ; Ident copiarCPantalla
+   874                                  ; Ident scrollPantalla
+   875                                  ; Ident scrollCPantalla
+   876                                  ; Ident tipoOrdenador
+   877                                  ; Ident rebootLegacy
+   878                                  ; Ident tipoTeclado
+   879                                  ; Ident leerTeclaBIOS
+   880                                  ; Ident leerTeclaExtBIOS
+   881                                  ; Ident teclaListaBIOS
+   882                                  ; Ident leerTeclaListaBDA
+   883                                  ; Ident teclaListaBDA
+   884                                  ; Ident printCarBIOS
+   885                                  ; Ident printCarPagBIOS
+   886                                  ; Ident pag
+   887                                  ; Ident printCarAtrPagBIOS
+   888                                  ; Ident printLnBIOS
+   889                                  ; Ident printStrBIOS
+   890                                  ; Ident str
+   891                                  ; Ident printStrHastaBIOS
+   892                                  ; Ident n
+   893                                  ; Ident lleno
+   894                                  ; Ident printDecBIOS
+   895                                  ; Ident num
+   896                                  ; Ident l
+   897                                  ; Ident printLDecBIOS
+   898                                  ; Ident printIntBIOS
+   899                                  ; Ident printLIntBIOS
+   900                                  ; Ident printHexBIOS
+   901                                  ; Ident printLHexBIOS
+   902                                  ; Ident printBinBIOS
+   903                                  ; Ident printLBinBIOS
+   904                                  ; Ident printPtrBIOS
+   905                                  ; Ident printByteBIOS
+   906                                  ; Ident b
+   907                                  ; Ident printWordBIOS
+   908                                  ; Ident w
+   909                                  ; Ident printCadBIOS
+   910                                  ; Ident cad
+   911                                  ; Ident esperarTicsBIOS
+   912                                  ; Ident tics
+   913                                  ; Ident modoDeVideo
+   914                                  ; Ident establecerModoDeVideo
+   915                                  ; Ident modo
+   916                                  ; Ident paginaActiva
+   917                                  ; Ident establecerPaginaActiva
+   918                                  ; Ident numPagsVideo
+   919                                  ; Ident scrollPagBDA
+   920                                  ; Ident numLineas
+   921                                  ; Ident scrollPagBIOS
+   922                                  ; Ident scrollBIOS
+   923                                  ; Ident goToXYPag
+   924                                  ; Ident fila
+   925                                  ; Ident columna
+   926                                  ; Ident goToXYBIOS
+   927                                  ; Ident setCursorBIOS
+   928                                  ; Ident linea1
+   929                                  ; Ident linea2
+   930                                  ; Ident ocultaCursorBIOS
+   931                                  ; Ident readXYPagBIOS
+   932                                  ; Ident readXYBIOS
+   933                                  ; Ident memBIOS
+   934                                  ; Ident enviarBIOS
+   935                                  ; Ident recibirBIOS
+   936                                  ; Ident hayApmBIOS
+   937                                  ; Ident version
+   938                                  ; Ident connectApmBIOS
+   939                                  ; Ident disconnectApmBIOS
+   940                                  ; Ident cpuIdleBIOS
+   941                                  ; Ident cpuBusyBIOS
+   942                                  ; Ident HWLIST_t
+   943                                  ; Ident KBDFLAGS_t
+   944                                  ; Ident KBDSTATUS_t
+   945                                  ; Ident VIDEOCONTROL_t
+   946                                  ; Ident DRECSTATUS_t
+   947                                  ; Ident DMOTORSTATUS_t
+   948                                  ; Ident FDOPSTATUS_t
+   949                                  ; Ident VIDEOSWITCHES_t
+   950                                  ; Ident VGAOPTIONS_t
+   951                                  ; Ident VIDEO_paramtbl
+   952                                  ; Ident VIDEO_dynsavearea
+   953                                  ; Ident VIDEO_text_charset
+   954                                  ; Ident VIDEO_graph_charset
+   955                                  ; Ident VIDEO_savetbl2
+   956                                  ; Ident VIDEOSAVETBL_t
+   957                                  ; Ident VPARAM_width
+   958                                  ; Ident VPARAM_height
+   959                                  ; Ident VPARAM_hchar
+   960                                  ; Ident VPARAM_pagesize
+   961                                  ; Ident VPARAM_SEQC
+   962                                  ; Ident VPARAM_MISC
+   963                                  ; Ident VPARAM_CRTC
+   964                                  ; Ident VPARAM_ATC
+   965                                  ; Ident VPARAM_GRC
+   966                                  ; Ident VIDEOPARAM_t
+   967                                  ; Ident IVT
+   968                                  ; Ident COM_base
+   969                                  ; Ident LPT_base
+   970                                  ; Ident XBDA_seg
+   971                                  ; Ident HW_list
+   972                                  ; Ident relleno1
+   973                                  ; Ident basemem_K
+   974                                  ; Ident relleno2
+   975                                  ; Ident KBD_flags
+   976                                  ; Ident relleno3
+   977                                  ; Ident KBD_bufhead
+   978                                  ; Ident KBD_buftail
+   979                                  ; Ident KBD_buffer
+   980                                  ; Ident dRecStatus
+   981                                  ; Ident dMotorStatus
+   982                                  ; Ident motorShutoffCounter
+   983                                  ; Ident fdOpStatus
+   984                                  ; Ident relleno4
+   985                                  ; Ident VIDEO_mode
+   986                                  ; Ident VIDEO_width
+   987                                  ; Ident VIDEO_pagesize
+   988                                  ; Ident VIDEO_pageoff
+   989                                  ; Ident CURSOR_pos
+   990                                  ; Ident CURSOR_shape
+   991                                  ; Ident VIDEO_pagActiva
+   992                                  ; Ident CRTC_base
+   993                                  ; Ident CRT_MODE
+   994                                  ; Ident CRT_PALETTE
+   995                                  ; Ident relleno5
+   996                                  ; Ident BIOS_timer
+   997                                  ; Ident BIOS_overflow
+   998                                  ; Ident BIOS_ctrlbreak
+   999                                  ; Ident BIOS_POSTreset
+  1000                                  ; Ident relleno6
+  1001                                  ; Ident BIOS_HD_cnt
+  1002                                  ; Ident relleno7
+  1003                                  ; Ident LPT_timeout
+  1004                                  ; Ident BIOS_4B_flags
+  1005                                  ; Ident COM_timeout
+  1006                                  ; Ident KBD_start
+  1007                                  ; Ident KBD_end1
+  1008                                  ; Ident VIDEO_lastrow
+  1009                                  ; Ident VIDEO_hchar
+  1010                                  ; Ident VIDEO_control
+  1011                                  ; Ident VIDEO_switches
+  1012                                  ; Ident VGA_options
+  1013                                  ; Ident VGA_DCC_index
+  1014                                  ; Ident relleno8
+  1015                                  ; Ident KBD_status
+  1016                                  ; Ident TIMER_waitflag
+  1017                                  ; Ident TIMER_waitmks
+  1018                                  ; Ident TIMER_active
+  1019                                  ; Ident relleno9
+  1020                                  ; Ident VIDEO_ptrtable
+  1021                                  ; Ident relleno10
+  1022                                  ; Ident IAC
+  1023                                  ; Ident BIOSAREA_t
+  1024                                  ; Ident ptrBiosArea
+  1025                                  ; Ident ptrFechaBios
+  1026                                  ; Ident ptrPant
+  1027                                  ; Ident cursorOriginalF
+  1028                                  ; Ident cursorOriginalC
+  1029                                  ; Ident lineaOriginal1
+  1030                                  ; Ident lineaOriginal2
+  1031                                  ; Ident copiaDeLaPantallaOriginal
+  1032                                  ; Ident segMemVideo
+  1033                                  ; Ident salvarPantallaInicial
+  1034                                  ; Ident restaurarPantallaInicial
+  1035                                  ; Bytes used: 3050/16384
+  1036                                  
+  1037                                  ; Next label number: 43
+  1038                                  ; Compilation succeeded.

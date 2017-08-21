@@ -1,0 +1,1038 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb pos_t : struct <something>
+    51                                  ; RPN'ized expression: "50 "
+    52                                  ; Expanded expression: "50 "
+    53                                  ; Expression value: 50
+    54                                  ; RPN'ized expression: "80 "
+    55                                  ; Expanded expression: "80 "
+    56                                  ; Expression value: 80
+    57                                  ; glb pantalla_t : union <something>
+    58                                  ; glb tamPantalla : (
+    59                                  ; prm     numFilas : unsigned char
+    60                                  ;     ) unsigned short
+    61                                  ; glb pantallazo : (
+    62                                  ; prm     pantalla : * union <something>
+    63                                  ; prm     numFilas : unsigned short
+    64                                  ; prm     car : char
+    65                                  ; prm     atr : char
+    66                                  ; prm     esqSupDeF : unsigned char
+    67                                  ; prm     esqSupDeC : unsigned char
+    68                                  ; prm     esqInfIzF : unsigned char
+    69                                  ; prm     esqInfIzC : unsigned char
+    70                                  ;     ) void
+    71                                  ; glb borrarPantalla : (
+    72                                  ; prm     pantalla : * union <something>
+    73                                  ; prm     numFilas : unsigned short
+    74                                  ;     ) void
+    75                                  ; glb borrarCPantalla : (
+    76                                  ; prm     pantalla : * union <something>
+    77                                  ; prm     numFilas : unsigned short
+    78                                  ;     ) void
+    79                                  ; glb copiarPantalla : (
+    80                                  ; prm     p1 : * union <something>
+    81                                  ; prm     p2 : * union <something>
+    82                                  ; prm     numFilas : unsigned short
+    83                                  ;     ) void
+    84                                  ; glb copiarCPantalla : (
+    85                                  ; prm     p1 : * union <something>
+    86                                  ; prm     p2 : * union <something>
+    87                                  ; prm     numFilas : unsigned short
+    88                                  ;     ) void
+    89                                  ; glb scrollPantalla : (
+    90                                  ; prm     pantalla : * union <something>
+    91                                  ; prm     numFilas : unsigned short
+    92                                  ;     ) void
+    93                                  ; glb scrollCPantalla : (
+    94                                  ; prm     pantalla : * union <something>
+    95                                  ; prm     numFilas : unsigned short
+    96                                  ;     ) void
+    97                                  ; glb tamPantalla : (
+    98                                  ; prm     numFilas : unsigned char
+    99                                  ;     ) unsigned short
+   100                                  section .text
+   101                                  	global	_tamPantalla
+   102                                  _tamPantalla:
+   103 00000000 6655                    	push	ebp
+   104 00000002 660FB7EC                	movzx	ebp, sp
+   105                                  	;sub	sp,          0
+   106                                  ; loc     numFilas : (@8): unsigned char
+   107                                  ; return
+   108                                  ; loc     <something> : struct <something>
+   109                                  ; RPN'ized expression: "numFilas 80 * <something3> sizeof * "
+   110                                  ; Expanded expression: "(@8) *(1) 80 * 2u * "
+   111                                  ; Fused expression:    "* *(@8) 80 * ax 2u unsigned short  "
+   112 00000006 8A4608                  	mov	al, [bp+8]
+   113 00000009 660FB6C0                	movzx	eax, al
+   114 0000000D 666BC050                	imul	eax, eax, 80
+   115 00000011 666BC002                	imul	eax, eax, 2
+   116 00000015 660FB7C0                	movzx	eax, ax
+   117                                  L1:
+   118 00000019 66                      	db	0x66
+   119 0000001A C9                      	leave
+   120 0000001B CB                      	retf
+   121                                  L4:
+   122                                  
+   123                                  section .fxnsz noalloc
+   124 00000000 1C000000                	dd	L4 - _tamPantalla
+   125                                  
+   126                                  ; glb pantallazo : (
+   127                                  ; prm     pantalla : * union <something>
+   128                                  ; prm     numFilas : unsigned short
+   129                                  ; prm     car : char
+   130                                  ; prm     atr : char
+   131                                  ; prm     esqSupDeF : unsigned char
+   132                                  ; prm     esqSupDeC : unsigned char
+   133                                  ; prm     esqInfIzF : unsigned char
+   134                                  ; prm     esqInfIzC : unsigned char
+   135                                  ;     ) void
+   136                                  section .text
+   137                                  	global	_pantallazo
+   138                                  _pantallazo:
+   139 0000001C 6655                    	push	ebp
+   140 0000001E 660FB7EC                	movzx	ebp, sp
+   141 00000022 83EC0C                  	 sub	sp,         12
+   142                                  ; loc     pantalla : (@8): * union <something>
+   143                                  ; loc     numFilas : (@12): unsigned short
+   144                                  ; loc     car : (@16): char
+   145                                  ; loc     atr : (@20): char
+   146                                  ; loc     esqSupDeF : (@24): unsigned char
+   147                                  ; loc     esqSupDeC : (@28): unsigned char
+   148                                  ; loc     esqInfIzF : (@32): unsigned char
+   149                                  ; loc     esqInfIzC : (@36): unsigned char
+   150                                  ; loc     F : (@-4): int
+   151                                  ; loc     C : (@-8): int
+   152                                  ; loc     pos : (@-12): struct <something>
+   153                                  ; if
+   154                                  ; RPN'ized expression: "esqInfIzF numFilas >= "
+   155                                  ; Expanded expression: "(@32) *(1) (@12) *(2) >= "
+   156                                  ; Fused expression:    ">= *(@32) *(@12) IF! "
+   157 00000025 8A4620                  	mov	al, [bp+32]
+   158 00000028 660FB6C0                	movzx	eax, al
+   159 0000002C 660FB74E0C              	movzx	ecx, word [bp+12]
+   160 00000031 6639C8                  	cmp	eax, ecx
+   161 00000034 7C03                    	jl	L7
+   162                                  ; return
+   163 00000036 E94D01                  	jmp	L5
+   164                                  L7:
+   165                                  ; if
+   166                                  ; loc     <something> : char
+   167                                  ; RPN'ized expression: "atr 0 (something11) != "
+   168                                  ; Expanded expression: "(@20) *(-1) 0 != "
+   169                                  ; Fused expression:    "!= *(@20) 0 IF! "
+   170 00000039 8A4614                  	mov	al, [bp+20]
+   171 0000003C 660FBEC0                	movsx	eax, al
+   172 00000040 6683F800                	cmp	eax, 0
+   173 00000044 0F84AF00                	je	L9
+   174                                  ; {
+   175                                  ; RPN'ized expression: "pos &u car -> *u car = "
+   176                                  ; Expanded expression: "(@-12) (@16) *(-1) =(1) "
+   177                                  ; Fused expression:    "=(151) *(@-12) *(@16) "
+   178 00000048 8A4610                  	mov	al, [bp+16]
+   179 0000004B 660FBEC0                	movsx	eax, al
+   180 0000004F 8846F4                  	mov	[bp-12], al
+   181 00000052 660FB6C0                	movzx	eax, al
+   182                                  ; RPN'ized expression: "pos &u atr -> *u atr = "
+   183                                  ; Expanded expression: "(@-11) (@20) *(-1) =(1) "
+   184                                  ; Fused expression:    "=(151) *(@-11) *(@20) "
+   185 00000056 8A4614                  	mov	al, [bp+20]
+   186 00000059 660FBEC0                	movsx	eax, al
+   187 0000005D 8846F5                  	mov	[bp-11], al
+   188 00000060 660FB6C0                	movzx	eax, al
+   189                                  ; for
+   190                                  ; RPN'ized expression: "F esqSupDeF = "
+   191                                  ; Expanded expression: "(@-4) (@24) *(1) =(4) "
+   192                                  ; Fused expression:    "=(201) *(@-4) *(@24) "
+   193 00000064 8A4618                  	mov	al, [bp+24]
+   194 00000067 660FB6C0                	movzx	eax, al
+   195 0000006B 668946FC                	mov	[bp-4], eax
+   196                                  L12:
+   197                                  ; RPN'ized expression: "F esqInfIzF <= "
+   198                                  ; Expanded expression: "(@-4) *(4) (@32) *(1) <= "
+   199                                  ; Fused expression:    "<= *(@-4) *(@32) IF! "
+   200 0000006F 668B46FC                	mov	eax, [bp-4]
+   201 00000073 660FB64E20              	movzx	ecx, byte [bp+32]
+   202 00000078 6639C8                  	cmp	eax, ecx
+   203 0000007B 7F77                    	jg	L15
+   204                                  ; RPN'ized expression: "F ++p "
+   205                                  ; Expanded expression: "(@-4) ++p(4) "
+   206                                  ; for
+   207                                  ; RPN'ized expression: "C esqSupDeC = "
+   208                                  ; Expanded expression: "(@-8) (@28) *(1) =(4) "
+   209                                  ; Fused expression:    "=(201) *(@-8) *(@28) "
+   210 0000007D 8A461C                  	mov	al, [bp+28]
+   211 00000080 660FB6C0                	movzx	eax, al
+   212 00000084 668946F8                	mov	[bp-8], eax
+   213                                  L16:
+   214                                  ; RPN'ized expression: "C esqInfIzC <= "
+   215                                  ; Expanded expression: "(@-8) *(4) (@36) *(1) <= "
+   216                                  ; Fused expression:    "<= *(@-8) *(@36) IF! "
+   217 00000088 668B46F8                	mov	eax, [bp-8]
+   218 0000008C 660FB64E24              	movzx	ecx, byte [bp+36]
+   219 00000091 6639C8                  	cmp	eax, ecx
+   220 00000094 7F53                    	jg	L19
+   221                                  ; RPN'ized expression: "C ++p "
+   222                                  ; Expanded expression: "(@-8) ++p(4) "
+   223                                  ; RPN'ized expression: "pantalla t -> *u F + *u C + *u pos = "
+   224                                  ; Expanded expression: " (@8) *(4) 0 + (@-4) *(4) 160 * + (@-8) *(4) 2 * +  (@-12)  2u  L20 ()12 "
+   225                                  ; Fused expression:    "( + *(@8) 0 push-ax * *(@-4) 160 + *sp ax push-ax * *(@-8) 2 + *sp ax , (@-12) , 2u , L20 )12 "
+   226 00000096 668B4608                	mov	eax, [bp+8]
+   227 0000009A 6650                    	push	eax
+   228 0000009C 668B46FC                	mov	eax, [bp-4]
+   229 000000A0 6669C0A0000000          	imul	eax, eax, 160
+   230 000000A7 6689C1                  	mov	ecx, eax
+   231 000000AA 6658                    	pop	eax
+   232 000000AC 6601C8                  	add	eax, ecx
+   233 000000AF 6650                    	push	eax
+   234 000000B1 668B46F8                	mov	eax, [bp-8]
+   235 000000B5 666BC002                	imul	eax, eax, 2
+   236 000000B9 6689C1                  	mov	ecx, eax
+   237 000000BC 6658                    	pop	eax
+   238 000000BE 6601C8                  	add	eax, ecx
+   239 000000C1 6650                    	push	eax
+   240 000000C3 6631C0                  	xor	eax, eax
+   241 000000C6 8CD0                    	mov	ax, ss
+   242 000000C8 66C1E004                	shl	eax, 4
+   243 000000CC 66678D4405F4            	lea	eax, [ebp+eax-12]
+   244 000000D2 6650                    	push	eax
+   245 000000D4 666A02                  	push	dword 2
+   246 000000D7 9A                      	db	0x9A
+   247                                  section .relot
+   248 00000000 [D8000000]              	dd	L21
+   249                                  section .text
+   250                                  L21:
+   251 000000D8 [2B050000]              	dd	L20
+   252 000000DC 83ECF4                  	sub	sp, -12
+   253                                  L17:
+   254                                  ; Fused expression:    "++p(4) *(@-8) "
+   255 000000DF 668B46F8                	mov	eax, [bp-8]
+   256 000000E3 66FF46F8                	inc	dword [bp-8]
+   257 000000E7 EB9F                    	jmp	L16
+   258                                  L19:
+   259                                  L13:
+   260                                  ; Fused expression:    "++p(4) *(@-4) "
+   261 000000E9 668B46FC                	mov	eax, [bp-4]
+   262 000000ED 66FF46FC                	inc	dword [bp-4]
+   263 000000F1 E97BFF                  	jmp	L12
+   264                                  L15:
+   265                                  ; }
+   266 000000F4 E98F00                  	jmp	L10
+   267                                  L9:
+   268                                  ; else
+   269                                  ; {
+   270                                  ; for
+   271                                  ; RPN'ized expression: "F esqSupDeF = "
+   272                                  ; Expanded expression: "(@-4) (@24) *(1) =(4) "
+   273                                  ; Fused expression:    "=(201) *(@-4) *(@24) "
+   274 000000F7 8A4618                  	mov	al, [bp+24]
+   275 000000FA 660FB6C0                	movzx	eax, al
+   276 000000FE 668946FC                	mov	[bp-4], eax
+   277                                  L22:
+   278                                  ; RPN'ized expression: "F esqInfIzF <= "
+   279                                  ; Expanded expression: "(@-4) *(4) (@32) *(1) <= "
+   280                                  ; Fused expression:    "<= *(@-4) *(@32) IF! "
+   281 00000102 668B46FC                	mov	eax, [bp-4]
+   282 00000106 660FB64E20              	movzx	ecx, byte [bp+32]
+   283 0000010B 6639C8                  	cmp	eax, ecx
+   284 0000010E 7F76                    	jg	L25
+   285                                  ; RPN'ized expression: "F ++p "
+   286                                  ; Expanded expression: "(@-4) ++p(4) "
+   287                                  ; for
+   288                                  ; RPN'ized expression: "C esqSupDeC = "
+   289                                  ; Expanded expression: "(@-8) (@28) *(1) =(4) "
+   290                                  ; Fused expression:    "=(201) *(@-8) *(@28) "
+   291 00000110 8A461C                  	mov	al, [bp+28]
+   292 00000113 660FB6C0                	movzx	eax, al
+   293 00000117 668946F8                	mov	[bp-8], eax
+   294                                  L26:
+   295                                  ; RPN'ized expression: "C esqInfIzC <= "
+   296                                  ; Expanded expression: "(@-8) *(4) (@36) *(1) <= "
+   297                                  ; Fused expression:    "<= *(@-8) *(@36) IF! "
+   298 0000011B 668B46F8                	mov	eax, [bp-8]
+   299 0000011F 660FB64E24              	movzx	ecx, byte [bp+36]
+   300 00000124 6639C8                  	cmp	eax, ecx
+   301 00000127 7F52                    	jg	L29
+   302                                  ; RPN'ized expression: "C ++p "
+   303                                  ; Expanded expression: "(@-8) ++p(4) "
+   304                                  ; RPN'ized expression: "pantalla t -> *u F + *u C + *u &u car -> *u car = "
+   305                                  ; Expanded expression: "(@8) *(4) 0 + (@-4) *(4) 160 * + (@-8) *(4) 2 * + 0 + (@16) *(-1) =(1) "
+   306                                  ; Fused expression:    "+ *(@8) 0 push-ax * *(@-4) 160 + *sp ax push-ax * *(@-8) 2 + *sp ax + ax 0 =(151) *ax *(@16) "
+   307 00000129 668B4608                	mov	eax, [bp+8]
+   308 0000012D 6650                    	push	eax
+   309 0000012F 668B46FC                	mov	eax, [bp-4]
+   310 00000133 6669C0A0000000          	imul	eax, eax, 160
+   311 0000013A 6689C1                  	mov	ecx, eax
+   312 0000013D 6658                    	pop	eax
+   313 0000013F 6601C8                  	add	eax, ecx
+   314 00000142 6650                    	push	eax
+   315 00000144 668B46F8                	mov	eax, [bp-8]
+   316 00000148 666BC002                	imul	eax, eax, 2
+   317 0000014C 6689C1                  	mov	ecx, eax
+   318 0000014F 6658                    	pop	eax
+   319 00000151 6601C8                  	add	eax, ecx
+   320 00000154 6689C3                  	mov	ebx, eax
+   321 00000157 8A4610                  	mov	al, [bp+16]
+   322 0000015A 660FBEC0                	movsx	eax, al
+   323 0000015E 6689DE                  	mov	esi, ebx
+   324 00000161 66C1CE04                	ror	esi, 4
+   325 00000165 8EDE                    	mov	ds, si
+   326 00000167 66C1EE1C                	shr	esi, 28
+   327 0000016B 8804                    	mov	[si], al
+   328 0000016D 660FB6C0                	movzx	eax, al
+   329                                  L27:
+   330                                  ; Fused expression:    "++p(4) *(@-8) "
+   331 00000171 668B46F8                	mov	eax, [bp-8]
+   332 00000175 66FF46F8                	inc	dword [bp-8]
+   333 00000179 EBA0                    	jmp	L26
+   334                                  L29:
+   335                                  L23:
+   336                                  ; Fused expression:    "++p(4) *(@-4) "
+   337 0000017B 668B46FC                	mov	eax, [bp-4]
+   338 0000017F 66FF46FC                	inc	dword [bp-4]
+   339 00000183 E97CFF                  	jmp	L22
+   340                                  L25:
+   341                                  ; }
+   342                                  L10:
+   343                                  L5:
+   344 00000186 66                      	db	0x66
+   345 00000187 C9                      	leave
+   346 00000188 CB                      	retf
+   347                                  L30:
+   348                                  
+   349                                  section .fxnsz
+   350 00000004 6D010000                	dd	L30 - _pantallazo
+   351                                  
+   352                                  ; glb borrarPantalla : (
+   353                                  ; prm     pantalla : * union <something>
+   354                                  ; prm     numFilas : unsigned short
+   355                                  ;     ) void
+   356                                  section .text
+   357                                  	global	_borrarPantalla
+   358                                  _borrarPantalla:
+   359 00000189 6655                    	push	ebp
+   360 0000018B 660FB7EC                	movzx	ebp, sp
+   361                                  	;sub	sp,          0
+   362                                  ; loc     pantalla : (@8): * union <something>
+   363                                  ; loc     numFilas : (@12): unsigned short
+   364                                  ; RPN'ized expression: "( 80 1 - , numFilas 1 - , 0 , 0 , 7 , 32 , numFilas , pantalla pantallazo ) "
+   365                                  ; Expanded expression: " 79  (@12) *(2) 1 -  0  0  7  32  (@12) *(2)  (@8) *(4)  pantallazo ()32 "
+   366                                  ; Fused expression:    "( 79 , - *(@12) 1 , 0 , 0 , 7 , 32 , *(2) (@12) , *(4) (@8) , pantallazo )32 "
+   367 0000018F 666A4F                  	push	dword 79
+   368 00000192 8B460C                  	mov	ax, [bp+12]
+   369 00000195 660FB7C0                	movzx	eax, ax
+   370 00000199 6648                    	dec	eax
+   371 0000019B 6650                    	push	eax
+   372 0000019D 666A00                  	push	dword 0
+   373 000001A0 666A00                  	push	dword 0
+   374 000001A3 666A07                  	push	dword 7
+   375 000001A6 666A20                  	push	dword 32
+   376 000001A9 8B460C                  	mov	ax, [bp+12]
+   377 000001AC 660FB7C0                	movzx	eax, ax
+   378 000001B0 6650                    	push	eax
+   379 000001B2 66FF7608                	push	dword [bp+8]
+   380 000001B6 9A                      	db	0x9A
+   381                                  section .relot
+   382 00000004 [B7010000]              	dd	L33
+   383                                  section .text
+   384                                  L33:
+   385 000001B7 [1C000000]              	dd	_pantallazo
+   386 000001BB 83ECE0                  	sub	sp, -32
+   387                                  L31:
+   388 000001BE 66                      	db	0x66
+   389 000001BF C9                      	leave
+   390 000001C0 CB                      	retf
+   391                                  L34:
+   392                                  
+   393                                  section .fxnsz
+   394 00000008 38000000                	dd	L34 - _borrarPantalla
+   395                                  
+   396                                  ; glb borrarCPantalla : (
+   397                                  ; prm     pantalla : * union <something>
+   398                                  ; prm     numFilas : unsigned short
+   399                                  ;     ) void
+   400                                  section .text
+   401                                  	global	_borrarCPantalla
+   402                                  _borrarCPantalla:
+   403 000001C1 6655                    	push	ebp
+   404 000001C3 660FB7EC                	movzx	ebp, sp
+   405                                  	;sub	sp,          0
+   406                                  ; loc     pantalla : (@8): * union <something>
+   407                                  ; loc     numFilas : (@12): unsigned short
+   408                                  ; loc     <something> : char
+   409                                  ; RPN'ized expression: "( 80 1 - , numFilas 1 - , 0 , 0 , 0 (something37) , 32 , numFilas , pantalla pantallazo ) "
+   410                                  ; Expanded expression: " 79  (@12) *(2) 1 -  0  0  0  32  (@12) *(2)  (@8) *(4)  pantallazo ()32 "
+   411                                  ; Fused expression:    "( 79 , - *(@12) 1 , 0 , 0 , 0 , 32 , *(2) (@12) , *(4) (@8) , pantallazo )32 "
+   412 000001C7 666A4F                  	push	dword 79
+   413 000001CA 8B460C                  	mov	ax, [bp+12]
+   414 000001CD 660FB7C0                	movzx	eax, ax
+   415 000001D1 6648                    	dec	eax
+   416 000001D3 6650                    	push	eax
+   417 000001D5 666A00                  	push	dword 0
+   418 000001D8 666A00                  	push	dword 0
+   419 000001DB 666A00                  	push	dword 0
+   420 000001DE 666A20                  	push	dword 32
+   421 000001E1 8B460C                  	mov	ax, [bp+12]
+   422 000001E4 660FB7C0                	movzx	eax, ax
+   423 000001E8 6650                    	push	eax
+   424 000001EA 66FF7608                	push	dword [bp+8]
+   425 000001EE 9A                      	db	0x9A
+   426                                  section .relot
+   427 00000008 [EF010000]              	dd	L38
+   428                                  section .text
+   429                                  L38:
+   430 000001EF [1C000000]              	dd	_pantallazo
+   431 000001F3 83ECE0                  	sub	sp, -32
+   432                                  L35:
+   433 000001F6 66                      	db	0x66
+   434 000001F7 C9                      	leave
+   435 000001F8 CB                      	retf
+   436                                  L39:
+   437                                  
+   438                                  section .fxnsz
+   439 0000000C 38000000                	dd	L39 - _borrarCPantalla
+   440                                  
+   441                                  ; glb copiarPantalla : (
+   442                                  ; prm     p1 : * union <something>
+   443                                  ; prm     p2 : * union <something>
+   444                                  ; prm     numFilas : unsigned short
+   445                                  ;     ) void
+   446                                  section .text
+   447                                  	global	_copiarPantalla
+   448                                  _copiarPantalla:
+   449 000001F9 6655                    	push	ebp
+   450 000001FB 660FB7EC                	movzx	ebp, sp
+   451 000001FF 83EC08                  	 sub	sp,          8
+   452                                  ; loc     p1 : (@8): * union <something>
+   453                                  ; loc     p2 : (@12): * union <something>
+   454                                  ; loc     numFilas : (@16): unsigned short
+   455                                  ; loc     F : (@-4): unsigned char
+   456                                  ; loc     C : (@-8): unsigned char
+   457                                  ; for
+   458                                  ; RPN'ized expression: "F 0 = "
+   459                                  ; Expanded expression: "(@-4) 0 =(1) "
+   460                                  ; Fused expression:    "=(156) *(@-4) 0 "
+   461 00000202 66B800000000            	mov	eax, 0
+   462 00000208 8846FC                  	mov	[bp-4], al
+   463 0000020B 660FB6C0                	movzx	eax, al
+   464                                  L42:
+   465                                  ; RPN'ized expression: "F numFilas < "
+   466                                  ; Expanded expression: "(@-4) *(1) (@16) *(2) < "
+   467                                  ; Fused expression:    "< *(@-4) *(@16) IF! "
+   468 0000020F 8A46FC                  	mov	al, [bp-4]
+   469 00000212 660FB6C0                	movzx	eax, al
+   470 00000216 660FB74E10              	movzx	ecx, word [bp+16]
+   471 0000021B 6639C8                  	cmp	eax, ecx
+   472 0000021E 0F8DA500                	jge	L45
+   473                                  ; RPN'ized expression: "F ++p "
+   474                                  ; Expanded expression: "(@-4) ++p(1) "
+   475                                  ; for
+   476                                  ; RPN'ized expression: "C 0 = "
+   477                                  ; Expanded expression: "(@-8) 0 =(1) "
+   478                                  ; Fused expression:    "=(156) *(@-8) 0 "
+   479 00000222 66B800000000            	mov	eax, 0
+   480 00000228 8846F8                  	mov	[bp-8], al
+   481 0000022B 660FB6C0                	movzx	eax, al
+   482                                  L46:
+   483                                  ; RPN'ized expression: "C 80 < "
+   484                                  ; Expanded expression: "(@-8) *(1) 80 < "
+   485                                  ; Fused expression:    "< *(@-8) 80 IF! "
+   486 0000022F 8A46F8                  	mov	al, [bp-8]
+   487 00000232 660FB6C0                	movzx	eax, al
+   488 00000236 6683F850                	cmp	eax, 80
+   489 0000023A 7D7E                    	jge	L49
+   490                                  ; RPN'ized expression: "C ++p "
+   491                                  ; Expanded expression: "(@-8) ++p(1) "
+   492                                  ; RPN'ized expression: "p2 t -> *u F + *u C + *u p1 t -> *u F + *u C + *u = "
+   493                                  ; Expanded expression: " (@12) *(4) 0 + (@-4) *(1) 160 * + (@-8) *(1) 2 * +  (@8) *(4) 0 + (@-4) *(1) 160 * + (@-8) *(1) 2 * +  2u  L20 ()12 "
+   494                                  ; Fused expression:    "( + *(@12) 0 push-ax * *(@-4) 160 + *sp ax push-ax * *(@-8) 2 + *sp ax , + *(@8) 0 push-ax * *(@-4) 160 + *sp ax push-ax * *(@-8) 2 + *sp ax , 2u , L20 )12 "
+   495 0000023C 668B460C                	mov	eax, [bp+12]
+   496 00000240 6650                    	push	eax
+   497 00000242 8A46FC                  	mov	al, [bp-4]
+   498 00000245 660FB6C0                	movzx	eax, al
+   499 00000249 6669C0A0000000          	imul	eax, eax, 160
+   500 00000250 6689C1                  	mov	ecx, eax
+   501 00000253 6658                    	pop	eax
+   502 00000255 6601C8                  	add	eax, ecx
+   503 00000258 6650                    	push	eax
+   504 0000025A 8A46F8                  	mov	al, [bp-8]
+   505 0000025D 660FB6C0                	movzx	eax, al
+   506 00000261 666BC002                	imul	eax, eax, 2
+   507 00000265 6689C1                  	mov	ecx, eax
+   508 00000268 6658                    	pop	eax
+   509 0000026A 6601C8                  	add	eax, ecx
+   510 0000026D 6650                    	push	eax
+   511 0000026F 668B4608                	mov	eax, [bp+8]
+   512 00000273 6650                    	push	eax
+   513 00000275 8A46FC                  	mov	al, [bp-4]
+   514 00000278 660FB6C0                	movzx	eax, al
+   515 0000027C 6669C0A0000000          	imul	eax, eax, 160
+   516 00000283 6689C1                  	mov	ecx, eax
+   517 00000286 6658                    	pop	eax
+   518 00000288 6601C8                  	add	eax, ecx
+   519 0000028B 6650                    	push	eax
+   520 0000028D 8A46F8                  	mov	al, [bp-8]
+   521 00000290 660FB6C0                	movzx	eax, al
+   522 00000294 666BC002                	imul	eax, eax, 2
+   523 00000298 6689C1                  	mov	ecx, eax
+   524 0000029B 6658                    	pop	eax
+   525 0000029D 6601C8                  	add	eax, ecx
+   526 000002A0 6650                    	push	eax
+   527 000002A2 666A02                  	push	dword 2
+   528 000002A5 9A                      	db	0x9A
+   529                                  section .relot
+   530 0000000C [A6020000]              	dd	L50
+   531                                  section .text
+   532                                  L50:
+   533 000002A6 [2B050000]              	dd	L20
+   534 000002AA 83ECF4                  	sub	sp, -12
+   535                                  L47:
+   536                                  ; Fused expression:    "++p(1) *(@-8) "
+   537 000002AD 8A46F8                  	mov	al, [bp-8]
+   538 000002B0 660FB6C0                	movzx	eax, al
+   539 000002B4 FE46F8                  	inc	byte [bp-8]
+   540 000002B7 E975FF                  	jmp	L46
+   541                                  L49:
+   542                                  L43:
+   543                                  ; Fused expression:    "++p(1) *(@-4) "
+   544 000002BA 8A46FC                  	mov	al, [bp-4]
+   545 000002BD 660FB6C0                	movzx	eax, al
+   546 000002C1 FE46FC                  	inc	byte [bp-4]
+   547 000002C4 E948FF                  	jmp	L42
+   548                                  L45:
+   549                                  L40:
+   550 000002C7 66                      	db	0x66
+   551 000002C8 C9                      	leave
+   552 000002C9 CB                      	retf
+   553                                  L51:
+   554                                  
+   555                                  section .fxnsz
+   556 00000010 D1000000                	dd	L51 - _copiarPantalla
+   557                                  
+   558                                  ; glb copiarCPantalla : (
+   559                                  ; prm     p1 : * union <something>
+   560                                  ; prm     p2 : * union <something>
+   561                                  ; prm     numFilas : unsigned short
+   562                                  ;     ) void
+   563                                  section .text
+   564                                  	global	_copiarCPantalla
+   565                                  _copiarCPantalla:
+   566 000002CA 6655                    	push	ebp
+   567 000002CC 660FB7EC                	movzx	ebp, sp
+   568 000002D0 83EC08                  	 sub	sp,          8
+   569                                  ; loc     p1 : (@8): * union <something>
+   570                                  ; loc     p2 : (@12): * union <something>
+   571                                  ; loc     numFilas : (@16): unsigned short
+   572                                  ; loc     F : (@-4): unsigned char
+   573                                  ; loc     C : (@-8): unsigned char
+   574                                  ; for
+   575                                  ; RPN'ized expression: "F 0 = "
+   576                                  ; Expanded expression: "(@-4) 0 =(1) "
+   577                                  ; Fused expression:    "=(156) *(@-4) 0 "
+   578 000002D3 66B800000000            	mov	eax, 0
+   579 000002D9 8846FC                  	mov	[bp-4], al
+   580 000002DC 660FB6C0                	movzx	eax, al
+   581                                  L54:
+   582                                  ; RPN'ized expression: "F numFilas < "
+   583                                  ; Expanded expression: "(@-4) *(1) (@16) *(2) < "
+   584                                  ; Fused expression:    "< *(@-4) *(@16) IF! "
+   585 000002E0 8A46FC                  	mov	al, [bp-4]
+   586 000002E3 660FB6C0                	movzx	eax, al
+   587 000002E7 660FB74E10              	movzx	ecx, word [bp+16]
+   588 000002EC 6639C8                  	cmp	eax, ecx
+   589 000002EF 0F8DC500                	jge	L57
+   590                                  ; RPN'ized expression: "F ++p "
+   591                                  ; Expanded expression: "(@-4) ++p(1) "
+   592                                  ; for
+   593                                  ; RPN'ized expression: "C 0 = "
+   594                                  ; Expanded expression: "(@-8) 0 =(1) "
+   595                                  ; Fused expression:    "=(156) *(@-8) 0 "
+   596 000002F3 66B800000000            	mov	eax, 0
+   597 000002F9 8846F8                  	mov	[bp-8], al
+   598 000002FC 660FB6C0                	movzx	eax, al
+   599                                  L58:
+   600                                  ; RPN'ized expression: "C 80 < "
+   601                                  ; Expanded expression: "(@-8) *(1) 80 < "
+   602                                  ; Fused expression:    "< *(@-8) 80 IF! "
+   603 00000300 8A46F8                  	mov	al, [bp-8]
+   604 00000303 660FB6C0                	movzx	eax, al
+   605 00000307 6683F850                	cmp	eax, 80
+   606 0000030B 0F8D9C00                	jge	L61
+   607                                  ; RPN'ized expression: "C ++p "
+   608                                  ; Expanded expression: "(@-8) ++p(1) "
+   609                                  ; RPN'ized expression: "p2 t -> *u F + *u C + *u &u car -> *u p1 t -> *u F + *u C + *u &u car -> *u = "
+   610                                  ; Expanded expression: "(@12) *(4) 0 + (@-4) *(1) 160 * + (@-8) *(1) 2 * + 0 + (@8) *(4) 0 + (@-4) *(1) 160 * + (@-8) *(1) 2 * + 0 + *(1) =(1) "
+   611                                  ; Fused expression:    "+ *(@12) 0 push-ax * *(@-4) 160 + *sp ax push-ax * *(@-8) 2 + *sp ax + ax 0 push-ax + *(@8) 0 push-ax * *(@-4) 160 + *sp ax push-ax * *(@-8) 2 + *sp ax + ax 0 =(153) **sp *ax "
+   612 0000030F 668B460C                	mov	eax, [bp+12]
+   613 00000313 6650                    	push	eax
+   614 00000315 8A46FC                  	mov	al, [bp-4]
+   615 00000318 660FB6C0                	movzx	eax, al
+   616 0000031C 6669C0A0000000          	imul	eax, eax, 160
+   617 00000323 6689C1                  	mov	ecx, eax
+   618 00000326 6658                    	pop	eax
+   619 00000328 6601C8                  	add	eax, ecx
+   620 0000032B 6650                    	push	eax
+   621 0000032D 8A46F8                  	mov	al, [bp-8]
+   622 00000330 660FB6C0                	movzx	eax, al
+   623 00000334 666BC002                	imul	eax, eax, 2
+   624 00000338 6689C1                  	mov	ecx, eax
+   625 0000033B 6658                    	pop	eax
+   626 0000033D 6601C8                  	add	eax, ecx
+   627 00000340 6650                    	push	eax
+   628 00000342 668B4608                	mov	eax, [bp+8]
+   629 00000346 6650                    	push	eax
+   630 00000348 8A46FC                  	mov	al, [bp-4]
+   631 0000034B 660FB6C0                	movzx	eax, al
+   632 0000034F 6669C0A0000000          	imul	eax, eax, 160
+   633 00000356 6689C1                  	mov	ecx, eax
+   634 00000359 6658                    	pop	eax
+   635 0000035B 6601C8                  	add	eax, ecx
+   636 0000035E 6650                    	push	eax
+   637 00000360 8A46F8                  	mov	al, [bp-8]
+   638 00000363 660FB6C0                	movzx	eax, al
+   639 00000367 666BC002                	imul	eax, eax, 2
+   640 0000036B 6689C1                  	mov	ecx, eax
+   641 0000036E 6658                    	pop	eax
+   642 00000370 6601C8                  	add	eax, ecx
+   643 00000373 6689C3                  	mov	ebx, eax
+   644 00000376 6689DE                  	mov	esi, ebx
+   645 00000379 66C1CE04                	ror	esi, 4
+   646 0000037D 8EDE                    	mov	ds, si
+   647 0000037F 66C1EE1C                	shr	esi, 28
+   648 00000383 8A04                    	mov	al, [si]
+   649 00000385 660FB6C0                	movzx	eax, al
+   650 00000389 665B                    	pop	ebx
+   651 0000038B 6689DE                  	mov	esi, ebx
+   652 0000038E 66C1CE04                	ror	esi, 4
+   653 00000392 8EDE                    	mov	ds, si
+   654 00000394 66C1EE1C                	shr	esi, 28
+   655 00000398 8804                    	mov	[si], al
+   656 0000039A 660FB6C0                	movzx	eax, al
+   657                                  L59:
+   658                                  ; Fused expression:    "++p(1) *(@-8) "
+   659 0000039E 8A46F8                  	mov	al, [bp-8]
+   660 000003A1 660FB6C0                	movzx	eax, al
+   661 000003A5 FE46F8                  	inc	byte [bp-8]
+   662 000003A8 E955FF                  	jmp	L58
+   663                                  L61:
+   664                                  L55:
+   665                                  ; Fused expression:    "++p(1) *(@-4) "
+   666 000003AB 8A46FC                  	mov	al, [bp-4]
+   667 000003AE 660FB6C0                	movzx	eax, al
+   668 000003B2 FE46FC                  	inc	byte [bp-4]
+   669 000003B5 E928FF                  	jmp	L54
+   670                                  L57:
+   671                                  L52:
+   672 000003B8 66                      	db	0x66
+   673 000003B9 C9                      	leave
+   674 000003BA CB                      	retf
+   675                                  L62:
+   676                                  
+   677                                  section .fxnsz
+   678 00000014 F1000000                	dd	L62 - _copiarCPantalla
+   679                                  
+   680                                  ; glb scrollPantalla : (
+   681                                  ; prm     pantalla : * union <something>
+   682                                  ; prm     numFilas : unsigned short
+   683                                  ;     ) void
+   684                                  section .text
+   685                                  	global	_scrollPantalla
+   686                                  _scrollPantalla:
+   687 000003BB 6655                    	push	ebp
+   688 000003BD 660FB7EC                	movzx	ebp, sp
+   689 000003C1 83EC08                  	 sub	sp,          8
+   690                                  ; loc     pantalla : (@8): * union <something>
+   691                                  ; loc     numFilas : (@12): unsigned short
+   692                                  ; loc     C : (@-4): unsigned char
+   693                                  ; loc     pos : (@-8): struct <something>
+   694                                  ; RPN'ized expression: "pos &u car -> *u 32 = "
+   695                                  ; Expanded expression: "(@-8) 32 =(1) "
+   696                                  ; Fused expression:    "=(156) *(@-8) 32 "
+   697 000003C4 66B820000000            	mov	eax, 32
+   698 000003CA 8846F8                  	mov	[bp-8], al
+   699 000003CD 660FB6C0                	movzx	eax, al
+   700                                  ; RPN'ized expression: "pos &u atr -> *u 7 = "
+   701                                  ; Expanded expression: "(@-7) 7 =(1) "
+   702                                  ; Fused expression:    "=(156) *(@-7) 7 "
+   703 000003D1 66B807000000            	mov	eax, 7
+   704 000003D7 8846F9                  	mov	[bp-7], al
+   705 000003DA 660FB6C0                	movzx	eax, al
+   706                                  ; RPN'ized expression: "numFilas --p "
+   707                                  ; Expanded expression: "(@12) --p(2) "
+   708                                  ; Fused expression:    "--p(2) *(@12) "
+   709 000003DE 8B460C                  	mov	ax, [bp+12]
+   710 000003E1 660FB7C0                	movzx	eax, ax
+   711 000003E5 FF4E0C                  	dec	word [bp+12]
+   712                                  ; loc     <something> : * union <something>
+   713                                  ; RPN'ized expression: "( numFilas , pantalla , pantalla t -> *u 1 + *u 0 + *u &u (something65) copiarPantalla ) "
+   714                                  ; Expanded expression: " (@12) *(2)  (@8) *(4)  (@8) *(4) 160 +  copiarPantalla ()12 "
+   715                                  ; Fused expression:    "( *(2) (@12) , *(4) (@8) , + *(@8) 160 , copiarPantalla )12 "
+   716 000003E8 8B460C                  	mov	ax, [bp+12]
+   717 000003EB 660FB7C0                	movzx	eax, ax
+   718 000003EF 6650                    	push	eax
+   719 000003F1 66FF7608                	push	dword [bp+8]
+   720 000003F5 668B4608                	mov	eax, [bp+8]
+   721 000003F9 6605A0000000            	add	eax, 160
+   722 000003FF 6650                    	push	eax
+   723 00000401 9A                      	db	0x9A
+   724                                  section .relot
+   725 00000010 [02040000]              	dd	L66
+   726                                  section .text
+   727                                  L66:
+   728 00000402 [F9010000]              	dd	_copiarPantalla
+   729 00000406 83ECF4                  	sub	sp, -12
+   730                                  ; for
+   731                                  ; RPN'ized expression: "C 0 = "
+   732                                  ; Expanded expression: "(@-4) 0 =(1) "
+   733                                  ; Fused expression:    "=(156) *(@-4) 0 "
+   734 00000409 66B800000000            	mov	eax, 0
+   735 0000040F 8846FC                  	mov	[bp-4], al
+   736 00000412 660FB6C0                	movzx	eax, al
+   737                                  L67:
+   738                                  ; RPN'ized expression: "C 80 < "
+   739                                  ; Expanded expression: "(@-4) *(1) 80 < "
+   740                                  ; Fused expression:    "< *(@-4) 80 IF! "
+   741 00000416 8A46FC                  	mov	al, [bp-4]
+   742 00000419 660FB6C0                	movzx	eax, al
+   743 0000041D 6683F850                	cmp	eax, 80
+   744 00000421 7D5B                    	jge	L70
+   745                                  ; RPN'ized expression: "C ++p "
+   746                                  ; Expanded expression: "(@-4) ++p(1) "
+   747                                  ; RPN'ized expression: "pantalla t -> *u numFilas + *u C + *u pos = "
+   748                                  ; Expanded expression: " (@8) *(4) 0 + (@12) *(2) 160 * + (@-4) *(1) 2 * +  (@-8)  2u  L20 ()12 "
+   749                                  ; Fused expression:    "( + *(@8) 0 push-ax * *(@12) 160 + *sp ax push-ax * *(@-4) 2 + *sp ax , (@-8) , 2u , L20 )12 "
+   750 00000423 668B4608                	mov	eax, [bp+8]
+   751 00000427 6650                    	push	eax
+   752 00000429 8B460C                  	mov	ax, [bp+12]
+   753 0000042C 660FB7C0                	movzx	eax, ax
+   754 00000430 6669C0A0000000          	imul	eax, eax, 160
+   755 00000437 6689C1                  	mov	ecx, eax
+   756 0000043A 6658                    	pop	eax
+   757 0000043C 6601C8                  	add	eax, ecx
+   758 0000043F 6650                    	push	eax
+   759 00000441 8A46FC                  	mov	al, [bp-4]
+   760 00000444 660FB6C0                	movzx	eax, al
+   761 00000448 666BC002                	imul	eax, eax, 2
+   762 0000044C 6689C1                  	mov	ecx, eax
+   763 0000044F 6658                    	pop	eax
+   764 00000451 6601C8                  	add	eax, ecx
+   765 00000454 6650                    	push	eax
+   766 00000456 6631C0                  	xor	eax, eax
+   767 00000459 8CD0                    	mov	ax, ss
+   768 0000045B 66C1E004                	shl	eax, 4
+   769 0000045F 66678D4405F8            	lea	eax, [ebp+eax-8]
+   770 00000465 6650                    	push	eax
+   771 00000467 666A02                  	push	dword 2
+   772 0000046A 9A                      	db	0x9A
+   773                                  section .relot
+   774 00000014 [6B040000]              	dd	L71
+   775                                  section .text
+   776                                  L71:
+   777 0000046B [2B050000]              	dd	L20
+   778 0000046F 83ECF4                  	sub	sp, -12
+   779                                  L68:
+   780                                  ; Fused expression:    "++p(1) *(@-4) "
+   781 00000472 8A46FC                  	mov	al, [bp-4]
+   782 00000475 660FB6C0                	movzx	eax, al
+   783 00000479 FE46FC                  	inc	byte [bp-4]
+   784 0000047C EB98                    	jmp	L67
+   785                                  L70:
+   786                                  L63:
+   787 0000047E 66                      	db	0x66
+   788 0000047F C9                      	leave
+   789 00000480 CB                      	retf
+   790                                  L72:
+   791                                  
+   792                                  section .fxnsz
+   793 00000018 C6000000                	dd	L72 - _scrollPantalla
+   794                                  
+   795                                  ; glb scrollCPantalla : (
+   796                                  ; prm     pantalla : * union <something>
+   797                                  ; prm     numFilas : unsigned short
+   798                                  ;     ) void
+   799                                  section .text
+   800                                  	global	_scrollCPantalla
+   801                                  _scrollCPantalla:
+   802 00000481 6655                    	push	ebp
+   803 00000483 660FB7EC                	movzx	ebp, sp
+   804 00000487 83EC04                  	 sub	sp,          4
+   805                                  ; loc     pantalla : (@8): * union <something>
+   806                                  ; loc     numFilas : (@12): unsigned short
+   807                                  ; loc     C : (@-4): unsigned char
+   808                                  ; RPN'ized expression: "numFilas --p "
+   809                                  ; Expanded expression: "(@12) --p(2) "
+   810                                  ; Fused expression:    "--p(2) *(@12) "
+   811 0000048A 8B460C                  	mov	ax, [bp+12]
+   812 0000048D 660FB7C0                	movzx	eax, ax
+   813 00000491 FF4E0C                  	dec	word [bp+12]
+   814                                  ; loc     <something> : * union <something>
+   815                                  ; RPN'ized expression: "( numFilas , pantalla , pantalla t -> *u 1 + *u 0 + *u &u (something75) copiarCPantalla ) "
+   816                                  ; Expanded expression: " (@12) *(2)  (@8) *(4)  (@8) *(4) 160 +  copiarCPantalla ()12 "
+   817                                  ; Fused expression:    "( *(2) (@12) , *(4) (@8) , + *(@8) 160 , copiarCPantalla )12 "
+   818 00000494 8B460C                  	mov	ax, [bp+12]
+   819 00000497 660FB7C0                	movzx	eax, ax
+   820 0000049B 6650                    	push	eax
+   821 0000049D 66FF7608                	push	dword [bp+8]
+   822 000004A1 668B4608                	mov	eax, [bp+8]
+   823 000004A5 6605A0000000            	add	eax, 160
+   824 000004AB 6650                    	push	eax
+   825 000004AD 9A                      	db	0x9A
+   826                                  section .relot
+   827 00000018 [AE040000]              	dd	L76
+   828                                  section .text
+   829                                  L76:
+   830 000004AE [CA020000]              	dd	_copiarCPantalla
+   831 000004B2 83ECF4                  	sub	sp, -12
+   832                                  ; for
+   833                                  ; RPN'ized expression: "C 0 = "
+   834                                  ; Expanded expression: "(@-4) 0 =(1) "
+   835                                  ; Fused expression:    "=(156) *(@-4) 0 "
+   836 000004B5 66B800000000            	mov	eax, 0
+   837 000004BB 8846FC                  	mov	[bp-4], al
+   838 000004BE 660FB6C0                	movzx	eax, al
+   839                                  L77:
+   840                                  ; RPN'ized expression: "C 80 < "
+   841                                  ; Expanded expression: "(@-4) *(1) 80 < "
+   842                                  ; Fused expression:    "< *(@-4) 80 IF! "
+   843 000004C2 8A46FC                  	mov	al, [bp-4]
+   844 000004C5 660FB6C0                	movzx	eax, al
+   845 000004C9 6683F850                	cmp	eax, 80
+   846 000004CD 7D59                    	jge	L80
+   847                                  ; RPN'ized expression: "C ++p "
+   848                                  ; Expanded expression: "(@-4) ++p(1) "
+   849                                  ; RPN'ized expression: "pantalla t -> *u numFilas + *u C + *u &u car -> *u 32 = "
+   850                                  ; Expanded expression: "(@8) *(4) 0 + (@12) *(2) 160 * + (@-4) *(1) 2 * + 0 + 32 =(1) "
+   851                                  ; Fused expression:    "+ *(@8) 0 push-ax * *(@12) 160 + *sp ax push-ax * *(@-4) 2 + *sp ax + ax 0 =(156) *ax 32 "
+   852 000004CF 668B4608                	mov	eax, [bp+8]
+   853 000004D3 6650                    	push	eax
+   854 000004D5 8B460C                  	mov	ax, [bp+12]
+   855 000004D8 660FB7C0                	movzx	eax, ax
+   856 000004DC 6669C0A0000000          	imul	eax, eax, 160
+   857 000004E3 6689C1                  	mov	ecx, eax
+   858 000004E6 6658                    	pop	eax
+   859 000004E8 6601C8                  	add	eax, ecx
+   860 000004EB 6650                    	push	eax
+   861 000004ED 8A46FC                  	mov	al, [bp-4]
+   862 000004F0 660FB6C0                	movzx	eax, al
+   863 000004F4 666BC002                	imul	eax, eax, 2
+   864 000004F8 6689C1                  	mov	ecx, eax
+   865 000004FB 6658                    	pop	eax
+   866 000004FD 6601C8                  	add	eax, ecx
+   867 00000500 6689C3                  	mov	ebx, eax
+   868 00000503 66B820000000            	mov	eax, 32
+   869 00000509 6689DE                  	mov	esi, ebx
+   870 0000050C 66C1CE04                	ror	esi, 4
+   871 00000510 8EDE                    	mov	ds, si
+   872 00000512 66C1EE1C                	shr	esi, 28
+   873 00000516 8804                    	mov	[si], al
+   874 00000518 660FB6C0                	movzx	eax, al
+   875                                  L78:
+   876                                  ; Fused expression:    "++p(1) *(@-4) "
+   877 0000051C 8A46FC                  	mov	al, [bp-4]
+   878 0000051F 660FB6C0                	movzx	eax, al
+   879 00000523 FE46FC                  	inc	byte [bp-4]
+   880 00000526 EB9A                    	jmp	L77
+   881                                  L80:
+   882                                  L73:
+   883 00000528 66                      	db	0x66
+   884 00000529 C9                      	leave
+   885 0000052A CB                      	retf
+   886                                  L81:
+   887                                  
+   888                                  section .fxnsz
+   889 0000001C AA000000                	dd	L81 - _scrollCPantalla
+   890                                  
+   891                                  section .text
+   892                                  L20:
+   893 0000052B 6655                    	push	ebp
+   894 0000052D 660FB7EC                	movzx	ebp, sp
+   895                                  	;sub	sp,          0
+   896 00000531 668B7E10                	mov	edi, [bp+16]
+   897 00000535 66C1CF04                	ror	edi, 4
+   898 00000539 8EC7                    	mov	es, di
+   899 0000053B 66C1EF1C                	shr	edi, 28
+   900 0000053F 668B760C                	mov	esi, [bp+12]
+   901 00000543 66C1CE04                	ror	esi, 4
+   902 00000547 8EDE                    	mov	ds, si
+   903 00000549 66C1EE1C                	shr	esi, 28
+   904 0000054D 668B5E08                	mov	ebx, [bp+8]
+   905 00000551 FC                      	cld
+   906                                  L82:
+   907 00000552 66B900800000            	mov	ecx, 32768
+   908 00000558 6639CB                  	cmp	ebx, ecx
+   909 0000055B 721B                    	jc	L83
+   910 0000055D 6629CB                  	sub	ebx, ecx
+   911 00000560 F3A4                    	rep	movsb
+   912 00000562 83E70F                  	and	di, 15
+   913 00000565 8CC0                    	mov	ax, es
+   914 00000567 050008                  	add	ax, 2048
+   915 0000056A 8EC0                    	mov	es, ax
+   916 0000056C 83E60F                  	and	si, 15
+   917 0000056F 8CD8                    	mov	ax, ds
+   918 00000571 050008                  	add	ax, 2048
+   919 00000574 8ED8                    	mov	ds, ax
+   920 00000576 EBDA                    	jmp	L82
+   921                                  L83:
+   922 00000578 89D9                    	mov	cx, bx
+   923 0000057A F3A4                    	rep	movsb
+   924 0000057C 668B4610                	mov	eax, [bp+16]
+   925 00000580 66                      	db	0x66
+   926 00000581 C9                      	leave
+   927 00000582 CB                      	retf
+   928                                  
+   929                                  
+   930                                  
+   931                                  ; Syntax/declaration table/stack:
+   932                                  ; Bytes used: 2035/40960
+   933                                  
+   934                                  
+   935                                  ; Macro table:
+   936                                  ; Macro __SMALLER_C__ = `0x0100`
+   937                                  ; Macro __SMALLER_C_32__ = ``
+   938                                  ; Macro __HUGE__ = ``
+   939                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   940                                  ; Bytes used: 74/5120
+   941                                  
+   942                                  
+   943                                  ; Identifier table:
+   944                                  ; Ident __floatsisf
+   945                                  ; Ident __floatunsisf
+   946                                  ; Ident __fixsfsi
+   947                                  ; Ident __fixunssfsi
+   948                                  ; Ident __addsf3
+   949                                  ; Ident __subsf3
+   950                                  ; Ident __negsf2
+   951                                  ; Ident __mulsf3
+   952                                  ; Ident __divsf3
+   953                                  ; Ident __lesf2
+   954                                  ; Ident __gesf2
+   955                                  ; Ident intptr_t
+   956                                  ; Ident uintptr_t
+   957                                  ; Ident intmax_t
+   958                                  ; Ident uintmax_t
+   959                                  ; Ident int8_t
+   960                                  ; Ident int_least8_t
+   961                                  ; Ident int_fast8_t
+   962                                  ; Ident uint8_t
+   963                                  ; Ident uint_least8_t
+   964                                  ; Ident uint_fast8_t
+   965                                  ; Ident int16_t
+   966                                  ; Ident int_least16_t
+   967                                  ; Ident int_fast16_t
+   968                                  ; Ident uint16_t
+   969                                  ; Ident uint_least16_t
+   970                                  ; Ident uint_fast16_t
+   971                                  ; Ident int32_t
+   972                                  ; Ident int_least32_t
+   973                                  ; Ident int_fast32_t
+   974                                  ; Ident uint32_t
+   975                                  ; Ident uint_least32_t
+   976                                  ; Ident uint_fast32_t
+   977                                  ; Ident <something>
+   978                                  ; Ident quot
+   979                                  ; Ident rem
+   980                                  ; Ident imaxdiv_t
+   981                                  ; Ident FALSE
+   982                                  ; Ident TRUE
+   983                                  ; Ident bool_t
+   984                                  ; Ident pointer_t
+   985                                  ; Ident funcion_t
+   986                                  ; Ident manejador_t
+   987                                  ; Ident rti_t
+   988                                  ; Ident isr_t
+   989                                  ; Ident handler_t
+   990                                  ; Ident retardarThread_t
+   991                                  ; Ident ptrTVI_t
+   992                                  ; Ident modoSO1_Bin
+   993                                  ; Ident modoSO1_Exe
+   994                                  ; Ident modoSO1_Bs
+   995                                  ; Ident modoSO1_t
+   996                                  ; Ident lo
+   997                                  ; Ident hi
+   998                                  ; Ident lh_t
+   999                                  ; Ident offset
+  1000                                  ; Ident segment
+  1001                                  ; Ident address_t
+  1002                                  ; Ident ptr
+  1003                                  ; Ident adr
+  1004                                  ; Ident uPtrAdr_t
+  1005                                  ; Ident pid_t
+  1006                                  ; Ident tid_t
+  1007                                  ; Ident uid_t
+  1008                                  ; Ident gid_t
+  1009                                  ; Ident pindx_t
+  1010                                  ; Ident tindx_t
+  1011                                  ; Ident df_t
+  1012                                  ; Ident dfs_t
+  1013                                  ; Ident rindx_t
+  1014                                  ; Ident car
+  1015                                  ; Ident atr
+  1016                                  ; Ident pos_t
+  1017                                  ; Ident t
+  1018                                  ; Ident pantalla_t
+  1019                                  ; Ident tamPantalla
+  1020                                  ; Ident numFilas
+  1021                                  ; Ident pantallazo
+  1022                                  ; Ident pantalla
+  1023                                  ; Ident esqSupDeF
+  1024                                  ; Ident esqSupDeC
+  1025                                  ; Ident esqInfIzF
+  1026                                  ; Ident esqInfIzC
+  1027                                  ; Ident borrarPantalla
+  1028                                  ; Ident borrarCPantalla
+  1029                                  ; Ident copiarPantalla
+  1030                                  ; Ident p1
+  1031                                  ; Ident p2
+  1032                                  ; Ident copiarCPantalla
+  1033                                  ; Ident scrollPantalla
+  1034                                  ; Ident scrollCPantalla
+  1035                                  ; Bytes used: 946/16384
+  1036                                  
+  1037                                  ; Next label number: 84
+  1038                                  ; Compilation succeeded.

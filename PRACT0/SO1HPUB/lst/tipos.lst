@@ -1,0 +1,324 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb pointer : (
+    51                                  ; prm     seg : unsigned short
+    52                                  ; prm     off : unsigned short
+    53                                  ;     ) * unsigned char
+    54                                  section .text
+    55                                  	global	_pointer
+    56                                  _pointer:
+    57 00000000 6655                    	push	ebp
+    58 00000002 660FB7EC                	movzx	ebp, sp
+    59 00000006 83EC04                  	 sub	sp,          4
+    60                                  ; loc     seg : (@8): unsigned short
+    61                                  ; loc     off : (@12): unsigned short
+    62                                  ; loc     uPtrAdr : (@-4): union <something>
+    63                                  ; RPN'ized expression: "uPtrAdr &u adr -> *u &u segment -> *u seg = "
+    64                                  ; Expanded expression: "(@-2) (@8) *(2) =(2) "
+    65                                  ; Fused expression:    "=(170) *(@-2) *(@8) "
+    66 00000009 8B4608                  	mov	ax, [bp+8]
+    67 0000000C 660FB7C0                	movzx	eax, ax
+    68 00000010 8946FE                  	mov	[bp-2], ax
+    69 00000013 660FB7C0                	movzx	eax, ax
+    70                                  ; RPN'ized expression: "uPtrAdr &u adr -> *u &u offset -> *u off = "
+    71                                  ; Expanded expression: "(@-4) (@12) *(2) =(2) "
+    72                                  ; Fused expression:    "=(170) *(@-4) *(@12) "
+    73 00000017 8B460C                  	mov	ax, [bp+12]
+    74 0000001A 660FB7C0                	movzx	eax, ax
+    75 0000001E 8946FC                  	mov	[bp-4], ax
+    76 00000021 660FB7C0                	movzx	eax, ax
+    77                                  ; return
+    78                                  ; RPN'ized expression: "uPtrAdr &u ptr -> *u "
+    79                                  ; Expanded expression: "(@-4) *(4) "
+    80                                  ; Fused expression:    "*(4) (@-4)  "
+    81 00000025 668B46FC                	mov	eax, [bp-4]
+    82                                  L1:
+    83 00000029 66                      	db	0x66
+    84 0000002A C9                      	leave
+    85 0000002B CB                      	retf
+    86                                  L3:
+    87                                  
+    88                                  section .fxnsz noalloc
+    89 00000000 2C000000                	dd	L3 - _pointer
+    90                                  
+    91                                  ; glb seg : (
+    92                                  ; prm     p : * unsigned char
+    93                                  ;     ) unsigned short
+    94                                  section .text
+    95                                  	global	_seg
+    96                                  _seg:
+    97 0000002C 6655                    	push	ebp
+    98 0000002E 660FB7EC                	movzx	ebp, sp
+    99 00000032 83EC04                  	 sub	sp,          4
+   100                                  ; loc     p : (@8): * unsigned char
+   101                                  ; loc     uPtrAdr : (@-4): union <something>
+   102                                  ; RPN'ized expression: "uPtrAdr &u ptr -> *u p = "
+   103                                  ; Expanded expression: "(@-4) (@8) *(4) =(4) "
+   104                                  ; Fused expression:    "=(204) *(@-4) *(@8) "
+   105 00000035 668B4608                	mov	eax, [bp+8]
+   106 00000039 668946FC                	mov	[bp-4], eax
+   107                                  ; return
+   108                                  ; RPN'ized expression: "uPtrAdr &u adr -> *u &u segment -> *u "
+   109                                  ; Expanded expression: "(@-2) *(2) "
+   110                                  ; Fused expression:    "*(2) (@-2)  "
+   111 0000003D 8B46FE                  	mov	ax, [bp-2]
+   112 00000040 660FB7C0                	movzx	eax, ax
+   113                                  L4:
+   114 00000044 66                      	db	0x66
+   115 00000045 C9                      	leave
+   116 00000046 CB                      	retf
+   117                                  L6:
+   118                                  
+   119                                  section .fxnsz
+   120 00000004 1B000000                	dd	L6 - _seg
+   121                                  
+   122                                  ; glb off : (
+   123                                  ; prm     p : * unsigned char
+   124                                  ;     ) unsigned short
+   125                                  section .text
+   126                                  	global	_off
+   127                                  _off:
+   128 00000047 6655                    	push	ebp
+   129 00000049 660FB7EC                	movzx	ebp, sp
+   130 0000004D 83EC04                  	 sub	sp,          4
+   131                                  ; loc     p : (@8): * unsigned char
+   132                                  ; loc     uPtrAdr : (@-4): union <something>
+   133                                  ; RPN'ized expression: "uPtrAdr &u ptr -> *u p = "
+   134                                  ; Expanded expression: "(@-4) (@8) *(4) =(4) "
+   135                                  ; Fused expression:    "=(204) *(@-4) *(@8) "
+   136 00000050 668B4608                	mov	eax, [bp+8]
+   137 00000054 668946FC                	mov	[bp-4], eax
+   138                                  ; return
+   139                                  ; RPN'ized expression: "uPtrAdr &u adr -> *u &u offset -> *u "
+   140                                  ; Expanded expression: "(@-4) *(2) "
+   141                                  ; Fused expression:    "*(2) (@-4)  "
+   142 00000058 8B46FC                  	mov	ax, [bp-4]
+   143 0000005B 660FB7C0                	movzx	eax, ax
+   144                                  L7:
+   145 0000005F 66                      	db	0x66
+   146 00000060 C9                      	leave
+   147 00000061 CB                      	retf
+   148                                  L9:
+   149                                  
+   150                                  section .fxnsz
+   151 00000008 1B000000                	dd	L9 - _off
+   152                                  
+   153                                  ; glb incPtr : (
+   154                                  ; prm     p : * * unsigned char
+   155                                  ; prm     i : unsigned short
+   156                                  ;     ) void
+   157                                  section .text
+   158                                  	global	_incPtr
+   159                                  _incPtr:
+   160 00000062 6655                    	push	ebp
+   161 00000064 660FB7EC                	movzx	ebp, sp
+   162 00000068 83EC04                  	 sub	sp,          4
+   163                                  ; loc     p : (@8): * * unsigned char
+   164                                  ; loc     i : (@12): unsigned short
+   165                                  ; loc     despl : (@-4): unsigned short
+   166                                  ; loc     <something> : * struct <something>
+   167                                  ; RPN'ized expression: "despl p (something12) offset -> *u = "
+   168                                  ; Expanded expression: "(@-4) (@8) *(4) 0 + *(2) =(2) "
+   169                                  ; Fused expression:    "+ *(@8) 0 =(170) *(@-4) *ax "
+   170 0000006B 668B4608                	mov	eax, [bp+8]
+   171 0000006F 6689C3                  	mov	ebx, eax
+   172 00000072 6689DE                  	mov	esi, ebx
+   173 00000075 66C1CE04                	ror	esi, 4
+   174 00000079 8EDE                    	mov	ds, si
+   175 0000007B 66C1EE1C                	shr	esi, 28
+   176 0000007F 8B04                    	mov	ax, [si]
+   177 00000081 660FB7C0                	movzx	eax, ax
+   178 00000085 8946FC                  	mov	[bp-4], ax
+   179 00000088 660FB7C0                	movzx	eax, ax
+   180 0000008C 8B46F8                    mov ax,[bp- 8] 
+   181 0000008F 03460C                    add ax,[bp+12] 
+   182 00000092 7337                      jnc incOk      
+   183                                  
+   184                                  ; loc     <something> : * struct <something>
+   185                                  ; RPN'ized expression: "p (something13) segment -> *u 4096 += "
+   186                                  ; Expanded expression: "(@8) *(4) 2 + 4096 +=(2) "
+   187                                  ; Fused expression:    "+ *(@8) 2 +=(172) *ax 4096 "
+   188 00000094 668B4608                	mov	eax, [bp+8]
+   189 00000098 6683C002                	add	eax, 2
+   190 0000009C 6689C3                  	mov	ebx, eax
+   191 0000009F 6689DE                  	mov	esi, ebx
+   192 000000A2 66C1CE04                	ror	esi, 4
+   193 000000A6 8EDE                    	mov	ds, si
+   194 000000A8 66C1EE1C                	shr	esi, 28
+   195 000000AC 8B04                    	mov	ax, [si]
+   196 000000AE 660FB7C0                	movzx	eax, ax
+   197 000000B2 660500100000            	add	eax, 4096
+   198 000000B8 6689DE                  	mov	esi, ebx
+   199 000000BB 66C1CE04                	ror	esi, 4
+   200 000000BF 8EDE                    	mov	ds, si
+   201 000000C1 66C1EE1C                	shr	esi, 28
+   202 000000C5 8904                    	mov	[si], ax
+   203 000000C7 660FB7C0                	movzx	eax, ax
+   204                                   incOk:          
+   205 000000CB 8946F8                   mov [bp-8],ax   
+   206                                  
+   207                                  ; loc     <something> : * struct <something>
+   208                                  ; RPN'ized expression: "p (something14) offset -> *u despl = "
+   209                                  ; Expanded expression: "(@8) *(4) 0 + (@-4) *(2) =(2) "
+   210                                  ; Fused expression:    "+ *(@8) 0 =(170) *ax *(@-4) "
+   211 000000CE 668B4608                	mov	eax, [bp+8]
+   212 000000D2 6689C3                  	mov	ebx, eax
+   213 000000D5 8B46FC                  	mov	ax, [bp-4]
+   214 000000D8 660FB7C0                	movzx	eax, ax
+   215 000000DC 6689DE                  	mov	esi, ebx
+   216 000000DF 66C1CE04                	ror	esi, 4
+   217 000000E3 8EDE                    	mov	ds, si
+   218 000000E5 66C1EE1C                	shr	esi, 28
+   219 000000E9 8904                    	mov	[si], ax
+   220 000000EB 660FB7C0                	movzx	eax, ax
+   221                                  L10:
+   222 000000EF 66                      	db	0x66
+   223 000000F0 C9                      	leave
+   224 000000F1 CB                      	retf
+   225                                  L15:
+   226                                  
+   227                                  section .fxnsz
+   228 0000000C 90000000                	dd	L15 - _incPtr
+   229                                  
+   230                                  
+   231                                  
+   232                                  ; Syntax/declaration table/stack:
+   233                                  ; Bytes used: 1175/40960
+   234                                  
+   235                                  
+   236                                  ; Macro table:
+   237                                  ; Macro __SMALLER_C__ = `0x0100`
+   238                                  ; Macro __SMALLER_C_32__ = ``
+   239                                  ; Macro __HUGE__ = ``
+   240                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   241                                  ; Bytes used: 74/5120
+   242                                  
+   243                                  
+   244                                  ; Identifier table:
+   245                                  ; Ident __floatsisf
+   246                                  ; Ident __floatunsisf
+   247                                  ; Ident __fixsfsi
+   248                                  ; Ident __fixunssfsi
+   249                                  ; Ident __addsf3
+   250                                  ; Ident __subsf3
+   251                                  ; Ident __negsf2
+   252                                  ; Ident __mulsf3
+   253                                  ; Ident __divsf3
+   254                                  ; Ident __lesf2
+   255                                  ; Ident __gesf2
+   256                                  ; Ident intptr_t
+   257                                  ; Ident uintptr_t
+   258                                  ; Ident intmax_t
+   259                                  ; Ident uintmax_t
+   260                                  ; Ident int8_t
+   261                                  ; Ident int_least8_t
+   262                                  ; Ident int_fast8_t
+   263                                  ; Ident uint8_t
+   264                                  ; Ident uint_least8_t
+   265                                  ; Ident uint_fast8_t
+   266                                  ; Ident int16_t
+   267                                  ; Ident int_least16_t
+   268                                  ; Ident int_fast16_t
+   269                                  ; Ident uint16_t
+   270                                  ; Ident uint_least16_t
+   271                                  ; Ident uint_fast16_t
+   272                                  ; Ident int32_t
+   273                                  ; Ident int_least32_t
+   274                                  ; Ident int_fast32_t
+   275                                  ; Ident uint32_t
+   276                                  ; Ident uint_least32_t
+   277                                  ; Ident uint_fast32_t
+   278                                  ; Ident <something>
+   279                                  ; Ident quot
+   280                                  ; Ident rem
+   281                                  ; Ident imaxdiv_t
+   282                                  ; Ident FALSE
+   283                                  ; Ident TRUE
+   284                                  ; Ident bool_t
+   285                                  ; Ident pointer_t
+   286                                  ; Ident funcion_t
+   287                                  ; Ident manejador_t
+   288                                  ; Ident rti_t
+   289                                  ; Ident isr_t
+   290                                  ; Ident handler_t
+   291                                  ; Ident retardarThread_t
+   292                                  ; Ident ptrTVI_t
+   293                                  ; Ident modoSO1_Bin
+   294                                  ; Ident modoSO1_Exe
+   295                                  ; Ident modoSO1_Bs
+   296                                  ; Ident modoSO1_t
+   297                                  ; Ident lo
+   298                                  ; Ident hi
+   299                                  ; Ident lh_t
+   300                                  ; Ident offset
+   301                                  ; Ident segment
+   302                                  ; Ident address_t
+   303                                  ; Ident ptr
+   304                                  ; Ident adr
+   305                                  ; Ident uPtrAdr_t
+   306                                  ; Ident pid_t
+   307                                  ; Ident tid_t
+   308                                  ; Ident uid_t
+   309                                  ; Ident gid_t
+   310                                  ; Ident pindx_t
+   311                                  ; Ident tindx_t
+   312                                  ; Ident df_t
+   313                                  ; Ident dfs_t
+   314                                  ; Ident rindx_t
+   315                                  ; Ident pointer
+   316                                  ; Ident seg
+   317                                  ; Ident off
+   318                                  ; Ident p
+   319                                  ; Ident incPtr
+   320                                  ; Ident i
+   321                                  ; Bytes used: 751/16384
+   322                                  
+   323                                  ; Next label number: 16
+   324                                  ; Compilation succeeded.

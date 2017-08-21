@@ -1,0 +1,2440 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; RPN'ized expression: "256 "
+    51                                  ; Expanded expression: "256 "
+    52                                  ; Expression value: 256
+    53                                  ; glb VIOrg : [256u] * (void) void
+    54                                  ; RPN'ized expression: "256 "
+    55                                  ; Expanded expression: "256 "
+    56                                  ; Expression value: 256
+    57                                  ; glb recVInt : [256u] int
+    58                                  ; glb redirigirInt : (
+    59                                  ; prm     nVInt : unsigned char
+    60                                  ; prm     isr : * (void) void
+    61                                  ;     ) void
+    62                                  ; glb redirigirIntHardware : (
+    63                                  ; prm     irq : unsigned char
+    64                                  ; prm     isr : * (void) void
+    65                                  ;     ) void
+    66                                  ; glb restablecerInt : (
+    67                                  ; prm     nVInt : int
+    68                                  ;     ) void
+    69                                  ; glb inicTVI : (void) void
+    70                                  ; glb link_ints : (void) void
+    71                                  ; glb modoAp_t : unsigned short
+    72                                  ; glb tramaDWords_t : struct <something>
+    73                                  ; glb tramaWords_t : struct <something>
+    74                                  ; RPN'ized expression: "2 "
+    75                                  ; Expanded expression: "2 "
+    76                                  ; Expression value: 2
+    77                                  ; RPN'ized expression: "2 "
+    78                                  ; Expanded expression: "2 "
+    79                                  ; Expression value: 2
+    80                                  ; RPN'ized expression: "2 "
+    81                                  ; Expanded expression: "2 "
+    82                                  ; Expression value: 2
+    83                                  ; RPN'ized expression: "2 "
+    84                                  ; Expanded expression: "2 "
+    85                                  ; Expression value: 2
+    86                                  ; glb tramaBytes_t : struct <something>
+    87                                  ; glb trama_t : union <something>
+    88                                  ; RPN'ized expression: "8 "
+    89                                  ; Expanded expression: "8 "
+    90                                  ; Expression value: 8
+    91                                  ; glb bloque_t : struct <something>
+    92                                  ; glb ptrBloque_t : * struct <something>
+    93                                  ; glb dobleEnlace_t : struct <something>
+    94                                  ; glb c2c_t : struct <something>
+    95                                  ; glb posicionC2c : (
+    96                                  ; prm     i : int
+    97                                  ; prm     c2c : struct <something>
+    98                                  ;     ) int
+    99                                  ; glb eliminarC2c : (
+   100                                  ; prm     i : int
+   101                                  ; prm     c2c : struct <something>
+   102                                  ;     ) void
+   103                                  ; glb apilarC2c : (
+   104                                  ; prm     i : int
+   105                                  ; prm     c2c : struct <something>
+   106                                  ;     ) void
+   107                                  ; glb encolarC2c : (
+   108                                  ; prm     i : int
+   109                                  ; prm     c2c : struct <something>
+   110                                  ;     ) void
+   111                                  ; glb desencolarC2c : (
+   112                                  ; prm     c2c : struct <something>
+   113                                  ;     ) int
+   114                                  ; glb inicializarC2c : (
+   115                                  ; prm     c2c : * struct <something>
+   116                                  ; prm     e : * struct <something>
+   117                                  ; prm     cabecera : int
+   118                                  ; prm     compartida : int
+   119                                  ;     ) void
+   120                                  ; glb ptrC2c_t : * struct <something>
+   121                                  ; glb posicionPC2c : (
+   122                                  ; prm     i : int
+   123                                  ; prm     c2c : * struct <something>
+   124                                  ;     ) int
+   125                                  ; glb eliminarPC2c : (
+   126                                  ; prm     i : int
+   127                                  ; prm     ptrC2c : * struct <something>
+   128                                  ;     ) void
+   129                                  ; glb apilarPC2c : (
+   130                                  ; prm     i : int
+   131                                  ; prm     ptrC2c : * struct <something>
+   132                                  ;     ) void
+   133                                  ; glb encolarPC2c : (
+   134                                  ; prm     i : int
+   135                                  ; prm     ptrC2c : * struct <something>
+   136                                  ;     ) void
+   137                                  ; glb desencolarPC2c : (
+   138                                  ; prm     ptrC2c : * struct <something>
+   139                                  ;     ) int
+   140                                  ; glb inicializarPC2c : (
+   141                                  ; prm     ptrC2c : * struct <something>
+   142                                  ; prm     e : * struct <something>
+   143                                  ; prm     cabecera : int
+   144                                  ; prm     compartida : int
+   145                                  ;     ) void
+   146                                  ; glb callBack_t : * (
+   147                                  ; prm     arg : * void
+   148                                  ;     ) int
+   149                                  ; RPN'ized expression: "10 "
+   150                                  ; Expanded expression: "10 "
+   151                                  ; Expression value: 10
+   152                                  ; glb descCcb_t : struct <something>
+   153                                  ; glb ccb_t : * struct <something>
+   154                                  ; glb inicCcb : (
+   155                                  ; prm     ccb : * struct <something>
+   156                                  ; prm     max : unsigned short
+   157                                  ;     ) int
+   158                                  ; glb encolarCcb : (
+   159                                  ; prm     cb : * (
+   160                                  ; prm         arg : * void
+   161                                  ;         ) int
+   162                                  ; prm     ccb : * struct <something>
+   163                                  ;     ) int
+   164                                  ; glb desencolarCcb : (
+   165                                  ; prm     ccb : * struct <something>
+   166                                  ;     ) * (
+   167                                  ; prm     arg : * void
+   168                                  ;     ) int
+   169                                  ; glb eliminarCcb : (
+   170                                  ; prm     cb : * (
+   171                                  ; prm         arg : * void
+   172                                  ;         ) int
+   173                                  ; prm     ccb : * struct <something>
+   174                                  ;     ) int
+   175                                  ; glb eliminarSegCcb : (
+   176                                  ; prm     segmento : unsigned short
+   177                                  ; prm     ccb : * struct <something>
+   178                                  ;     ) int
+   179                                  ; glb vaciarCcb : (
+   180                                  ; prm     ccb : * struct <something>
+   181                                  ;     ) int
+   182                                  ; glb atenderCcb : (
+   183                                  ; prm     ccb : * struct <something>
+   184                                  ;     ) int
+   185                                  ; glb estado_t : int
+   186                                  ; glb dfa_t : struct <something>
+   187                                  ; RPN'ized expression: "12 "
+   188                                  ; Expanded expression: "12 "
+   189                                  ; Expression value: 12
+   190                                  ; RPN'ized expression: "80 "
+   191                                  ; Expanded expression: "80 "
+   192                                  ; Expression value: 80
+   193                                  ; RPN'ized expression: "10 "
+   194                                  ; Expanded expression: "10 "
+   195                                  ; Expression value: 10
+   196                                  ; glb descProceso_t : struct <something>
+   197                                  ; glb descThread_t : struct <something>
+   198                                  ; glb tipoFichero_t : int
+   199                                  ; RPN'ized expression: "9 "
+   200                                  ; Expanded expression: "9 "
+   201                                  ; Expression value: 9
+   202                                  ; glb descFichero_t : struct <something>
+   203                                  ; glb tipoRecurso_t : int
+   204                                  ; glb open_t : * (
+   205                                  ; prm     dfs : int
+   206                                  ; prm     modo : unsigned short
+   207                                  ;     ) int
+   208                                  ; glb release_t : * (
+   209                                  ; prm     dfs : int
+   210                                  ;     ) int
+   211                                  ; glb read_t : * (
+   212                                  ; prm     dfs : int
+   213                                  ; prm     dir : * unsigned char
+   214                                  ; prm     nbytes : unsigned short
+   215                                  ;     ) int
+   216                                  ; glb aio_read_t : * (
+   217                                  ; prm     dfs : int
+   218                                  ; prm     dir : * unsigned char
+   219                                  ; prm     nbytes : unsigned short
+   220                                  ;     ) int
+   221                                  ; glb write_t : * (
+   222                                  ; prm     dfs : int
+   223                                  ; prm     dir : * unsigned char
+   224                                  ; prm     nbytes : unsigned short
+   225                                  ;     ) int
+   226                                  ; glb aio_write_t : * (
+   227                                  ; prm     dfs : int
+   228                                  ; prm     dir : * unsigned char
+   229                                  ; prm     nbytes : unsigned short
+   230                                  ;     ) int
+   231                                  ; glb lseek_t : * (
+   232                                  ; prm     dfs : int
+   233                                  ; prm     pos : int
+   234                                  ; prm     whence : unsigned short
+   235                                  ;     ) int
+   236                                  ; glb fcntl_t : * (
+   237                                  ; prm     dfs : int
+   238                                  ; prm     cmd : unsigned short
+   239                                  ; prm     arg : unsigned short
+   240                                  ;     ) int
+   241                                  ; glb ioctl_t : * (
+   242                                  ; prm     dfs : int
+   243                                  ; prm     request : unsigned short
+   244                                  ; prm     arg : unsigned short
+   245                                  ;     ) int
+   246                                  ; glb eliminar_t : * (
+   247                                  ; prm     pindx : int
+   248                                  ;     ) int
+   249                                  ; RPN'ized expression: "12 "
+   250                                  ; Expanded expression: "12 "
+   251                                  ; Expression value: 12
+   252                                  ; RPN'ized expression: "2 "
+   253                                  ; Expanded expression: "2 "
+   254                                  ; Expression value: 2
+   255                                  ; RPN'ized expression: "2 "
+   256                                  ; Expanded expression: "2 "
+   257                                  ; Expression value: 2
+   258                                  ; RPN'ized expression: "2 "
+   259                                  ; Expanded expression: "2 "
+   260                                  ; Expression value: 2
+   261                                  ; glb descRecurso_t : struct <something>
+   262                                  ; glb info_t : struct <something>
+   263                                  ; glb cabecera_t : struct <something>
+   264                                  ; RPN'ized expression: "16 1 + "
+   265                                  ; Expanded expression: "17 "
+   266                                  ; Expression value: 17
+   267                                  ; RPN'ized expression: "16 2 + "
+   268                                  ; Expanded expression: "18 "
+   269                                  ; Expression value: 18
+   270                                  ; RPN'ized expression: "2010 1 + "
+   271                                  ; Expanded expression: "2011 "
+   272                                  ; Expression value: 2011
+   273                                  ; RPN'ized expression: "2010 2 + "
+   274                                  ; Expanded expression: "2012 "
+   275                                  ; Expression value: 2012
+   276                                  ; RPN'ized expression: "20 1 + "
+   277                                  ; Expanded expression: "21 "
+   278                                  ; Expression value: 21
+   279                                  ; RPN'ized expression: "20 2 + "
+   280                                  ; Expanded expression: "22 "
+   281                                  ; Expression value: 22
+   282                                  ; RPN'ized expression: "14 1 + "
+   283                                  ; Expanded expression: "15 "
+   284                                  ; Expression value: 15
+   285                                  ; RPN'ized expression: "14 2 + "
+   286                                  ; Expanded expression: "16 "
+   287                                  ; Expression value: 16
+   288                                  ; RPN'ized expression: "16 16 + "
+   289                                  ; Expanded expression: "32 "
+   290                                  ; Expression value: 32
+   291                                  ; RPN'ized expression: "2010 16 + "
+   292                                  ; Expanded expression: "2026 "
+   293                                  ; Expression value: 2026
+   294                                  ; RPN'ized expression: "2010 1 + "
+   295                                  ; Expanded expression: "2011 "
+   296                                  ; Expression value: 2011
+   297                                  ; RPN'ized expression: "2010 1 + "
+   298                                  ; Expanded expression: "2011 "
+   299                                  ; Expression value: 2011
+   300                                  ; RPN'ized expression: "16 1 + "
+   301                                  ; Expanded expression: "17 "
+   302                                  ; Expression value: 17
+   303                                  ; RPN'ized expression: "2010 1 + "
+   304                                  ; Expanded expression: "2011 "
+   305                                  ; Expression value: 2011
+   306                                  ; RPN'ized expression: "20 14 + "
+   307                                  ; Expanded expression: "34 "
+   308                                  ; Expression value: 34
+   309                                  ; glb e2PFR_t : struct <something>
+   310                                  ; glb cPFR_t : int
+   311                                  ; glb sigThread_t : * () int
+   312                                  ; glb activarThread_t : * (
+   313                                  ; prm     tindx : int
+   314                                  ;     ) void
+   315                                  ; glb buscarNuevoThreadActual_t : * (void) void
+   316                                  ; glb bloquearThreadActual_t : * (
+   317                                  ; prm     rindx : int
+   318                                  ;     ) void
+   319                                  ; glb descSO1H_t : struct <something>
+   320                                  ; RPN'ized expression: "12 "
+   321                                  ; Expanded expression: "12 "
+   322                                  ; Expression value: 12
+   323                                  ; RPN'ized expression: "80 "
+   324                                  ; Expanded expression: "80 "
+   325                                  ; Expression value: 80
+   326                                  ; RPN'ized expression: "10 "
+   327                                  ; Expanded expression: "10 "
+   328                                  ; Expression value: 10
+   329                                  ; glb descProcesoExt_t : struct <something>
+   330                                  ; glb descThreadExt_t : struct <something>
+   331                                  ; RPN'ized expression: "16 "
+   332                                  ; Expanded expression: "16 "
+   333                                  ; Expression value: 16
+   334                                  ; glb descProceso : [16u] struct <something>
+   335                                  ; RPN'ized expression: "2010 "
+   336                                  ; Expanded expression: "2010 "
+   337                                  ; Expression value: 2010
+   338                                  ; glb descThread : [2010u] struct <something>
+   339                                  ; RPN'ized expression: "20 "
+   340                                  ; Expanded expression: "20 "
+   341                                  ; Expression value: 20
+   342                                  ; glb descFichero : [20u] struct <something>
+   343                                  ; RPN'ized expression: "14 "
+   344                                  ; Expanded expression: "14 "
+   345                                  ; Expression value: 14
+   346                                  ; glb descRecurso : [14u] struct <something>
+   347                                  ; RPN'ized expression: "numColasPFR "
+   348                                  ; Expanded expression: "12 "
+   349                                  ; Expression value: 12
+   350                                  ; glb c2cPFR : [12u] struct <something>
+   351                                  ; glb e2PFR : struct <something>
+   352                                  ; glb descCcbAlEpilogo : struct <something>
+   353                                  ; glb ccbAlEpilogo : * struct <something>
+   354                                  ; glb tramaThread : * union <something>
+   355                                  ; glb tramaTarea : * union <something>
+   356                                  ; glb indThreadActual : int
+   357                                  ; glb indProcesoActual : int
+   358                                  ; glb indThreadDeSuperficie : int
+   359                                  ; glb contRodajas : unsigned
+   360                                  ; glb contTicsRodaja : int
+   361                                  ; glb contadorTimer00 : unsigned short
+   362                                  ; glb contOcioso : int
+   363                                  ; glb nuevoPid : (void) int
+   364                                  ; glb nuevoTid : (void) int
+   365                                  ; glb indice : (
+   366                                  ; prm     tid : int
+   367                                  ;     ) int
+   368                                  ; glb sigThread : (void) int
+   369                                  ; glb activarThread : (
+   370                                  ; prm     tindx : int
+   371                                  ;     ) int
+   372                                  ; glb registrarEnPOrdenados : (
+   373                                  ; prm     pindx : int
+   374                                  ;     ) void
+   375                                  ; glb crearThread : (
+   376                                  ; prm     funcion : * (
+   377                                  ; prm         <something> : * void
+   378                                  ;         ) * void
+   379                                  ; prm     SP0 : unsigned short
+   380                                  ; prm     arg : * void
+   381                                  ; prm     pindx : int
+   382                                  ;     ) int
+   383                                  ; glb crearProceso : (
+   384                                  ; prm     segmento : unsigned short
+   385                                  ; prm     tam : unsigned short
+   386                                  ; prm     tamFich : unsigned
+   387                                  ; prm     programa : * char
+   388                                  ; prm     comando : * char
+   389                                  ; prm     pindx : int
+   390                                  ;     ) int
+   391                                  ; glb inicProcesos : (void) void
+   392                                  ; glb resetPids : (void) void
+   393                                  ; glb resetTids : (void) void
+   394                                  ; glb terminarThreadIndx : (
+   395                                  ; prm     tindx : int
+   396                                  ;     ) int
+   397                                  ; glb eliminarThreadIndx : (
+   398                                  ; prm     tindx : int
+   399                                  ;     ) int
+   400                                  ; glb terminarProcIndx : (
+   401                                  ; prm     pindx : int
+   402                                  ;     ) int
+   403                                  ; glb eliminarProcIndx : (
+   404                                  ; prm     pindx : int
+   405                                  ;     ) int
+   406                                  ; glb matarThreadIndx : (
+   407                                  ; prm     tindx : int
+   408                                  ;     ) int
+   409                                  ; glb matarProcIndx : (
+   410                                  ; prm     pindx : int
+   411                                  ;     ) int
+   412                                  ; glb link_procs : (void) void
+   413                                  ; glb startBin : (void) void
+   414                                  ; glb modoSO1 : (void) int
+   415                                  ; glb unidadBIOS : (void) unsigned char
+   416                                  ; glb CS_SO1H : unsigned short
+   417                                  ; glb RO_SO1H : unsigned short
+   418                                  ; glb DS_SO1H : unsigned short
+   419                                  ; glb BSS_SO1H : unsigned short
+   420                                  ; glb SS_SO1H : unsigned short
+   421                                  ; glb SS_Kernel : unsigned short
+   422                                  ; glb IMRInicial : unsigned short
+   423                                  ; glb obtenerMapa : (void) void
+   424                                  ; glb SS_Thread : unsigned short
+   425                                  ; glb SP_Thread : unsigned short
+   426                                  ; glb SS_Tarea : unsigned short
+   427                                  ; glb SP_Tarea : unsigned short
+   428                                  ; glb nivelActivacionSO1H : int
+   429                                  ; glb nVIntActual : int
+   430                                  ; glb enHalt : int
+   431                                  ; glb activarAlEpilogo1 : int
+   432                                  ; glb hayTic : int
+   433                                  ; glb setKernelStack : (void) void
+   434                                  ; glb setThreadStack : (
+   435                                  ; prm     SS_Thread : unsigned short
+   436                                  ; prm     SP_Thread : unsigned short
+   437                                  ;     ) void
+   438                                  ; glb reg_DL : (void) unsigned
+   439                                  ; glb prepararDesbloqueadosUrgentes : (void) void
+   440                                  ; glb buscarNuevoThreadActual : (void) void
+   441                                  ; glb bloquearThreadActual : (
+   442                                  ; prm     rindx : int
+   443                                  ;     ) void
+   444                                  ; glb inicRecursos : (void) void
+   445                                  ; glb crearRec : (
+   446                                  ; prm     dR : * struct <something>
+   447                                  ;     ) int
+   448                                  ; glb crearFich : (
+   449                                  ; prm     nombre : * char
+   450                                  ; prm     rindx : int
+   451                                  ; prm     menor : unsigned short
+   452                                  ; prm     tipo : int
+   453                                  ;     ) int
+   454                                  ; glb destruirFich : (
+   455                                  ; prm     dfs : int
+   456                                  ;     ) int
+   457                                  ; glb destruirRec : (
+   458                                  ; prm     nombre : * char
+   459                                  ;     ) int
+   460                                  ; glb link_recurs : (void) void
+   461                                  ; glb _start__text : char
+   462                                  ; glb _stop__text : char
+   463                                  ; glb _start__rodata : char
+   464                                  ; glb _stop__rodata : char
+   465                                  ; glb _start__data : char
+   466                                  ; glb _stop__data : char
+   467                                  ; glb _start__bss : char
+   468                                  ; glb _stop__bss : char
+   469                                  ; glb _start_allcode__ : char
+   470                                  ; glb _stop_allcode__ : char
+   471                                  ; glb _start_alldata__ : char
+   472                                  ; glb _stop_alldata__ : char
+   473                                  ; glb mostrarSeccion : (
+   474                                  ; prm     start : unsigned
+   475                                  ; prm     stop : unsigned
+   476                                  ; prm     descripcion : * char
+   477                                  ;     ) void
+   478                                  ; glb mostrarSecciones : (void) void
+   479                                  ; glb cargarDescSO1H : (
+   480                                  ; prm     descSO1H : * struct <something>
+   481                                  ;     ) void
+   482                                  section .text
+   483                                  	global	_cargarDescSO1H
+   484                                  _cargarDescSO1H:
+   485 00000000 6655                    	push	ebp
+   486 00000002 660FB7EC                	movzx	ebp, sp
+   487                                  	;sub	sp,          0
+   488                                  ; loc     descSO1H : (@8): * struct <something>
+   489                                  ; loc     <something> : * struct <something>
+   490                                  ; RPN'ized expression: "ccbAlEpilogo descCcbAlEpilogo &u (something3) = "
+   491                                  ; Expanded expression: "ccbAlEpilogo descCcbAlEpilogo =(4) "
+   492                                  ; Fused expression:    "ccbAlEpilogo push-ax descCcbAlEpilogo =(204) **sp ax "
+   493                                  section .relod
+   494 00000000 [08000000]              	dd	L4
+   495                                  section .text
+   496 00000006 66B8                    	db	0x66, 0xB8
+   497                                  L4:
+   498 00000008 [00000000]              	dd	_ccbAlEpilogo
+   499 0000000C 6650                    	push	eax
+   500                                  section .relod
+   501 00000004 [10000000]              	dd	L5
+   502                                  section .text
+   503 0000000E 66B8                    	db	0x66, 0xB8
+   504                                  L5:
+   505 00000010 [00000000]              	dd	_descCcbAlEpilogo
+   506 00000014 665B                    	pop	ebx
+   507 00000016 6689DE                  	mov	esi, ebx
+   508 00000019 66C1CE04                	ror	esi, 4
+   509 0000001D 8EDE                    	mov	ds, si
+   510 0000001F 66C1EE1C                	shr	esi, 28
+   511 00000023 668904                  	mov	[si], eax
+   512                                  ; loc     <something> : * int
+   513                                  ; RPN'ized expression: "descSO1H ptrIndProcesoActual -> *u indProcesoActual &u (something6) = "
+   514                                  ; Expanded expression: "(@8) *(4) 0 + indProcesoActual =(4) "
+   515                                  ; Fused expression:    "+ *(@8) 0 push-ax indProcesoActual =(204) **sp ax "
+   516 00000026 668B4608                	mov	eax, [bp+8]
+   517 0000002A 6650                    	push	eax
+   518                                  section .relod
+   519 00000008 [2E000000]              	dd	L7
+   520                                  section .text
+   521 0000002C 66B8                    	db	0x66, 0xB8
+   522                                  L7:
+   523 0000002E [00000000]              	dd	_indProcesoActual
+   524 00000032 665B                    	pop	ebx
+   525 00000034 6689DE                  	mov	esi, ebx
+   526 00000037 66C1CE04                	ror	esi, 4
+   527 0000003B 8EDE                    	mov	ds, si
+   528 0000003D 66C1EE1C                	shr	esi, 28
+   529 00000041 668904                  	mov	[si], eax
+   530                                  ; loc     <something> : * * union <something>
+   531                                  ; RPN'ized expression: "descSO1H ptrTramaThread -> *u tramaThread &u (something8) = "
+   532                                  ; Expanded expression: "(@8) *(4) 8 + tramaThread =(4) "
+   533                                  ; Fused expression:    "+ *(@8) 8 push-ax tramaThread =(204) **sp ax "
+   534 00000044 668B4608                	mov	eax, [bp+8]
+   535 00000048 6683C008                	add	eax, 8
+   536 0000004C 6650                    	push	eax
+   537                                  section .relod
+   538 0000000C [50000000]              	dd	L9
+   539                                  section .text
+   540 0000004E 66B8                    	db	0x66, 0xB8
+   541                                  L9:
+   542 00000050 [00000000]              	dd	_tramaThread
+   543 00000054 665B                    	pop	ebx
+   544 00000056 6689DE                  	mov	esi, ebx
+   545 00000059 66C1CE04                	ror	esi, 4
+   546 0000005D 8EDE                    	mov	ds, si
+   547 0000005F 66C1EE1C                	shr	esi, 28
+   548 00000063 668904                  	mov	[si], eax
+   549                                  ; loc     <something> : * int
+   550                                  ; RPN'ized expression: "descSO1H ptrActivarAlEpilogo -> *u activarAlEpilogo1 &u (something10) = "
+   551                                  ; Expanded expression: "(@8) *(4) 12 + activarAlEpilogo1 =(4) "
+   552                                  ; Fused expression:    "+ *(@8) 12 push-ax activarAlEpilogo1 =(204) **sp ax "
+   553 00000066 668B4608                	mov	eax, [bp+8]
+   554 0000006A 6683C00C                	add	eax, 12
+   555 0000006E 6650                    	push	eax
+   556                                  section .relod
+   557 00000010 [72000000]              	dd	L11
+   558                                  section .text
+   559 00000070 66B8                    	db	0x66, 0xB8
+   560                                  L11:
+   561 00000072 [00000000]              	dd	_activarAlEpilogo1
+   562 00000076 665B                    	pop	ebx
+   563 00000078 6689DE                  	mov	esi, ebx
+   564 0000007B 66C1CE04                	ror	esi, 4
+   565 0000007F 8EDE                    	mov	ds, si
+   566 00000081 66C1EE1C                	shr	esi, 28
+   567 00000085 668904                  	mov	[si], eax
+   568                                  ; loc     <something> : * struct <something>
+   569                                  ; RPN'ized expression: "descSO1H ptrDescProceso -> *u descProceso &u (something12) = "
+   570                                  ; Expanded expression: "(@8) *(4) 16 + descProceso =(4) "
+   571                                  ; Fused expression:    "+ *(@8) 16 push-ax descProceso =(204) **sp ax "
+   572 00000088 668B4608                	mov	eax, [bp+8]
+   573 0000008C 6683C010                	add	eax, 16
+   574 00000090 6650                    	push	eax
+   575                                  section .relod
+   576 00000014 [94000000]              	dd	L13
+   577                                  section .text
+   578 00000092 66B8                    	db	0x66, 0xB8
+   579                                  L13:
+   580 00000094 [00000000]              	dd	_descProceso
+   581 00000098 665B                    	pop	ebx
+   582 0000009A 6689DE                  	mov	esi, ebx
+   583 0000009D 66C1CE04                	ror	esi, 4
+   584 000000A1 8EDE                    	mov	ds, si
+   585 000000A3 66C1EE1C                	shr	esi, 28
+   586 000000A7 668904                  	mov	[si], eax
+   587                                  ; loc     <something> : struct <something>
+   588                                  ; RPN'ized expression: "descSO1H tamDescProceso -> *u <something14> sizeof = "
+   589                                  ; Expanded expression: "(@8) *(4) 20 + 292u =(2) "
+   590                                  ; Fused expression:    "+ *(@8) 20 =(172) *ax 292u "
+   591 000000AA 668B4608                	mov	eax, [bp+8]
+   592 000000AE 6683C014                	add	eax, 20
+   593 000000B2 6689C3                  	mov	ebx, eax
+   594 000000B5 66B824010000            	mov	eax, 292
+   595 000000BB 6689DE                  	mov	esi, ebx
+   596 000000BE 66C1CE04                	ror	esi, 4
+   597 000000C2 8EDE                    	mov	ds, si
+   598 000000C4 66C1EE1C                	shr	esi, 28
+   599 000000C8 8904                    	mov	[si], ax
+   600 000000CA 660FB7C0                	movzx	eax, ax
+   601                                  ; loc     <something> : * struct <something>
+   602                                  ; RPN'ized expression: "descSO1H ptrDescFichero -> *u descFichero &u (something15) = "
+   603                                  ; Expanded expression: "(@8) *(4) 32 + descFichero =(4) "
+   604                                  ; Fused expression:    "+ *(@8) 32 push-ax descFichero =(204) **sp ax "
+   605 000000CE 668B4608                	mov	eax, [bp+8]
+   606 000000D2 6683C020                	add	eax, 32
+   607 000000D6 6650                    	push	eax
+   608                                  section .relod
+   609 00000018 [DA000000]              	dd	L16
+   610                                  section .text
+   611 000000D8 66B8                    	db	0x66, 0xB8
+   612                                  L16:
+   613 000000DA [00000000]              	dd	_descFichero
+   614 000000DE 665B                    	pop	ebx
+   615 000000E0 6689DE                  	mov	esi, ebx
+   616 000000E3 66C1CE04                	ror	esi, 4
+   617 000000E7 8EDE                    	mov	ds, si
+   618 000000E9 66C1EE1C                	shr	esi, 28
+   619 000000ED 668904                  	mov	[si], eax
+   620                                  ; loc     <something> : * struct <something>
+   621                                  ; RPN'ized expression: "descSO1H ptrDescRecurso -> *u descRecurso &u (something17) = "
+   622                                  ; Expanded expression: "(@8) *(4) 36 + descRecurso =(4) "
+   623                                  ; Fused expression:    "+ *(@8) 36 push-ax descRecurso =(204) **sp ax "
+   624 000000F0 668B4608                	mov	eax, [bp+8]
+   625 000000F4 6683C024                	add	eax, 36
+   626 000000F8 6650                    	push	eax
+   627                                  section .relod
+   628 0000001C [FC000000]              	dd	L18
+   629                                  section .text
+   630 000000FA 66B8                    	db	0x66, 0xB8
+   631                                  L18:
+   632 000000FC [00000000]              	dd	_descRecurso
+   633 00000100 665B                    	pop	ebx
+   634 00000102 6689DE                  	mov	esi, ebx
+   635 00000105 66C1CE04                	ror	esi, 4
+   636 00000109 8EDE                    	mov	ds, si
+   637 0000010B 66C1EE1C                	shr	esi, 28
+   638 0000010F 668904                  	mov	[si], eax
+   639                                  ; loc     <something> : * struct <something>
+   640                                  ; RPN'ized expression: "descSO1H ptrC2cPFR -> *u c2cPFR &u (something19) = "
+   641                                  ; Expanded expression: "(@8) *(4) 40 + c2cPFR =(4) "
+   642                                  ; Fused expression:    "+ *(@8) 40 push-ax c2cPFR =(204) **sp ax "
+   643 00000112 668B4608                	mov	eax, [bp+8]
+   644 00000116 6683C028                	add	eax, 40
+   645 0000011A 6650                    	push	eax
+   646                                  section .relod
+   647 00000020 [1E010000]              	dd	L20
+   648                                  section .text
+   649 0000011C 66B8                    	db	0x66, 0xB8
+   650                                  L20:
+   651 0000011E [00000000]              	dd	_c2cPFR
+   652 00000122 665B                    	pop	ebx
+   653 00000124 6689DE                  	mov	esi, ebx
+   654 00000127 66C1CE04                	ror	esi, 4
+   655 0000012B 8EDE                    	mov	ds, si
+   656 0000012D 66C1EE1C                	shr	esi, 28
+   657 00000131 668904                  	mov	[si], eax
+   658                                  ; loc     <something> : * struct <something>
+   659                                  ; RPN'ized expression: "descSO1H ptrE2PFR -> *u e2PFR &u (something21) = "
+   660                                  ; Expanded expression: "(@8) *(4) 44 + e2PFR =(4) "
+   661                                  ; Fused expression:    "+ *(@8) 44 push-ax e2PFR =(204) **sp ax "
+   662 00000134 668B4608                	mov	eax, [bp+8]
+   663 00000138 6683C02C                	add	eax, 44
+   664 0000013C 6650                    	push	eax
+   665                                  section .relod
+   666 00000024 [40010000]              	dd	L22
+   667                                  section .text
+   668 0000013E 66B8                    	db	0x66, 0xB8
+   669                                  L22:
+   670 00000140 [00000000]              	dd	_e2PFR
+   671 00000144 665B                    	pop	ebx
+   672 00000146 6689DE                  	mov	esi, ebx
+   673 00000149 66C1CE04                	ror	esi, 4
+   674 0000014D 8EDE                    	mov	ds, si
+   675 0000014F 66C1EE1C                	shr	esi, 28
+   676 00000153 668904                  	mov	[si], eax
+   677                                  ; loc     <something> : * int
+   678                                  ; RPN'ized expression: "descSO1H ptrNivelActivacionSO1H -> *u nivelActivacionSO1H &u (something23) = "
+   679                                  ; Expanded expression: "(@8) *(4) 48 + nivelActivacionSO1H =(4) "
+   680                                  ; Fused expression:    "+ *(@8) 48 push-ax nivelActivacionSO1H =(204) **sp ax "
+   681 00000156 668B4608                	mov	eax, [bp+8]
+   682 0000015A 6683C030                	add	eax, 48
+   683 0000015E 6650                    	push	eax
+   684                                  section .relod
+   685 00000028 [62010000]              	dd	L24
+   686                                  section .text
+   687 00000160 66B8                    	db	0x66, 0xB8
+   688                                  L24:
+   689 00000162 [00000000]              	dd	_nivelActivacionSO1H
+   690 00000166 665B                    	pop	ebx
+   691 00000168 6689DE                  	mov	esi, ebx
+   692 0000016B 66C1CE04                	ror	esi, 4
+   693 0000016F 8EDE                    	mov	ds, si
+   694 00000171 66C1EE1C                	shr	esi, 28
+   695 00000175 668904                  	mov	[si], eax
+   696                                  ; loc     <something> : * int
+   697                                  ; RPN'ized expression: "descSO1H ptrEnHalt -> *u enHalt &u (something25) = "
+   698                                  ; Expanded expression: "(@8) *(4) 52 + enHalt =(4) "
+   699                                  ; Fused expression:    "+ *(@8) 52 push-ax enHalt =(204) **sp ax "
+   700 00000178 668B4608                	mov	eax, [bp+8]
+   701 0000017C 6683C034                	add	eax, 52
+   702 00000180 6650                    	push	eax
+   703                                  section .relod
+   704 0000002C [84010000]              	dd	L26
+   705                                  section .text
+   706 00000182 66B8                    	db	0x66, 0xB8
+   707                                  L26:
+   708 00000184 [00000000]              	dd	_enHalt
+   709 00000188 665B                    	pop	ebx
+   710 0000018A 6689DE                  	mov	esi, ebx
+   711 0000018D 66C1CE04                	ror	esi, 4
+   712 00000191 8EDE                    	mov	ds, si
+   713 00000193 66C1EE1C                	shr	esi, 28
+   714 00000197 668904                  	mov	[si], eax
+   715                                  ; loc     <something> : * int
+   716                                  ; RPN'ized expression: "descSO1H ptrHayTic -> *u hayTic &u (something27) = "
+   717                                  ; Expanded expression: "(@8) *(4) 56 + hayTic =(4) "
+   718                                  ; Fused expression:    "+ *(@8) 56 push-ax hayTic =(204) **sp ax "
+   719 0000019A 668B4608                	mov	eax, [bp+8]
+   720 0000019E 6683C038                	add	eax, 56
+   721 000001A2 6650                    	push	eax
+   722                                  section .relod
+   723 00000030 [A6010000]              	dd	L28
+   724                                  section .text
+   725 000001A4 66B8                    	db	0x66, 0xB8
+   726                                  L28:
+   727 000001A6 [00000000]              	dd	_hayTic
+   728 000001AA 665B                    	pop	ebx
+   729 000001AC 6689DE                  	mov	esi, ebx
+   730 000001AF 66C1CE04                	ror	esi, 4
+   731 000001B3 8EDE                    	mov	ds, si
+   732 000001B5 66C1EE1C                	shr	esi, 28
+   733 000001B9 668904                  	mov	[si], eax
+   734                                  ; loc     <something> : * * struct <something>
+   735                                  ; RPN'ized expression: "descSO1H ptrCcbAlEpilogo -> *u ccbAlEpilogo &u (something29) = "
+   736                                  ; Expanded expression: "(@8) *(4) 60 + ccbAlEpilogo =(4) "
+   737                                  ; Fused expression:    "+ *(@8) 60 push-ax ccbAlEpilogo =(204) **sp ax "
+   738 000001BC 668B4608                	mov	eax, [bp+8]
+   739 000001C0 6683C03C                	add	eax, 60
+   740 000001C4 6650                    	push	eax
+   741                                  section .relod
+   742 00000034 [C8010000]              	dd	L30
+   743                                  section .text
+   744 000001C6 66B8                    	db	0x66, 0xB8
+   745                                  L30:
+   746 000001C8 [00000000]              	dd	_ccbAlEpilogo
+   747 000001CC 665B                    	pop	ebx
+   748 000001CE 6689DE                  	mov	esi, ebx
+   749 000001D1 66C1CE04                	ror	esi, 4
+   750 000001D5 8EDE                    	mov	ds, si
+   751 000001D7 66C1EE1C                	shr	esi, 28
+   752 000001DB 668904                  	mov	[si], eax
+   753                                  ; loc     <something> : * unsigned short
+   754                                  ; RPN'ized expression: "descSO1H ptrSS_Thread -> *u SS_Thread &u (something31) = "
+   755                                  ; Expanded expression: "(@8) *(4) 64 + SS_Thread =(4) "
+   756                                  ; Fused expression:    "+ *(@8) 64 push-ax SS_Thread =(204) **sp ax "
+   757 000001DE 668B4608                	mov	eax, [bp+8]
+   758 000001E2 6683C040                	add	eax, 64
+   759 000001E6 6650                    	push	eax
+   760                                  section .relod
+   761 00000038 [EA010000]              	dd	L32
+   762                                  section .text
+   763 000001E8 66B8                    	db	0x66, 0xB8
+   764                                  L32:
+   765 000001EA [00000000]              	dd	_SS_Thread
+   766 000001EE 665B                    	pop	ebx
+   767 000001F0 6689DE                  	mov	esi, ebx
+   768 000001F3 66C1CE04                	ror	esi, 4
+   769 000001F7 8EDE                    	mov	ds, si
+   770 000001F9 66C1EE1C                	shr	esi, 28
+   771 000001FD 668904                  	mov	[si], eax
+   772                                  ; loc     <something> : * unsigned short
+   773                                  ; RPN'ized expression: "descSO1H ptrSP_Thread -> *u SP_Thread &u (something33) = "
+   774                                  ; Expanded expression: "(@8) *(4) 68 + SP_Thread =(4) "
+   775                                  ; Fused expression:    "+ *(@8) 68 push-ax SP_Thread =(204) **sp ax "
+   776 00000200 668B4608                	mov	eax, [bp+8]
+   777 00000204 6683C044                	add	eax, 68
+   778 00000208 6650                    	push	eax
+   779                                  section .relod
+   780 0000003C [0C020000]              	dd	L34
+   781                                  section .text
+   782 0000020A 66B8                    	db	0x66, 0xB8
+   783                                  L34:
+   784 0000020C [00000000]              	dd	_SP_Thread
+   785 00000210 665B                    	pop	ebx
+   786 00000212 6689DE                  	mov	esi, ebx
+   787 00000215 66C1CE04                	ror	esi, 4
+   788 00000219 8EDE                    	mov	ds, si
+   789 0000021B 66C1EE1C                	shr	esi, 28
+   790 0000021F 668904                  	mov	[si], eax
+   791                                  ; loc     <something> : * unsigned short
+   792                                  ; RPN'ized expression: "descSO1H ptrSS_Kernel -> *u SS_Kernel &u (something35) = "
+   793                                  ; Expanded expression: "(@8) *(4) 72 + SS_Kernel =(4) "
+   794                                  ; Fused expression:    "+ *(@8) 72 push-ax SS_Kernel =(204) **sp ax "
+   795 00000222 668B4608                	mov	eax, [bp+8]
+   796 00000226 6683C048                	add	eax, 72
+   797 0000022A 6650                    	push	eax
+   798                                  section .relod
+   799 00000040 [2E020000]              	dd	L36
+   800                                  section .text
+   801 0000022C 66B8                    	db	0x66, 0xB8
+   802                                  L36:
+   803 0000022E [00000000]              	dd	_SS_Kernel
+   804 00000232 665B                    	pop	ebx
+   805 00000234 6689DE                  	mov	esi, ebx
+   806 00000237 66C1CE04                	ror	esi, 4
+   807 0000023B 8EDE                    	mov	ds, si
+   808 0000023D 66C1EE1C                	shr	esi, 28
+   809 00000241 668904                  	mov	[si], eax
+   810                                  ; loc     <something> : * unsigned
+   811                                  ; RPN'ized expression: "descSO1H ptrContRodajas -> *u contRodajas &u (something37) = "
+   812                                  ; Expanded expression: "(@8) *(4) 84 + contRodajas =(4) "
+   813                                  ; Fused expression:    "+ *(@8) 84 push-ax contRodajas =(204) **sp ax "
+   814 00000244 668B4608                	mov	eax, [bp+8]
+   815 00000248 6683C054                	add	eax, 84
+   816 0000024C 6650                    	push	eax
+   817                                  section .relod
+   818 00000044 [50020000]              	dd	L38
+   819                                  section .text
+   820 0000024E 66B8                    	db	0x66, 0xB8
+   821                                  L38:
+   822 00000250 [00000000]              	dd	_contRodajas
+   823 00000254 665B                    	pop	ebx
+   824 00000256 6689DE                  	mov	esi, ebx
+   825 00000259 66C1CE04                	ror	esi, 4
+   826 0000025D 8EDE                    	mov	ds, si
+   827 0000025F 66C1EE1C                	shr	esi, 28
+   828 00000263 668904                  	mov	[si], eax
+   829                                  ; loc     <something> : * int
+   830                                  ; RPN'ized expression: "descSO1H ptrContTicsRodaja -> *u contTicsRodaja &u (something39) = "
+   831                                  ; Expanded expression: "(@8) *(4) 88 + contTicsRodaja =(4) "
+   832                                  ; Fused expression:    "+ *(@8) 88 push-ax contTicsRodaja =(204) **sp ax "
+   833 00000266 668B4608                	mov	eax, [bp+8]
+   834 0000026A 6683C058                	add	eax, 88
+   835 0000026E 6650                    	push	eax
+   836                                  section .relod
+   837 00000048 [72020000]              	dd	L40
+   838                                  section .text
+   839 00000270 66B8                    	db	0x66, 0xB8
+   840                                  L40:
+   841 00000272 [00000000]              	dd	_contTicsRodaja
+   842 00000276 665B                    	pop	ebx
+   843 00000278 6689DE                  	mov	esi, ebx
+   844 0000027B 66C1CE04                	ror	esi, 4
+   845 0000027F 8EDE                    	mov	ds, si
+   846 00000281 66C1EE1C                	shr	esi, 28
+   847 00000285 668904                  	mov	[si], eax
+   848                                  ; loc     <something> : * * (void) void
+   849                                  ; RPN'ized expression: "descSO1H ptrVIOrg -> *u VIOrg &u (something41) = "
+   850                                  ; Expanded expression: "(@8) *(4) 92 + VIOrg =(4) "
+   851                                  ; Fused expression:    "+ *(@8) 92 push-ax VIOrg =(204) **sp ax "
+   852 00000288 668B4608                	mov	eax, [bp+8]
+   853 0000028C 6683C05C                	add	eax, 92
+   854 00000290 6650                    	push	eax
+   855                                  section .relod
+   856 0000004C [94020000]              	dd	L42
+   857                                  section .text
+   858 00000292 66B8                    	db	0x66, 0xB8
+   859                                  L42:
+   860 00000294 [00000000]              	dd	_VIOrg
+   861 00000298 665B                    	pop	ebx
+   862 0000029A 6689DE                  	mov	esi, ebx
+   863 0000029D 66C1CE04                	ror	esi, 4
+   864 000002A1 8EDE                    	mov	ds, si
+   865 000002A3 66C1EE1C                	shr	esi, 28
+   866 000002A7 668904                  	mov	[si], eax
+   867                                  ; loc     <something> : * () int
+   868                                  ; loc     <something> : unsigned
+   869                                  ; loc     <something> : unsigned short
+   870                                  ; loc     <something> : unsigned
+   871                                  ; loc     <something> : unsigned short
+   872                                  ; RPN'ized expression: "descSO1H sigThread -> *u _start__text &u (something45) (something44) 4 << sigThread (something47) (something46) + (something43) = "
+   873                                  ; Expanded expression: "(@8) *(4) 96 + _start__text unsigned short 4 << sigThread unsigned short + =(4) "
+   874                                  ; Fused expression:    "+ *(@8) 96 push-ax _start__text unsigned short << ax 4 push-ax sigThread unsigned short + *sp ax =(204) **sp ax "
+   875 000002AA 668B4608                	mov	eax, [bp+8]
+   876 000002AE 6683C060                	add	eax, 96
+   877 000002B2 6650                    	push	eax
+   878                                  section .relod
+   879 00000050 [B6020000]              	dd	L48
+   880                                  section .text
+   881 000002B4 66B8                    	db	0x66, 0xB8
+   882                                  L48:
+   883 000002B6 [00000000]              	dd	__start__text
+   884 000002BA 660FB7C0                	movzx	eax, ax
+   885 000002BE 66C1E004                	shl	eax, 4
+   886 000002C2 6650                    	push	eax
+   887                                  section .relod
+   888 00000054 [C6020000]              	dd	L49
+   889                                  section .text
+   890 000002C4 66B8                    	db	0x66, 0xB8
+   891                                  L49:
+   892 000002C6 [00000000]              	dd	_sigThread
+   893 000002CA 660FB7C0                	movzx	eax, ax
+   894 000002CE 6689C1                  	mov	ecx, eax
+   895 000002D1 6658                    	pop	eax
+   896 000002D3 6601C8                  	add	eax, ecx
+   897 000002D6 665B                    	pop	ebx
+   898 000002D8 6689DE                  	mov	esi, ebx
+   899 000002DB 66C1CE04                	ror	esi, 4
+   900 000002DF 8EDE                    	mov	ds, si
+   901 000002E1 66C1EE1C                	shr	esi, 28
+   902 000002E5 668904                  	mov	[si], eax
+   903                                  ; loc     <something> : * (
+   904                                  ; prm         tindx : int
+   905                                  ;         ) void
+   906                                  ; loc     <something> : unsigned
+   907                                  ; loc     <something> : unsigned short
+   908                                  ; loc     <something> : unsigned
+   909                                  ; loc     <something> : unsigned short
+   910                                  ; RPN'ized expression: "descSO1H activarThread -> *u _start__text &u (something52) (something51) 4 << activarThread (something54) (something53) + (something50) = "
+   911                                  ; Expanded expression: "(@8) *(4) 100 + _start__text unsigned short 4 << activarThread unsigned short + =(4) "
+   912                                  ; Fused expression:    "+ *(@8) 100 push-ax _start__text unsigned short << ax 4 push-ax activarThread unsigned short + *sp ax =(204) **sp ax "
+   913 000002E8 668B4608                	mov	eax, [bp+8]
+   914 000002EC 6683C064                	add	eax, 100
+   915 000002F0 6650                    	push	eax
+   916                                  section .relod
+   917 00000058 [F4020000]              	dd	L55
+   918                                  section .text
+   919 000002F2 66B8                    	db	0x66, 0xB8
+   920                                  L55:
+   921 000002F4 [00000000]              	dd	__start__text
+   922 000002F8 660FB7C0                	movzx	eax, ax
+   923 000002FC 66C1E004                	shl	eax, 4
+   924 00000300 6650                    	push	eax
+   925                                  section .relod
+   926 0000005C [04030000]              	dd	L56
+   927                                  section .text
+   928 00000302 66B8                    	db	0x66, 0xB8
+   929                                  L56:
+   930 00000304 [00000000]              	dd	_activarThread
+   931 00000308 660FB7C0                	movzx	eax, ax
+   932 0000030C 6689C1                  	mov	ecx, eax
+   933 0000030F 6658                    	pop	eax
+   934 00000311 6601C8                  	add	eax, ecx
+   935 00000314 665B                    	pop	ebx
+   936 00000316 6689DE                  	mov	esi, ebx
+   937 00000319 66C1CE04                	ror	esi, 4
+   938 0000031D 8EDE                    	mov	ds, si
+   939 0000031F 66C1EE1C                	shr	esi, 28
+   940 00000323 668904                  	mov	[si], eax
+   941                                  ; loc     <something> : * (void) void
+   942                                  ; loc     <something> : unsigned
+   943                                  ; loc     <something> : unsigned short
+   944                                  ; loc     <something> : unsigned short
+   945                                  ; loc     <something> : unsigned short
+   946                                  ; RPN'ized expression: "descSO1H buscarNuevoThreadActual -> *u _start__text &u (something59) (something58) 16 << buscarNuevoThreadActual (something61) (something60) | (something57) = "
+   947                                  ; Expanded expression: "(@8) *(4) 104 + _start__text unsigned short 16 << buscarNuevoThreadActual unsigned short unsigned short | =(4) "
+   948                                  ; Fused expression:    "+ *(@8) 104 push-ax _start__text unsigned short << ax 16 push-ax buscarNuevoThreadActual unsigned short unsigned short | *sp ax =(204) **sp ax "
+   949 00000326 668B4608                	mov	eax, [bp+8]
+   950 0000032A 6683C068                	add	eax, 104
+   951 0000032E 6650                    	push	eax
+   952                                  section .relod
+   953 00000060 [32030000]              	dd	L62
+   954                                  section .text
+   955 00000330 66B8                    	db	0x66, 0xB8
+   956                                  L62:
+   957 00000332 [00000000]              	dd	__start__text
+   958 00000336 660FB7C0                	movzx	eax, ax
+   959 0000033A 66C1E010                	shl	eax, 16
+   960 0000033E 6650                    	push	eax
+   961                                  section .relod
+   962 00000064 [42030000]              	dd	L63
+   963                                  section .text
+   964 00000340 66B8                    	db	0x66, 0xB8
+   965                                  L63:
+   966 00000342 [00000000]              	dd	_buscarNuevoThreadActual
+   967 00000346 660FB7C0                	movzx	eax, ax
+   968 0000034A 660FB7C0                	movzx	eax, ax
+   969 0000034E 6689C1                  	mov	ecx, eax
+   970 00000351 6658                    	pop	eax
+   971 00000353 6609C8                  	or	eax, ecx
+   972 00000356 665B                    	pop	ebx
+   973 00000358 6689DE                  	mov	esi, ebx
+   974 0000035B 66C1CE04                	ror	esi, 4
+   975 0000035F 8EDE                    	mov	ds, si
+   976 00000361 66C1EE1C                	shr	esi, 28
+   977 00000365 668904                  	mov	[si], eax
+   978                                  ; loc     <something> : * (
+   979                                  ; prm         rindx : int
+   980                                  ;         ) void
+   981                                  ; loc     <something> : unsigned
+   982                                  ; loc     <something> : unsigned short
+   983                                  ; loc     <something> : unsigned short
+   984                                  ; loc     <something> : unsigned short
+   985                                  ; RPN'ized expression: "descSO1H bloquearThreadActual -> *u _start__text &u (something66) (something65) 16 << bloquearThreadActual (something68) (something67) | (something64) = "
+   986                                  ; Expanded expression: "(@8) *(4) 108 + _start__text unsigned short 16 << bloquearThreadActual unsigned short unsigned short | =(4) "
+   987                                  ; Fused expression:    "+ *(@8) 108 push-ax _start__text unsigned short << ax 16 push-ax bloquearThreadActual unsigned short unsigned short | *sp ax =(204) **sp ax "
+   988 00000368 668B4608                	mov	eax, [bp+8]
+   989 0000036C 6683C06C                	add	eax, 108
+   990 00000370 6650                    	push	eax
+   991                                  section .relod
+   992 00000068 [74030000]              	dd	L69
+   993                                  section .text
+   994 00000372 66B8                    	db	0x66, 0xB8
+   995                                  L69:
+   996 00000374 [00000000]              	dd	__start__text
+   997 00000378 660FB7C0                	movzx	eax, ax
+   998 0000037C 66C1E010                	shl	eax, 16
+   999 00000380 6650                    	push	eax
+  1000                                  section .relod
+  1001 0000006C [84030000]              	dd	L70
+  1002                                  section .text
+  1003 00000382 66B8                    	db	0x66, 0xB8
+  1004                                  L70:
+  1005 00000384 [00000000]              	dd	_bloquearThreadActual
+  1006 00000388 660FB7C0                	movzx	eax, ax
+  1007 0000038C 660FB7C0                	movzx	eax, ax
+  1008 00000390 6689C1                  	mov	ecx, eax
+  1009 00000393 6658                    	pop	eax
+  1010 00000395 6609C8                  	or	eax, ecx
+  1011 00000398 665B                    	pop	ebx
+  1012 0000039A 6689DE                  	mov	esi, ebx
+  1013 0000039D 66C1CE04                	ror	esi, 4
+  1014 000003A1 8EDE                    	mov	ds, si
+  1015 000003A3 66C1EE1C                	shr	esi, 28
+  1016 000003A7 668904                  	mov	[si], eax
+  1017                                  L1:
+  1018 000003AA 66                      	db	0x66
+  1019 000003AB C9                      	leave
+  1020 000003AC CB                      	retf
+  1021                                  L71:
+  1022                                  
+  1023                                  section .fxnsz noalloc
+  1024 00000000 AD030000                	dd	L71 - _cargarDescSO1H
+  1025                                  
+  1026                                  ; glb so1_manejador_03 : () void
+  1027                                  section .text
+  1028                                  	global	_so1_manejador_03
+  1029                                  _so1_manejador_03:
+  1030 000003AD 6655                    	push	ebp
+  1031 000003AF 660FB7EC                	movzx	ebp, sp
+  1032 000003B3 83EC10                  	 sub	sp,         16
+  1033                                  ; switch
+  1034                                  ; RPN'ized expression: "tramaThread tb -> *u &u AL -> *u "
+  1035                                  ; Expanded expression: "tramaThread *(4) 0 + 32 + *(1) "
+  1036                                  ; Fused expression:    "tramaThread + *ax 0 + ax 32 *(1) ax  "
+  1037                                  section .relod
+  1038 00000070 [B8030000]              	dd	L76
+  1039                                  section .text
+  1040 000003B6 66B8                    	db	0x66, 0xB8
+  1041                                  L76:
+  1042 000003B8 [00000000]              	dd	_tramaThread
+  1043 000003BC 6689C3                  	mov	ebx, eax
+  1044 000003BF 6689DE                  	mov	esi, ebx
+  1045 000003C2 66C1CE04                	ror	esi, 4
+  1046 000003C6 8EDE                    	mov	ds, si
+  1047 000003C8 66C1EE1C                	shr	esi, 28
+  1048 000003CC 668B04                  	mov	eax, [si]
+  1049 000003CF 6683C020                	add	eax, 32
+  1050 000003D3 6689C3                  	mov	ebx, eax
+  1051 000003D6 6689DE                  	mov	esi, ebx
+  1052 000003D9 66C1CE04                	ror	esi, 4
+  1053 000003DD 8EDE                    	mov	ds, si
+  1054 000003DF 66C1EE1C                	shr	esi, 28
+  1055 000003E3 8A04                    	mov	al, [si]
+  1056 000003E5 660FB6C0                	movzx	eax, al
+  1057 000003E9 E96706                  	jmp	L75
+  1058                                  ; {
+  1059                                  ; case
+  1060                                  ; RPN'ized expression: "0 "
+  1061                                  ; Expanded expression: "0 "
+  1062                                  ; Expression value: 0
+  1063                                  L77:
+  1064                                  ; {
+  1065                                  ; loc             descSO1H : (@-4): * struct <something>
+  1066                                  ; loc             <something> : * struct <something>
+  1067                                  ; loc             <something> : unsigned
+  1068                                  ; loc             <something> : unsigned
+  1069                                  ; RPN'ized expression: "descSO1H tramaThread tw -> *u &u ES -> *u (something79) 4 << tramaThread tw -> *u &u BX -> *u (something80) + (something78) = "
+  1070                                  ; Expanded expression: "(@-4) tramaThread *(4) 0 + 2 + *(2) 4 << tramaThread *(4) 0 + 20 + *(2) + =(4) "
+  1071                                  ; Fused expression:    "tramaThread + *ax 0 + ax 2 << *ax 4 push-ax tramaThread + *ax 0 + ax 20 + *sp *ax =(204) *(@-4) ax "
+  1072                                  section .relod
+  1073 00000074 [EE030000]              	dd	L81
+  1074                                  section .text
+  1075 000003EC 66B8                    	db	0x66, 0xB8
+  1076                                  L81:
+  1077 000003EE [00000000]              	dd	_tramaThread
+  1078 000003F2 6689C3                  	mov	ebx, eax
+  1079 000003F5 6689DE                  	mov	esi, ebx
+  1080 000003F8 66C1CE04                	ror	esi, 4
+  1081 000003FC 8EDE                    	mov	ds, si
+  1082 000003FE 66C1EE1C                	shr	esi, 28
+  1083 00000402 668B04                  	mov	eax, [si]
+  1084 00000405 6683C002                	add	eax, 2
+  1085 00000409 6689C3                  	mov	ebx, eax
+  1086 0000040C 6689DE                  	mov	esi, ebx
+  1087 0000040F 66C1CE04                	ror	esi, 4
+  1088 00000413 8EDE                    	mov	ds, si
+  1089 00000415 66C1EE1C                	shr	esi, 28
+  1090 00000419 8B04                    	mov	ax, [si]
+  1091 0000041B 660FB7C0                	movzx	eax, ax
+  1092 0000041F 66C1E004                	shl	eax, 4
+  1093 00000423 6650                    	push	eax
+  1094                                  section .relod
+  1095 00000078 [27040000]              	dd	L82
+  1096                                  section .text
+  1097 00000425 66B8                    	db	0x66, 0xB8
+  1098                                  L82:
+  1099 00000427 [00000000]              	dd	_tramaThread
+  1100 0000042B 6689C3                  	mov	ebx, eax
+  1101 0000042E 6689DE                  	mov	esi, ebx
+  1102 00000431 66C1CE04                	ror	esi, 4
+  1103 00000435 8EDE                    	mov	ds, si
+  1104 00000437 66C1EE1C                	shr	esi, 28
+  1105 0000043B 668B04                  	mov	eax, [si]
+  1106 0000043E 6683C014                	add	eax, 20
+  1107 00000442 6689C3                  	mov	ebx, eax
+  1108 00000445 6689DE                  	mov	esi, ebx
+  1109 00000448 66C1CE04                	ror	esi, 4
+  1110 0000044C 8EDE                    	mov	ds, si
+  1111 0000044E 66C1EE1C                	shr	esi, 28
+  1112 00000452 660FB70C                	movzx	ecx, word [si]
+  1113 00000456 6658                    	pop	eax
+  1114 00000458 6601C8                  	add	eax, ecx
+  1115 0000045B 668946FC                	mov	[bp-4], eax
+  1116                                  ; RPN'ized expression: "( descSO1H cargarDescSO1H ) "
+  1117                                  ; Expanded expression: " (@-4) *(4)  cargarDescSO1H ()4 "
+  1118                                  ; Fused expression:    "( *(4) (@-4) , cargarDescSO1H )4 "
+  1119 0000045F 66FF76FC                	push	dword [bp-4]
+  1120 00000463 9A                      	db	0x9A
+  1121                                  section .relot
+  1122 00000000 [64040000]              	dd	L83
+  1123                                  section .text
+  1124                                  L83:
+  1125 00000464 [00000000]              	dd	_cargarDescSO1H
+  1126 00000468 83ECFC                  	sub	sp, -4
+  1127                                  ; break
+  1128 0000046B E91F06                  	jmp	L74
+  1129                                  ; }
+  1130                                  ; case
+  1131                                  ; RPN'ized expression: "1 "
+  1132                                  ; Expanded expression: "1 "
+  1133                                  ; Expression value: 1
+  1134                                  L84:
+  1135                                  ; {
+  1136                                  ; loc             dR : (@-4): * struct <something>
+  1137                                  ; loc             rindx : (@-8): int
+  1138                                  ; loc             <something> : * struct <something>
+  1139                                  ; loc             <something> : unsigned
+  1140                                  ; loc             <something> : unsigned
+  1141                                  ; RPN'ized expression: "dR tramaThread tw -> *u &u ES -> *u (something86) 4 << tramaThread tw -> *u &u BX -> *u (something87) + (something85) = "
+  1142                                  ; Expanded expression: "(@-4) tramaThread *(4) 0 + 2 + *(2) 4 << tramaThread *(4) 0 + 20 + *(2) + =(4) "
+  1143                                  ; Fused expression:    "tramaThread + *ax 0 + ax 2 << *ax 4 push-ax tramaThread + *ax 0 + ax 20 + *sp *ax =(204) *(@-4) ax "
+  1144                                  section .relod
+  1145 0000007C [70040000]              	dd	L88
+  1146                                  section .text
+  1147 0000046E 66B8                    	db	0x66, 0xB8
+  1148                                  L88:
+  1149 00000470 [00000000]              	dd	_tramaThread
+  1150 00000474 6689C3                  	mov	ebx, eax
+  1151 00000477 6689DE                  	mov	esi, ebx
+  1152 0000047A 66C1CE04                	ror	esi, 4
+  1153 0000047E 8EDE                    	mov	ds, si
+  1154 00000480 66C1EE1C                	shr	esi, 28
+  1155 00000484 668B04                  	mov	eax, [si]
+  1156 00000487 6683C002                	add	eax, 2
+  1157 0000048B 6689C3                  	mov	ebx, eax
+  1158 0000048E 6689DE                  	mov	esi, ebx
+  1159 00000491 66C1CE04                	ror	esi, 4
+  1160 00000495 8EDE                    	mov	ds, si
+  1161 00000497 66C1EE1C                	shr	esi, 28
+  1162 0000049B 8B04                    	mov	ax, [si]
+  1163 0000049D 660FB7C0                	movzx	eax, ax
+  1164 000004A1 66C1E004                	shl	eax, 4
+  1165 000004A5 6650                    	push	eax
+  1166                                  section .relod
+  1167 00000080 [A9040000]              	dd	L89
+  1168                                  section .text
+  1169 000004A7 66B8                    	db	0x66, 0xB8
+  1170                                  L89:
+  1171 000004A9 [00000000]              	dd	_tramaThread
+  1172 000004AD 6689C3                  	mov	ebx, eax
+  1173 000004B0 6689DE                  	mov	esi, ebx
+  1174 000004B3 66C1CE04                	ror	esi, 4
+  1175 000004B7 8EDE                    	mov	ds, si
+  1176 000004B9 66C1EE1C                	shr	esi, 28
+  1177 000004BD 668B04                  	mov	eax, [si]
+  1178 000004C0 6683C014                	add	eax, 20
+  1179 000004C4 6689C3                  	mov	ebx, eax
+  1180 000004C7 6689DE                  	mov	esi, ebx
+  1181 000004CA 66C1CE04                	ror	esi, 4
+  1182 000004CE 8EDE                    	mov	ds, si
+  1183 000004D0 66C1EE1C                	shr	esi, 28
+  1184 000004D4 660FB70C                	movzx	ecx, word [si]
+  1185 000004D8 6658                    	pop	eax
+  1186 000004DA 6601C8                  	add	eax, ecx
+  1187 000004DD 668946FC                	mov	[bp-4], eax
+  1188                                  ; RPN'ized expression: "rindx ( dR crearRec ) = "
+  1189                                  ; Expanded expression: "(@-8)  (@-4) *(4)  crearRec ()4 =(4) "
+  1190                                  ; Fused expression:    "( *(4) (@-4) , crearRec )4 =(204) *(@-8) ax "
+  1191 000004E1 66FF76FC                	push	dword [bp-4]
+  1192 000004E5 9A                      	db	0x9A
+  1193                                  section .relot
+  1194 00000004 [E6040000]              	dd	L90
+  1195                                  section .text
+  1196                                  L90:
+  1197 000004E6 [00000000]              	dd	_crearRec
+  1198 000004EA 83ECFC                  	sub	sp, -4
+  1199 000004ED 668946F8                	mov	[bp-8], eax
+  1200                                  ; RPN'ized expression: "tramaThread tw -> *u &u AX -> *u rindx = "
+  1201                                  ; Expanded expression: "tramaThread *(4) 0 + 32 + (@-8) *(4) =(2) "
+  1202                                  ; Fused expression:    "tramaThread + *ax 0 + ax 32 =(172) *ax *(@-8) "
+  1203                                  section .relod
+  1204 00000084 [F3040000]              	dd	L91
+  1205                                  section .text
+  1206 000004F1 66B8                    	db	0x66, 0xB8
+  1207                                  L91:
+  1208 000004F3 [00000000]              	dd	_tramaThread
+  1209 000004F7 6689C3                  	mov	ebx, eax
+  1210 000004FA 6689DE                  	mov	esi, ebx
+  1211 000004FD 66C1CE04                	ror	esi, 4
+  1212 00000501 8EDE                    	mov	ds, si
+  1213 00000503 66C1EE1C                	shr	esi, 28
+  1214 00000507 668B04                  	mov	eax, [si]
+  1215 0000050A 6683C020                	add	eax, 32
+  1216 0000050E 6689C3                  	mov	ebx, eax
+  1217 00000511 668B46F8                	mov	eax, [bp-8]
+  1218 00000515 6689DE                  	mov	esi, ebx
+  1219 00000518 66C1CE04                	ror	esi, 4
+  1220 0000051C 8EDE                    	mov	ds, si
+  1221 0000051E 66C1EE1C                	shr	esi, 28
+  1222 00000522 8904                    	mov	[si], ax
+  1223 00000524 660FB7C0                	movzx	eax, ax
+  1224                                  ; break
+  1225 00000528 E96205                  	jmp	L74
+  1226                                  ; }
+  1227                                  ; case
+  1228                                  ; RPN'ized expression: "2 "
+  1229                                  ; Expanded expression: "2 "
+  1230                                  ; Expression value: 2
+  1231                                  L92:
+  1232                                  ; {
+  1233                                  ; loc             nombre : (@-4): * char
+  1234                                  ; loc             rindx : (@-8): int
+  1235                                  ; loc             menor : (@-12): unsigned short
+  1236                                  ; loc             tipo : (@-16): int
+  1237                                  ; loc             <something> : * char
+  1238                                  ; RPN'ized expression: "nombre ( tramaThread tw -> *u &u BX -> *u , tramaThread tw -> *u &u ES -> *u pointer ) (something93) = "
+  1239                                  ; Expanded expression: "(@-4)  tramaThread *(4) 0 + 20 + *(2)  tramaThread *(4) 0 + 2 + *(2)  pointer ()8 =(4) "
+  1240                                  ; Fused expression:    "( tramaThread + *ax 0 + ax 20 *(2) ax , tramaThread + *ax 0 + ax 2 *(2) ax , pointer )8 =(204) *(@-4) ax "
+  1241                                  section .relod
+  1242 00000088 [2D050000]              	dd	L94
+  1243                                  section .text
+  1244 0000052B 66B8                    	db	0x66, 0xB8
+  1245                                  L94:
+  1246 0000052D [00000000]              	dd	_tramaThread
+  1247 00000531 6689C3                  	mov	ebx, eax
+  1248 00000534 6689DE                  	mov	esi, ebx
+  1249 00000537 66C1CE04                	ror	esi, 4
+  1250 0000053B 8EDE                    	mov	ds, si
+  1251 0000053D 66C1EE1C                	shr	esi, 28
+  1252 00000541 668B04                  	mov	eax, [si]
+  1253 00000544 6683C014                	add	eax, 20
+  1254 00000548 6689C3                  	mov	ebx, eax
+  1255 0000054B 6689DE                  	mov	esi, ebx
+  1256 0000054E 66C1CE04                	ror	esi, 4
+  1257 00000552 8EDE                    	mov	ds, si
+  1258 00000554 66C1EE1C                	shr	esi, 28
+  1259 00000558 8B04                    	mov	ax, [si]
+  1260 0000055A 660FB7C0                	movzx	eax, ax
+  1261 0000055E 6650                    	push	eax
+  1262                                  section .relod
+  1263 0000008C [62050000]              	dd	L95
+  1264                                  section .text
+  1265 00000560 66B8                    	db	0x66, 0xB8
+  1266                                  L95:
+  1267 00000562 [00000000]              	dd	_tramaThread
+  1268 00000566 6689C3                  	mov	ebx, eax
+  1269 00000569 6689DE                  	mov	esi, ebx
+  1270 0000056C 66C1CE04                	ror	esi, 4
+  1271 00000570 8EDE                    	mov	ds, si
+  1272 00000572 66C1EE1C                	shr	esi, 28
+  1273 00000576 668B04                  	mov	eax, [si]
+  1274 00000579 6683C002                	add	eax, 2
+  1275 0000057D 6689C3                  	mov	ebx, eax
+  1276 00000580 6689DE                  	mov	esi, ebx
+  1277 00000583 66C1CE04                	ror	esi, 4
+  1278 00000587 8EDE                    	mov	ds, si
+  1279 00000589 66C1EE1C                	shr	esi, 28
+  1280 0000058D 8B04                    	mov	ax, [si]
+  1281 0000058F 660FB7C0                	movzx	eax, ax
+  1282 00000593 6650                    	push	eax
+  1283 00000595 9A                      	db	0x9A
+  1284                                  section .relot
+  1285 00000008 [96050000]              	dd	L96
+  1286                                  section .text
+  1287                                  L96:
+  1288 00000596 [00000000]              	dd	_pointer
+  1289 0000059A 83ECF8                  	sub	sp, -8
+  1290 0000059D 668946FC                	mov	[bp-4], eax
+  1291                                  ; RPN'ized expression: "rindx tramaThread tw -> *u &u CX -> *u = "
+  1292                                  ; Expanded expression: "(@-8) tramaThread *(4) 0 + 28 + *(2) =(4) "
+  1293                                  ; Fused expression:    "tramaThread + *ax 0 + ax 28 =(202) *(@-8) *ax "
+  1294                                  section .relod
+  1295 00000090 [A3050000]              	dd	L97
+  1296                                  section .text
+  1297 000005A1 66B8                    	db	0x66, 0xB8
+  1298                                  L97:
+  1299 000005A3 [00000000]              	dd	_tramaThread
+  1300 000005A7 6689C3                  	mov	ebx, eax
+  1301 000005AA 6689DE                  	mov	esi, ebx
+  1302 000005AD 66C1CE04                	ror	esi, 4
+  1303 000005B1 8EDE                    	mov	ds, si
+  1304 000005B3 66C1EE1C                	shr	esi, 28
+  1305 000005B7 668B04                  	mov	eax, [si]
+  1306 000005BA 6683C01C                	add	eax, 28
+  1307 000005BE 6689C3                  	mov	ebx, eax
+  1308 000005C1 6689DE                  	mov	esi, ebx
+  1309 000005C4 66C1CE04                	ror	esi, 4
+  1310 000005C8 8EDE                    	mov	ds, si
+  1311 000005CA 66C1EE1C                	shr	esi, 28
+  1312 000005CE 8B04                    	mov	ax, [si]
+  1313 000005D0 660FB7C0                	movzx	eax, ax
+  1314 000005D4 668946F8                	mov	[bp-8], eax
+  1315                                  ; RPN'ized expression: "menor tramaThread tw -> *u &u DX -> *u = "
+  1316                                  ; Expanded expression: "(@-12) tramaThread *(4) 0 + 24 + *(2) =(2) "
+  1317                                  ; Fused expression:    "tramaThread + *ax 0 + ax 24 =(170) *(@-12) *ax "
+  1318                                  section .relod
+  1319 00000094 [DA050000]              	dd	L98
+  1320                                  section .text
+  1321 000005D8 66B8                    	db	0x66, 0xB8
+  1322                                  L98:
+  1323 000005DA [00000000]              	dd	_tramaThread
+  1324 000005DE 6689C3                  	mov	ebx, eax
+  1325 000005E1 6689DE                  	mov	esi, ebx
+  1326 000005E4 66C1CE04                	ror	esi, 4
+  1327 000005E8 8EDE                    	mov	ds, si
+  1328 000005EA 66C1EE1C                	shr	esi, 28
+  1329 000005EE 668B04                  	mov	eax, [si]
+  1330 000005F1 6683C018                	add	eax, 24
+  1331 000005F5 6689C3                  	mov	ebx, eax
+  1332 000005F8 6689DE                  	mov	esi, ebx
+  1333 000005FB 66C1CE04                	ror	esi, 4
+  1334 000005FF 8EDE                    	mov	ds, si
+  1335 00000601 66C1EE1C                	shr	esi, 28
+  1336 00000605 8B04                    	mov	ax, [si]
+  1337 00000607 660FB7C0                	movzx	eax, ax
+  1338 0000060B 8946F4                  	mov	[bp-12], ax
+  1339 0000060E 660FB7C0                	movzx	eax, ax
+  1340                                  ; RPN'ized expression: "tipo tramaThread tw -> *u &u SI -> *u = "
+  1341                                  ; Expanded expression: "(@-16) tramaThread *(4) 0 + 8 + *(2) =(4) "
+  1342                                  ; Fused expression:    "tramaThread + *ax 0 + ax 8 =(202) *(@-16) *ax "
+  1343                                  section .relod
+  1344 00000098 [14060000]              	dd	L99
+  1345                                  section .text
+  1346 00000612 66B8                    	db	0x66, 0xB8
+  1347                                  L99:
+  1348 00000614 [00000000]              	dd	_tramaThread
+  1349 00000618 6689C3                  	mov	ebx, eax
+  1350 0000061B 6689DE                  	mov	esi, ebx
+  1351 0000061E 66C1CE04                	ror	esi, 4
+  1352 00000622 8EDE                    	mov	ds, si
+  1353 00000624 66C1EE1C                	shr	esi, 28
+  1354 00000628 668B04                  	mov	eax, [si]
+  1355 0000062B 6683C008                	add	eax, 8
+  1356 0000062F 6689C3                  	mov	ebx, eax
+  1357 00000632 6689DE                  	mov	esi, ebx
+  1358 00000635 66C1CE04                	ror	esi, 4
+  1359 00000639 8EDE                    	mov	ds, si
+  1360 0000063B 66C1EE1C                	shr	esi, 28
+  1361 0000063F 8B04                    	mov	ax, [si]
+  1362 00000641 660FB7C0                	movzx	eax, ax
+  1363 00000645 668946F0                	mov	[bp-16], eax
+  1364                                  ; RPN'ized expression: "tramaThread tw -> *u &u AX -> *u ( tipo , menor , rindx , nombre crearFich ) = "
+  1365                                  ; Expanded expression: "tramaThread *(4) 0 + 32 +  (@-16) *(4)  (@-12) *(2)  (@-8) *(4)  (@-4) *(4)  crearFich ()16 =(2) "
+  1366                                  ; Fused expression:    "tramaThread + *ax 0 + ax 32 push-ax ( *(4) (@-16) , *(2) (@-12) , *(4) (@-8) , *(4) (@-4) , crearFich )16 =(172) **sp ax "
+  1367                                  section .relod
+  1368 0000009C [4B060000]              	dd	L100
+  1369                                  section .text
+  1370 00000649 66B8                    	db	0x66, 0xB8
+  1371                                  L100:
+  1372 0000064B [00000000]              	dd	_tramaThread
+  1373 0000064F 6689C3                  	mov	ebx, eax
+  1374 00000652 6689DE                  	mov	esi, ebx
+  1375 00000655 66C1CE04                	ror	esi, 4
+  1376 00000659 8EDE                    	mov	ds, si
+  1377 0000065B 66C1EE1C                	shr	esi, 28
+  1378 0000065F 668B04                  	mov	eax, [si]
+  1379 00000662 6683C020                	add	eax, 32
+  1380 00000666 6650                    	push	eax
+  1381 00000668 66FF76F0                	push	dword [bp-16]
+  1382 0000066C 8B46F4                  	mov	ax, [bp-12]
+  1383 0000066F 660FB7C0                	movzx	eax, ax
+  1384 00000673 6650                    	push	eax
+  1385 00000675 66FF76F8                	push	dword [bp-8]
+  1386 00000679 66FF76FC                	push	dword [bp-4]
+  1387 0000067D 9A                      	db	0x9A
+  1388                                  section .relot
+  1389 0000000C [7E060000]              	dd	L101
+  1390                                  section .text
+  1391                                  L101:
+  1392 0000067E [00000000]              	dd	_crearFich
+  1393 00000682 83ECF0                  	sub	sp, -16
+  1394 00000685 665B                    	pop	ebx
+  1395 00000687 6689DE                  	mov	esi, ebx
+  1396 0000068A 66C1CE04                	ror	esi, 4
+  1397 0000068E 8EDE                    	mov	ds, si
+  1398 00000690 66C1EE1C                	shr	esi, 28
+  1399 00000694 8904                    	mov	[si], ax
+  1400 00000696 660FB7C0                	movzx	eax, ax
+  1401                                  ; break
+  1402 0000069A E9F003                  	jmp	L74
+  1403                                  ; }
+  1404                                  ; case
+  1405                                  ; RPN'ized expression: "3 "
+  1406                                  ; Expanded expression: "3 "
+  1407                                  ; Expression value: 3
+  1408                                  L102:
+  1409                                  ; {
+  1410                                  ; loc             <something> : int
+  1411                                  ; RPN'ized expression: "( 3 -u (something103) bloquearThreadActual ) "
+  1412                                  ; Expanded expression: " -3  bloquearThreadActual ()4 "
+  1413                                  ; Fused expression:    "( -3 , bloquearThreadActual )4 "
+  1414 0000069D 666AFD                  	push	dword -3
+  1415 000006A0 9A                      	db	0x9A
+  1416                                  section .relot
+  1417 00000010 [A1060000]              	dd	L104
+  1418                                  section .text
+  1419                                  L104:
+  1420 000006A1 [00000000]              	dd	_bloquearThreadActual
+  1421 000006A5 83ECFC                  	sub	sp, -4
+  1422                                  ; break
+  1423 000006A8 E9E203                  	jmp	L74
+  1424                                  ; }
+  1425                                  ; case
+  1426                                  ; RPN'ized expression: "4 "
+  1427                                  ; Expanded expression: "4 "
+  1428                                  ; Expression value: 4
+  1429                                  L105:
+  1430                                  ; {
+  1431                                  ; loc             <something> : * char
+  1432                                  ; RPN'ized expression: "tramaThread tw -> *u &u AX -> *u ( ( tramaThread tw -> *u &u BX -> *u , tramaThread tw -> *u &u ES -> *u pointer ) (something106) destruirRec ) = "
+  1433                                  ; Expanded expression: "tramaThread *(4) 0 + 32 +   tramaThread *(4) 0 + 20 + *(2)  tramaThread *(4) 0 + 2 + *(2)  pointer ()8  destruirRec ()4 =(2) "
+  1434                                  ; Fused expression:    "tramaThread + *ax 0 + ax 32 push-ax ( ( tramaThread + *ax 0 + ax 20 *(2) ax , tramaThread + *ax 0 + ax 2 *(2) ax , pointer )8 , destruirRec )4 =(172) **sp ax "
+  1435                                  section .relod
+  1436 000000A0 [AD060000]              	dd	L107
+  1437                                  section .text
+  1438 000006AB 66B8                    	db	0x66, 0xB8
+  1439                                  L107:
+  1440 000006AD [00000000]              	dd	_tramaThread
+  1441 000006B1 6689C3                  	mov	ebx, eax
+  1442 000006B4 6689DE                  	mov	esi, ebx
+  1443 000006B7 66C1CE04                	ror	esi, 4
+  1444 000006BB 8EDE                    	mov	ds, si
+  1445 000006BD 66C1EE1C                	shr	esi, 28
+  1446 000006C1 668B04                  	mov	eax, [si]
+  1447 000006C4 6683C020                	add	eax, 32
+  1448 000006C8 6650                    	push	eax
+  1449                                  section .relod
+  1450 000000A4 [CC060000]              	dd	L108
+  1451                                  section .text
+  1452 000006CA 66B8                    	db	0x66, 0xB8
+  1453                                  L108:
+  1454 000006CC [00000000]              	dd	_tramaThread
+  1455 000006D0 6689C3                  	mov	ebx, eax
+  1456 000006D3 6689DE                  	mov	esi, ebx
+  1457 000006D6 66C1CE04                	ror	esi, 4
+  1458 000006DA 8EDE                    	mov	ds, si
+  1459 000006DC 66C1EE1C                	shr	esi, 28
+  1460 000006E0 668B04                  	mov	eax, [si]
+  1461 000006E3 6683C014                	add	eax, 20
+  1462 000006E7 6689C3                  	mov	ebx, eax
+  1463 000006EA 6689DE                  	mov	esi, ebx
+  1464 000006ED 66C1CE04                	ror	esi, 4
+  1465 000006F1 8EDE                    	mov	ds, si
+  1466 000006F3 66C1EE1C                	shr	esi, 28
+  1467 000006F7 8B04                    	mov	ax, [si]
+  1468 000006F9 660FB7C0                	movzx	eax, ax
+  1469 000006FD 6650                    	push	eax
+  1470                                  section .relod
+  1471 000000A8 [01070000]              	dd	L109
+  1472                                  section .text
+  1473 000006FF 66B8                    	db	0x66, 0xB8
+  1474                                  L109:
+  1475 00000701 [00000000]              	dd	_tramaThread
+  1476 00000705 6689C3                  	mov	ebx, eax
+  1477 00000708 6689DE                  	mov	esi, ebx
+  1478 0000070B 66C1CE04                	ror	esi, 4
+  1479 0000070F 8EDE                    	mov	ds, si
+  1480 00000711 66C1EE1C                	shr	esi, 28
+  1481 00000715 668B04                  	mov	eax, [si]
+  1482 00000718 6683C002                	add	eax, 2
+  1483 0000071C 6689C3                  	mov	ebx, eax
+  1484 0000071F 6689DE                  	mov	esi, ebx
+  1485 00000722 66C1CE04                	ror	esi, 4
+  1486 00000726 8EDE                    	mov	ds, si
+  1487 00000728 66C1EE1C                	shr	esi, 28
+  1488 0000072C 8B04                    	mov	ax, [si]
+  1489 0000072E 660FB7C0                	movzx	eax, ax
+  1490 00000732 6650                    	push	eax
+  1491 00000734 9A                      	db	0x9A
+  1492                                  section .relot
+  1493 00000014 [35070000]              	dd	L110
+  1494                                  section .text
+  1495                                  L110:
+  1496 00000735 [00000000]              	dd	_pointer
+  1497 00000739 83ECF8                  	sub	sp, -8
+  1498 0000073C 6650                    	push	eax
+  1499 0000073E 9A                      	db	0x9A
+  1500                                  section .relot
+  1501 00000018 [3F070000]              	dd	L111
+  1502                                  section .text
+  1503                                  L111:
+  1504 0000073F [00000000]              	dd	_destruirRec
+  1505 00000743 83ECFC                  	sub	sp, -4
+  1506 00000746 665B                    	pop	ebx
+  1507 00000748 6689DE                  	mov	esi, ebx
+  1508 0000074B 66C1CE04                	ror	esi, 4
+  1509 0000074F 8EDE                    	mov	ds, si
+  1510 00000751 66C1EE1C                	shr	esi, 28
+  1511 00000755 8904                    	mov	[si], ax
+  1512 00000757 660FB7C0                	movzx	eax, ax
+  1513                                  ; break
+  1514 0000075B E92F03                  	jmp	L74
+  1515                                  ; }
+  1516                                  ; case
+  1517                                  ; RPN'ized expression: "5 "
+  1518                                  ; Expanded expression: "5 "
+  1519                                  ; Expression value: 5
+  1520                                  L112:
+  1521                                  ; case
+  1522                                  ; RPN'ized expression: "6 "
+  1523                                  ; Expanded expression: "6 "
+  1524                                  ; Expression value: 6
+  1525                                  L113:
+  1526                                  ; {
+  1527                                  ; loc             cb : (@-4): * (
+  1528                                  ; prm                 arg : * void
+  1529                                  ;                 ) int
+  1530                                  ; loc             rindx : (@-8): int
+  1531                                  ; loc             enc : (@-12): int
+  1532                                  ; RPN'ized expression: "enc FALSE = "
+  1533                                  ; Expanded expression: "(@-12) 0 =(4) "
+  1534                                  ; Fused expression:    "=(204) *(@-12) 0 "
+  1535 0000075E 66B800000000            	mov	eax, 0
+  1536 00000764 668946F4                	mov	[bp-12], eax
+  1537                                  ; loc             res : (@-16): int
+  1538                                  ; RPN'ized expression: "rindx c2cPFR DROcupados + *u &u primero -> *u = "
+  1539                                  ; Expanded expression: "(@-8) c2cPFR 176 + 4 + *(4) =(4) "
+  1540                                  ; Fused expression:    "c2cPFR + ax 176 + ax 4 =(204) *(@-8) *ax "
+  1541                                  section .relod
+  1542 000000AC [6A070000]              	dd	L114
+  1543                                  section .text
+  1544 00000768 66B8                    	db	0x66, 0xB8
+  1545                                  L114:
+  1546 0000076A [00000000]              	dd	_c2cPFR
+  1547 0000076E 6605B0000000            	add	eax, 176
+  1548 00000774 6683C004                	add	eax, 4
+  1549 00000778 6689C3                  	mov	ebx, eax
+  1550 0000077B 6689DE                  	mov	esi, ebx
+  1551 0000077E 66C1CE04                	ror	esi, 4
+  1552 00000782 8EDE                    	mov	ds, si
+  1553 00000784 66C1EE1C                	shr	esi, 28
+  1554 00000788 668B04                  	mov	eax, [si]
+  1555 0000078B 668946F8                	mov	[bp-8], eax
+  1556                                  ; while
+  1557                                  ; RPN'ized expression: "rindx c2cPFR DROcupados + *u &u cabecera -> *u != "
+  1558                                  ; Expanded expression: "(@-8) *(4) c2cPFR 176 + 8 + *(4) != "
+  1559                                  L115:
+  1560                                  ; Fused expression:    "c2cPFR + ax 176 + ax 8 != *(@-8) *ax IF! "
+  1561                                  section .relod
+  1562 000000B0 [91070000]              	dd	L117
+  1563                                  section .text
+  1564 0000078F 66B8                    	db	0x66, 0xB8
+  1565                                  L117:
+  1566 00000791 [00000000]              	dd	_c2cPFR
+  1567 00000795 6605B0000000            	add	eax, 176
+  1568 0000079B 6683C008                	add	eax, 8
+  1569 0000079F 6689C3                  	mov	ebx, eax
+  1570 000007A2 6689DE                  	mov	esi, ebx
+  1571 000007A5 66C1CE04                	ror	esi, 4
+  1572 000007A9 8EDE                    	mov	ds, si
+  1573 000007AB 66C1EE1C                	shr	esi, 28
+  1574 000007AF 668B0C                  	mov	ecx, [si]
+  1575 000007B2 668B46F8                	mov	eax, [bp-8]
+  1576 000007B6 6639C8                  	cmp	eax, ecx
+  1577 000007B9 0F84F400                	je	L116
+  1578                                  ; {
+  1579                                  ; if
+  1580                                  ; loc                 <something> : * char
+  1581                                  ; RPN'ized expression: "( ( tramaThread tw -> *u &u BX -> *u , tramaThread tw -> *u &u CX -> *u pointer ) (something120) , descRecurso rindx + *u &u nombre -> *u strcmp ) 0 == "
+  1582                                  ; Expanded expression: "  tramaThread *(4) 0 + 20 + *(2)  tramaThread *(4) 0 + 28 + *(2)  pointer ()8  descRecurso (@-8) *(4) 96 * + 0 +  strcmp ()8 0 == "
+  1583                                  ; Fused expression:    "( ( tramaThread + *ax 0 + ax 20 *(2) ax , tramaThread + *ax 0 + ax 28 *(2) ax , pointer )8 , descRecurso push-ax * *(@-8) 96 + *sp ax + ax 0 , strcmp )8 == ax 0 IF! "
+  1584                                  section .relod
+  1585 000000B4 [BF070000]              	dd	L121
+  1586                                  section .text
+  1587 000007BD 66B8                    	db	0x66, 0xB8
+  1588                                  L121:
+  1589 000007BF [00000000]              	dd	_tramaThread
+  1590 000007C3 6689C3                  	mov	ebx, eax
+  1591 000007C6 6689DE                  	mov	esi, ebx
+  1592 000007C9 66C1CE04                	ror	esi, 4
+  1593 000007CD 8EDE                    	mov	ds, si
+  1594 000007CF 66C1EE1C                	shr	esi, 28
+  1595 000007D3 668B04                  	mov	eax, [si]
+  1596 000007D6 6683C014                	add	eax, 20
+  1597 000007DA 6689C3                  	mov	ebx, eax
+  1598 000007DD 6689DE                  	mov	esi, ebx
+  1599 000007E0 66C1CE04                	ror	esi, 4
+  1600 000007E4 8EDE                    	mov	ds, si
+  1601 000007E6 66C1EE1C                	shr	esi, 28
+  1602 000007EA 8B04                    	mov	ax, [si]
+  1603 000007EC 660FB7C0                	movzx	eax, ax
+  1604 000007F0 6650                    	push	eax
+  1605                                  section .relod
+  1606 000000B8 [F4070000]              	dd	L122
+  1607                                  section .text
+  1608 000007F2 66B8                    	db	0x66, 0xB8
+  1609                                  L122:
+  1610 000007F4 [00000000]              	dd	_tramaThread
+  1611 000007F8 6689C3                  	mov	ebx, eax
+  1612 000007FB 6689DE                  	mov	esi, ebx
+  1613 000007FE 66C1CE04                	ror	esi, 4
+  1614 00000802 8EDE                    	mov	ds, si
+  1615 00000804 66C1EE1C                	shr	esi, 28
+  1616 00000808 668B04                  	mov	eax, [si]
+  1617 0000080B 6683C01C                	add	eax, 28
+  1618 0000080F 6689C3                  	mov	ebx, eax
+  1619 00000812 6689DE                  	mov	esi, ebx
+  1620 00000815 66C1CE04                	ror	esi, 4
+  1621 00000819 8EDE                    	mov	ds, si
+  1622 0000081B 66C1EE1C                	shr	esi, 28
+  1623 0000081F 8B04                    	mov	ax, [si]
+  1624 00000821 660FB7C0                	movzx	eax, ax
+  1625 00000825 6650                    	push	eax
+  1626 00000827 9A                      	db	0x9A
+  1627                                  section .relot
+  1628 0000001C [28080000]              	dd	L123
+  1629                                  section .text
+  1630                                  L123:
+  1631 00000828 [00000000]              	dd	_pointer
+  1632 0000082C 83ECF8                  	sub	sp, -8
+  1633 0000082F 6650                    	push	eax
+  1634                                  section .relod
+  1635 000000BC [33080000]              	dd	L124
+  1636                                  section .text
+  1637 00000831 66B8                    	db	0x66, 0xB8
+  1638                                  L124:
+  1639 00000833 [00000000]              	dd	_descRecurso
+  1640 00000837 6650                    	push	eax
+  1641 00000839 668B46F8                	mov	eax, [bp-8]
+  1642 0000083D 666BC060                	imul	eax, eax, 96
+  1643 00000841 6689C1                  	mov	ecx, eax
+  1644 00000844 6658                    	pop	eax
+  1645 00000846 6601C8                  	add	eax, ecx
+  1646 00000849 6650                    	push	eax
+  1647 0000084B 9A                      	db	0x9A
+  1648                                  section .relot
+  1649 00000020 [4C080000]              	dd	L125
+  1650                                  section .text
+  1651                                  L125:
+  1652 0000084C [00000000]              	dd	_strcmp
+  1653 00000850 83ECF8                  	sub	sp, -8
+  1654 00000853 6683F800                	cmp	eax, 0
+  1655 00000857 750C                    	jne	L118
+  1656                                  ; {
+  1657                                  ; RPN'ized expression: "enc TRUE = "
+  1658                                  ; Expanded expression: "(@-12) 1 =(4) "
+  1659                                  ; Fused expression:    "=(204) *(@-12) 1 "
+  1660 00000859 66B801000000            	mov	eax, 1
+  1661 0000085F 668946F4                	mov	[bp-12], eax
+  1662                                  ; break
+  1663 00000863 EB4C                    	jmp	L116
+  1664                                  ; }
+  1665                                  L118:
+  1666                                  ; RPN'ized expression: "rindx c2cPFR DROcupados + *u &u e -> *u rindx + *u &u sig -> *u = "
+  1667                                  ; Expanded expression: "(@-8) c2cPFR 176 + 12 + *(4) (@-8) *(4) 12 * + 0 + *(4) =(4) "
+  1668                                  ; Fused expression:    "c2cPFR + ax 176 + ax 12 push-ax * *(@-8) 12 + **sp ax + ax 0 =(204) *(@-8) *ax "
+  1669                                  section .relod
+  1670 000000C0 [67080000]              	dd	L126
+  1671                                  section .text
+  1672 00000865 66B8                    	db	0x66, 0xB8
+  1673                                  L126:
+  1674 00000867 [00000000]              	dd	_c2cPFR
+  1675 0000086B 6605B0000000            	add	eax, 176
+  1676 00000871 6683C00C                	add	eax, 12
+  1677 00000875 6650                    	push	eax
+  1678 00000877 668B46F8                	mov	eax, [bp-8]
+  1679 0000087B 666BC00C                	imul	eax, eax, 12
+  1680 0000087F 6689C1                  	mov	ecx, eax
+  1681 00000882 665B                    	pop	ebx
+  1682 00000884 6689DE                  	mov	esi, ebx
+  1683 00000887 66C1CE04                	ror	esi, 4
+  1684 0000088B 8EDE                    	mov	ds, si
+  1685 0000088D 66C1EE1C                	shr	esi, 28
+  1686 00000891 668B04                  	mov	eax, [si]
+  1687 00000894 6601C8                  	add	eax, ecx
+  1688 00000897 6689C3                  	mov	ebx, eax
+  1689 0000089A 6689DE                  	mov	esi, ebx
+  1690 0000089D 66C1CE04                	ror	esi, 4
+  1691 000008A1 8EDE                    	mov	ds, si
+  1692 000008A3 66C1EE1C                	shr	esi, 28
+  1693 000008A7 668B04                  	mov	eax, [si]
+  1694 000008AA 668946F8                	mov	[bp-8], eax
+  1695                                  ; }
+  1696 000008AE E9DEFE                  	jmp	L115
+  1697                                  L116:
+  1698                                  ; if
+  1699                                  ; RPN'ized expression: "enc 0 == "
+  1700                                  ; Expanded expression: "(@-12) *(4) 0 == "
+  1701                                  ; Fused expression:    "== *(@-12) 0 IF! "
+  1702 000008B1 668B46F4                	mov	eax, [bp-12]
+  1703 000008B5 6683F800                	cmp	eax, 0
+  1704 000008B9 750D                    	jne	L127
+  1705                                  ; RPN'ized expression: "res 1 -u = "
+  1706                                  ; Expanded expression: "(@-16) -1 =(4) "
+  1707                                  ; Fused expression:    "=(204) *(@-16) -1 "
+  1708 000008BB 66B8FFFFFFFF            	mov	eax, -1
+  1709 000008C1 668946F0                	mov	[bp-16], eax
+  1710 000008C5 E95001                  	jmp	L128
+  1711                                  L127:
+  1712                                  ; else
+  1713                                  ; {
+  1714                                  ; loc                 <something> : * (
+  1715                                  ; prm                     arg : * void
+  1716                                  ;                     ) int
+  1717                                  ; RPN'ized expression: "cb ( tramaThread tw -> *u &u DX -> *u , tramaThread tw -> *u &u ES -> *u pointer ) (something129) = "
+  1718                                  ; Expanded expression: "(@-4)  tramaThread *(4) 0 + 24 + *(2)  tramaThread *(4) 0 + 2 + *(2)  pointer ()8 =(4) "
+  1719                                  ; Fused expression:    "( tramaThread + *ax 0 + ax 24 *(2) ax , tramaThread + *ax 0 + ax 2 *(2) ax , pointer )8 =(204) *(@-4) ax "
+  1720                                  section .relod
+  1721 000000C4 [CA080000]              	dd	L130
+  1722                                  section .text
+  1723 000008C8 66B8                    	db	0x66, 0xB8
+  1724                                  L130:
+  1725 000008CA [00000000]              	dd	_tramaThread
+  1726 000008CE 6689C3                  	mov	ebx, eax
+  1727 000008D1 6689DE                  	mov	esi, ebx
+  1728 000008D4 66C1CE04                	ror	esi, 4
+  1729 000008D8 8EDE                    	mov	ds, si
+  1730 000008DA 66C1EE1C                	shr	esi, 28
+  1731 000008DE 668B04                  	mov	eax, [si]
+  1732 000008E1 6683C018                	add	eax, 24
+  1733 000008E5 6689C3                  	mov	ebx, eax
+  1734 000008E8 6689DE                  	mov	esi, ebx
+  1735 000008EB 66C1CE04                	ror	esi, 4
+  1736 000008EF 8EDE                    	mov	ds, si
+  1737 000008F1 66C1EE1C                	shr	esi, 28
+  1738 000008F5 8B04                    	mov	ax, [si]
+  1739 000008F7 660FB7C0                	movzx	eax, ax
+  1740 000008FB 6650                    	push	eax
+  1741                                  section .relod
+  1742 000000C8 [FF080000]              	dd	L131
+  1743                                  section .text
+  1744 000008FD 66B8                    	db	0x66, 0xB8
+  1745                                  L131:
+  1746 000008FF [00000000]              	dd	_tramaThread
+  1747 00000903 6689C3                  	mov	ebx, eax
+  1748 00000906 6689DE                  	mov	esi, ebx
+  1749 00000909 66C1CE04                	ror	esi, 4
+  1750 0000090D 8EDE                    	mov	ds, si
+  1751 0000090F 66C1EE1C                	shr	esi, 28
+  1752 00000913 668B04                  	mov	eax, [si]
+  1753 00000916 6683C002                	add	eax, 2
+  1754 0000091A 6689C3                  	mov	ebx, eax
+  1755 0000091D 6689DE                  	mov	esi, ebx
+  1756 00000920 66C1CE04                	ror	esi, 4
+  1757 00000924 8EDE                    	mov	ds, si
+  1758 00000926 66C1EE1C                	shr	esi, 28
+  1759 0000092A 8B04                    	mov	ax, [si]
+  1760 0000092C 660FB7C0                	movzx	eax, ax
+  1761 00000930 6650                    	push	eax
+  1762 00000932 9A                      	db	0x9A
+  1763                                  section .relot
+  1764 00000024 [33090000]              	dd	L132
+  1765                                  section .text
+  1766                                  L132:
+  1767 00000933 [00000000]              	dd	_pointer
+  1768 00000937 83ECF8                  	sub	sp, -8
+  1769 0000093A 668946FC                	mov	[bp-4], eax
+  1770                                  ; switch
+  1771                                  ; RPN'ized expression: "tramaThread tb -> *u &u AL -> *u "
+  1772                                  ; Expanded expression: "tramaThread *(4) 0 + 32 + *(1) "
+  1773                                  ; Fused expression:    "tramaThread + *ax 0 + ax 32 *(1) ax  "
+  1774                                  section .relod
+  1775 000000CC [40090000]              	dd	L135
+  1776                                  section .text
+  1777 0000093E 66B8                    	db	0x66, 0xB8
+  1778                                  L135:
+  1779 00000940 [00000000]              	dd	_tramaThread
+  1780 00000944 6689C3                  	mov	ebx, eax
+  1781 00000947 6689DE                  	mov	esi, ebx
+  1782 0000094A 66C1CE04                	ror	esi, 4
+  1783 0000094E 8EDE                    	mov	ds, si
+  1784 00000950 66C1EE1C                	shr	esi, 28
+  1785 00000954 668B04                  	mov	eax, [si]
+  1786 00000957 6683C020                	add	eax, 32
+  1787 0000095B 6689C3                  	mov	ebx, eax
+  1788 0000095E 6689DE                  	mov	esi, ebx
+  1789 00000961 66C1CE04                	ror	esi, 4
+  1790 00000965 8EDE                    	mov	ds, si
+  1791 00000967 66C1EE1C                	shr	esi, 28
+  1792 0000096B 8A04                    	mov	al, [si]
+  1793 0000096D 660FB6C0                	movzx	eax, al
+  1794 00000971 E98400                  	jmp	L134
+  1795                                  ; {
+  1796                                  ; case
+  1797                                  ; RPN'ized expression: "5 "
+  1798                                  ; Expanded expression: "5 "
+  1799                                  ; Expression value: 5
+  1800                                  L136:
+  1801                                  ; RPN'ized expression: "res ( descRecurso rindx + *u &u ccb -> *u , cb encolarCcb ) = "
+  1802                                  ; Expanded expression: "(@-16)  descRecurso (@-8) *(4) 96 * + 16 + *(4)  (@-4) *(4)  encolarCcb ()8 =(4) "
+  1803                                  ; Fused expression:    "( descRecurso push-ax * *(@-8) 96 + *sp ax + ax 16 *(4) ax , *(4) (@-4) , encolarCcb )8 =(204) *(@-16) ax "
+  1804                                  section .relod
+  1805 000000D0 [76090000]              	dd	L137
+  1806                                  section .text
+  1807 00000974 66B8                    	db	0x66, 0xB8
+  1808                                  L137:
+  1809 00000976 [00000000]              	dd	_descRecurso
+  1810 0000097A 6650                    	push	eax
+  1811 0000097C 668B46F8                	mov	eax, [bp-8]
+  1812 00000980 666BC060                	imul	eax, eax, 96
+  1813 00000984 6689C1                  	mov	ecx, eax
+  1814 00000987 6658                    	pop	eax
+  1815 00000989 6601C8                  	add	eax, ecx
+  1816 0000098C 6683C010                	add	eax, 16
+  1817 00000990 6689C3                  	mov	ebx, eax
+  1818 00000993 6689DE                  	mov	esi, ebx
+  1819 00000996 66C1CE04                	ror	esi, 4
+  1820 0000099A 8EDE                    	mov	ds, si
+  1821 0000099C 66C1EE1C                	shr	esi, 28
+  1822 000009A0 66FF34                  	push	dword [si]
+  1823 000009A3 66FF76FC                	push	dword [bp-4]
+  1824 000009A7 9A                      	db	0x9A
+  1825                                  section .relot
+  1826 00000028 [A8090000]              	dd	L138
+  1827                                  section .text
+  1828                                  L138:
+  1829 000009A8 [00000000]              	dd	_encolarCcb
+  1830 000009AC 83ECF8                  	sub	sp, -8
+  1831 000009AF 668946F0                	mov	[bp-16], eax
+  1832                                  ; break
+  1833 000009B3 EB51                    	jmp	L133
+  1834                                  ; case
+  1835                                  ; RPN'ized expression: "6 "
+  1836                                  ; Expanded expression: "6 "
+  1837                                  ; Expression value: 6
+  1838                                  L139:
+  1839                                  ; RPN'ized expression: "res ( descRecurso rindx + *u &u ccb -> *u , cb eliminarCcb ) = "
+  1840                                  ; Expanded expression: "(@-16)  descRecurso (@-8) *(4) 96 * + 16 + *(4)  (@-4) *(4)  eliminarCcb ()8 =(4) "
+  1841                                  ; Fused expression:    "( descRecurso push-ax * *(@-8) 96 + *sp ax + ax 16 *(4) ax , *(4) (@-4) , eliminarCcb )8 =(204) *(@-16) ax "
+  1842                                  section .relod
+  1843 000000D4 [B7090000]              	dd	L140
+  1844                                  section .text
+  1845 000009B5 66B8                    	db	0x66, 0xB8
+  1846                                  L140:
+  1847 000009B7 [00000000]              	dd	_descRecurso
+  1848 000009BB 6650                    	push	eax
+  1849 000009BD 668B46F8                	mov	eax, [bp-8]
+  1850 000009C1 666BC060                	imul	eax, eax, 96
+  1851 000009C5 6689C1                  	mov	ecx, eax
+  1852 000009C8 6658                    	pop	eax
+  1853 000009CA 6601C8                  	add	eax, ecx
+  1854 000009CD 6683C010                	add	eax, 16
+  1855 000009D1 6689C3                  	mov	ebx, eax
+  1856 000009D4 6689DE                  	mov	esi, ebx
+  1857 000009D7 66C1CE04                	ror	esi, 4
+  1858 000009DB 8EDE                    	mov	ds, si
+  1859 000009DD 66C1EE1C                	shr	esi, 28
+  1860 000009E1 66FF34                  	push	dword [si]
+  1861 000009E4 66FF76FC                	push	dword [bp-4]
+  1862 000009E8 9A                      	db	0x9A
+  1863                                  section .relot
+  1864 0000002C [E9090000]              	dd	L141
+  1865                                  section .text
+  1866                                  L141:
+  1867 000009E9 [00000000]              	dd	_eliminarCcb
+  1868 000009ED 83ECF8                  	sub	sp, -8
+  1869 000009F0 668946F0                	mov	[bp-16], eax
+  1870                                  ; break
+  1871 000009F4 EB10                    	jmp	L133
+  1872                                  ; }
+  1873 000009F6 EB0E                    	jmp	L133
+  1874                                  L134:
+  1875 000009F8 6683F805                	cmp	eax, 5
+  1876 000009FC 0F8474FF                	je	L136
+  1877 00000A00 6683F806                	cmp	eax, 6
+  1878 00000A04 74AF                    	je	L139
+  1879                                  L133:
+  1880                                  ; if
+  1881                                  ; RPN'ized expression: "res 0 < "
+  1882                                  ; Expanded expression: "(@-16) *(4) 0 < "
+  1883                                  ; Fused expression:    "< *(@-16) 0 IF! "
+  1884 00000A06 668B46F0                	mov	eax, [bp-16]
+  1885 00000A0A 6683F800                	cmp	eax, 0
+  1886 00000A0E 7D08                    	jge	L142
+  1887                                  ; RPN'ized expression: "res --p "
+  1888                                  ; Expanded expression: "(@-16) --p(4) "
+  1889                                  ; Fused expression:    "--p(4) *(@-16) "
+  1890 00000A10 668B46F0                	mov	eax, [bp-16]
+  1891 00000A14 66FF4EF0                	dec	dword [bp-16]
+  1892                                  L142:
+  1893                                  ; }
+  1894                                  L128:
+  1895                                  ; RPN'ized expression: "tramaThread tw -> *u &u AX -> *u res = "
+  1896                                  ; Expanded expression: "tramaThread *(4) 0 + 32 + (@-16) *(4) =(2) "
+  1897                                  ; Fused expression:    "tramaThread + *ax 0 + ax 32 =(172) *ax *(@-16) "
+  1898                                  section .relod
+  1899 000000D8 [1A0A0000]              	dd	L144
+  1900                                  section .text
+  1901 00000A18 66B8                    	db	0x66, 0xB8
+  1902                                  L144:
+  1903 00000A1A [00000000]              	dd	_tramaThread
+  1904 00000A1E 6689C3                  	mov	ebx, eax
+  1905 00000A21 6689DE                  	mov	esi, ebx
+  1906 00000A24 66C1CE04                	ror	esi, 4
+  1907 00000A28 8EDE                    	mov	ds, si
+  1908 00000A2A 66C1EE1C                	shr	esi, 28
+  1909 00000A2E 668B04                  	mov	eax, [si]
+  1910 00000A31 6683C020                	add	eax, 32
+  1911 00000A35 6689C3                  	mov	ebx, eax
+  1912 00000A38 668B46F0                	mov	eax, [bp-16]
+  1913 00000A3C 6689DE                  	mov	esi, ebx
+  1914 00000A3F 66C1CE04                	ror	esi, 4
+  1915 00000A43 8EDE                    	mov	ds, si
+  1916 00000A45 66C1EE1C                	shr	esi, 28
+  1917 00000A49 8904                    	mov	[si], ax
+  1918 00000A4B 660FB7C0                	movzx	eax, ax
+  1919                                  ; break
+  1920 00000A4F EB3C                    	jmp	L74
+  1921                                  ; }
+  1922                                  ; default
+  1923                                  L145:
+  1924                                  ; }
+  1925 00000A51 EB3A                    	jmp	L74
+  1926                                  L75:
+  1927 00000A53 6683F800                	cmp	eax, 0
+  1928 00000A57 0F8491F9                	je	L77
+  1929 00000A5B 6683F801                	cmp	eax, 1
+  1930 00000A5F 0F840BFA                	je	L84
+  1931 00000A63 6683F802                	cmp	eax, 2
+  1932 00000A67 0F84C0FA                	je	L92
+  1933 00000A6B 6683F803                	cmp	eax, 3
+  1934 00000A6F 0F842AFC                	je	L102
+  1935 00000A73 6683F804                	cmp	eax, 4
+  1936 00000A77 0F8430FC                	je	L105
+  1937 00000A7B 6683F805                	cmp	eax, 5
+  1938 00000A7F 0F84DBFC                	je	L112
+  1939 00000A83 6683F806                	cmp	eax, 6
+  1940 00000A87 0F84D3FC                	je	L113
+  1941 00000A8B EBC4                    	jmp	L145
+  1942                                  L74:
+  1943                                  L72:
+  1944 00000A8D 66                      	db	0x66
+  1945 00000A8E C9                      	leave
+  1946 00000A8F CB                      	retf
+  1947                                  L146:
+  1948                                  
+  1949                                  section .fxnsz
+  1950 00000004 E3060000                	dd	L146 - _so1_manejador_03
+  1951                                  
+  1952                                  
+  1953                                  	extern	_ccbAlEpilogo
+  1954                                  	extern	_descCcbAlEpilogo
+  1955                                  	extern	_indProcesoActual
+  1956                                  	extern	_tramaThread
+  1957                                  	extern	_activarAlEpilogo1
+  1958                                  	extern	_descProceso
+  1959                                  	extern	_descFichero
+  1960                                  	extern	_descRecurso
+  1961                                  	extern	_c2cPFR
+  1962                                  	extern	_e2PFR
+  1963                                  	extern	_nivelActivacionSO1H
+  1964                                  	extern	_enHalt
+  1965                                  	extern	_hayTic
+  1966                                  	extern	_SS_Thread
+  1967                                  	extern	_SP_Thread
+  1968                                  	extern	_SS_Kernel
+  1969                                  	extern	_contRodajas
+  1970                                  	extern	_contTicsRodaja
+  1971                                  	extern	_VIOrg
+  1972                                  	extern	__start__text
+  1973                                  	extern	_sigThread
+  1974                                  	extern	_activarThread
+  1975                                  	extern	_buscarNuevoThreadActual
+  1976                                  	extern	_bloquearThreadActual
+  1977                                  	extern	_crearRec
+  1978                                  	extern	_pointer
+  1979                                  	extern	_crearFich
+  1980                                  	extern	_destruirRec
+  1981                                  	extern	_strcmp
+  1982                                  	extern	_encolarCcb
+  1983                                  	extern	_eliminarCcb
+  1984                                  
+  1985                                  ; Syntax/declaration table/stack:
+  1986                                  ; Bytes used: 10915/40960
+  1987                                  
+  1988                                  
+  1989                                  ; Macro table:
+  1990                                  ; Macro __SMALLER_C__ = `0x0100`
+  1991                                  ; Macro __SMALLER_C_32__ = ``
+  1992                                  ; Macro __HUGE__ = ``
+  1993                                  ; Macro __SMALLER_C_SCHAR__ = ``
+  1994                                  ; Bytes used: 74/5120
+  1995                                  
+  1996                                  
+  1997                                  ; Identifier table:
+  1998                                  ; Ident __floatsisf
+  1999                                  ; Ident __floatunsisf
+  2000                                  ; Ident __fixsfsi
+  2001                                  ; Ident __fixunssfsi
+  2002                                  ; Ident __addsf3
+  2003                                  ; Ident __subsf3
+  2004                                  ; Ident __negsf2
+  2005                                  ; Ident __mulsf3
+  2006                                  ; Ident __divsf3
+  2007                                  ; Ident __lesf2
+  2008                                  ; Ident __gesf2
+  2009                                  ; Ident intptr_t
+  2010                                  ; Ident uintptr_t
+  2011                                  ; Ident intmax_t
+  2012                                  ; Ident uintmax_t
+  2013                                  ; Ident int8_t
+  2014                                  ; Ident int_least8_t
+  2015                                  ; Ident int_fast8_t
+  2016                                  ; Ident uint8_t
+  2017                                  ; Ident uint_least8_t
+  2018                                  ; Ident uint_fast8_t
+  2019                                  ; Ident int16_t
+  2020                                  ; Ident int_least16_t
+  2021                                  ; Ident int_fast16_t
+  2022                                  ; Ident uint16_t
+  2023                                  ; Ident uint_least16_t
+  2024                                  ; Ident uint_fast16_t
+  2025                                  ; Ident int32_t
+  2026                                  ; Ident int_least32_t
+  2027                                  ; Ident int_fast32_t
+  2028                                  ; Ident uint32_t
+  2029                                  ; Ident uint_least32_t
+  2030                                  ; Ident uint_fast32_t
+  2031                                  ; Ident <something>
+  2032                                  ; Ident quot
+  2033                                  ; Ident rem
+  2034                                  ; Ident imaxdiv_t
+  2035                                  ; Ident FALSE
+  2036                                  ; Ident TRUE
+  2037                                  ; Ident bool_t
+  2038                                  ; Ident pointer_t
+  2039                                  ; Ident funcion_t
+  2040                                  ; Ident manejador_t
+  2041                                  ; Ident rti_t
+  2042                                  ; Ident isr_t
+  2043                                  ; Ident handler_t
+  2044                                  ; Ident retardarThread_t
+  2045                                  ; Ident ptrTVI_t
+  2046                                  ; Ident modoSO1_Bin
+  2047                                  ; Ident modoSO1_Exe
+  2048                                  ; Ident modoSO1_Bs
+  2049                                  ; Ident modoSO1_t
+  2050                                  ; Ident lo
+  2051                                  ; Ident hi
+  2052                                  ; Ident lh_t
+  2053                                  ; Ident offset
+  2054                                  ; Ident segment
+  2055                                  ; Ident address_t
+  2056                                  ; Ident ptr
+  2057                                  ; Ident adr
+  2058                                  ; Ident uPtrAdr_t
+  2059                                  ; Ident pid_t
+  2060                                  ; Ident tid_t
+  2061                                  ; Ident uid_t
+  2062                                  ; Ident gid_t
+  2063                                  ; Ident pindx_t
+  2064                                  ; Ident tindx_t
+  2065                                  ; Ident df_t
+  2066                                  ; Ident dfs_t
+  2067                                  ; Ident rindx_t
+  2068                                  ; Ident VIOrg
+  2069                                  ; Ident recVInt
+  2070                                  ; Ident redirigirInt
+  2071                                  ; Ident nVInt
+  2072                                  ; Ident isr
+  2073                                  ; Ident redirigirIntHardware
+  2074                                  ; Ident irq
+  2075                                  ; Ident restablecerInt
+  2076                                  ; Ident inicTVI
+  2077                                  ; Ident link_ints
+  2078                                  ; Ident modoAp_t
+  2079                                  ; Ident DS
+  2080                                  ; Ident ES
+  2081                                  ; Ident EDI
+  2082                                  ; Ident ESI
+  2083                                  ; Ident EBP
+  2084                                  ; Ident ESP
+  2085                                  ; Ident EBX
+  2086                                  ; Ident EDX
+  2087                                  ; Ident ECX
+  2088                                  ; Ident EAX
+  2089                                  ; Ident IP
+  2090                                  ; Ident CS
+  2091                                  ; Ident Flags
+  2092                                  ; Ident tramaDWords_t
+  2093                                  ; Ident DI
+  2094                                  ; Ident rDI
+  2095                                  ; Ident SI
+  2096                                  ; Ident rSI
+  2097                                  ; Ident BP
+  2098                                  ; Ident rBP
+  2099                                  ; Ident SP
+  2100                                  ; Ident rSP
+  2101                                  ; Ident BX
+  2102                                  ; Ident rBX
+  2103                                  ; Ident DX
+  2104                                  ; Ident rDX
+  2105                                  ; Ident CX
+  2106                                  ; Ident rCX
+  2107                                  ; Ident AX
+  2108                                  ; Ident rAX
+  2109                                  ; Ident tramaWords_t
+  2110                                  ; Ident BL
+  2111                                  ; Ident BH
+  2112                                  ; Ident rB
+  2113                                  ; Ident DL
+  2114                                  ; Ident DH
+  2115                                  ; Ident rD
+  2116                                  ; Ident CL
+  2117                                  ; Ident CH
+  2118                                  ; Ident rC
+  2119                                  ; Ident AL
+  2120                                  ; Ident AH
+  2121                                  ; Ident rA
+  2122                                  ; Ident tramaBytes_t
+  2123                                  ; Ident td
+  2124                                  ; Ident tw
+  2125                                  ; Ident tb
+  2126                                  ; Ident trama_t
+  2127                                  ; Ident tam
+  2128                                  ; Ident sig
+  2129                                  ; Ident ant
+  2130                                  ; Ident aux
+  2131                                  ; Ident relleno
+  2132                                  ; Ident bloque_t
+  2133                                  ; Ident ptrBloque_t
+  2134                                  ; Ident cab
+  2135                                  ; Ident dobleEnlace_t
+  2136                                  ; Ident numElem
+  2137                                  ; Ident primero
+  2138                                  ; Ident cabecera
+  2139                                  ; Ident e
+  2140                                  ; Ident c2c_t
+  2141                                  ; Ident posicionC2c
+  2142                                  ; Ident i
+  2143                                  ; Ident c2c
+  2144                                  ; Ident eliminarC2c
+  2145                                  ; Ident apilarC2c
+  2146                                  ; Ident encolarC2c
+  2147                                  ; Ident desencolarC2c
+  2148                                  ; Ident inicializarC2c
+  2149                                  ; Ident compartida
+  2150                                  ; Ident ptrC2c_t
+  2151                                  ; Ident posicionPC2c
+  2152                                  ; Ident eliminarPC2c
+  2153                                  ; Ident ptrC2c
+  2154                                  ; Ident apilarPC2c
+  2155                                  ; Ident encolarPC2c
+  2156                                  ; Ident desencolarPC2c
+  2157                                  ; Ident inicializarPC2c
+  2158                                  ; Ident callBack_t
+  2159                                  ; Ident arg
+  2160                                  ; Ident num
+  2161                                  ; Ident in
+  2162                                  ; Ident out
+  2163                                  ; Ident max
+  2164                                  ; Ident callBack
+  2165                                  ; Ident descCcb_t
+  2166                                  ; Ident ccb_t
+  2167                                  ; Ident inicCcb
+  2168                                  ; Ident ccb
+  2169                                  ; Ident encolarCcb
+  2170                                  ; Ident cb
+  2171                                  ; Ident desencolarCcb
+  2172                                  ; Ident eliminarCcb
+  2173                                  ; Ident eliminarSegCcb
+  2174                                  ; Ident segmento
+  2175                                  ; Ident vaciarCcb
+  2176                                  ; Ident atenderCcb
+  2177                                  ; Ident libre
+  2178                                  ; Ident preparado
+  2179                                  ; Ident ejecutandose
+  2180                                  ; Ident bloqueado
+  2181                                  ; Ident estado_t
+  2182                                  ; Ident modoAp
+  2183                                  ; Ident dfs
+  2184                                  ; Ident pos
+  2185                                  ; Ident dfa_t
+  2186                                  ; Ident pid
+  2187                                  ; Ident noStatus
+  2188                                  ; Ident status
+  2189                                  ; Ident ppindx
+  2190                                  ; Ident hpindx
+  2191                                  ; Ident c2cHijos
+  2192                                  ; Ident c2cThreads
+  2193                                  ; Ident CSProc
+  2194                                  ; Ident tamCodigo
+  2195                                  ; Ident desplBSS
+  2196                                  ; Ident desplPila
+  2197                                  ; Ident tamFichero
+  2198                                  ; Ident programa
+  2199                                  ; Ident comando
+  2200                                  ; Ident nfa
+  2201                                  ; Ident tfa
+  2202                                  ; Ident uid
+  2203                                  ; Ident gid
+  2204                                  ; Ident descProceso_t
+  2205                                  ; Ident tid
+  2206                                  ; Ident estado
+  2207                                  ; Ident esperandoPor
+  2208                                  ; Ident trama
+  2209                                  ; Ident ptindx
+  2210                                  ; Ident htindx
+  2211                                  ; Ident pindx
+  2212                                  ; Ident SSThread
+  2213                                  ; Ident SP0
+  2214                                  ; Ident descThread_t
+  2215                                  ; Ident flibre
+  2216                                  ; Ident fRegular
+  2217                                  ; Ident fedBloques
+  2218                                  ; Ident fedCaracteres
+  2219                                  ; Ident tuberia
+  2220                                  ; Ident tipoFichero_t
+  2221                                  ; Ident tipo
+  2222                                  ; Ident nombre
+  2223                                  ; Ident rindx
+  2224                                  ; Ident menor
+  2225                                  ; Ident shareMode
+  2226                                  ; Ident contAp_L
+  2227                                  ; Ident contAp_E
+  2228                                  ; Ident descFichero_t
+  2229                                  ; Ident rLibre
+  2230                                  ; Ident rDCaracteres
+  2231                                  ; Ident rDBloques
+  2232                                  ; Ident rTuberia
+  2233                                  ; Ident rGP
+  2234                                  ; Ident rGM
+  2235                                  ; Ident rSF
+  2236                                  ; Ident rOtro
+  2237                                  ; Ident tipoRecurso_t
+  2238                                  ; Ident open_t
+  2239                                  ; Ident modo
+  2240                                  ; Ident release_t
+  2241                                  ; Ident read_t
+  2242                                  ; Ident dir
+  2243                                  ; Ident nbytes
+  2244                                  ; Ident aio_read_t
+  2245                                  ; Ident write_t
+  2246                                  ; Ident aio_write_t
+  2247                                  ; Ident lseek_t
+  2248                                  ; Ident whence
+  2249                                  ; Ident fcntl_t
+  2250                                  ; Ident cmd
+  2251                                  ; Ident ioctl_t
+  2252                                  ; Ident request
+  2253                                  ; Ident eliminar_t
+  2254                                  ; Ident tindx
+  2255                                  ; Ident c2cFichRec
+  2256                                  ; Ident numVI
+  2257                                  ; Ident open
+  2258                                  ; Ident release
+  2259                                  ; Ident read
+  2260                                  ; Ident aio_read
+  2261                                  ; Ident write
+  2262                                  ; Ident aio_write
+  2263                                  ; Ident lseek
+  2264                                  ; Ident fcntl
+  2265                                  ; Ident ioctl
+  2266                                  ; Ident eliminar
+  2267                                  ; Ident descRecurso_t
+  2268                                  ; Ident SP0_So1
+  2269                                  ; Ident IMR
+  2270                                  ; Ident modoSO1
+  2271                                  ; Ident ptrDebugWord
+  2272                                  ; Ident info_t
+  2273                                  ; Ident signatura
+  2274                                  ; Ident bytesUltSector
+  2275                                  ; Ident sectores
+  2276                                  ; Ident numDirReub
+  2277                                  ; Ident numParCabecera
+  2278                                  ; Ident minAlloc
+  2279                                  ; Ident maxAlloc
+  2280                                  ; Ident SS0
+  2281                                  ; Ident checkSum
+  2282                                  ; Ident IP0
+  2283                                  ; Ident CS0
+  2284                                  ; Ident offTablaReub
+  2285                                  ; Ident numOverlay
+  2286                                  ; Ident cabecera_t
+  2287                                  ; Ident Libres
+  2288                                  ; Ident Ocupados
+  2289                                  ; Ident e2DescProceso
+  2290                                  ; Ident e2DescThread
+  2291                                  ; Ident e2DescFichero
+  2292                                  ; Ident e2DescRecurso
+  2293                                  ; Ident e2Hijos
+  2294                                  ; Ident e2Threads
+  2295                                  ; Ident e2Preparados
+  2296                                  ; Ident e2Urgentes
+  2297                                  ; Ident e2POrdenados
+  2298                                  ; Ident e2TDormidos
+  2299                                  ; Ident e2FichRec
+  2300                                  ; Ident e2PFR_t
+  2301                                  ; Ident DPLibres
+  2302                                  ; Ident DPOcupados
+  2303                                  ; Ident DTLibres
+  2304                                  ; Ident DTOcupados
+  2305                                  ; Ident TPreparados
+  2306                                  ; Ident TUrgentes
+  2307                                  ; Ident POrdenados
+  2308                                  ; Ident TDormidos
+  2309                                  ; Ident DFLibres
+  2310                                  ; Ident DFOcupados
+  2311                                  ; Ident DRLibres
+  2312                                  ; Ident DROcupados
+  2313                                  ; Ident numColasPFR
+  2314                                  ; Ident cPFR_t
+  2315                                  ; Ident sigThread_t
+  2316                                  ; Ident activarThread_t
+  2317                                  ; Ident buscarNuevoThreadActual_t
+  2318                                  ; Ident bloquearThreadActual_t
+  2319                                  ; Ident ptrIndProcesoActual
+  2320                                  ; Ident ptrIndThreadActual
+  2321                                  ; Ident ptrTramaThread
+  2322                                  ; Ident ptrActivarAlEpilogo
+  2323                                  ; Ident ptrDescProceso
+  2324                                  ; Ident tamDescProceso
+  2325                                  ; Ident ptrDescThread
+  2326                                  ; Ident tamDescThread
+  2327                                  ; Ident ptrDescFichero
+  2328                                  ; Ident ptrDescRecurso
+  2329                                  ; Ident ptrC2cPFR
+  2330                                  ; Ident ptrE2PFR
+  2331                                  ; Ident ptrNivelActivacionSO1H
+  2332                                  ; Ident ptrEnHalt
+  2333                                  ; Ident ptrHayTic
+  2334                                  ; Ident ptrCcbAlEpilogo
+  2335                                  ; Ident ptrSS_Thread
+  2336                                  ; Ident ptrSP_Thread
+  2337                                  ; Ident ptrSS_Kernel
+  2338                                  ; Ident ptrSP0_Kernel
+  2339                                  ; Ident SP0_SO1H
+  2340                                  ; Ident ptrContRodajas
+  2341                                  ; Ident ptrContTicsRodaja
+  2342                                  ; Ident ptrVIOrg
+  2343                                  ; Ident sigThread
+  2344                                  ; Ident activarThread
+  2345                                  ; Ident buscarNuevoThreadActual
+  2346                                  ; Ident bloquearThreadActual
+  2347                                  ; Ident ptrListaLibres
+  2348                                  ; Ident ptrTamBloqueMax
+  2349                                  ; Ident descSO1H_t
+  2350                                  ; Ident descProcesoExt_t
+  2351                                  ; Ident descThreadExt_t
+  2352                                  ; Ident descProceso
+  2353                                  ; Ident descThread
+  2354                                  ; Ident descFichero
+  2355                                  ; Ident descRecurso
+  2356                                  ; Ident c2cPFR
+  2357                                  ; Ident e2PFR
+  2358                                  ; Ident descCcbAlEpilogo
+  2359                                  ; Ident ccbAlEpilogo
+  2360                                  ; Ident tramaThread
+  2361                                  ; Ident tramaTarea
+  2362                                  ; Ident indThreadActual
+  2363                                  ; Ident indProcesoActual
+  2364                                  ; Ident indThreadDeSuperficie
+  2365                                  ; Ident contRodajas
+  2366                                  ; Ident contTicsRodaja
+  2367                                  ; Ident contadorTimer00
+  2368                                  ; Ident contOcioso
+  2369                                  ; Ident nuevoPid
+  2370                                  ; Ident nuevoTid
+  2371                                  ; Ident indice
+  2372                                  ; Ident registrarEnPOrdenados
+  2373                                  ; Ident crearThread
+  2374                                  ; Ident funcion
+  2375                                  ; Ident crearProceso
+  2376                                  ; Ident tamFich
+  2377                                  ; Ident inicProcesos
+  2378                                  ; Ident resetPids
+  2379                                  ; Ident resetTids
+  2380                                  ; Ident terminarThreadIndx
+  2381                                  ; Ident eliminarThreadIndx
+  2382                                  ; Ident terminarProcIndx
+  2383                                  ; Ident eliminarProcIndx
+  2384                                  ; Ident matarThreadIndx
+  2385                                  ; Ident matarProcIndx
+  2386                                  ; Ident link_procs
+  2387                                  ; Ident startBin
+  2388                                  ; Ident unidadBIOS
+  2389                                  ; Ident CS_SO1H
+  2390                                  ; Ident RO_SO1H
+  2391                                  ; Ident DS_SO1H
+  2392                                  ; Ident BSS_SO1H
+  2393                                  ; Ident SS_SO1H
+  2394                                  ; Ident SS_Kernel
+  2395                                  ; Ident IMRInicial
+  2396                                  ; Ident obtenerMapa
+  2397                                  ; Ident SS_Thread
+  2398                                  ; Ident SP_Thread
+  2399                                  ; Ident SS_Tarea
+  2400                                  ; Ident SP_Tarea
+  2401                                  ; Ident nivelActivacionSO1H
+  2402                                  ; Ident nVIntActual
+  2403                                  ; Ident enHalt
+  2404                                  ; Ident activarAlEpilogo1
+  2405                                  ; Ident hayTic
+  2406                                  ; Ident setKernelStack
+  2407                                  ; Ident setThreadStack
+  2408                                  ; Ident reg_DL
+  2409                                  ; Ident prepararDesbloqueadosUrgentes
+  2410                                  ; Ident inicRecursos
+  2411                                  ; Ident crearRec
+  2412                                  ; Ident dR
+  2413                                  ; Ident crearFich
+  2414                                  ; Ident destruirFich
+  2415                                  ; Ident destruirRec
+  2416                                  ; Ident link_recurs
+  2417                                  ; Ident _start__text
+  2418                                  ; Ident _stop__text
+  2419                                  ; Ident _start__rodata
+  2420                                  ; Ident _stop__rodata
+  2421                                  ; Ident _start__data
+  2422                                  ; Ident _stop__data
+  2423                                  ; Ident _start__bss
+  2424                                  ; Ident _stop__bss
+  2425                                  ; Ident _start_allcode__
+  2426                                  ; Ident _stop_allcode__
+  2427                                  ; Ident _start_alldata__
+  2428                                  ; Ident _stop_alldata__
+  2429                                  ; Ident mostrarSeccion
+  2430                                  ; Ident start
+  2431                                  ; Ident stop
+  2432                                  ; Ident descripcion
+  2433                                  ; Ident mostrarSecciones
+  2434                                  ; Ident cargarDescSO1H
+  2435                                  ; Ident descSO1H
+  2436                                  ; Ident so1_manejador_03
+  2437                                  ; Bytes used: 4642/16384
+  2438                                  
+  2439                                  ; Next label number: 147
+  2440                                  ; Compilation succeeded.

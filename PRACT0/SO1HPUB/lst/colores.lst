@@ -1,0 +1,127 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb color_t : int
+     4                                  ; glb combinacion_t : struct <something>
+     5                                  ; RPN'ized expression: "7 "
+     6                                  ; Expanded expression: "7 "
+     7                                  ; Expression value: 7
+     8                                  ; glb combinacion : [7u] struct <something>
+     9                                  ; RPN'ized expression: "7 "
+    10                                  ; Expanded expression: "7 "
+    11                                  ; Expression value: 7
+    12                                  ; glb combinacion : [7u] struct <something>
+    13                                  section .data
+    14                                  	align 4
+    15                                  	global	_combinacion
+    16                                  _combinacion:
+    17                                  ; =
+    18                                  ; RPN'ized expression: "grisClaro "
+    19                                  ; Expanded expression: "7 "
+    20                                  ; Expression value: 7
+    21 00000000 07000000                	dd	7
+    22                                  ; RPN'ized expression: "azul "
+    23                                  ; Expanded expression: "1 "
+    24                                  ; Expression value: 1
+    25 00000004 01000000                	dd	1
+    26                                  ; RPN'ized expression: "grisClaro "
+    27                                  ; Expanded expression: "7 "
+    28                                  ; Expression value: 7
+    29 00000008 07000000                	dd	7
+    30                                  ; RPN'ized expression: "rojo "
+    31                                  ; Expanded expression: "4 "
+    32                                  ; Expression value: 4
+    33 0000000C 04000000                	dd	4
+    34                                  ; RPN'ized expression: "grisClaro "
+    35                                  ; Expanded expression: "7 "
+    36                                  ; Expression value: 7
+    37 00000010 07000000                	dd	7
+    38                                  ; RPN'ized expression: "magenta "
+    39                                  ; Expanded expression: "5 "
+    40                                  ; Expression value: 5
+    41 00000014 05000000                	dd	5
+    42                                  ; RPN'ized expression: "grisClaro "
+    43                                  ; Expanded expression: "7 "
+    44                                  ; Expression value: 7
+    45 00000018 07000000                	dd	7
+    46                                  ; RPN'ized expression: "marron "
+    47                                  ; Expanded expression: "6 "
+    48                                  ; Expression value: 6
+    49 0000001C 06000000                	dd	6
+    50                                  ; RPN'ized expression: "grisClaro "
+    51                                  ; Expanded expression: "7 "
+    52                                  ; Expression value: 7
+    53 00000020 07000000                	dd	7
+    54                                  ; RPN'ized expression: "verde "
+    55                                  ; Expanded expression: "2 "
+    56                                  ; Expression value: 2
+    57 00000024 02000000                	dd	2
+    58                                  ; RPN'ized expression: "negro "
+    59                                  ; Expanded expression: "0 "
+    60                                  ; Expression value: 0
+    61 00000028 00000000                	dd	0
+    62                                  ; RPN'ized expression: "ciano "
+    63                                  ; Expanded expression: "3 "
+    64                                  ; Expression value: 3
+    65 0000002C 03000000                	dd	3
+    66                                  ; RPN'ized expression: "negro "
+    67                                  ; Expanded expression: "0 "
+    68                                  ; Expression value: 0
+    69 00000030 00000000                	dd	0
+    70                                  ; RPN'ized expression: "grisClaro "
+    71                                  ; Expanded expression: "7 "
+    72                                  ; Expression value: 7
+    73 00000034 07000000                	dd	7
+    74                                  
+    75                                  
+    76                                  
+    77                                  ; Syntax/declaration table/stack:
+    78                                  ; Bytes used: 360/40960
+    79                                  
+    80                                  
+    81                                  ; Macro table:
+    82                                  ; Macro __SMALLER_C__ = `0x0100`
+    83                                  ; Macro __SMALLER_C_32__ = ``
+    84                                  ; Macro __HUGE__ = ``
+    85                                  ; Macro __SMALLER_C_SCHAR__ = ``
+    86                                  ; Bytes used: 74/5120
+    87                                  
+    88                                  
+    89                                  ; Identifier table:
+    90                                  ; Ident __floatsisf
+    91                                  ; Ident __floatunsisf
+    92                                  ; Ident __fixsfsi
+    93                                  ; Ident __fixunssfsi
+    94                                  ; Ident __addsf3
+    95                                  ; Ident __subsf3
+    96                                  ; Ident __negsf2
+    97                                  ; Ident __mulsf3
+    98                                  ; Ident __divsf3
+    99                                  ; Ident __lesf2
+   100                                  ; Ident __gesf2
+   101                                  ; Ident <something>
+   102                                  ; Ident negro
+   103                                  ; Ident azul
+   104                                  ; Ident verde
+   105                                  ; Ident ciano
+   106                                  ; Ident rojo
+   107                                  ; Ident magenta
+   108                                  ; Ident marron
+   109                                  ; Ident grisClaro
+   110                                  ; Ident grisOscuro
+   111                                  ; Ident azulClaro
+   112                                  ; Ident verdeClaro
+   113                                  ; Ident cianoClaro
+   114                                  ; Ident rojoClaro
+   115                                  ; Ident magentaClaro
+   116                                  ; Ident amarillo
+   117                                  ; Ident blanco
+   118                                  ; Ident especial
+   119                                  ; Ident color_t
+   120                                  ; Ident colorCar
+   121                                  ; Ident colorFondo
+   122                                  ; Ident combinacion_t
+   123                                  ; Ident combinacion
+   124                                  ; Bytes used: 354/16384
+   125                                  
+   126                                  ; Next label number: 1
+   127                                  ; Compilation succeeded.

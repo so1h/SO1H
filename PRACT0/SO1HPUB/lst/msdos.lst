@@ -1,0 +1,2791 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb tipoOrdenador : (void) unsigned char
+    51                                  ; glb rebootLegacy : (void) void
+    52                                  ; glb tipoTeclado : (void) unsigned char
+    53                                  ; glb leerTeclaBIOS : (void) unsigned short
+    54                                  ; glb leerTeclaExtBIOS : (void) unsigned short
+    55                                  ; glb teclaListaBIOS : (void) unsigned short
+    56                                  ; glb leerTeclaListaBDA : (void) unsigned short
+    57                                  ; glb teclaListaBDA : (void) unsigned short
+    58                                  ; glb printCarBIOS : (
+    59                                  ; prm     car : char
+    60                                  ;     ) int
+    61                                  ; glb printCarPagBIOS : (
+    62                                  ; prm     car : char
+    63                                  ; prm     pag : unsigned char
+    64                                  ;     ) int
+    65                                  ; glb printCarAtrPagBIOS : (
+    66                                  ; prm     car : char
+    67                                  ; prm     atr : unsigned char
+    68                                  ; prm     pag : unsigned char
+    69                                  ;     ) int
+    70                                  ; glb printLnBIOS : (void) int
+    71                                  ; glb printStrBIOS : (
+    72                                  ; prm     str : * char
+    73                                  ;     ) int
+    74                                  ; glb printStrHastaBIOS : (
+    75                                  ; prm     str : * char
+    76                                  ; prm     n : unsigned short
+    77                                  ; prm     lleno : int
+    78                                  ;     ) int
+    79                                  ; glb printDecBIOS : (
+    80                                  ; prm     num : unsigned short
+    81                                  ; prm     l : unsigned short
+    82                                  ;     ) int
+    83                                  ; glb printLDecBIOS : (
+    84                                  ; prm     num : unsigned
+    85                                  ; prm     l : unsigned short
+    86                                  ;     ) int
+    87                                  ; glb printIntBIOS : (
+    88                                  ; prm     num : short
+    89                                  ; prm     l : unsigned short
+    90                                  ;     ) int
+    91                                  ; glb printLIntBIOS : (
+    92                                  ; prm     num : int
+    93                                  ; prm     l : unsigned short
+    94                                  ;     ) int
+    95                                  ; glb printHexBIOS : (
+    96                                  ; prm     num : unsigned short
+    97                                  ; prm     l : unsigned short
+    98                                  ;     ) int
+    99                                  ; glb printLHexBIOS : (
+   100                                  ; prm     num : unsigned
+   101                                  ; prm     l : unsigned short
+   102                                  ;     ) int
+   103                                  ; glb printBinBIOS : (
+   104                                  ; prm     num : unsigned short
+   105                                  ; prm     l : unsigned short
+   106                                  ;     ) int
+   107                                  ; glb printLBinBIOS : (
+   108                                  ; prm     num : unsigned
+   109                                  ; prm     l : unsigned short
+   110                                  ;     ) int
+   111                                  ; glb printPtrBIOS : (
+   112                                  ; prm     ptr : * unsigned char
+   113                                  ;     ) int
+   114                                  ; glb printByteBIOS : (
+   115                                  ; prm     b : unsigned char
+   116                                  ;     ) int
+   117                                  ; glb printWordBIOS : (
+   118                                  ; prm     w : unsigned short
+   119                                  ;     ) int
+   120                                  ; glb printCadBIOS : (
+   121                                  ; prm     cad : * char
+   122                                  ;     ) int
+   123                                  ; glb esperarTicsBIOS : (
+   124                                  ; prm     tics : unsigned short
+   125                                  ;     ) void
+   126                                  ; glb modoDeVideo : (void) unsigned char
+   127                                  ; glb establecerModoDeVideo : (
+   128                                  ; prm     modo : unsigned char
+   129                                  ;     ) void
+   130                                  ; glb paginaActiva : (void) unsigned char
+   131                                  ; glb establecerPaginaActiva : (
+   132                                  ; prm     num : unsigned char
+   133                                  ;     ) void
+   134                                  ; glb numPagsVideo : (void) unsigned char
+   135                                  ; glb scrollPagBDA : (
+   136                                  ; prm     numLineas : unsigned char
+   137                                  ; prm     pag : unsigned char
+   138                                  ;     ) void
+   139                                  ; glb scrollPagBIOS : (
+   140                                  ; prm     numLineas : unsigned char
+   141                                  ; prm     pag : unsigned char
+   142                                  ;     ) void
+   143                                  ; glb scrollBIOS : (
+   144                                  ; prm     numLineas : unsigned char
+   145                                  ;     ) void
+   146                                  ; glb goToXYPag : (
+   147                                  ; prm     fila : unsigned char
+   148                                  ; prm     columna : unsigned char
+   149                                  ; prm     pag : unsigned char
+   150                                  ;     ) void
+   151                                  ; glb goToXYBIOS : (
+   152                                  ; prm     fila : unsigned char
+   153                                  ; prm     columna : unsigned char
+   154                                  ;     ) void
+   155                                  ; glb setCursorBIOS : (
+   156                                  ; prm     linea1 : unsigned char
+   157                                  ; prm     linea2 : unsigned char
+   158                                  ;     ) void
+   159                                  ; glb ocultaCursorBIOS : (void) void
+   160                                  ; glb readXYPagBIOS : (
+   161                                  ; prm     fila : * unsigned char
+   162                                  ; prm     columna : * unsigned char
+   163                                  ; prm     linea1 : * unsigned char
+   164                                  ; prm     linea2 : * unsigned char
+   165                                  ; prm     pag : unsigned char
+   166                                  ;     ) void
+   167                                  ; glb readXYBIOS : (
+   168                                  ; prm     fila : * unsigned char
+   169                                  ; prm     columna : * unsigned char
+   170                                  ; prm     linea1 : * unsigned char
+   171                                  ; prm     linea2 : * unsigned char
+   172                                  ;     ) void
+   173                                  ; glb memBIOS : (void) unsigned short
+   174                                  ; glb enviarBIOS : (
+   175                                  ; prm     car : char
+   176                                  ;     ) void
+   177                                  ; glb recibirBIOS : (void) char
+   178                                  ; glb hayApmBIOS : (
+   179                                  ; prm     version : * unsigned short
+   180                                  ;     ) int
+   181                                  ; glb connectApmBIOS : (void) int
+   182                                  ; glb disconnectApmBIOS : (void) int
+   183                                  ; glb cpuIdleBIOS : (void) void
+   184                                  ; glb cpuBusyBIOS : (void) void
+   185                                  ; glb finProgDOS : (
+   186                                  ; prm     error : int
+   187                                  ;     ) void
+   188                                  ; RPN'ized expression: "21 "
+   189                                  ; Expanded expression: "21 "
+   190                                  ; Expression value: 21
+   191                                  ; RPN'ized expression: "13 "
+   192                                  ; Expanded expression: "13 "
+   193                                  ; Expression value: 13
+   194                                  ; glb hayMSDOS : (void) int
+   195                                  ; glb hayDOSBox : (void) int
+   196                                  ; glb hayWindowsNT : (void) int
+   197                                  ; glb segPSP : (void) unsigned short
+   198                                  ; glb versionMSDOS : (void) unsigned short
+   199                                  ; glb entornoMSDOS : (void) * unsigned char
+   200                                  ; glb valorMSDOS : (
+   201                                  ; prm     str : * char
+   202                                  ;     ) * unsigned char
+   203                                  ; glb argcMSDOS : (void) int
+   204                                  ; glb getArgvMSDOS : (
+   205                                  ; prm     n : unsigned short
+   206                                  ; prm     str : * char
+   207                                  ;     ) int
+   208                                  ; glb openDOS : (
+   209                                  ; prm     nombre : * unsigned char
+   210                                  ; prm     modo : unsigned char
+   211                                  ;     ) int
+   212                                  ; glb extendedOpenDOS : (
+   213                                  ; prm     nombre : * unsigned char
+   214                                  ; prm     modo : unsigned short
+   215                                  ; prm     atr : unsigned short
+   216                                  ; prm     accion : * unsigned short
+   217                                  ; prm     error : * unsigned short
+   218                                  ;     ) int
+   219                                  ; glb closeDOS : (
+   220                                  ; prm     df : int
+   221                                  ;     ) int
+   222                                  ; glb commitFileDOS : (
+   223                                  ; prm     df : int
+   224                                  ;     ) int
+   225                                  ; glb createDOS : (
+   226                                  ; prm     nombre : * unsigned char
+   227                                  ; prm     atributo : unsigned short
+   228                                  ;     ) int
+   229                                  ; glb readDOS : (
+   230                                  ; prm     df : int
+   231                                  ; prm     buf : * char
+   232                                  ; prm     n : int
+   233                                  ;     ) int
+   234                                  ; glb writeDOS : (
+   235                                  ; prm     df : int
+   236                                  ; prm     buf : * char
+   237                                  ; prm     n : int
+   238                                  ;     ) int
+   239                                  ; glb lseekDOS : (
+   240                                  ; prm     df : int
+   241                                  ; prm     pos : * unsigned
+   242                                  ; prm     whence : int
+   243                                  ;     ) int
+   244                                  ; glb getdiskDOS : (void) int
+   245                                  ; glb setdiskDOS : (
+   246                                  ; prm     drive : int
+   247                                  ;     ) int
+   248                                  ; glb getcurdirDOS : (
+   249                                  ; prm     drive : int
+   250                                  ; prm     direc : * char
+   251                                  ;     ) int
+   252                                  ; glb chdirDOS : (
+   253                                  ; prm     path : * char
+   254                                  ;     ) int
+   255                                  ; glb findfirstDOS : (
+   256                                  ; prm     pathname : * char
+   257                                  ; prm     ffblk : * struct ffblk
+   258                                  ; prm     attrib : int
+   259                                  ;     ) int
+   260                                  ; glb findnextDOS : (
+   261                                  ; prm     ffblk : * struct ffblk
+   262                                  ;     ) int
+   263                                  ; glb size_t : unsigned
+   264                                  ; glb memset : (
+   265                                  ; prm     <something> : * void
+   266                                  ; prm     <something> : int
+   267                                  ; prm     <something> : unsigned
+   268                                  ;     ) * void
+   269                                  ; glb memcpy : (
+   270                                  ; prm     <something> : * void
+   271                                  ; prm     <something> : * void
+   272                                  ; prm     <something> : unsigned
+   273                                  ;     ) * void
+   274                                  ; glb memmove : (
+   275                                  ; prm     <something> : * void
+   276                                  ; prm     <something> : * void
+   277                                  ; prm     <something> : unsigned
+   278                                  ;     ) * void
+   279                                  ; glb memchr : (
+   280                                  ; prm     <something> : * char
+   281                                  ; prm     <something> : int
+   282                                  ; prm     <something> : unsigned
+   283                                  ;     ) * char
+   284                                  ; glb memcmp : (
+   285                                  ; prm     <something> : * void
+   286                                  ; prm     <something> : * void
+   287                                  ; prm     <something> : unsigned
+   288                                  ;     ) int
+   289                                  ; glb strcpy : (
+   290                                  ; prm     <something> : * char
+   291                                  ; prm     <something> : * char
+   292                                  ;     ) * char
+   293                                  ; glb strncpy : (
+   294                                  ; prm     <something> : * char
+   295                                  ; prm     <something> : * char
+   296                                  ; prm     <something> : unsigned
+   297                                  ;     ) * char
+   298                                  ; glb strxfrm : (
+   299                                  ; prm     <something> : * char
+   300                                  ; prm     <something> : * char
+   301                                  ; prm     <something> : unsigned
+   302                                  ;     ) unsigned
+   303                                  ; glb strcat : (
+   304                                  ; prm     <something> : * char
+   305                                  ; prm     <something> : * char
+   306                                  ;     ) * char
+   307                                  ; glb strncat : (
+   308                                  ; prm     <something> : * char
+   309                                  ; prm     <something> : * char
+   310                                  ; prm     <something> : unsigned
+   311                                  ;     ) * char
+   312                                  ; glb strlen : (
+   313                                  ; prm     <something> : * char
+   314                                  ;     ) unsigned
+   315                                  ; glb strchr : (
+   316                                  ; prm     <something> : * char
+   317                                  ; prm     <something> : int
+   318                                  ;     ) * char
+   319                                  ; glb strrchr : (
+   320                                  ; prm     <something> : * char
+   321                                  ; prm     <something> : int
+   322                                  ;     ) * char
+   323                                  ; glb strstr : (
+   324                                  ; prm     <something> : * char
+   325                                  ; prm     <something> : * char
+   326                                  ;     ) * char
+   327                                  ; glb strspn : (
+   328                                  ; prm     <something> : * char
+   329                                  ; prm     <something> : * char
+   330                                  ;     ) unsigned
+   331                                  ; glb strcspn : (
+   332                                  ; prm     <something> : * char
+   333                                  ; prm     <something> : * char
+   334                                  ;     ) unsigned
+   335                                  ; glb strpbrk : (
+   336                                  ; prm     <something> : * char
+   337                                  ; prm     <something> : * char
+   338                                  ;     ) * char
+   339                                  ; glb strtok : (
+   340                                  ; prm     <something> : * char
+   341                                  ; prm     <something> : * char
+   342                                  ;     ) * char
+   343                                  ; glb strcmp : (
+   344                                  ; prm     <something> : * char
+   345                                  ; prm     <something> : * char
+   346                                  ;     ) int
+   347                                  ; glb strncmp : (
+   348                                  ; prm     <something> : * char
+   349                                  ; prm     <something> : * char
+   350                                  ; prm     <something> : unsigned
+   351                                  ;     ) int
+   352                                  ; glb strcoll : (
+   353                                  ; prm     <something> : * char
+   354                                  ; prm     <something> : * char
+   355                                  ;     ) int
+   356                                  ; glb strerror : (
+   357                                  ; prm     <something> : int
+   358                                  ;     ) * char
+   359                                  ; glb finProgDOS : (
+   360                                  ; prm     exitCode : int
+   361                                  ;     ) void
+   362                                  section .text
+   363                                  	global	_finProgDOS
+   364                                  _finProgDOS:
+   365 00000000 6655                    	push	ebp
+   366 00000002 660FB7EC                	movzx	ebp, sp
+   367                                  	;sub	sp,          0
+   368                                  ; loc     exitCode : (@8): int
+   369 00000006 8A4608                     mov al,[bp+8] 
+   370 00000009 B44C                       mov ah,4ch    
+   371 0000000B CD21                       int 21h       
+   372                                  
+   373                                  L1:
+   374 0000000D 66                      	db	0x66
+   375 0000000E C9                      	leave
+   376 0000000F CB                      	retf
+   377                                  L3:
+   378                                  
+   379                                  section .fxnsz noalloc
+   380 00000000 10000000                	dd	L3 - _finProgDOS
+   381                                  
+   382                                  ; glb hayMSDOS : (void) int
+   383                                  section .text
+   384                                  	global	_hayMSDOS
+   385                                  _hayMSDOS:
+   386 00000010 6655                    	push	ebp
+   387 00000012 660FB7EC                	movzx	ebp, sp
+   388 00000016 83EC08                  	 sub	sp,          8
+   389                                  ; loc     ptrVIDos : (@-4): * struct <something>
+   390                                  ; loc     <something> : * struct <something>
+   391                                  ; RPN'ized expression: "ptrVIDos 33 4 * (something6) = "
+   392                                  ; Expanded expression: "(@-4) 132 =(4) "
+   393                                  ; Fused expression:    "=(204) *(@-4) 132 "
+   394 00000019 66B884000000            	mov	eax, 132
+   395 0000001F 668946FC                	mov	[bp-4], eax
+   396                                  ; loc     VIDos : (@-8): * unsigned char
+   397                                  ; loc     <something> : unsigned
+   398                                  ; RPN'ized expression: "VIDos ptrVIDos segment -> *u (something7) 4 << ptrVIDos offset -> *u + = "
+   399                                  ; Expanded expression: "(@-8) (@-4) *(4) 2 + *(2) 4 << (@-4) *(4) 0 + *(2) + =(4) "
+   400                                  ; Fused expression:    "+ *(@-4) 2 << *ax 4 push-ax + *(@-4) 0 + *sp *ax =(204) *(@-8) ax "
+   401 00000023 668B46FC                	mov	eax, [bp-4]
+   402 00000027 6683C002                	add	eax, 2
+   403 0000002B 6689C3                  	mov	ebx, eax
+   404 0000002E 6689DE                  	mov	esi, ebx
+   405 00000031 66C1CE04                	ror	esi, 4
+   406 00000035 8EDE                    	mov	ds, si
+   407 00000037 66C1EE1C                	shr	esi, 28
+   408 0000003B 8B04                    	mov	ax, [si]
+   409 0000003D 660FB7C0                	movzx	eax, ax
+   410 00000041 66C1E004                	shl	eax, 4
+   411 00000045 6650                    	push	eax
+   412 00000047 668B46FC                	mov	eax, [bp-4]
+   413 0000004B 6689C3                  	mov	ebx, eax
+   414 0000004E 6689DE                  	mov	esi, ebx
+   415 00000051 66C1CE04                	ror	esi, 4
+   416 00000055 8EDE                    	mov	ds, si
+   417 00000057 66C1EE1C                	shr	esi, 28
+   418 0000005B 660FB70C                	movzx	ecx, word [si]
+   419 0000005F 6658                    	pop	eax
+   420 00000061 6601C8                  	add	eax, ecx
+   421 00000064 668946F8                	mov	[bp-8], eax
+   422                                  ; if
+   423                                  ; RPN'ized expression: "VIDos *u 207 == "
+   424                                  ; Expanded expression: "(@-8) *(4) *(1) 207 == "
+   425                                  ; Fused expression:    "*(4) (@-8) == *ax 207 IF! "
+   426 00000068 668B46F8                	mov	eax, [bp-8]
+   427 0000006C 6689C3                  	mov	ebx, eax
+   428 0000006F 6689DE                  	mov	esi, ebx
+   429 00000072 66C1CE04                	ror	esi, 4
+   430 00000076 8EDE                    	mov	ds, si
+   431 00000078 66C1EE1C                	shr	esi, 28
+   432 0000007C 8A04                    	mov	al, [si]
+   433 0000007E 660FB6C0                	movzx	eax, al
+   434 00000082 663DCF000000            	cmp	eax, 207
+   435 00000088 7508                    	jne	L8
+   436                                  ; return
+   437                                  ; RPN'ized expression: "FALSE "
+   438                                  ; Expanded expression: "0 "
+   439                                  ; Expression value: 0
+   440                                  ; Fused expression:    "0  "
+   441 0000008A 66B800000000            	mov	eax, 0
+   442 00000090 EB28                    	jmp	L4
+   443                                  L8:
+   444                                  ; if
+   445                                  ; loc     <something> : unsigned
+   446                                  ; RPN'ized expression: "VIDos (something12) 16 >> 15 == "
+   447                                  ; Expanded expression: "(@-8) *(4) 16 >>u 15 == "
+   448                                  ; Fused expression:    ">>u *(@-8) 16 == ax 15 IF! "
+   449 00000092 668B46F8                	mov	eax, [bp-8]
+   450 00000096 66C1E810                	shr	eax, 16
+   451 0000009A 6683F80F                	cmp	eax, 15
+   452 0000009E 7514                    	jne	L10
+   453                                  ; if
+   454                                  ; loc     <something> : unsigned
+   455                                  ; RPN'ized expression: "VIDos (something15) 988320 != "
+   456                                  ; Expanded expression: "(@-8) *(4) 988320 != "
+   457                                  ; Fused expression:    "!= *(@-8) 988320 IF! "
+   458 000000A0 668B46F8                	mov	eax, [bp-8]
+   459 000000A4 663DA0140F00            	cmp	eax, 988320
+   460 000000AA 7408                    	je	L13
+   461                                  ; return
+   462                                  ; RPN'ized expression: "FALSE "
+   463                                  ; Expanded expression: "0 "
+   464                                  ; Expression value: 0
+   465                                  ; Fused expression:    "0  "
+   466 000000AC 66B800000000            	mov	eax, 0
+   467 000000B2 EB06                    	jmp	L4
+   468                                  L13:
+   469                                  L10:
+   470                                  ; return
+   471                                  ; RPN'ized expression: "TRUE "
+   472                                  ; Expanded expression: "1 "
+   473                                  ; Expression value: 1
+   474                                  ; Fused expression:    "1  "
+   475 000000B4 66B801000000            	mov	eax, 1
+   476                                  L4:
+   477 000000BA 66                      	db	0x66
+   478 000000BB C9                      	leave
+   479 000000BC CB                      	retf
+   480                                  L16:
+   481                                  
+   482                                  section .fxnsz
+   483 00000004 AD000000                	dd	L16 - _hayMSDOS
+   484                                  
+   485                                  ; glb versionMSDOS : (void) unsigned short
+   486                                  section .text
+   487                                  	global	_versionMSDOS
+   488                                  _versionMSDOS:
+   489 000000BD 6655                    	push	ebp
+   490 000000BF 660FB7EC                	movzx	ebp, sp
+   491 000000C3 83EC04                  	 sub	sp,          4
+   492                                  ; loc     version : (@-4): unsigned short
+   493 000000C6 B430                       mov ah,30h    
+   494 000000C8 CD21                       int 21h       
+   495 000000CA 8946FC                     mov [bp-4],ax 
+   496                                  
+   497                                  ; return
+   498                                  ; RPN'ized expression: "version "
+   499                                  ; Expanded expression: "(@-4) *(2) "
+   500                                  ; Fused expression:    "*(2) (@-4)  "
+   501 000000CD 8B46FC                  	mov	ax, [bp-4]
+   502 000000D0 660FB7C0                	movzx	eax, ax
+   503                                  L17:
+   504 000000D4 66                      	db	0x66
+   505 000000D5 C9                      	leave
+   506 000000D6 CB                      	retf
+   507                                  L19:
+   508                                  
+   509                                  section .fxnsz
+   510 00000008 1A000000                	dd	L19 - _versionMSDOS
+   511                                  
+   512                                  ; glb segPSP : (void) unsigned short
+   513                                  section .text
+   514                                  	global	_segPSP
+   515                                  _segPSP:
+   516 000000D7 6655                    	push	ebp
+   517 000000D9 660FB7EC                	movzx	ebp, sp
+   518 000000DD 83EC04                  	 sub	sp,          4
+   519                                  ; loc     PSP : (@-4): unsigned short
+   520 000000E0 B451                       mov ah,51h    
+   521 000000E2 CD21                       int 21h       
+   522 000000E4 895EFC                     mov [bp-4],bx 
+   523                                  
+   524                                  ; return
+   525                                  ; RPN'ized expression: "PSP "
+   526                                  ; Expanded expression: "(@-4) *(2) "
+   527                                  ; Fused expression:    "*(2) (@-4)  "
+   528 000000E7 8B46FC                  	mov	ax, [bp-4]
+   529 000000EA 660FB7C0                	movzx	eax, ax
+   530                                  L20:
+   531 000000EE 66                      	db	0x66
+   532 000000EF C9                      	leave
+   533 000000F0 CB                      	retf
+   534                                  L22:
+   535                                  
+   536                                  section .fxnsz
+   537 0000000C 1A000000                	dd	L22 - _segPSP
+   538                                  
+   539                                  ; glb entornoMSDOS : (void) * unsigned char
+   540                                  section .text
+   541                                  	global	_entornoMSDOS
+   542                                  _entornoMSDOS:
+   543 000000F1 6655                    	push	ebp
+   544 000000F3 660FB7EC                	movzx	ebp, sp
+   545 000000F7 83EC08                  	 sub	sp,          8
+   546                                  ; loc     segEntorno : (@-4): unsigned short
+   547                                  ; loc     ptrEntorno : (@-8): * unsigned char
+   548                                  ; loc     <something> : * unsigned short
+   549                                  ; RPN'ized expression: "segEntorno ( segPSP ) 4 << 44 + (something25) *u = "
+   550                                  ; Expanded expression: "(@-4)  segPSP ()0 4 << 44 + *(2) =(2) "
+   551                                  ; Fused expression:    "( segPSP )0 << ax 4 + ax 44 =(170) *(@-4) *ax "
+   552 000000FA 9A                      	db	0x9A
+   553                                  section .relot
+   554 00000000 [FB000000]              	dd	L26
+   555                                  section .text
+   556                                  L26:
+   557 000000FB [D7000000]              	dd	_segPSP
+   558 000000FF 66C1E004                	shl	eax, 4
+   559 00000103 6683C02C                	add	eax, 44
+   560 00000107 6689C3                  	mov	ebx, eax
+   561 0000010A 6689DE                  	mov	esi, ebx
+   562 0000010D 66C1CE04                	ror	esi, 4
+   563 00000111 8EDE                    	mov	ds, si
+   564 00000113 66C1EE1C                	shr	esi, 28
+   565 00000117 8B04                    	mov	ax, [si]
+   566 00000119 660FB7C0                	movzx	eax, ax
+   567 0000011D 8946FC                  	mov	[bp-4], ax
+   568 00000120 660FB7C0                	movzx	eax, ax
+   569                                  ; loc     <something> : * unsigned char
+   570                                  ; RPN'ized expression: "ptrEntorno segEntorno 4 << 0 + (something27) = "
+   571                                  ; Expanded expression: "(@-8) (@-4) *(2) 4 << 0 + =(4) "
+   572                                  ; Fused expression:    "<< *(@-4) 4 + ax 0 =(204) *(@-8) ax "
+   573 00000124 8B46FC                  	mov	ax, [bp-4]
+   574 00000127 660FB7C0                	movzx	eax, ax
+   575 0000012B 66C1E004                	shl	eax, 4
+   576 0000012F 668946F8                	mov	[bp-8], eax
+   577                                  ; return
+   578                                  ; RPN'ized expression: "ptrEntorno "
+   579                                  ; Expanded expression: "(@-8) *(4) "
+   580                                  ; Fused expression:    "*(4) (@-8)  "
+   581 00000133 668B46F8                	mov	eax, [bp-8]
+   582                                  L23:
+   583 00000137 66                      	db	0x66
+   584 00000138 C9                      	leave
+   585 00000139 CB                      	retf
+   586                                  L28:
+   587                                  
+   588                                  section .fxnsz
+   589 00000010 49000000                	dd	L28 - _entornoMSDOS
+   590                                  
+   591                                  ; glb valorMSDOS : (
+   592                                  ; prm     str : * char
+   593                                  ;     ) * unsigned char
+   594                                  section .text
+   595                                  	global	_valorMSDOS
+   596                                  _valorMSDOS:
+   597 0000013A 6655                    	push	ebp
+   598 0000013C 660FB7EC                	movzx	ebp, sp
+   599 00000140 83EC10                  	 sub	sp,         16
+   600                                  ; loc     str : (@8): * char
+   601                                  ; loc     ptrEntorno : (@-4): * unsigned char
+   602                                  ; loc     i : (@-8): int
+   603                                  ; loc     j : (@-12): int
+   604                                  ; loc     car : (@-16): char
+   605                                  ; RPN'ized expression: "ptrEntorno ( entornoMSDOS ) = "
+   606                                  ; Expanded expression: "(@-4)  entornoMSDOS ()0 =(4) "
+   607                                  ; Fused expression:    "( entornoMSDOS )0 =(204) *(@-4) ax "
+   608 00000143 9A                      	db	0x9A
+   609                                  section .relot
+   610 00000004 [44010000]              	dd	L31
+   611                                  section .text
+   612                                  L31:
+   613 00000144 [F1000000]              	dd	_entornoMSDOS
+   614 00000148 668946FC                	mov	[bp-4], eax
+   615                                  ; RPN'ized expression: "i 0 = "
+   616                                  ; Expanded expression: "(@-8) 0 =(4) "
+   617                                  ; Fused expression:    "=(204) *(@-8) 0 "
+   618 0000014C 66B800000000            	mov	eax, 0
+   619 00000152 668946F8                	mov	[bp-8], eax
+   620                                  ; do
+   621                                  L32:
+   622                                  ; {
+   623                                  ; RPN'ized expression: "j 0 = "
+   624                                  ; Expanded expression: "(@-12) 0 =(4) "
+   625                                  ; Fused expression:    "=(204) *(@-12) 0 "
+   626 00000156 66B800000000            	mov	eax, 0
+   627 0000015C 668946F4                	mov	[bp-12], eax
+   628                                  ; RPN'ized expression: "car ptrEntorno i + *u = "
+   629                                  ; Expanded expression: "(@-16) (@-4) *(4) (@-8) *(4) + *(1) =(-1) "
+   630                                  ; Fused expression:    "+ *(@-4) *(@-8) =(121) *(@-16) *ax "
+   631 00000160 668B46FC                	mov	eax, [bp-4]
+   632 00000164 660346F8                	add	eax, [bp-8]
+   633 00000168 6689C3                  	mov	ebx, eax
+   634 0000016B 6689DE                  	mov	esi, ebx
+   635 0000016E 66C1CE04                	ror	esi, 4
+   636 00000172 8EDE                    	mov	ds, si
+   637 00000174 66C1EE1C                	shr	esi, 28
+   638 00000178 8A04                    	mov	al, [si]
+   639 0000017A 660FB6C0                	movzx	eax, al
+   640 0000017E 8846F0                  	mov	[bp-16], al
+   641 00000181 660FBEC0                	movsx	eax, al
+   642                                  ; while
+   643                                  ; loc         <something> : char
+   644                                  ; RPN'ized expression: "car 0 (something37) != car 61 != && car str j + *u == && "
+   645                                  ; Expanded expression: "(@-16) *(-1) 0 != [sh&&->39] (@-16) *(-1) 61 != &&[39] _Bool [sh&&->38] (@-16) *(-1) (@8) *(4) (@-12) *(4) + *(-1) == &&[38] "
+   646                                  L35:
+   647                                  ; Fused expression:    "!= *(@-16) 0 [sh&&->39] != *(@-16) 61 &&[39] _Bool [sh&&->38] + *(@8) *(@-12) == *(@-16) *ax &&[38]  "
+   648 00000185 8A46F0                  	mov	al, [bp-16]
+   649 00000188 660FBEC0                	movsx	eax, al
+   650 0000018C 6683F800                	cmp	eax, 0
+   651 00000190 0F95C0                  	setne	al
+   652 00000193 660FB6C0                	movzx	eax, al
+   653                                  ; JumpIfZero
+   654 00000197 6685C0                  	test	eax, eax
+   655 0000019A 7412                    	je	L39
+   656 0000019C 8A46F0                  	mov	al, [bp-16]
+   657 0000019F 660FBEC0                	movsx	eax, al
+   658 000001A3 6683F83D                	cmp	eax, 61
+   659 000001A7 0F95C0                  	setne	al
+   660 000001AA 660FB6C0                	movzx	eax, al
+   661                                  L39:
+   662 000001AE 6685C0                  	test	eax, eax
+   663 000001B1 0F95C0                  	setne	al
+   664 000001B4 660FBEC0                	movsx	eax, al
+   665                                  ; JumpIfZero
+   666 000001B8 6685C0                  	test	eax, eax
+   667 000001BB 742D                    	je	L38
+   668 000001BD 668B4608                	mov	eax, [bp+8]
+   669 000001C1 660346F4                	add	eax, [bp-12]
+   670 000001C5 6689C3                  	mov	ebx, eax
+   671 000001C8 6689DE                  	mov	esi, ebx
+   672 000001CB 66C1CE04                	ror	esi, 4
+   673 000001CF 8EDE                    	mov	ds, si
+   674 000001D1 66C1EE1C                	shr	esi, 28
+   675 000001D5 660FBE0C                	movsx	ecx, byte [si]
+   676 000001D9 8A46F0                  	mov	al, [bp-16]
+   677 000001DC 660FBEC0                	movsx	eax, al
+   678 000001E0 6639C8                  	cmp	eax, ecx
+   679 000001E3 0F94C0                  	sete	al
+   680 000001E6 660FB6C0                	movzx	eax, al
+   681                                  L38:
+   682                                  ; JumpIfZero
+   683 000001EA 6685C0                  	test	eax, eax
+   684 000001ED 7438                    	je	L36
+   685                                  ; {
+   686                                  ; RPN'ized expression: "i ++p "
+   687                                  ; Expanded expression: "(@-8) ++p(4) "
+   688                                  ; Fused expression:    "++p(4) *(@-8) "
+   689 000001EF 668B46F8                	mov	eax, [bp-8]
+   690 000001F3 66FF46F8                	inc	dword [bp-8]
+   691                                  ; RPN'ized expression: "j ++p "
+   692                                  ; Expanded expression: "(@-12) ++p(4) "
+   693                                  ; Fused expression:    "++p(4) *(@-12) "
+   694 000001F7 668B46F4                	mov	eax, [bp-12]
+   695 000001FB 66FF46F4                	inc	dword [bp-12]
+   696                                  ; RPN'ized expression: "car ptrEntorno i + *u = "
+   697                                  ; Expanded expression: "(@-16) (@-4) *(4) (@-8) *(4) + *(1) =(-1) "
+   698                                  ; Fused expression:    "+ *(@-4) *(@-8) =(121) *(@-16) *ax "
+   699 000001FF 668B46FC                	mov	eax, [bp-4]
+   700 00000203 660346F8                	add	eax, [bp-8]
+   701 00000207 6689C3                  	mov	ebx, eax
+   702 0000020A 6689DE                  	mov	esi, ebx
+   703 0000020D 66C1CE04                	ror	esi, 4
+   704 00000211 8EDE                    	mov	ds, si
+   705 00000213 66C1EE1C                	shr	esi, 28
+   706 00000217 8A04                    	mov	al, [si]
+   707 00000219 660FB6C0                	movzx	eax, al
+   708 0000021D 8846F0                  	mov	[bp-16], al
+   709 00000220 660FBEC0                	movsx	eax, al
+   710                                  ; }
+   711 00000224 E95EFF                  	jmp	L35
+   712                                  L36:
+   713                                  ; if
+   714                                  ; loc         <something> : char
+   715                                  ; RPN'ized expression: "ptrEntorno i ++p + *u 61 == str j + *u 0 (something42) == && "
+   716                                  ; Expanded expression: "(@-4) *(4) (@-8) ++p(4) + *(1) 61 == [sh&&->43] (@8) *(4) (@-12) *(4) + *(-1) 0 == &&[43] "
+   717                                  ; Fused expression:    "++p(4) *(@-8) + *(@-4) ax == *ax 61 [sh&&->43] + *(@8) *(@-12) == *ax 0 &&[43]  "
+   718 00000227 668B46F8                	mov	eax, [bp-8]
+   719 0000022B 66FF46F8                	inc	dword [bp-8]
+   720 0000022F 6689C1                  	mov	ecx, eax
+   721 00000232 668B46FC                	mov	eax, [bp-4]
+   722 00000236 6601C8                  	add	eax, ecx
+   723 00000239 6689C3                  	mov	ebx, eax
+   724 0000023C 6689DE                  	mov	esi, ebx
+   725 0000023F 66C1CE04                	ror	esi, 4
+   726 00000243 8EDE                    	mov	ds, si
+   727 00000245 66C1EE1C                	shr	esi, 28
+   728 00000249 8A04                    	mov	al, [si]
+   729 0000024B 660FB6C0                	movzx	eax, al
+   730 0000024F 6683F83D                	cmp	eax, 61
+   731 00000253 0F94C0                  	sete	al
+   732 00000256 660FB6C0                	movzx	eax, al
+   733                                  ; JumpIfZero
+   734 0000025A 6685C0                  	test	eax, eax
+   735 0000025D 7429                    	je	L43
+   736 0000025F 668B4608                	mov	eax, [bp+8]
+   737 00000263 660346F4                	add	eax, [bp-12]
+   738 00000267 6689C3                  	mov	ebx, eax
+   739 0000026A 6689DE                  	mov	esi, ebx
+   740 0000026D 66C1CE04                	ror	esi, 4
+   741 00000271 8EDE                    	mov	ds, si
+   742 00000273 66C1EE1C                	shr	esi, 28
+   743 00000277 8A04                    	mov	al, [si]
+   744 00000279 660FBEC0                	movsx	eax, al
+   745 0000027D 6683F800                	cmp	eax, 0
+   746 00000281 0F94C0                  	sete	al
+   747 00000284 660FB6C0                	movzx	eax, al
+   748                                  L43:
+   749                                  ; JumpIfZero
+   750 00000288 6685C0                  	test	eax, eax
+   751 0000028B 7404                    	je	L40
+   752                                  ; break
+   753 0000028D EB60                    	jmp	L34
+   754 0000028F EB2E                    	jmp	L41
+   755                                  L40:
+   756                                  ; else
+   757                                  ; {
+   758                                  ; while
+   759                                  ; loc             <something> : char
+   760                                  ; RPN'ized expression: "ptrEntorno i + *u 0 (something46) != "
+   761                                  ; Expanded expression: "(@-4) *(4) (@-8) *(4) + *(1) 0 != "
+   762                                  L44:
+   763                                  ; Fused expression:    "+ *(@-4) *(@-8) != *ax 0 IF! "
+   764 00000291 668B46FC                	mov	eax, [bp-4]
+   765 00000295 660346F8                	add	eax, [bp-8]
+   766 00000299 6689C3                  	mov	ebx, eax
+   767 0000029C 6689DE                  	mov	esi, ebx
+   768 0000029F 66C1CE04                	ror	esi, 4
+   769 000002A3 8EDE                    	mov	ds, si
+   770 000002A5 66C1EE1C                	shr	esi, 28
+   771 000002A9 8A04                    	mov	al, [si]
+   772 000002AB 660FB6C0                	movzx	eax, al
+   773 000002AF 6683F800                	cmp	eax, 0
+   774 000002B3 740A                    	je	L45
+   775                                  ; RPN'ized expression: "i ++p "
+   776                                  ; Expanded expression: "(@-8) ++p(4) "
+   777                                  ; Fused expression:    "++p(4) *(@-8) "
+   778 000002B5 668B46F8                	mov	eax, [bp-8]
+   779 000002B9 66FF46F8                	inc	dword [bp-8]
+   780 000002BD EBD2                    	jmp	L44
+   781                                  L45:
+   782                                  ; }
+   783                                  L41:
+   784                                  ; }
+   785                                  ; while
+   786                                  ; loc     <something> : char
+   787                                  ; RPN'ized expression: "ptrEntorno i ++ + *u 0 (something47) != "
+   788                                  ; Expanded expression: "(@-4) *(4) (@-8) ++(4) + *(1) 0 != "
+   789                                  L33:
+   790                                  ; Fused expression:    "++(4) *(@-8) + *(@-4) ax != *ax 0 IF "
+   791 000002BF 66FF46F8                	inc	dword [bp-8]
+   792 000002C3 668B46F8                	mov	eax, [bp-8]
+   793 000002C7 6689C1                  	mov	ecx, eax
+   794 000002CA 668B46FC                	mov	eax, [bp-4]
+   795 000002CE 6601C8                  	add	eax, ecx
+   796 000002D1 6689C3                  	mov	ebx, eax
+   797 000002D4 6689DE                  	mov	esi, ebx
+   798 000002D7 66C1CE04                	ror	esi, 4
+   799 000002DB 8EDE                    	mov	ds, si
+   800 000002DD 66C1EE1C                	shr	esi, 28
+   801 000002E1 8A04                    	mov	al, [si]
+   802 000002E3 660FB6C0                	movzx	eax, al
+   803 000002E7 6683F800                	cmp	eax, 0
+   804 000002EB 0F8567FE                	jne	L32
+   805                                  L34:
+   806                                  ; return
+   807                                  ; loc     <something> : * unsigned char
+   808                                  ; RPN'ized expression: "ptrEntorno i + *u &u (something48) "
+   809                                  ; Expanded expression: "(@-4) *(4) (@-8) *(4) + "
+   810                                  ; Fused expression:    "+ *(@-4) *(@-8)  "
+   811 000002EF 668B46FC                	mov	eax, [bp-4]
+   812 000002F3 660346F8                	add	eax, [bp-8]
+   813                                  L29:
+   814 000002F7 66                      	db	0x66
+   815 000002F8 C9                      	leave
+   816 000002F9 CB                      	retf
+   817                                  L49:
+   818                                  
+   819                                  section .fxnsz
+   820 00000014 C0010000                	dd	L49 - _valorMSDOS
+   821                                  
+   822                                  ; glb hayDOSBox : (void) int
+   823                                  section .text
+   824                                  	global	_hayDOSBox
+   825                                  _hayDOSBox:
+   826 000002FA 6655                    	push	ebp
+   827 000002FC 660FB7EC                	movzx	ebp, sp
+   828 00000300 83EC08                  	 sub	sp,          8
+   829                                  ; loc     ptrVIDos : (@-4): * struct <something>
+   830                                  ; loc     <something> : * struct <something>
+   831                                  ; RPN'ized expression: "ptrVIDos 33 4 * (something52) = "
+   832                                  ; Expanded expression: "(@-4) 132 =(4) "
+   833                                  ; Fused expression:    "=(204) *(@-4) 132 "
+   834 00000303 66B884000000            	mov	eax, 132
+   835 00000309 668946FC                	mov	[bp-4], eax
+   836                                  ; loc     VIDos : (@-8): * unsigned char
+   837                                  ; loc     <something> : unsigned
+   838                                  ; RPN'ized expression: "VIDos ptrVIDos segment -> *u (something53) 4 << ptrVIDos offset -> *u + = "
+   839                                  ; Expanded expression: "(@-8) (@-4) *(4) 2 + *(2) 4 << (@-4) *(4) 0 + *(2) + =(4) "
+   840                                  ; Fused expression:    "+ *(@-4) 2 << *ax 4 push-ax + *(@-4) 0 + *sp *ax =(204) *(@-8) ax "
+   841 0000030D 668B46FC                	mov	eax, [bp-4]
+   842 00000311 6683C002                	add	eax, 2
+   843 00000315 6689C3                  	mov	ebx, eax
+   844 00000318 6689DE                  	mov	esi, ebx
+   845 0000031B 66C1CE04                	ror	esi, 4
+   846 0000031F 8EDE                    	mov	ds, si
+   847 00000321 66C1EE1C                	shr	esi, 28
+   848 00000325 8B04                    	mov	ax, [si]
+   849 00000327 660FB7C0                	movzx	eax, ax
+   850 0000032B 66C1E004                	shl	eax, 4
+   851 0000032F 6650                    	push	eax
+   852 00000331 668B46FC                	mov	eax, [bp-4]
+   853 00000335 6689C3                  	mov	ebx, eax
+   854 00000338 6689DE                  	mov	esi, ebx
+   855 0000033B 66C1CE04                	ror	esi, 4
+   856 0000033F 8EDE                    	mov	ds, si
+   857 00000341 66C1EE1C                	shr	esi, 28
+   858 00000345 660FB70C                	movzx	ecx, word [si]
+   859 00000349 6658                    	pop	eax
+   860 0000034B 6601C8                  	add	eax, ecx
+   861 0000034E 668946F8                	mov	[bp-8], eax
+   862                                  ; if
+   863                                  ; loc     <something> : unsigned
+   864                                  ; loc     <something> : unsigned
+   865                                  ; RPN'ized expression: "VIDos (something56) 988320 == VIDos (something57) 987232 == || "
+   866                                  ; Expanded expression: "(@-8) *(4) 988320 == [sh||->58] (@-8) *(4) 987232 == ||[58] "
+   867                                  ; Fused expression:    "== *(@-8) 988320 [sh||->58] == *(@-8) 987232 ||[58]  "
+   868 00000352 668B46F8                	mov	eax, [bp-8]
+   869 00000356 663DA0140F00            	cmp	eax, 988320
+   870 0000035C 0F94C0                  	sete	al
+   871 0000035F 660FB6C0                	movzx	eax, al
+   872                                  ; JumpIfNotZero
+   873 00000363 6685C0                  	test	eax, eax
+   874 00000366 7511                    	jne	L58
+   875 00000368 668B46F8                	mov	eax, [bp-8]
+   876 0000036C 663D60100F00            	cmp	eax, 987232
+   877 00000372 0F94C0                  	sete	al
+   878 00000375 660FB6C0                	movzx	eax, al
+   879                                  L58:
+   880                                  ; JumpIfZero
+   881 00000379 6685C0                  	test	eax, eax
+   882 0000037C 7408                    	je	L54
+   883                                  ; return
+   884                                  ; RPN'ized expression: "TRUE "
+   885                                  ; Expanded expression: "1 "
+   886                                  ; Expression value: 1
+   887                                  ; Fused expression:    "1  "
+   888 0000037E 66B801000000            	mov	eax, 1
+   889 00000384 EB3C                    	jmp	L50
+   890                                  L54:
+   891                                  ; if
+   892                                  ; RPN'ized expression: "( hayMSDOS ) 0 == "
+   893                                  ; Expanded expression: " hayMSDOS ()0 0 == "
+   894                                  ; Fused expression:    "( hayMSDOS )0 == ax 0 IF! "
+   895 00000386 9A                      	db	0x9A
+   896                                  section .relot
+   897 00000008 [87030000]              	dd	L61
+   898                                  section .text
+   899                                  L61:
+   900 00000387 [10000000]              	dd	_hayMSDOS
+   901 0000038B 6683F800                	cmp	eax, 0
+   902 0000038F 7508                    	jne	L59
+   903                                  ; return
+   904                                  ; RPN'ized expression: "FALSE "
+   905                                  ; Expanded expression: "0 "
+   906                                  ; Expression value: 0
+   907                                  ; Fused expression:    "0  "
+   908 00000391 66B800000000            	mov	eax, 0
+   909 00000397 EB29                    	jmp	L50
+   910                                  L59:
+   911                                  ; return
+   912                                  ; loc     <something> : * char
+   913                                  
+   914                                  section .rodata
+   915                                  L63:
+   916 00000000 444F53424F58            	db	"DOSBOX"
+   917 00000006 00                      	times	1 db 0
+   918                                  
+   919                                  section .text
+   920                                  
+   921                                  section .rodata
+   922                                  L64:
+   923 00000007 444F53424F58            	db	"DOSBOX"
+   924 0000000D 00                      	times	1 db 0
+   925                                  
+   926                                  section .text
+   927                                  ; RPN'ized expression: "( L64 , ( L63 valorMSDOS ) (something62) strcmp ) 0 == "
+   928                                  ; Expanded expression: " L64   L63  valorMSDOS ()4  strcmp ()8 0 == "
+   929                                  ; Fused expression:    "( L64 , ( L63 , valorMSDOS )4 , strcmp )8 == ax 0  "
+   930                                  section .relod
+   931 00000000 [9B030000]              	dd	L65
+   932                                  section .text
+   933 00000399 6668                    	db	0x66, 0x68
+   934                                  L65:
+   935 0000039B [07000000]              	dd	L64
+   936                                  section .relod
+   937 00000004 [A1030000]              	dd	L66
+   938                                  section .text
+   939 0000039F 6668                    	db	0x66, 0x68
+   940                                  L66:
+   941 000003A1 [00000000]              	dd	L63
+   942 000003A5 9A                      	db	0x9A
+   943                                  section .relot
+   944 0000000C [A6030000]              	dd	L67
+   945                                  section .text
+   946                                  L67:
+   947 000003A6 [3A010000]              	dd	_valorMSDOS
+   948 000003AA 83ECFC                  	sub	sp, -4
+   949 000003AD 6650                    	push	eax
+   950 000003AF 9A                      	db	0x9A
+   951                                  section .relot
+   952 00000010 [B0030000]              	dd	L68
+   953                                  section .text
+   954                                  L68:
+   955 000003B0 [00000000]              	dd	_strcmp
+   956 000003B4 83ECF8                  	sub	sp, -8
+   957 000003B7 6683F800                	cmp	eax, 0
+   958 000003BB 0F94C0                  	sete	al
+   959 000003BE 660FB6C0                	movzx	eax, al
+   960                                  L50:
+   961 000003C2 66                      	db	0x66
+   962 000003C3 C9                      	leave
+   963 000003C4 CB                      	retf
+   964                                  L69:
+   965                                  
+   966                                  section .fxnsz
+   967 00000018 CB000000                	dd	L69 - _hayDOSBox
+   968                                  
+   969                                  ; glb argcMSDOS : (void) int
+   970                                  section .text
+   971                                  	global	_argcMSDOS
+   972                                  _argcMSDOS:
+   973 000003C5 6655                    	push	ebp
+   974 000003C7 660FB7EC                	movzx	ebp, sp
+   975 000003CB 83EC10                  	 sub	sp,         16
+   976                                  ; loc     tamCmdLine : (@-4): unsigned short
+   977                                  ; loc     ptrCmdLine : (@-8): * unsigned char
+   978                                  ; loc     argc : (@-12): int
+   979                                  ; RPN'ized expression: "argc 1 = "
+   980                                  ; Expanded expression: "(@-12) 1 =(4) "
+   981                                  ; Fused expression:    "=(204) *(@-12) 1 "
+   982 000003CE 66B801000000            	mov	eax, 1
+   983 000003D4 668946F4                	mov	[bp-12], eax
+   984                                  ; loc     i : (@-16): int
+   985                                  ; RPN'ized expression: "i 0 = "
+   986                                  ; Expanded expression: "(@-16) 0 =(4) "
+   987                                  ; Fused expression:    "=(204) *(@-16) 0 "
+   988 000003D8 66B800000000            	mov	eax, 0
+   989 000003DE 668946F0                	mov	[bp-16], eax
+   990                                  ; loc     <something> : unsigned short
+   991                                  ; loc     <something> : * unsigned char
+   992                                  ; RPN'ized expression: "tamCmdLine ( segPSP ) 4 << 128 + (something73) *u (something72) = "
+   993                                  ; Expanded expression: "(@-4)  segPSP ()0 4 << 128 + *(1) unsigned short =(2) "
+   994                                  ; Fused expression:    "( segPSP )0 << ax 4 + ax 128 *(1) ax unsigned short =(172) *(@-4) ax "
+   995 000003E2 9A                      	db	0x9A
+   996                                  section .relot
+   997 00000014 [E3030000]              	dd	L74
+   998                                  section .text
+   999                                  L74:
+  1000 000003E3 [D7000000]              	dd	_segPSP
+  1001 000003E7 66C1E004                	shl	eax, 4
+  1002 000003EB 660580000000            	add	eax, 128
+  1003 000003F1 6689C3                  	mov	ebx, eax
+  1004 000003F4 6689DE                  	mov	esi, ebx
+  1005 000003F7 66C1CE04                	ror	esi, 4
+  1006 000003FB 8EDE                    	mov	ds, si
+  1007 000003FD 66C1EE1C                	shr	esi, 28
+  1008 00000401 8A04                    	mov	al, [si]
+  1009 00000403 660FB6C0                	movzx	eax, al
+  1010 00000407 660FB7C0                	movzx	eax, ax
+  1011 0000040B 8946FC                  	mov	[bp-4], ax
+  1012 0000040E 660FB7C0                	movzx	eax, ax
+  1013                                  ; loc     <something> : * unsigned char
+  1014                                  ; RPN'ized expression: "ptrCmdLine ( segPSP ) 4 << 129 + (something75) = "
+  1015                                  ; Expanded expression: "(@-8)  segPSP ()0 4 << 129 + =(4) "
+  1016                                  ; Fused expression:    "( segPSP )0 << ax 4 + ax 129 =(204) *(@-8) ax "
+  1017 00000412 9A                      	db	0x9A
+  1018                                  section .relot
+  1019 00000018 [13040000]              	dd	L76
+  1020                                  section .text
+  1021                                  L76:
+  1022 00000413 [D7000000]              	dd	_segPSP
+  1023 00000417 66C1E004                	shl	eax, 4
+  1024 0000041B 660581000000            	add	eax, 129
+  1025 00000421 668946F8                	mov	[bp-8], eax
+  1026                                  ; while
+  1027                                  ; RPN'ized expression: "i tamCmdLine < "
+  1028                                  ; Expanded expression: "(@-16) *(4) (@-4) *(2) < "
+  1029                                  L77:
+  1030                                  ; Fused expression:    "< *(@-16) *(@-4) IF! "
+  1031 00000425 668B46F0                	mov	eax, [bp-16]
+  1032 00000429 660FB74EFC              	movzx	ecx, word [bp-4]
+  1033 0000042E 6639C8                  	cmp	eax, ecx
+  1034 00000431 0F8DF100                	jge	L78
+  1035                                  ; {
+  1036                                  ; while
+  1037                                  ; RPN'ized expression: "i tamCmdLine < ptrCmdLine i + *u 32 == && "
+  1038                                  ; Expanded expression: "(@-16) *(4) (@-4) *(2) < [sh&&->81] (@-8) *(4) (@-16) *(4) + *(1) 32 == &&[81] "
+  1039                                  L79:
+  1040                                  ; Fused expression:    "< *(@-16) *(@-4) [sh&&->81] + *(@-8) *(@-16) == *ax 32 &&[81]  "
+  1041 00000435 668B46F0                	mov	eax, [bp-16]
+  1042 00000439 660FB74EFC              	movzx	ecx, word [bp-4]
+  1043 0000043E 6639C8                  	cmp	eax, ecx
+  1044 00000441 0F9CC0                  	setl	al
+  1045 00000444 660FB6C0                	movzx	eax, al
+  1046                                  ; JumpIfZero
+  1047 00000448 6685C0                  	test	eax, eax
+  1048 0000044B 7429                    	je	L81
+  1049 0000044D 668B46F8                	mov	eax, [bp-8]
+  1050 00000451 660346F0                	add	eax, [bp-16]
+  1051 00000455 6689C3                  	mov	ebx, eax
+  1052 00000458 6689DE                  	mov	esi, ebx
+  1053 0000045B 66C1CE04                	ror	esi, 4
+  1054 0000045F 8EDE                    	mov	ds, si
+  1055 00000461 66C1EE1C                	shr	esi, 28
+  1056 00000465 8A04                    	mov	al, [si]
+  1057 00000467 660FB6C0                	movzx	eax, al
+  1058 0000046B 6683F820                	cmp	eax, 32
+  1059 0000046F 0F94C0                  	sete	al
+  1060 00000472 660FB6C0                	movzx	eax, al
+  1061                                  L81:
+  1062                                  ; JumpIfZero
+  1063 00000476 6685C0                  	test	eax, eax
+  1064 00000479 740A                    	je	L80
+  1065                                  ; RPN'ized expression: "i ++p "
+  1066                                  ; Expanded expression: "(@-16) ++p(4) "
+  1067                                  ; Fused expression:    "++p(4) *(@-16) "
+  1068 0000047B 668B46F0                	mov	eax, [bp-16]
+  1069 0000047F 66FF46F0                	inc	dword [bp-16]
+  1070 00000483 EBB0                    	jmp	L79
+  1071                                  L80:
+  1072                                  ; if
+  1073                                  ; RPN'ized expression: "i tamCmdLine < ptrCmdLine i + *u 32 != && "
+  1074                                  ; Expanded expression: "(@-16) *(4) (@-4) *(2) < [sh&&->84] (@-8) *(4) (@-16) *(4) + *(1) 32 != &&[84] "
+  1075                                  ; Fused expression:    "< *(@-16) *(@-4) [sh&&->84] + *(@-8) *(@-16) != *ax 32 &&[84]  "
+  1076 00000485 668B46F0                	mov	eax, [bp-16]
+  1077 00000489 660FB74EFC              	movzx	ecx, word [bp-4]
+  1078 0000048E 6639C8                  	cmp	eax, ecx
+  1079 00000491 0F9CC0                  	setl	al
+  1080 00000494 660FB6C0                	movzx	eax, al
+  1081                                  ; JumpIfZero
+  1082 00000498 6685C0                  	test	eax, eax
+  1083 0000049B 7429                    	je	L84
+  1084 0000049D 668B46F8                	mov	eax, [bp-8]
+  1085 000004A1 660346F0                	add	eax, [bp-16]
+  1086 000004A5 6689C3                  	mov	ebx, eax
+  1087 000004A8 6689DE                  	mov	esi, ebx
+  1088 000004AB 66C1CE04                	ror	esi, 4
+  1089 000004AF 8EDE                    	mov	ds, si
+  1090 000004B1 66C1EE1C                	shr	esi, 28
+  1091 000004B5 8A04                    	mov	al, [si]
+  1092 000004B7 660FB6C0                	movzx	eax, al
+  1093 000004BB 6683F820                	cmp	eax, 32
+  1094 000004BF 0F95C0                  	setne	al
+  1095 000004C2 660FB6C0                	movzx	eax, al
+  1096                                  L84:
+  1097                                  ; JumpIfZero
+  1098 000004C6 6685C0                  	test	eax, eax
+  1099 000004C9 7408                    	je	L82
+  1100                                  ; RPN'ized expression: "argc ++p "
+  1101                                  ; Expanded expression: "(@-12) ++p(4) "
+  1102                                  ; Fused expression:    "++p(4) *(@-12) "
+  1103 000004CB 668B46F4                	mov	eax, [bp-12]
+  1104 000004CF 66FF46F4                	inc	dword [bp-12]
+  1105                                  L82:
+  1106                                  ; while
+  1107                                  ; RPN'ized expression: "i tamCmdLine < ptrCmdLine i + *u 32 != && "
+  1108                                  ; Expanded expression: "(@-16) *(4) (@-4) *(2) < [sh&&->87] (@-8) *(4) (@-16) *(4) + *(1) 32 != &&[87] "
+  1109                                  L85:
+  1110                                  ; Fused expression:    "< *(@-16) *(@-4) [sh&&->87] + *(@-8) *(@-16) != *ax 32 &&[87]  "
+  1111 000004D3 668B46F0                	mov	eax, [bp-16]
+  1112 000004D7 660FB74EFC              	movzx	ecx, word [bp-4]
+  1113 000004DC 6639C8                  	cmp	eax, ecx
+  1114 000004DF 0F9CC0                  	setl	al
+  1115 000004E2 660FB6C0                	movzx	eax, al
+  1116                                  ; JumpIfZero
+  1117 000004E6 6685C0                  	test	eax, eax
+  1118 000004E9 7429                    	je	L87
+  1119 000004EB 668B46F8                	mov	eax, [bp-8]
+  1120 000004EF 660346F0                	add	eax, [bp-16]
+  1121 000004F3 6689C3                  	mov	ebx, eax
+  1122 000004F6 6689DE                  	mov	esi, ebx
+  1123 000004F9 66C1CE04                	ror	esi, 4
+  1124 000004FD 8EDE                    	mov	ds, si
+  1125 000004FF 66C1EE1C                	shr	esi, 28
+  1126 00000503 8A04                    	mov	al, [si]
+  1127 00000505 660FB6C0                	movzx	eax, al
+  1128 00000509 6683F820                	cmp	eax, 32
+  1129 0000050D 0F95C0                  	setne	al
+  1130 00000510 660FB6C0                	movzx	eax, al
+  1131                                  L87:
+  1132                                  ; JumpIfZero
+  1133 00000514 6685C0                  	test	eax, eax
+  1134 00000517 740A                    	je	L86
+  1135                                  ; RPN'ized expression: "i ++p "
+  1136                                  ; Expanded expression: "(@-16) ++p(4) "
+  1137                                  ; Fused expression:    "++p(4) *(@-16) "
+  1138 00000519 668B46F0                	mov	eax, [bp-16]
+  1139 0000051D 66FF46F0                	inc	dword [bp-16]
+  1140 00000521 EBB0                    	jmp	L85
+  1141                                  L86:
+  1142                                  ; }
+  1143 00000523 E9FFFE                  	jmp	L77
+  1144                                  L78:
+  1145                                  ; return
+  1146                                  ; RPN'ized expression: "argc "
+  1147                                  ; Expanded expression: "(@-12) *(4) "
+  1148                                  ; Fused expression:    "*(4) (@-12)  "
+  1149 00000526 668B46F4                	mov	eax, [bp-12]
+  1150                                  L70:
+  1151 0000052A 66                      	db	0x66
+  1152 0000052B C9                      	leave
+  1153 0000052C CB                      	retf
+  1154                                  L88:
+  1155                                  
+  1156                                  section .fxnsz
+  1157 0000001C 68010000                	dd	L88 - _argcMSDOS
+  1158                                  
+  1159                                  ; glb getArgvMSDOS : (
+  1160                                  ; prm     n : unsigned short
+  1161                                  ; prm     str : * char
+  1162                                  ;     ) int
+  1163                                  section .text
+  1164                                  	global	_getArgvMSDOS
+  1165                                  _getArgvMSDOS:
+  1166 0000052D 6655                    	push	ebp
+  1167 0000052F 660FB7EC                	movzx	ebp, sp
+  1168 00000533 83EC1C                  	 sub	sp,         28
+  1169                                  ; loc     n : (@8): unsigned short
+  1170                                  ; loc     str : (@12): * char
+  1171                                  ; loc     segEntorno : (@-4): unsigned short
+  1172                                  ; loc     ptrEntorno : (@-8): * unsigned char
+  1173                                  ; loc     tamCmdLine : (@-12): unsigned short
+  1174                                  ; loc     ptrCmdLine : (@-16): * unsigned char
+  1175                                  ; loc     i : (@-20): int
+  1176                                  ; loc     j : (@-24): int
+  1177                                  ; loc     k : (@-28): int
+  1178                                  ; loc     <something> : * unsigned short
+  1179                                  ; RPN'ized expression: "segEntorno ( segPSP ) 4 << 44 + (something91) *u = "
+  1180                                  ; Expanded expression: "(@-4)  segPSP ()0 4 << 44 + *(2) =(2) "
+  1181                                  ; Fused expression:    "( segPSP )0 << ax 4 + ax 44 =(170) *(@-4) *ax "
+  1182 00000536 9A                      	db	0x9A
+  1183                                  section .relot
+  1184 0000001C [37050000]              	dd	L92
+  1185                                  section .text
+  1186                                  L92:
+  1187 00000537 [D7000000]              	dd	_segPSP
+  1188 0000053B 66C1E004                	shl	eax, 4
+  1189 0000053F 6683C02C                	add	eax, 44
+  1190 00000543 6689C3                  	mov	ebx, eax
+  1191 00000546 6689DE                  	mov	esi, ebx
+  1192 00000549 66C1CE04                	ror	esi, 4
+  1193 0000054D 8EDE                    	mov	ds, si
+  1194 0000054F 66C1EE1C                	shr	esi, 28
+  1195 00000553 8B04                    	mov	ax, [si]
+  1196 00000555 660FB7C0                	movzx	eax, ax
+  1197 00000559 8946FC                  	mov	[bp-4], ax
+  1198 0000055C 660FB7C0                	movzx	eax, ax
+  1199                                  ; loc     <something> : * unsigned char
+  1200                                  ; RPN'ized expression: "ptrEntorno segEntorno 4 << 0 + (something93) = "
+  1201                                  ; Expanded expression: "(@-8) (@-4) *(2) 4 << 0 + =(4) "
+  1202                                  ; Fused expression:    "<< *(@-4) 4 + ax 0 =(204) *(@-8) ax "
+  1203 00000560 8B46FC                  	mov	ax, [bp-4]
+  1204 00000563 660FB7C0                	movzx	eax, ax
+  1205 00000567 66C1E004                	shl	eax, 4
+  1206 0000056B 668946F8                	mov	[bp-8], eax
+  1207                                  ; loc     <something> : unsigned short
+  1208                                  ; loc     <something> : * unsigned char
+  1209                                  ; RPN'ized expression: "tamCmdLine ( segPSP ) 4 << 128 + (something95) *u (something94) = "
+  1210                                  ; Expanded expression: "(@-12)  segPSP ()0 4 << 128 + *(1) unsigned short =(2) "
+  1211                                  ; Fused expression:    "( segPSP )0 << ax 4 + ax 128 *(1) ax unsigned short =(172) *(@-12) ax "
+  1212 0000056F 9A                      	db	0x9A
+  1213                                  section .relot
+  1214 00000020 [70050000]              	dd	L96
+  1215                                  section .text
+  1216                                  L96:
+  1217 00000570 [D7000000]              	dd	_segPSP
+  1218 00000574 66C1E004                	shl	eax, 4
+  1219 00000578 660580000000            	add	eax, 128
+  1220 0000057E 6689C3                  	mov	ebx, eax
+  1221 00000581 6689DE                  	mov	esi, ebx
+  1222 00000584 66C1CE04                	ror	esi, 4
+  1223 00000588 8EDE                    	mov	ds, si
+  1224 0000058A 66C1EE1C                	shr	esi, 28
+  1225 0000058E 8A04                    	mov	al, [si]
+  1226 00000590 660FB6C0                	movzx	eax, al
+  1227 00000594 660FB7C0                	movzx	eax, ax
+  1228 00000598 8946F4                  	mov	[bp-12], ax
+  1229 0000059B 660FB7C0                	movzx	eax, ax
+  1230                                  ; loc     <something> : * unsigned char
+  1231                                  ; RPN'ized expression: "ptrCmdLine ( segPSP ) 4 << 129 + (something97) = "
+  1232                                  ; Expanded expression: "(@-16)  segPSP ()0 4 << 129 + =(4) "
+  1233                                  ; Fused expression:    "( segPSP )0 << ax 4 + ax 129 =(204) *(@-16) ax "
+  1234 0000059F 9A                      	db	0x9A
+  1235                                  section .relot
+  1236 00000024 [A0050000]              	dd	L98
+  1237                                  section .text
+  1238                                  L98:
+  1239 000005A0 [D7000000]              	dd	_segPSP
+  1240 000005A4 66C1E004                	shl	eax, 4
+  1241 000005A8 660581000000            	add	eax, 129
+  1242 000005AE 668946F0                	mov	[bp-16], eax
+  1243                                  ; if
+  1244                                  ; RPN'ized expression: "n 0 == "
+  1245                                  ; Expanded expression: "(@8) *(2) 0 == "
+  1246                                  ; Fused expression:    "== *(@8) 0 IF! "
+  1247 000005B2 8B4608                  	mov	ax, [bp+8]
+  1248 000005B5 660FB7C0                	movzx	eax, ax
+  1249 000005B9 6683F800                	cmp	eax, 0
+  1250 000005BD 0F85E900                	jne	L99
+  1251                                  ; {
+  1252                                  ; RPN'ized expression: "i 0 = "
+  1253                                  ; Expanded expression: "(@-20) 0 =(4) "
+  1254                                  ; Fused expression:    "=(204) *(@-20) 0 "
+  1255 000005C1 66B800000000            	mov	eax, 0
+  1256 000005C7 668946EC                	mov	[bp-20], eax
+  1257                                  ; do
+  1258                                  L101:
+  1259                                  ; {
+  1260                                  ; while
+  1261                                  ; loc             <something> : char
+  1262                                  ; RPN'ized expression: "ptrEntorno i + *u 0 (something106) != "
+  1263                                  ; Expanded expression: "(@-8) *(4) (@-20) *(4) + *(1) 0 != "
+  1264                                  L104:
+  1265                                  ; Fused expression:    "+ *(@-8) *(@-20) != *ax 0 IF! "
+  1266 000005CB 668B46F8                	mov	eax, [bp-8]
+  1267 000005CF 660346EC                	add	eax, [bp-20]
+  1268 000005D3 6689C3                  	mov	ebx, eax
+  1269 000005D6 6689DE                  	mov	esi, ebx
+  1270 000005D9 66C1CE04                	ror	esi, 4
+  1271 000005DD 8EDE                    	mov	ds, si
+  1272 000005DF 66C1EE1C                	shr	esi, 28
+  1273 000005E3 8A04                    	mov	al, [si]
+  1274 000005E5 660FB6C0                	movzx	eax, al
+  1275 000005E9 6683F800                	cmp	eax, 0
+  1276 000005ED 740A                    	je	L105
+  1277                                  ; RPN'ized expression: "i ++p "
+  1278                                  ; Expanded expression: "(@-20) ++p(4) "
+  1279                                  ; Fused expression:    "++p(4) *(@-20) "
+  1280 000005EF 668B46EC                	mov	eax, [bp-20]
+  1281 000005F3 66FF46EC                	inc	dword [bp-20]
+  1282 000005F7 EBD2                    	jmp	L104
+  1283                                  L105:
+  1284                                  ; }
+  1285                                  ; while
+  1286                                  ; loc         <something> : char
+  1287                                  ; RPN'ized expression: "ptrEntorno i ++ + *u 0 (something107) != "
+  1288                                  ; Expanded expression: "(@-8) *(4) (@-20) ++(4) + *(1) 0 != "
+  1289                                  L102:
+  1290                                  ; Fused expression:    "++(4) *(@-20) + *(@-8) ax != *ax 0 IF "
+  1291 000005F9 66FF46EC                	inc	dword [bp-20]
+  1292 000005FD 668B46EC                	mov	eax, [bp-20]
+  1293 00000601 6689C1                  	mov	ecx, eax
+  1294 00000604 668B46F8                	mov	eax, [bp-8]
+  1295 00000608 6601C8                  	add	eax, ecx
+  1296 0000060B 6689C3                  	mov	ebx, eax
+  1297 0000060E 6689DE                  	mov	esi, ebx
+  1298 00000611 66C1CE04                	ror	esi, 4
+  1299 00000615 8EDE                    	mov	ds, si
+  1300 00000617 66C1EE1C                	shr	esi, 28
+  1301 0000061B 8A04                    	mov	al, [si]
+  1302 0000061D 660FB6C0                	movzx	eax, al
+  1303 00000621 6683F800                	cmp	eax, 0
+  1304 00000625 75A4                    	jne	L101
+  1305                                  L103:
+  1306                                  ; RPN'ized expression: "i ++p "
+  1307                                  ; Expanded expression: "(@-20) ++p(4) "
+  1308                                  ; Fused expression:    "++p(4) *(@-20) "
+  1309 00000627 668B46EC                	mov	eax, [bp-20]
+  1310 0000062B 66FF46EC                	inc	dword [bp-20]
+  1311                                  ; RPN'ized expression: "i i 2 + = "
+  1312                                  ; Expanded expression: "(@-20) (@-20) *(4) 2 + =(4) "
+  1313                                  ; Fused expression:    "+ *(@-20) 2 =(204) *(@-20) ax "
+  1314 0000062F 668B46EC                	mov	eax, [bp-20]
+  1315 00000633 6683C002                	add	eax, 2
+  1316 00000637 668946EC                	mov	[bp-20], eax
+  1317                                  ; RPN'ized expression: "j 0 = "
+  1318                                  ; Expanded expression: "(@-24) 0 =(4) "
+  1319                                  ; Fused expression:    "=(204) *(@-24) 0 "
+  1320 0000063B 66B800000000            	mov	eax, 0
+  1321 00000641 668946E8                	mov	[bp-24], eax
+  1322                                  ; while
+  1323                                  ; loc         <something> : char
+  1324                                  ; RPN'ized expression: "str j ++p + *u ptrEntorno i ++p + *u = 0 (something110) != "
+  1325                                  ; Expanded expression: "(@12) *(4) (@-24) ++p(4) + (@-8) *(4) (@-20) ++p(4) + *(1) =(-1) 0 != "
+  1326                                  L108:
+  1327                                  ; Fused expression:    "++p(4) *(@-24) + *(@12) ax push-ax ++p(4) *(@-20) + *(@-8) ax =(121) **sp *ax != ax 0 IF! "
+  1328 00000645 668B46E8                	mov	eax, [bp-24]
+  1329 00000649 66FF46E8                	inc	dword [bp-24]
+  1330 0000064D 6689C1                  	mov	ecx, eax
+  1331 00000650 668B460C                	mov	eax, [bp+12]
+  1332 00000654 6601C8                  	add	eax, ecx
+  1333 00000657 6650                    	push	eax
+  1334 00000659 668B46EC                	mov	eax, [bp-20]
+  1335 0000065D 66FF46EC                	inc	dword [bp-20]
+  1336 00000661 6689C1                  	mov	ecx, eax
+  1337 00000664 668B46F8                	mov	eax, [bp-8]
+  1338 00000668 6601C8                  	add	eax, ecx
+  1339 0000066B 6689C3                  	mov	ebx, eax
+  1340 0000066E 6689DE                  	mov	esi, ebx
+  1341 00000671 66C1CE04                	ror	esi, 4
+  1342 00000675 8EDE                    	mov	ds, si
+  1343 00000677 66C1EE1C                	shr	esi, 28
+  1344 0000067B 8A04                    	mov	al, [si]
+  1345 0000067D 660FB6C0                	movzx	eax, al
+  1346 00000681 665B                    	pop	ebx
+  1347 00000683 6689DE                  	mov	esi, ebx
+  1348 00000686 66C1CE04                	ror	esi, 4
+  1349 0000068A 8EDE                    	mov	ds, si
+  1350 0000068C 66C1EE1C                	shr	esi, 28
+  1351 00000690 8804                    	mov	[si], al
+  1352 00000692 660FBEC0                	movsx	eax, al
+  1353 00000696 6683F800                	cmp	eax, 0
+  1354 0000069A 7402                    	je	L109
+  1355 0000069C EBA7                    	jmp	L108
+  1356                                  L109:
+  1357                                  ; return
+  1358                                  ; RPN'ized expression: "TRUE "
+  1359                                  ; Expanded expression: "1 "
+  1360                                  ; Expression value: 1
+  1361                                  ; Fused expression:    "1  "
+  1362 0000069E 66B801000000            	mov	eax, 1
+  1363 000006A4 E92C02                  	jmp	L89
+  1364                                  ; }
+  1365 000006A7 E92902                  	jmp	L100
+  1366                                  L99:
+  1367                                  ; else
+  1368                                  ; {
+  1369                                  ; RPN'ized expression: "i 0 = "
+  1370                                  ; Expanded expression: "(@-20) 0 =(4) "
+  1371                                  ; Fused expression:    "=(204) *(@-20) 0 "
+  1372 000006AA 66B800000000            	mov	eax, 0
+  1373 000006B0 668946EC                	mov	[bp-20], eax
+  1374                                  ; RPN'ized expression: "j 0 = "
+  1375                                  ; Expanded expression: "(@-24) 0 =(4) "
+  1376                                  ; Fused expression:    "=(204) *(@-24) 0 "
+  1377 000006B4 66B800000000            	mov	eax, 0
+  1378 000006BA 668946E8                	mov	[bp-24], eax
+  1379                                  ; while
+  1380                                  ; RPN'ized expression: "i tamCmdLine < j n < && "
+  1381                                  ; Expanded expression: "(@-20) *(4) (@-12) *(2) < [sh&&->113] (@-24) *(4) (@8) *(2) < &&[113] "
+  1382                                  L111:
+  1383                                  ; Fused expression:    "< *(@-20) *(@-12) [sh&&->113] < *(@-24) *(@8) &&[113]  "
+  1384 000006BE 668B46EC                	mov	eax, [bp-20]
+  1385 000006C2 660FB74EF4              	movzx	ecx, word [bp-12]
+  1386 000006C7 6639C8                  	cmp	eax, ecx
+  1387 000006CA 0F9CC0                  	setl	al
+  1388 000006CD 660FB6C0                	movzx	eax, al
+  1389                                  ; JumpIfZero
+  1390 000006D1 6685C0                  	test	eax, eax
+  1391 000006D4 7413                    	je	L113
+  1392 000006D6 668B46E8                	mov	eax, [bp-24]
+  1393 000006DA 660FB74E08              	movzx	ecx, word [bp+8]
+  1394 000006DF 6639C8                  	cmp	eax, ecx
+  1395 000006E2 0F9CC0                  	setl	al
+  1396 000006E5 660FB6C0                	movzx	eax, al
+  1397                                  L113:
+  1398                                  ; JumpIfZero
+  1399 000006E9 6685C0                  	test	eax, eax
+  1400 000006EC 0F84DB01                	je	L112
+  1401                                  ; {
+  1402                                  ; while
+  1403                                  ; RPN'ized expression: "i tamCmdLine < ptrCmdLine i + *u 32 == && "
+  1404                                  ; Expanded expression: "(@-20) *(4) (@-12) *(2) < [sh&&->116] (@-16) *(4) (@-20) *(4) + *(1) 32 == &&[116] "
+  1405                                  L114:
+  1406                                  ; Fused expression:    "< *(@-20) *(@-12) [sh&&->116] + *(@-16) *(@-20) == *ax 32 &&[116]  "
+  1407 000006F0 668B46EC                	mov	eax, [bp-20]
+  1408 000006F4 660FB74EF4              	movzx	ecx, word [bp-12]
+  1409 000006F9 6639C8                  	cmp	eax, ecx
+  1410 000006FC 0F9CC0                  	setl	al
+  1411 000006FF 660FB6C0                	movzx	eax, al
+  1412                                  ; JumpIfZero
+  1413 00000703 6685C0                  	test	eax, eax
+  1414 00000706 7429                    	je	L116
+  1415 00000708 668B46F0                	mov	eax, [bp-16]
+  1416 0000070C 660346EC                	add	eax, [bp-20]
+  1417 00000710 6689C3                  	mov	ebx, eax
+  1418 00000713 6689DE                  	mov	esi, ebx
+  1419 00000716 66C1CE04                	ror	esi, 4
+  1420 0000071A 8EDE                    	mov	ds, si
+  1421 0000071C 66C1EE1C                	shr	esi, 28
+  1422 00000720 8A04                    	mov	al, [si]
+  1423 00000722 660FB6C0                	movzx	eax, al
+  1424 00000726 6683F820                	cmp	eax, 32
+  1425 0000072A 0F94C0                  	sete	al
+  1426 0000072D 660FB6C0                	movzx	eax, al
+  1427                                  L116:
+  1428                                  ; JumpIfZero
+  1429 00000731 6685C0                  	test	eax, eax
+  1430 00000734 740A                    	je	L115
+  1431                                  ; RPN'ized expression: "i ++p "
+  1432                                  ; Expanded expression: "(@-20) ++p(4) "
+  1433                                  ; Fused expression:    "++p(4) *(@-20) "
+  1434 00000736 668B46EC                	mov	eax, [bp-20]
+  1435 0000073A 66FF46EC                	inc	dword [bp-20]
+  1436 0000073E EBB0                    	jmp	L114
+  1437                                  L115:
+  1438                                  ; if
+  1439                                  ; RPN'ized expression: "i tamCmdLine < ptrCmdLine i + *u 32 != && "
+  1440                                  ; Expanded expression: "(@-20) *(4) (@-12) *(2) < [sh&&->119] (@-16) *(4) (@-20) *(4) + *(1) 32 != &&[119] "
+  1441                                  ; Fused expression:    "< *(@-20) *(@-12) [sh&&->119] + *(@-16) *(@-20) != *ax 32 &&[119]  "
+  1442 00000740 668B46EC                	mov	eax, [bp-20]
+  1443 00000744 660FB74EF4              	movzx	ecx, word [bp-12]
+  1444 00000749 6639C8                  	cmp	eax, ecx
+  1445 0000074C 0F9CC0                  	setl	al
+  1446 0000074F 660FB6C0                	movzx	eax, al
+  1447                                  ; JumpIfZero
+  1448 00000753 6685C0                  	test	eax, eax
+  1449 00000756 7429                    	je	L119
+  1450 00000758 668B46F0                	mov	eax, [bp-16]
+  1451 0000075C 660346EC                	add	eax, [bp-20]
+  1452 00000760 6689C3                  	mov	ebx, eax
+  1453 00000763 6689DE                  	mov	esi, ebx
+  1454 00000766 66C1CE04                	ror	esi, 4
+  1455 0000076A 8EDE                    	mov	ds, si
+  1456 0000076C 66C1EE1C                	shr	esi, 28
+  1457 00000770 8A04                    	mov	al, [si]
+  1458 00000772 660FB6C0                	movzx	eax, al
+  1459 00000776 6683F820                	cmp	eax, 32
+  1460 0000077A 0F95C0                  	setne	al
+  1461 0000077D 660FB6C0                	movzx	eax, al
+  1462                                  L119:
+  1463                                  ; JumpIfZero
+  1464 00000781 6685C0                  	test	eax, eax
+  1465 00000784 7408                    	je	L117
+  1466                                  ; RPN'ized expression: "j ++p "
+  1467                                  ; Expanded expression: "(@-24) ++p(4) "
+  1468                                  ; Fused expression:    "++p(4) *(@-24) "
+  1469 00000786 668B46E8                	mov	eax, [bp-24]
+  1470 0000078A 66FF46E8                	inc	dword [bp-24]
+  1471                                  L117:
+  1472                                  ; if
+  1473                                  ; RPN'ized expression: "j n == "
+  1474                                  ; Expanded expression: "(@-24) *(4) (@8) *(2) == "
+  1475                                  ; Fused expression:    "== *(@-24) *(@8) IF! "
+  1476 0000078E 668B46E8                	mov	eax, [bp-24]
+  1477 00000792 660FB74E08              	movzx	ecx, word [bp+8]
+  1478 00000797 6639C8                  	cmp	eax, ecx
+  1479 0000079A 0F85D200                	jne	L120
+  1480                                  ; {
+  1481                                  ; RPN'ized expression: "k 0 = "
+  1482                                  ; Expanded expression: "(@-28) 0 =(4) "
+  1483                                  ; Fused expression:    "=(204) *(@-28) 0 "
+  1484 0000079E 66B800000000            	mov	eax, 0
+  1485 000007A4 668946E4                	mov	[bp-28], eax
+  1486                                  ; while
+  1487                                  ; RPN'ized expression: "i tamCmdLine < ptrCmdLine i + *u 32 != && "
+  1488                                  ; Expanded expression: "(@-20) *(4) (@-12) *(2) < [sh&&->124] (@-16) *(4) (@-20) *(4) + *(1) 32 != &&[124] "
+  1489                                  L122:
+  1490                                  ; Fused expression:    "< *(@-20) *(@-12) [sh&&->124] + *(@-16) *(@-20) != *ax 32 &&[124]  "
+  1491 000007A8 668B46EC                	mov	eax, [bp-20]
+  1492 000007AC 660FB74EF4              	movzx	ecx, word [bp-12]
+  1493 000007B1 6639C8                  	cmp	eax, ecx
+  1494 000007B4 0F9CC0                  	setl	al
+  1495 000007B7 660FB6C0                	movzx	eax, al
+  1496                                  ; JumpIfZero
+  1497 000007BB 6685C0                  	test	eax, eax
+  1498 000007BE 7429                    	je	L124
+  1499 000007C0 668B46F0                	mov	eax, [bp-16]
+  1500 000007C4 660346EC                	add	eax, [bp-20]
+  1501 000007C8 6689C3                  	mov	ebx, eax
+  1502 000007CB 6689DE                  	mov	esi, ebx
+  1503 000007CE 66C1CE04                	ror	esi, 4
+  1504 000007D2 8EDE                    	mov	ds, si
+  1505 000007D4 66C1EE1C                	shr	esi, 28
+  1506 000007D8 8A04                    	mov	al, [si]
+  1507 000007DA 660FB6C0                	movzx	eax, al
+  1508 000007DE 6683F820                	cmp	eax, 32
+  1509 000007E2 0F95C0                  	setne	al
+  1510 000007E5 660FB6C0                	movzx	eax, al
+  1511                                  L124:
+  1512                                  ; JumpIfZero
+  1513 000007E9 6685C0                  	test	eax, eax
+  1514 000007EC 7454                    	je	L123
+  1515                                  ; RPN'ized expression: "str k ++p + *u ptrCmdLine i ++p + *u = "
+  1516                                  ; Expanded expression: "(@12) *(4) (@-28) ++p(4) + (@-16) *(4) (@-20) ++p(4) + *(1) =(-1) "
+  1517                                  ; Fused expression:    "++p(4) *(@-28) + *(@12) ax push-ax ++p(4) *(@-20) + *(@-16) ax =(121) **sp *ax "
+  1518 000007EE 668B46E4                	mov	eax, [bp-28]
+  1519 000007F2 66FF46E4                	inc	dword [bp-28]
+  1520 000007F6 6689C1                  	mov	ecx, eax
+  1521 000007F9 668B460C                	mov	eax, [bp+12]
+  1522 000007FD 6601C8                  	add	eax, ecx
+  1523 00000800 6650                    	push	eax
+  1524 00000802 668B46EC                	mov	eax, [bp-20]
+  1525 00000806 66FF46EC                	inc	dword [bp-20]
+  1526 0000080A 6689C1                  	mov	ecx, eax
+  1527 0000080D 668B46F0                	mov	eax, [bp-16]
+  1528 00000811 6601C8                  	add	eax, ecx
+  1529 00000814 6689C3                  	mov	ebx, eax
+  1530 00000817 6689DE                  	mov	esi, ebx
+  1531 0000081A 66C1CE04                	ror	esi, 4
+  1532 0000081E 8EDE                    	mov	ds, si
+  1533 00000820 66C1EE1C                	shr	esi, 28
+  1534 00000824 8A04                    	mov	al, [si]
+  1535 00000826 660FB6C0                	movzx	eax, al
+  1536 0000082A 665B                    	pop	ebx
+  1537 0000082C 6689DE                  	mov	esi, ebx
+  1538 0000082F 66C1CE04                	ror	esi, 4
+  1539 00000833 8EDE                    	mov	ds, si
+  1540 00000835 66C1EE1C                	shr	esi, 28
+  1541 00000839 8804                    	mov	[si], al
+  1542 0000083B 660FBEC0                	movsx	eax, al
+  1543 0000083F E966FF                  	jmp	L122
+  1544                                  L123:
+  1545                                  ; loc                 <something> : char
+  1546                                  ; RPN'ized expression: "str k + *u 0 (something125) = "
+  1547                                  ; Expanded expression: "(@12) *(4) (@-28) *(4) + 0 =(-1) "
+  1548                                  ; Fused expression:    "+ *(@12) *(@-28) =(124) *ax 0 "
+  1549 00000842 668B460C                	mov	eax, [bp+12]
+  1550 00000846 660346E4                	add	eax, [bp-28]
+  1551 0000084A 6689C3                  	mov	ebx, eax
+  1552 0000084D 66B800000000            	mov	eax, 0
+  1553 00000853 6689DE                  	mov	esi, ebx
+  1554 00000856 66C1CE04                	ror	esi, 4
+  1555 0000085A 8EDE                    	mov	ds, si
+  1556 0000085C 66C1EE1C                	shr	esi, 28
+  1557 00000860 8804                    	mov	[si], al
+  1558 00000862 660FBEC0                	movsx	eax, al
+  1559                                  ; return
+  1560                                  ; RPN'ized expression: "TRUE "
+  1561                                  ; Expanded expression: "1 "
+  1562                                  ; Expression value: 1
+  1563                                  ; Fused expression:    "1  "
+  1564 00000866 66B801000000            	mov	eax, 1
+  1565 0000086C EB65                    	jmp	L89
+  1566                                  ; }
+  1567 0000086E EB58                    	jmp	L121
+  1568                                  L120:
+  1569                                  ; else
+  1570                                  ; {
+  1571                                  ; RPN'ized expression: "i ++p "
+  1572                                  ; Expanded expression: "(@-20) ++p(4) "
+  1573                                  ; Fused expression:    "++p(4) *(@-20) "
+  1574 00000870 668B46EC                	mov	eax, [bp-20]
+  1575 00000874 66FF46EC                	inc	dword [bp-20]
+  1576                                  ; while
+  1577                                  ; RPN'ized expression: "i tamCmdLine < ptrCmdLine i + *u 32 != && "
+  1578                                  ; Expanded expression: "(@-20) *(4) (@-12) *(2) < [sh&&->128] (@-16) *(4) (@-20) *(4) + *(1) 32 != &&[128] "
+  1579                                  L126:
+  1580                                  ; Fused expression:    "< *(@-20) *(@-12) [sh&&->128] + *(@-16) *(@-20) != *ax 32 &&[128]  "
+  1581 00000878 668B46EC                	mov	eax, [bp-20]
+  1582 0000087C 660FB74EF4              	movzx	ecx, word [bp-12]
+  1583 00000881 6639C8                  	cmp	eax, ecx
+  1584 00000884 0F9CC0                  	setl	al
+  1585 00000887 660FB6C0                	movzx	eax, al
+  1586                                  ; JumpIfZero
+  1587 0000088B 6685C0                  	test	eax, eax
+  1588 0000088E 7429                    	je	L128
+  1589 00000890 668B46F0                	mov	eax, [bp-16]
+  1590 00000894 660346EC                	add	eax, [bp-20]
+  1591 00000898 6689C3                  	mov	ebx, eax
+  1592 0000089B 6689DE                  	mov	esi, ebx
+  1593 0000089E 66C1CE04                	ror	esi, 4
+  1594 000008A2 8EDE                    	mov	ds, si
+  1595 000008A4 66C1EE1C                	shr	esi, 28
+  1596 000008A8 8A04                    	mov	al, [si]
+  1597 000008AA 660FB6C0                	movzx	eax, al
+  1598 000008AE 6683F820                	cmp	eax, 32
+  1599 000008B2 0F95C0                  	setne	al
+  1600 000008B5 660FB6C0                	movzx	eax, al
+  1601                                  L128:
+  1602                                  ; JumpIfZero
+  1603 000008B9 6685C0                  	test	eax, eax
+  1604 000008BC 740A                    	je	L127
+  1605                                  ; RPN'ized expression: "i ++p "
+  1606                                  ; Expanded expression: "(@-20) ++p(4) "
+  1607                                  ; Fused expression:    "++p(4) *(@-20) "
+  1608 000008BE 668B46EC                	mov	eax, [bp-20]
+  1609 000008C2 66FF46EC                	inc	dword [bp-20]
+  1610 000008C6 EBB0                    	jmp	L126
+  1611                                  L127:
+  1612                                  ; }
+  1613                                  L121:
+  1614                                  ; }
+  1615 000008C8 E9F3FD                  	jmp	L111
+  1616                                  L112:
+  1617                                  ; return
+  1618                                  ; RPN'ized expression: "FALSE "
+  1619                                  ; Expanded expression: "0 "
+  1620                                  ; Expression value: 0
+  1621                                  ; Fused expression:    "0  "
+  1622 000008CB 66B800000000            	mov	eax, 0
+  1623 000008D1 EB00                    	jmp	L89
+  1624                                  ; }
+  1625                                  L100:
+  1626                                  L89:
+  1627 000008D3 66                      	db	0x66
+  1628 000008D4 C9                      	leave
+  1629 000008D5 CB                      	retf
+  1630                                  L129:
+  1631                                  
+  1632                                  section .fxnsz
+  1633 00000020 A9030000                	dd	L129 - _getArgvMSDOS
+  1634                                  
+  1635                                  ; glb hayWindowsNT : (void) int
+  1636                                  section .text
+  1637                                  	global	_hayWindowsNT
+  1638                                  _hayWindowsNT:
+  1639 000008D6 6655                    	push	ebp
+  1640 000008D8 660FB7EC                	movzx	ebp, sp
+  1641 000008DC 83EC0C                  	 sub	sp,         12
+  1642                                  ; loc     version : (@-4): unsigned short
+  1643                                  ; loc     menor : (@-8): unsigned short
+  1644                                  ; loc     mayor : (@-12): unsigned short
+  1645                                  ; if
+  1646                                  ; RPN'ized expression: "( hayMSDOS ) 0 == "
+  1647                                  ; Expanded expression: " hayMSDOS ()0 0 == "
+  1648                                  ; Fused expression:    "( hayMSDOS )0 == ax 0 IF! "
+  1649 000008DF 9A                      	db	0x9A
+  1650                                  section .relot
+  1651 00000028 [E0080000]              	dd	L134
+  1652                                  section .text
+  1653                                  L134:
+  1654 000008E0 [10000000]              	dd	_hayMSDOS
+  1655 000008E4 6683F800                	cmp	eax, 0
+  1656 000008E8 7509                    	jne	L132
+  1657                                  ; return
+  1658                                  ; RPN'ized expression: "FALSE "
+  1659                                  ; Expanded expression: "0 "
+  1660                                  ; Expression value: 0
+  1661                                  ; Fused expression:    "0  "
+  1662 000008EA 66B800000000            	mov	eax, 0
+  1663 000008F0 E9BD00                  	jmp	L130
+  1664                                  L132:
+  1665                                  ; RPN'ized expression: "version ( versionMSDOS ) = "
+  1666                                  ; Expanded expression: "(@-4)  versionMSDOS ()0 =(2) "
+  1667                                  ; Fused expression:    "( versionMSDOS )0 =(172) *(@-4) ax "
+  1668 000008F3 9A                      	db	0x9A
+  1669                                  section .relot
+  1670 0000002C [F4080000]              	dd	L135
+  1671                                  section .text
+  1672                                  L135:
+  1673 000008F4 [BD000000]              	dd	_versionMSDOS
+  1674 000008F8 8946FC                  	mov	[bp-4], ax
+  1675 000008FB 660FB7C0                	movzx	eax, ax
+  1676                                  ; RPN'ized expression: "mayor version 255 & = "
+  1677                                  ; Expanded expression: "(@-12) (@-4) *(2) 255 & =(2) "
+  1678                                  ; Fused expression:    "& *(@-4) 255 =(172) *(@-12) ax "
+  1679 000008FF 8B46FC                  	mov	ax, [bp-4]
+  1680 00000902 660FB7C0                	movzx	eax, ax
+  1681 00000906 6625FF000000            	and	eax, 255
+  1682 0000090C 8946F4                  	mov	[bp-12], ax
+  1683 0000090F 660FB7C0                	movzx	eax, ax
+  1684                                  ; RPN'ized expression: "menor version 8 >> = "
+  1685                                  ; Expanded expression: "(@-8) (@-4) *(2) 8 >> =(2) "
+  1686                                  ; Fused expression:    ">> *(@-4) 8 =(172) *(@-8) ax "
+  1687 00000913 8B46FC                  	mov	ax, [bp-4]
+  1688 00000916 660FB7C0                	movzx	eax, ax
+  1689 0000091A 66C1F808                	sar	eax, 8
+  1690 0000091E 8946F8                  	mov	[bp-8], ax
+  1691 00000921 660FB7C0                	movzx	eax, ax
+  1692                                  ; if
+  1693                                  ; RPN'ized expression: "mayor 7 == menor 10 == && "
+  1694                                  ; Expanded expression: "(@-12) *(2) 7 == [sh&&->138] (@-8) *(2) 10 == &&[138] "
+  1695                                  ; Fused expression:    "== *(@-12) 7 [sh&&->138] == *(@-8) 10 &&[138]  "
+  1696 00000925 8B46F4                  	mov	ax, [bp-12]
+  1697 00000928 660FB7C0                	movzx	eax, ax
+  1698 0000092C 6683F807                	cmp	eax, 7
+  1699 00000930 0F94C0                  	sete	al
+  1700 00000933 660FB6C0                	movzx	eax, al
+  1701                                  ; JumpIfZero
+  1702 00000937 6685C0                  	test	eax, eax
+  1703 0000093A 7412                    	je	L138
+  1704 0000093C 8B46F8                  	mov	ax, [bp-8]
+  1705 0000093F 660FB7C0                	movzx	eax, ax
+  1706 00000943 6683F80A                	cmp	eax, 10
+  1707 00000947 0F94C0                  	sete	al
+  1708 0000094A 660FB6C0                	movzx	eax, al
+  1709                                  L138:
+  1710                                  ; JumpIfZero
+  1711 0000094E 6685C0                  	test	eax, eax
+  1712 00000951 7408                    	je	L136
+  1713                                  ; return
+  1714                                  ; RPN'ized expression: "FALSE "
+  1715                                  ; Expanded expression: "0 "
+  1716                                  ; Expression value: 0
+  1717                                  ; Fused expression:    "0  "
+  1718 00000953 66B800000000            	mov	eax, 0
+  1719 00000959 EB55                    	jmp	L130
+  1720                                  L136:
+  1721                                  ; if
+  1722                                  ; RPN'ized expression: "mayor 5 == menor 0 == && "
+  1723                                  ; Expanded expression: "(@-12) *(2) 5 == [sh&&->141] (@-8) *(2) 0 == &&[141] "
+  1724                                  ; Fused expression:    "== *(@-12) 5 [sh&&->141] == *(@-8) 0 &&[141]  "
+  1725 0000095B 8B46F4                  	mov	ax, [bp-12]
+  1726 0000095E 660FB7C0                	movzx	eax, ax
+  1727 00000962 6683F805                	cmp	eax, 5
+  1728 00000966 0F94C0                  	sete	al
+  1729 00000969 660FB6C0                	movzx	eax, al
+  1730                                  ; JumpIfZero
+  1731 0000096D 6685C0                  	test	eax, eax
+  1732 00000970 7412                    	je	L141
+  1733 00000972 8B46F8                  	mov	ax, [bp-8]
+  1734 00000975 660FB7C0                	movzx	eax, ax
+  1735 00000979 6683F800                	cmp	eax, 0
+  1736 0000097D 0F94C0                  	sete	al
+  1737 00000980 660FB6C0                	movzx	eax, al
+  1738                                  L141:
+  1739                                  ; JumpIfZero
+  1740 00000984 6685C0                  	test	eax, eax
+  1741 00000987 7421                    	je	L139
+  1742                                  ; {
+  1743                                  ; return
+  1744                                  ; loc         <something> : * char
+  1745                                  
+  1746                                  section .rodata
+  1747                                  L143:
+  1748 0000000E 4F53                    	db	"OS"
+  1749 00000010 00                      	times	1 db 0
+  1750                                  
+  1751                                  section .text
+  1752                                  
+  1753                                  section .rodata
+  1754                                  L144:
+  1755 00000011 57696E646F77735F4E-     	db	"Windows_NT"
+  1755 0000001A 54                 
+  1756 0000001B 00                      	times	1 db 0
+  1757                                  
+  1758                                  section .text
+  1759                                  ; RPN'ized expression: "( L143 valorMSDOS ) (something142) L144 ,b 0 == "
+  1760                                  ; Expanded expression: " L143  valorMSDOS ()4 void L144 ,b 0 == "
+  1761                                  ; Fused expression:    "( L143 , valorMSDOS )4 void L144 ,b == ax 0  "
+  1762                                  section .relod
+  1763 00000008 [8B090000]              	dd	L145
+  1764                                  section .text
+  1765 00000989 6668                    	db	0x66, 0x68
+  1766                                  L145:
+  1767 0000098B [0E000000]              	dd	L143
+  1768 0000098F 9A                      	db	0x9A
+  1769                                  section .relot
+  1770 00000030 [90090000]              	dd	L146
+  1771                                  section .text
+  1772                                  L146:
+  1773 00000990 [3A010000]              	dd	_valorMSDOS
+  1774 00000994 83ECFC                  	sub	sp, -4
+  1775                                  section .relod
+  1776 0000000C [99090000]              	dd	L147
+  1777                                  section .text
+  1778 00000997 66B8                    	db	0x66, 0xB8
+  1779                                  L147:
+  1780 00000999 [11000000]              	dd	L144
+  1781 0000099D 6683F800                	cmp	eax, 0
+  1782 000009A1 0F94C0                  	sete	al
+  1783 000009A4 660FB6C0                	movzx	eax, al
+  1784 000009A8 EB06                    	jmp	L130
+  1785                                  ; }
+  1786                                  L139:
+  1787                                  ; return
+  1788                                  ; RPN'ized expression: "FALSE "
+  1789                                  ; Expanded expression: "0 "
+  1790                                  ; Expression value: 0
+  1791                                  ; Fused expression:    "0  "
+  1792 000009AA 66B800000000            	mov	eax, 0
+  1793                                  L130:
+  1794 000009B0 66                      	db	0x66
+  1795 000009B1 C9                      	leave
+  1796 000009B2 CB                      	retf
+  1797                                  L148:
+  1798                                  
+  1799                                  section .fxnsz
+  1800 00000024 DD000000                	dd	L148 - _hayWindowsNT
+  1801                                  
+  1802                                  ; glb openDOS : (
+  1803                                  ; prm     nombre : * unsigned char
+  1804                                  ; prm     modo : unsigned char
+  1805                                  ;     ) int
+  1806                                  section .text
+  1807                                  	global	_openDOS
+  1808                                  _openDOS:
+  1809 000009B3 6655                    	push	ebp
+  1810 000009B5 660FB7EC                	movzx	ebp, sp
+  1811 000009B9 83EC04                  	 sub	sp,          4
+  1812                                  ; loc     nombre : (@8): * unsigned char
+  1813                                  ; loc     modo : (@12): unsigned char
+  1814                                  ; loc     df : (@-4): int
+  1815 000009BC 1E                         push ds              
+  1816 000009BD 668B4608                   mov eax,[bp+8]       
+  1817 000009C1 66C1C804                   ror eax,4            
+  1818 000009C5 8ED8                       mov ds,ax            
+  1819 000009C7 66C1E81C                   shr eax,28           
+  1820 000009CB 89C2                       mov dx,ax            
+  1821 000009CD 8A460C                     mov al,[bp+12]       
+  1822 000009D0 B43D                       mov ah,3dh           
+  1823 000009D2 CD21                       int 21h              
+  1824 000009D4 1F                         pop ds               
+  1825 000009D5 720A                       jc openFailed        
+  1826 000009D7 660FB7C0                   movzx eax,ax         
+  1827 000009DB 668946FC                   mov [bp-4],eax       
+  1828 000009DF EB08                       jmp fin              
+  1829                                   openFailed:            
+  1830 000009E1 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  1831                                   fin:                   
+  1832                                  
+  1833                                  ; return
+  1834                                  ; RPN'ized expression: "df "
+  1835                                  ; Expanded expression: "(@-4) *(4) "
+  1836                                  ; Fused expression:    "*(4) (@-4)  "
+  1837 000009E9 668B46FC                	mov	eax, [bp-4]
+  1838                                  L149:
+  1839 000009ED 66                      	db	0x66
+  1840 000009EE C9                      	leave
+  1841 000009EF CB                      	retf
+  1842                                  L151:
+  1843                                  
+  1844                                  section .fxnsz
+  1845 00000028 3D000000                	dd	L151 - _openDOS
+  1846                                  
+  1847                                  ; glb extendedOpenDOS : (
+  1848                                  ; prm     nombre : * unsigned char
+  1849                                  ; prm     modo : unsigned short
+  1850                                  ; prm     atr : unsigned short
+  1851                                  ; prm     accion : * unsigned short
+  1852                                  ; prm     error : * unsigned short
+  1853                                  ;     ) int
+  1854                                  section .text
+  1855                                  	global	_extendedOpenDOS
+  1856                                  _extendedOpenDOS:
+  1857 000009F0 6655                    	push	ebp
+  1858 000009F2 660FB7EC                	movzx	ebp, sp
+  1859 000009F6 83EC10                  	 sub	sp,         16
+  1860                                  ; loc     nombre : (@8): * unsigned char
+  1861                                  ; loc     modo : (@12): unsigned short
+  1862                                  ; loc     atr : (@16): unsigned short
+  1863                                  ; loc     accion : (@20): * unsigned short
+  1864                                  ; loc     error : (@24): * unsigned short
+  1865                                  ; loc     df : (@-4): int
+  1866                                  ; loc     fci : (@-8): unsigned short
+  1867                                  ; RPN'ized expression: "fci accion *u = "
+  1868                                  ; Expanded expression: "(@-8) (@20) *(4) *(2) =(2) "
+  1869                                  ; Fused expression:    "*(4) (@20) =(202) *(@-8) *ax "
+  1870 000009F9 668B4614                	mov	eax, [bp+20]
+  1871 000009FD 6689C3                  	mov	ebx, eax
+  1872 00000A00 6689DE                  	mov	esi, ebx
+  1873 00000A03 66C1CE04                	ror	esi, 4
+  1874 00000A07 8EDE                    	mov	ds, si
+  1875 00000A09 66C1EE1C                	shr	esi, 28
+  1876 00000A0D 8B04                    	mov	ax, [si]
+  1877 00000A0F 660FB7C0                	movzx	eax, ax
+  1878 00000A13 668946F8                	mov	[bp-8], eax
+  1879                                  ; loc     res : (@-12): unsigned short
+  1880                                  ; loc     flagC : (@-16): unsigned short
+  1881                                  ; RPN'ized expression: "flagC 0 = "
+  1882                                  ; Expanded expression: "(@-16) 0 =(2) "
+  1883                                  ; Fused expression:    "=(204) *(@-16) 0 "
+  1884 00000A17 66B800000000            	mov	eax, 0
+  1885 00000A1D 668946F0                	mov	[bp-16], eax
+  1886 00000A21 1E                         push ds              
+  1887 00000A22 668B4608                   mov eax,[bp+8]       
+  1888 00000A26 66C1C804                   ror eax,4            
+  1889 00000A2A 8ED8                       mov ds,ax            
+  1890 00000A2C 66C1E81C                   shr eax,28           
+  1891 00000A30 89C6                       mov si,ax            
+  1892 00000A32 8B5E0C                     mov bx,[bp+12]       
+  1893 00000A35 8B4E10                     mov cx,[bp+16]       
+  1894 00000A38 8B56F8                     mov dx,[bp-8]        
+  1895 00000A3B B000                       mov al,00h           
+  1896 00000A3D B46C                       mov ah,6ch           
+  1897 00000A3F CD21                       int 21h              
+  1898 00000A41 1F                         pop ds               
+  1899 00000A42 8946F4                     mov [bp-12],ax       
+  1900 00000A45 894EF8                     mov [bp-8],cx        
+  1901 00000A48 7305                       jnc openOk           
+  1902 00000A4A C746F00100                 mov [bp-16],word(1)  
+  1903                                   openOk:                
+  1904                                  
+  1905                                  ; if
+  1906                                  ; RPN'ized expression: "flagC "
+  1907                                  ; Expanded expression: "(@-16) *(2) "
+  1908                                  ; Fused expression:    "*(2) (@-16)  "
+  1909 00000A4F 8B46F0                  	mov	ax, [bp-16]
+  1910 00000A52 660FB7C0                	movzx	eax, ax
+  1911                                  ; JumpIfZero
+  1912 00000A56 6685C0                  	test	eax, eax
+  1913 00000A59 742B                    	je	L154
+  1914                                  ; {
+  1915                                  ; RPN'ized expression: "error *u res = "
+  1916                                  ; Expanded expression: "(@24) *(4) (@-12) *(2) =(2) "
+  1917                                  ; Fused expression:    "*(4) (@24) =(170) *ax *(@-12) "
+  1918 00000A5B 668B4618                	mov	eax, [bp+24]
+  1919 00000A5F 6689C3                  	mov	ebx, eax
+  1920 00000A62 8B46F4                  	mov	ax, [bp-12]
+  1921 00000A65 660FB7C0                	movzx	eax, ax
+  1922 00000A69 6689DE                  	mov	esi, ebx
+  1923 00000A6C 66C1CE04                	ror	esi, 4
+  1924 00000A70 8EDE                    	mov	ds, si
+  1925 00000A72 66C1EE1C                	shr	esi, 28
+  1926 00000A76 8904                    	mov	[si], ax
+  1927 00000A78 660FB7C0                	movzx	eax, ax
+  1928                                  ; return
+  1929                                  ; RPN'ized expression: "1 -u "
+  1930                                  ; Expanded expression: "-1 "
+  1931                                  ; Expression value: -1
+  1932                                  ; Fused expression:    "-1  "
+  1933 00000A7C 66B8FFFFFFFF            	mov	eax, -1
+  1934 00000A82 EB54                    	jmp	L152
+  1935                                  ; }
+  1936 00000A84 EB52                    	jmp	L155
+  1937                                  L154:
+  1938                                  ; else
+  1939                                  ; {
+  1940                                  ; RPN'ized expression: "accion *u fci = "
+  1941                                  ; Expanded expression: "(@20) *(4) (@-8) *(2) =(2) "
+  1942                                  ; Fused expression:    "*(4) (@20) =(170) *ax *(@-8) "
+  1943 00000A86 668B4614                	mov	eax, [bp+20]
+  1944 00000A8A 6689C3                  	mov	ebx, eax
+  1945 00000A8D 8B46F8                  	mov	ax, [bp-8]
+  1946 00000A90 660FB7C0                	movzx	eax, ax
+  1947 00000A94 6689DE                  	mov	esi, ebx
+  1948 00000A97 66C1CE04                	ror	esi, 4
+  1949 00000A9B 8EDE                    	mov	ds, si
+  1950 00000A9D 66C1EE1C                	shr	esi, 28
+  1951 00000AA1 8904                    	mov	[si], ax
+  1952 00000AA3 660FB7C0                	movzx	eax, ax
+  1953                                  ; RPN'ized expression: "error *u 0 = "
+  1954                                  ; Expanded expression: "(@24) *(4) 0 =(2) "
+  1955                                  ; Fused expression:    "*(4) (@24) =(172) *ax 0 "
+  1956 00000AA7 668B4618                	mov	eax, [bp+24]
+  1957 00000AAB 6689C3                  	mov	ebx, eax
+  1958 00000AAE 66B800000000            	mov	eax, 0
+  1959 00000AB4 6689DE                  	mov	esi, ebx
+  1960 00000AB7 66C1CE04                	ror	esi, 4
+  1961 00000ABB 8EDE                    	mov	ds, si
+  1962 00000ABD 66C1EE1C                	shr	esi, 28
+  1963 00000AC1 8904                    	mov	[si], ax
+  1964 00000AC3 660FB7C0                	movzx	eax, ax
+  1965                                  ; loc         <something> : int
+  1966                                  ; RPN'ized expression: "df res (something156) = "
+  1967                                  ; Expanded expression: "(@-4) (@-12) *(2) =(4) "
+  1968                                  ; Fused expression:    "=(202) *(@-4) *(@-12) "
+  1969 00000AC7 8B46F4                  	mov	ax, [bp-12]
+  1970 00000ACA 660FB7C0                	movzx	eax, ax
+  1971 00000ACE 668946FC                	mov	[bp-4], eax
+  1972                                  ; return
+  1973                                  ; RPN'ized expression: "df "
+  1974                                  ; Expanded expression: "(@-4) *(4) "
+  1975                                  ; Fused expression:    "*(4) (@-4)  "
+  1976 00000AD2 668B46FC                	mov	eax, [bp-4]
+  1977 00000AD6 EB00                    	jmp	L152
+  1978                                  ; }
+  1979                                  L155:
+  1980                                  L152:
+  1981 00000AD8 66                      	db	0x66
+  1982 00000AD9 C9                      	leave
+  1983 00000ADA CB                      	retf
+  1984                                  L157:
+  1985                                  
+  1986                                  section .fxnsz
+  1987 0000002C EB000000                	dd	L157 - _extendedOpenDOS
+  1988                                  
+  1989                                  ; glb closeDOS : (
+  1990                                  ; prm     df : int
+  1991                                  ;     ) int
+  1992                                  section .text
+  1993                                  	global	_closeDOS
+  1994                                  _closeDOS:
+  1995 00000ADB 6655                    	push	ebp
+  1996 00000ADD 660FB7EC                	movzx	ebp, sp
+  1997 00000AE1 83EC04                  	 sub	sp,          4
+  1998                                  ; loc     df : (@8): int
+  1999                                  ; loc     err : (@-4): int
+  2000 00000AE4 668B5E08                   mov ebx,[bp+8]       
+  2001 00000AE8 B43E                       mov ah,3eh           
+  2002 00000AEA CD21                       int 21h              
+  2003 00000AEC 660FB7C0                   movzx eax,ax         
+  2004 00000AF0 668946FC                   mov [bp-4],eax       
+  2005 00000AF4 7308                       jnc closeOk          
+  2006 00000AF6 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2007                                   closeOk:               
+  2008                                  
+  2009                                  ; return
+  2010                                  ; RPN'ized expression: "err "
+  2011                                  ; Expanded expression: "(@-4) *(4) "
+  2012                                  ; Fused expression:    "*(4) (@-4)  "
+  2013 00000AFE 668B46FC                	mov	eax, [bp-4]
+  2014                                  L158:
+  2015 00000B02 66                      	db	0x66
+  2016 00000B03 C9                      	leave
+  2017 00000B04 CB                      	retf
+  2018                                  L160:
+  2019                                  
+  2020                                  section .fxnsz
+  2021 00000030 2A000000                	dd	L160 - _closeDOS
+  2022                                  
+  2023                                  ; glb commitFileDOS : (
+  2024                                  ; prm     df : int
+  2025                                  ;     ) int
+  2026                                  section .text
+  2027                                  	global	_commitFileDOS
+  2028                                  _commitFileDOS:
+  2029 00000B05 6655                    	push	ebp
+  2030 00000B07 660FB7EC                	movzx	ebp, sp
+  2031 00000B0B 83EC04                  	 sub	sp,          4
+  2032                                  ; loc     df : (@8): int
+  2033                                  ; loc     err : (@-4): int
+  2034 00000B0E 668B5E08                   mov ebx,[bp+8]       
+  2035 00000B12 B468                       mov ah,68h           
+  2036 00000B14 CD21                       int 21h              
+  2037 00000B16 660FB7C0                   movzx eax,ax         
+  2038 00000B1A 668946FC                   mov [bp-4],eax       
+  2039 00000B1E 7308                       jnc commitOk         
+  2040 00000B20 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2041                                   commitOk:              
+  2042                                  
+  2043                                  ; return
+  2044                                  ; RPN'ized expression: "err "
+  2045                                  ; Expanded expression: "(@-4) *(4) "
+  2046                                  ; Fused expression:    "*(4) (@-4)  "
+  2047 00000B28 668B46FC                	mov	eax, [bp-4]
+  2048                                  L161:
+  2049 00000B2C 66                      	db	0x66
+  2050 00000B2D C9                      	leave
+  2051 00000B2E CB                      	retf
+  2052                                  L163:
+  2053                                  
+  2054                                  section .fxnsz
+  2055 00000034 2A000000                	dd	L163 - _commitFileDOS
+  2056                                  
+  2057                                  ; glb createDOS : (
+  2058                                  ; prm     nombre : * unsigned char
+  2059                                  ; prm     atributo : unsigned short
+  2060                                  ;     ) int
+  2061                                  section .text
+  2062                                  	global	_createDOS
+  2063                                  _createDOS:
+  2064 00000B2F 6655                    	push	ebp
+  2065 00000B31 660FB7EC                	movzx	ebp, sp
+  2066 00000B35 83EC04                  	 sub	sp,          4
+  2067                                  ; loc     nombre : (@8): * unsigned char
+  2068                                  ; loc     atributo : (@12): unsigned short
+  2069                                  ; loc     df : (@-4): int
+  2070 00000B38 1E                         push ds              
+  2071 00000B39 668B4608                   mov eax,[bp+8]       
+  2072 00000B3D 66C1C804                   ror eax,4            
+  2073 00000B41 8ED8                       mov ds,ax            
+  2074 00000B43 66C1E81C                   shr eax,28           
+  2075 00000B47 89C2                       mov dx,ax            
+  2076 00000B49 8B4E0C                     mov cx,[bp+12]       
+  2077 00000B4C B43C                       mov ah,3ch           
+  2078 00000B4E CD21                       int 21h              
+  2079 00000B50 1F                         pop ds               
+  2080 00000B51 660FB7C0                   movzx eax,ax         
+  2081 00000B55 668946FC                   mov [bp-4],eax       
+  2082 00000B59 7308                       jnc createOk         
+  2083 00000B5B 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2084                                   createOk:              
+  2085                                  
+  2086                                  ; return
+  2087                                  ; RPN'ized expression: "df "
+  2088                                  ; Expanded expression: "(@-4) *(4) "
+  2089                                  ; Fused expression:    "*(4) (@-4)  "
+  2090 00000B63 668B46FC                	mov	eax, [bp-4]
+  2091                                  L164:
+  2092 00000B67 66                      	db	0x66
+  2093 00000B68 C9                      	leave
+  2094 00000B69 CB                      	retf
+  2095                                  L166:
+  2096                                  
+  2097                                  section .fxnsz
+  2098 00000038 3B000000                	dd	L166 - _createDOS
+  2099                                  
+  2100                                  ; glb readDOS : (
+  2101                                  ; prm     df : int
+  2102                                  ; prm     buf : * char
+  2103                                  ; prm     n : int
+  2104                                  ;     ) int
+  2105                                  section .text
+  2106                                  	global	_readDOS
+  2107                                  _readDOS:
+  2108 00000B6A 6655                    	push	ebp
+  2109 00000B6C 660FB7EC                	movzx	ebp, sp
+  2110 00000B70 83EC04                  	 sub	sp,          4
+  2111                                  ; loc     df : (@8): int
+  2112                                  ; loc     buf : (@12): * char
+  2113                                  ; loc     n : (@16): int
+  2114                                  ; {
+  2115                                  ; loc         operados : (@-4): int
+  2116 00000B73 668B5E08                   mov ebx,[bp+8]       
+  2117 00000B77 668B460C                   mov eax,[bp+12]      
+  2118 00000B7B 66C1C804                   ror eax,4            
+  2119 00000B7F 8EC0                       mov es,ax            
+  2120 00000B81 66C1E80C                   shr eax,12           
+  2121 00000B85 89C2                       mov dx,ax            
+  2122 00000B87 668B4E10                   mov ecx,[bp+16]      
+  2123 00000B8B B43F                       mov ah,3fh    
+  2124 00000B8D 1E                         push ds              
+  2125 00000B8E 06                         push es              
+  2126 00000B8F 1F                         pop ds               
+  2127 00000B90 CD21                       int 21h              
+  2128 00000B92 1F                         pop ds               
+  2129 00000B93 660FB7C0                   movzx eax,ax         
+  2130 00000B97 668946FC                   mov [bp-4],eax       
+  2131 00000B9B 7308                       jnc .opOk            
+  2132 00000B9D 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2133                                   .opOk:                 
+  2134                                  
+  2135                                  ; return
+  2136                                  ; RPN'ized expression: "operados "
+  2137                                  ; Expanded expression: "(@-4) *(4) "
+  2138                                  ; Fused expression:    "*(4) (@-4)  "
+  2139 00000BA5 668B46FC                	mov	eax, [bp-4]
+  2140 00000BA9 EB00                    	jmp	L167
+  2141                                  ; }
+  2142                                  L167:
+  2143 00000BAB 66                      	db	0x66
+  2144 00000BAC C9                      	leave
+  2145 00000BAD CB                      	retf
+  2146                                  L169:
+  2147                                  
+  2148                                  section .fxnsz
+  2149 0000003C 44000000                	dd	L169 - _readDOS
+  2150                                  
+  2151                                  ; glb writeDOS : (
+  2152                                  ; prm     df : int
+  2153                                  ; prm     buf : * char
+  2154                                  ; prm     n : int
+  2155                                  ;     ) int
+  2156                                  section .text
+  2157                                  	global	_writeDOS
+  2158                                  _writeDOS:
+  2159 00000BAE 6655                    	push	ebp
+  2160 00000BB0 660FB7EC                	movzx	ebp, sp
+  2161 00000BB4 83EC04                  	 sub	sp,          4
+  2162                                  ; loc     df : (@8): int
+  2163                                  ; loc     buf : (@12): * char
+  2164                                  ; loc     n : (@16): int
+  2165                                  ; {
+  2166                                  ; loc         operados : (@-4): int
+  2167 00000BB7 668B5E08                   mov ebx,[bp+8]       
+  2168 00000BBB 668B460C                   mov eax,[bp+12]      
+  2169 00000BBF 66C1C804                   ror eax,4            
+  2170 00000BC3 8EC0                       mov es,ax            
+  2171 00000BC5 66C1E80C                   shr eax,12           
+  2172 00000BC9 89C2                       mov dx,ax            
+  2173 00000BCB 668B4E10                   mov ecx,[bp+16]      
+  2174 00000BCF B440                       mov ah,40h    
+  2175 00000BD1 1E                         push ds              
+  2176 00000BD2 06                         push es              
+  2177 00000BD3 1F                         pop ds               
+  2178 00000BD4 CD21                       int 21h              
+  2179 00000BD6 1F                         pop ds               
+  2180 00000BD7 660FB7C0                   movzx eax,ax         
+  2181 00000BDB 668946FC                   mov [bp-4],eax       
+  2182 00000BDF 7308                       jnc .opOk            
+  2183 00000BE1 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2184                                   .opOk:                 
+  2185                                  
+  2186                                  ; return
+  2187                                  ; RPN'ized expression: "operados "
+  2188                                  ; Expanded expression: "(@-4) *(4) "
+  2189                                  ; Fused expression:    "*(4) (@-4)  "
+  2190 00000BE9 668B46FC                	mov	eax, [bp-4]
+  2191 00000BED EB00                    	jmp	L170
+  2192                                  ; }
+  2193                                  L170:
+  2194 00000BEF 66                      	db	0x66
+  2195 00000BF0 C9                      	leave
+  2196 00000BF1 CB                      	retf
+  2197                                  L172:
+  2198                                  
+  2199                                  section .fxnsz
+  2200 00000040 44000000                	dd	L172 - _writeDOS
+  2201                                  
+  2202                                  ; glb lseekDOS : (
+  2203                                  ; prm     df : int
+  2204                                  ; prm     pos : * unsigned
+  2205                                  ; prm     whence : int
+  2206                                  ;     ) int
+  2207                                  section .text
+  2208                                  	global	_lseekDOS
+  2209                                  _lseekDOS:
+  2210 00000BF2 6655                    	push	ebp
+  2211 00000BF4 660FB7EC                	movzx	ebp, sp
+  2212 00000BF8 83EC0C                  	 sub	sp,         12
+  2213                                  ; loc     df : (@8): int
+  2214                                  ; loc     pos : (@12): * unsigned
+  2215                                  ; loc     whence : (@16): int
+  2216                                  ; loc     posL : (@-4): unsigned short
+  2217                                  ; loc     <something> : * unsigned short
+  2218                                  ; RPN'ized expression: "posL pos (something175) *u = "
+  2219                                  ; Expanded expression: "(@-4) (@12) *(4) *(2) =(2) "
+  2220                                  ; Fused expression:    "*(4) (@12) =(202) *(@-4) *ax "
+  2221 00000BFB 668B460C                	mov	eax, [bp+12]
+  2222 00000BFF 6689C3                  	mov	ebx, eax
+  2223 00000C02 6689DE                  	mov	esi, ebx
+  2224 00000C05 66C1CE04                	ror	esi, 4
+  2225 00000C09 8EDE                    	mov	ds, si
+  2226 00000C0B 66C1EE1C                	shr	esi, 28
+  2227 00000C0F 8B04                    	mov	ax, [si]
+  2228 00000C11 660FB7C0                	movzx	eax, ax
+  2229 00000C15 668946FC                	mov	[bp-4], eax
+  2230                                  ; loc     posH : (@-8): unsigned short
+  2231                                  ; loc     <something> : unsigned short
+  2232                                  ; loc     <something> : * unsigned
+  2233                                  ; RPN'ized expression: "posH pos (something177) *u 16 >> (something176) = "
+  2234                                  ; Expanded expression: "(@-8) (@12) *(4) *(4) 16 >>u unsigned short =(2) "
+  2235                                  ; Fused expression:    "*(4) (@12) >>u *ax 16 unsigned short =(204) *(@-8) ax "
+  2236 00000C19 668B460C                	mov	eax, [bp+12]
+  2237 00000C1D 6689C3                  	mov	ebx, eax
+  2238 00000C20 6689DE                  	mov	esi, ebx
+  2239 00000C23 66C1CE04                	ror	esi, 4
+  2240 00000C27 8EDE                    	mov	ds, si
+  2241 00000C29 66C1EE1C                	shr	esi, 28
+  2242 00000C2D 668B04                  	mov	eax, [si]
+  2243 00000C30 66C1E810                	shr	eax, 16
+  2244 00000C34 660FB7C0                	movzx	eax, ax
+  2245 00000C38 668946F8                	mov	[bp-8], eax
+  2246                                  ; loc     whenceByte : (@-12): unsigned char
+  2247                                  ; RPN'ized expression: "whenceByte whence = "
+  2248                                  ; Expanded expression: "(@-12) (@16) *(4) =(1) "
+  2249                                  ; Fused expression:    "=(204) *(@-12) *(@16) "
+  2250 00000C3C 668B4610                	mov	eax, [bp+16]
+  2251 00000C40 668946F4                	mov	[bp-12], eax
+  2252 00000C44 668B5E08                   mov ebx,[bp+8]       
+  2253 00000C48 8B56FC                     mov dx,[bp-4]        
+  2254 00000C4B 8B4EF8                     mov cx,[bp-8]        
+  2255 00000C4E 8A46F4                     mov al,[bp-12]       
+  2256 00000C51 B442                       mov ah,42h           
+  2257 00000C53 CD21                       int 21h              
+  2258 00000C55 7309                       jnc lseekOk          
+  2259 00000C57 66B8FFFFFFFF               mov eax,dword(-1)    
+  2260 00000C5D 66                         db  0x66             
+  2261 00000C5E C9                         leave                
+  2262 00000C5F CB                         retf                 
+  2263                                   lseekOk:               
+  2264 00000C60 8946FC                     mov [bp-4],ax        
+  2265 00000C63 8956F8                     mov [bp-8],dx        
+  2266                                  
+  2267                                  ; loc     <something> : unsigned
+  2268                                  ; loc     <something> : unsigned
+  2269                                  ; RPN'ized expression: "pos *u posH (something178) 16 << posL (something179) + = "
+  2270                                  ; Expanded expression: "(@12) *(4) (@-8) *(2) 16 << (@-4) *(2) + =(4) "
+  2271                                  ; Fused expression:    "*(4) (@12) push-ax << *(@-8) 16 + ax *(@-4) =(204) **sp ax "
+  2272 00000C66 668B460C                	mov	eax, [bp+12]
+  2273 00000C6A 6650                    	push	eax
+  2274 00000C6C 8B46F8                  	mov	ax, [bp-8]
+  2275 00000C6F 660FB7C0                	movzx	eax, ax
+  2276 00000C73 66C1E010                	shl	eax, 16
+  2277 00000C77 660FB74EFC              	movzx	ecx, word [bp-4]
+  2278 00000C7C 6601C8                  	add	eax, ecx
+  2279 00000C7F 665B                    	pop	ebx
+  2280 00000C81 6689DE                  	mov	esi, ebx
+  2281 00000C84 66C1CE04                	ror	esi, 4
+  2282 00000C88 8EDE                    	mov	ds, si
+  2283 00000C8A 66C1EE1C                	shr	esi, 28
+  2284 00000C8E 668904                  	mov	[si], eax
+  2285                                  ; return
+  2286                                  ; RPN'ized expression: "0 "
+  2287                                  ; Expanded expression: "0 "
+  2288                                  ; Expression value: 0
+  2289                                  ; Fused expression:    "0  "
+  2290 00000C91 66B800000000            	mov	eax, 0
+  2291                                  L173:
+  2292 00000C97 66                      	db	0x66
+  2293 00000C98 C9                      	leave
+  2294 00000C99 CB                      	retf
+  2295                                  L180:
+  2296                                  
+  2297                                  section .fxnsz
+  2298 00000044 A8000000                	dd	L180 - _lseekDOS
+  2299                                  
+  2300                                  ; glb getdiskDOS : (void) int
+  2301                                  section .text
+  2302                                  	global	_getdiskDOS
+  2303                                  _getdiskDOS:
+  2304 00000C9A 6655                    	push	ebp
+  2305 00000C9C 660FB7EC                	movzx	ebp, sp
+  2306                                  	;sub	sp,          0
+  2307 00000CA0 B419                       mov ah, 19h          
+  2308 00000CA2 CD21                       int 21h              
+  2309 00000CA4 660FB6C0                   movzx eax,al         
+  2310                                  
+  2311                                  L181:
+  2312 00000CA8 66                      	db	0x66
+  2313 00000CA9 C9                      	leave
+  2314 00000CAA CB                      	retf
+  2315                                  L183:
+  2316                                  
+  2317                                  section .fxnsz
+  2318 00000048 11000000                	dd	L183 - _getdiskDOS
+  2319                                  
+  2320                                  ; glb setdiskDOS : (
+  2321                                  ; prm     drive : int
+  2322                                  ;     ) int
+  2323                                  section .text
+  2324                                  	global	_setdiskDOS
+  2325                                  _setdiskDOS:
+  2326 00000CAB 6655                    	push	ebp
+  2327 00000CAD 660FB7EC                	movzx	ebp, sp
+  2328                                  	;sub	sp,          0
+  2329                                  ; loc     drive : (@8): int
+  2330 00000CB1 8A5608                     mov dl,[bp+8]        
+  2331 00000CB4 B40E                       mov ah,0eh           
+  2332 00000CB6 CD21                       int 21h              
+  2333 00000CB8 660FB6C0                   movzx eax,al         
+  2334                                  
+  2335                                  L184:
+  2336 00000CBC 66                      	db	0x66
+  2337 00000CBD C9                      	leave
+  2338 00000CBE CB                      	retf
+  2339                                  L186:
+  2340                                  
+  2341                                  section .fxnsz
+  2342 0000004C 14000000                	dd	L186 - _setdiskDOS
+  2343                                  
+  2344                                  ; glb getcurdirDOS : (
+  2345                                  ; prm     drive : int
+  2346                                  ; prm     directorio : * char
+  2347                                  ;     ) int
+  2348                                  section .text
+  2349                                  	global	_getcurdirDOS
+  2350                                  _getcurdirDOS:
+  2351 00000CBF 6655                    	push	ebp
+  2352 00000CC1 660FB7EC                	movzx	ebp, sp
+  2353 00000CC5 83EC04                  	 sub	sp,          4
+  2354                                  ; loc     drive : (@8): int
+  2355                                  ; loc     directorio : (@12): * char
+  2356                                  ; loc     res : (@-4): int
+  2357                                  ; RPN'ized expression: "res 0 = "
+  2358                                  ; Expanded expression: "(@-4) 0 =(4) "
+  2359                                  ; Fused expression:    "=(204) *(@-4) 0 "
+  2360 00000CC8 66B800000000            	mov	eax, 0
+  2361 00000CCE 668946FC                	mov	[bp-4], eax
+  2362                                  ; RPN'ized expression: "drive ++p "
+  2363                                  ; Expanded expression: "(@8) ++p(4) "
+  2364                                  ; Fused expression:    "++p(4) *(@8) "
+  2365 00000CD2 668B4608                	mov	eax, [bp+8]
+  2366 00000CD6 66FF4608                	inc	dword [bp+8]
+  2367 00000CDA 1E                         push ds              
+  2368 00000CDB 8A5608                     mov dl,[bp+8]        
+  2369 00000CDE 668B460C                   mov eax,[bp+12]      
+  2370 00000CE2 66C1C804                   ror eax,4            
+  2371 00000CE6 8ED8                       mov ds,ax            
+  2372 00000CE8 66C1E81C                   shr eax,28           
+  2373 00000CEC 89C6                       mov si,ax            
+  2374 00000CEE B447                       mov ah,47h           
+  2375 00000CF0 CD21                       int 21h              
+  2376 00000CF2 1F                         pop ds               
+  2377 00000CF3 7308                       jnc getcurdirOk      
+  2378 00000CF5 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2379                                   getcurdirOk:           
+  2380                                  
+  2381                                  ; return
+  2382                                  ; RPN'ized expression: "res "
+  2383                                  ; Expanded expression: "(@-4) *(4) "
+  2384                                  ; Fused expression:    "*(4) (@-4)  "
+  2385 00000CFD 668B46FC                	mov	eax, [bp-4]
+  2386                                  L187:
+  2387 00000D01 66                      	db	0x66
+  2388 00000D02 C9                      	leave
+  2389 00000D03 CB                      	retf
+  2390                                  L189:
+  2391                                  
+  2392                                  section .fxnsz
+  2393 00000050 45000000                	dd	L189 - _getcurdirDOS
+  2394                                  
+  2395                                  ; glb chdirDOS : (
+  2396                                  ; prm     path : * char
+  2397                                  ;     ) int
+  2398                                  section .text
+  2399                                  	global	_chdirDOS
+  2400                                  _chdirDOS:
+  2401 00000D04 6655                    	push	ebp
+  2402 00000D06 660FB7EC                	movzx	ebp, sp
+  2403 00000D0A 83EC04                  	 sub	sp,          4
+  2404                                  ; loc     path : (@8): * char
+  2405                                  ; loc     res : (@-4): int
+  2406                                  ; RPN'ized expression: "res 0 = "
+  2407                                  ; Expanded expression: "(@-4) 0 =(4) "
+  2408                                  ; Fused expression:    "=(204) *(@-4) 0 "
+  2409 00000D0D 66B800000000            	mov	eax, 0
+  2410 00000D13 668946FC                	mov	[bp-4], eax
+  2411 00000D17 1E                         push ds              
+  2412 00000D18 668B4608                   mov eax,[bp+8]       
+  2413 00000D1C 66C1C804                   ror eax,4            
+  2414 00000D20 8ED8                       mov ds,ax            
+  2415 00000D22 66C1E81C                   shr eax,28           
+  2416 00000D26 89C2                       mov dx,ax            
+  2417 00000D28 B43B                       mov ah,3bh           
+  2418 00000D2A CD21                       int 21h              
+  2419 00000D2C 1F                         pop ds               
+  2420 00000D2D 7308                       jnc chdirOk          
+  2421 00000D2F 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2422                                   chdirOk:               
+  2423                                  
+  2424                                  ; return
+  2425                                  ; RPN'ized expression: "res "
+  2426                                  ; Expanded expression: "(@-4) *(4) "
+  2427                                  ; Fused expression:    "*(4) (@-4)  "
+  2428 00000D37 668B46FC                	mov	eax, [bp-4]
+  2429                                  L190:
+  2430 00000D3B 66                      	db	0x66
+  2431 00000D3C C9                      	leave
+  2432 00000D3D CB                      	retf
+  2433                                  L192:
+  2434                                  
+  2435                                  section .fxnsz
+  2436 00000054 3A000000                	dd	L192 - _chdirDOS
+  2437                                  
+  2438                                  ; glb findfirstDOS : (
+  2439                                  ; prm     pathname : * char
+  2440                                  ; prm     ffblk : * struct ffblk
+  2441                                  ; prm     attrib : int
+  2442                                  ;     ) int
+  2443                                  section .text
+  2444                                  	global	_findfirstDOS
+  2445                                  _findfirstDOS:
+  2446 00000D3E 6655                    	push	ebp
+  2447 00000D40 660FB7EC                	movzx	ebp, sp
+  2448 00000D44 83EC04                  	 sub	sp,          4
+  2449                                  ; loc     pathname : (@8): * char
+  2450                                  ; loc     ffblk : (@12): * struct ffblk
+  2451                                  ; loc     attrib : (@16): int
+  2452                                  ; loc     res : (@-4): int
+  2453                                  ; RPN'ized expression: "res 0 = "
+  2454                                  ; Expanded expression: "(@-4) 0 =(4) "
+  2455                                  ; Fused expression:    "=(204) *(@-4) 0 "
+  2456 00000D47 66B800000000            	mov	eax, 0
+  2457 00000D4D 668946FC                	mov	[bp-4], eax
+  2458 00000D51 1E                         push ds              
+  2459 00000D52 B42F                       mov ah,2fh           
+  2460 00000D54 CD21                       int 21h              
+  2461 00000D56 06                         push es              
+  2462 00000D57 53                         push bx              
+  2463 00000D58 668B460C                   mov eax,[bp+12]      
+  2464 00000D5C 66C1C804                   ror eax,4            
+  2465 00000D60 8ED8                       mov ds,ax            
+  2466 00000D62 66C1E81C                   shr eax,28           
+  2467 00000D66 89C2                       mov dx,ax            
+  2468 00000D68 B41A                       mov ah,1ah           
+  2469 00000D6A CD21                       int 21h              
+  2470 00000D6C 8B4E10                     mov cx,[bp+16]       
+  2471 00000D6F 668B4608                   mov eax,[bp+8]       
+  2472 00000D73 66C1C804                   ror eax,4            
+  2473 00000D77 8ED8                       mov ds,ax            
+  2474 00000D79 66C1E81C                   shr eax,28           
+  2475 00000D7D 89C2                       mov dx,ax            
+  2476 00000D7F B44E                       mov ah,4eh           
+  2477 00000D81 CD21                       int 21h              
+  2478 00000D83 9C                         pushf                
+  2479 00000D84 59                         pop cx               
+  2480 00000D85 93                         xchg ax,bx           
+  2481 00000D86 B41A                       mov ah,1ah           
+  2482 00000D88 5A                         pop dx               
+  2483 00000D89 1F                         pop ds               
+  2484 00000D8A CD21                       int 21h              
+  2485 00000D8C 51                         push cx              
+  2486 00000D8D 9D                         popf                 
+  2487 00000D8E 1F                         pop ds               
+  2488 00000D8F 7308                       jnc findfirstOk      
+  2489 00000D91 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2490                                   findfirstOk:           
+  2491                                  
+  2492                                  ; return
+  2493                                  ; RPN'ized expression: "res "
+  2494                                  ; Expanded expression: "(@-4) *(4) "
+  2495                                  ; Fused expression:    "*(4) (@-4)  "
+  2496 00000D99 668B46FC                	mov	eax, [bp-4]
+  2497                                  L193:
+  2498 00000D9D 66                      	db	0x66
+  2499 00000D9E C9                      	leave
+  2500 00000D9F CB                      	retf
+  2501                                  L195:
+  2502                                  
+  2503                                  section .fxnsz
+  2504 00000058 62000000                	dd	L195 - _findfirstDOS
+  2505                                  
+  2506                                  ; glb findnextDOS : (
+  2507                                  ; prm     ffblk : * struct ffblk
+  2508                                  ;     ) int
+  2509                                  section .text
+  2510                                  	global	_findnextDOS
+  2511                                  _findnextDOS:
+  2512 00000DA0 6655                    	push	ebp
+  2513 00000DA2 660FB7EC                	movzx	ebp, sp
+  2514 00000DA6 83EC04                  	 sub	sp,          4
+  2515                                  ; loc     ffblk : (@8): * struct ffblk
+  2516                                  ; loc     res : (@-4): int
+  2517                                  ; RPN'ized expression: "res 0 = "
+  2518                                  ; Expanded expression: "(@-4) 0 =(4) "
+  2519                                  ; Fused expression:    "=(204) *(@-4) 0 "
+  2520 00000DA9 66B800000000            	mov	eax, 0
+  2521 00000DAF 668946FC                	mov	[bp-4], eax
+  2522 00000DB3 1E                         push ds              
+  2523 00000DB4 B42F                       mov ah,2fh           
+  2524 00000DB6 CD21                       int 21h              
+  2525 00000DB8 06                         push es              
+  2526 00000DB9 53                         push bx              
+  2527 00000DBA 668B460C                   mov eax,[bp+12]      
+  2528 00000DBE 66C1C804                   ror eax,4            
+  2529 00000DC2 8ED8                       mov ds,ax            
+  2530 00000DC4 66C1E81C                   shr eax,28           
+  2531 00000DC8 89C2                       mov dx,ax            
+  2532 00000DCA B41A                       mov ah,1ah           
+  2533 00000DCC CD21                       int 21h              
+  2534 00000DCE B44F                       mov ah,4fh           
+  2535 00000DD0 CD21                       int 21h              
+  2536 00000DD2 9C                         pushf                
+  2537 00000DD3 59                         pop cx               
+  2538 00000DD4 93                         xchg ax,bx           
+  2539 00000DD5 B41A                       mov ah,1ah           
+  2540 00000DD7 5A                         pop dx               
+  2541 00000DD8 1F                         pop ds               
+  2542 00000DD9 CD21                       int 21h              
+  2543 00000DDB 51                         push cx              
+  2544 00000DDC 9D                         popf                 
+  2545 00000DDD 1F                         pop ds               
+  2546 00000DDE 7308                       jnc findnextOk       
+  2547 00000DE0 66C746FCFFFFFFFF           mov [bp-4],dword(-1) 
+  2548                                   findnextOk:            
+  2549                                  
+  2550                                  ; return
+  2551                                  ; RPN'ized expression: "res "
+  2552                                  ; Expanded expression: "(@-4) *(4) "
+  2553                                  ; Fused expression:    "*(4) (@-4)  "
+  2554 00000DE8 668B46FC                	mov	eax, [bp-4]
+  2555                                  L196:
+  2556 00000DEC 66                      	db	0x66
+  2557 00000DED C9                      	leave
+  2558 00000DEE CB                      	retf
+  2559                                  L198:
+  2560                                  
+  2561                                  section .fxnsz
+  2562 0000005C 4F000000                	dd	L198 - _findnextDOS
+  2563                                  
+  2564                                  
+  2565                                  	extern	_strcmp
+  2566                                  
+  2567                                  ; Syntax/declaration table/stack:
+  2568                                  ; Bytes used: 6110/40960
+  2569                                  
+  2570                                  
+  2571                                  ; Macro table:
+  2572                                  ; Macro __SMALLER_C__ = `0x0100`
+  2573                                  ; Macro __SMALLER_C_32__ = ``
+  2574                                  ; Macro __HUGE__ = ``
+  2575                                  ; Macro __SMALLER_C_SCHAR__ = ``
+  2576                                  ; Bytes used: 74/5120
+  2577                                  
+  2578                                  
+  2579                                  ; Identifier table:
+  2580                                  ; Ident __floatsisf
+  2581                                  ; Ident __floatunsisf
+  2582                                  ; Ident __fixsfsi
+  2583                                  ; Ident __fixunssfsi
+  2584                                  ; Ident __addsf3
+  2585                                  ; Ident __subsf3
+  2586                                  ; Ident __negsf2
+  2587                                  ; Ident __mulsf3
+  2588                                  ; Ident __divsf3
+  2589                                  ; Ident __lesf2
+  2590                                  ; Ident __gesf2
+  2591                                  ; Ident intptr_t
+  2592                                  ; Ident uintptr_t
+  2593                                  ; Ident intmax_t
+  2594                                  ; Ident uintmax_t
+  2595                                  ; Ident int8_t
+  2596                                  ; Ident int_least8_t
+  2597                                  ; Ident int_fast8_t
+  2598                                  ; Ident uint8_t
+  2599                                  ; Ident uint_least8_t
+  2600                                  ; Ident uint_fast8_t
+  2601                                  ; Ident int16_t
+  2602                                  ; Ident int_least16_t
+  2603                                  ; Ident int_fast16_t
+  2604                                  ; Ident uint16_t
+  2605                                  ; Ident uint_least16_t
+  2606                                  ; Ident uint_fast16_t
+  2607                                  ; Ident int32_t
+  2608                                  ; Ident int_least32_t
+  2609                                  ; Ident int_fast32_t
+  2610                                  ; Ident uint32_t
+  2611                                  ; Ident uint_least32_t
+  2612                                  ; Ident uint_fast32_t
+  2613                                  ; Ident <something>
+  2614                                  ; Ident quot
+  2615                                  ; Ident rem
+  2616                                  ; Ident imaxdiv_t
+  2617                                  ; Ident FALSE
+  2618                                  ; Ident TRUE
+  2619                                  ; Ident bool_t
+  2620                                  ; Ident pointer_t
+  2621                                  ; Ident funcion_t
+  2622                                  ; Ident manejador_t
+  2623                                  ; Ident rti_t
+  2624                                  ; Ident isr_t
+  2625                                  ; Ident handler_t
+  2626                                  ; Ident retardarThread_t
+  2627                                  ; Ident ptrTVI_t
+  2628                                  ; Ident modoSO1_Bin
+  2629                                  ; Ident modoSO1_Exe
+  2630                                  ; Ident modoSO1_Bs
+  2631                                  ; Ident modoSO1_t
+  2632                                  ; Ident lo
+  2633                                  ; Ident hi
+  2634                                  ; Ident lh_t
+  2635                                  ; Ident offset
+  2636                                  ; Ident segment
+  2637                                  ; Ident address_t
+  2638                                  ; Ident ptr
+  2639                                  ; Ident adr
+  2640                                  ; Ident uPtrAdr_t
+  2641                                  ; Ident pid_t
+  2642                                  ; Ident tid_t
+  2643                                  ; Ident uid_t
+  2644                                  ; Ident gid_t
+  2645                                  ; Ident pindx_t
+  2646                                  ; Ident tindx_t
+  2647                                  ; Ident df_t
+  2648                                  ; Ident dfs_t
+  2649                                  ; Ident rindx_t
+  2650                                  ; Ident tipoOrdenador
+  2651                                  ; Ident rebootLegacy
+  2652                                  ; Ident tipoTeclado
+  2653                                  ; Ident leerTeclaBIOS
+  2654                                  ; Ident leerTeclaExtBIOS
+  2655                                  ; Ident teclaListaBIOS
+  2656                                  ; Ident leerTeclaListaBDA
+  2657                                  ; Ident teclaListaBDA
+  2658                                  ; Ident printCarBIOS
+  2659                                  ; Ident car
+  2660                                  ; Ident printCarPagBIOS
+  2661                                  ; Ident pag
+  2662                                  ; Ident printCarAtrPagBIOS
+  2663                                  ; Ident atr
+  2664                                  ; Ident printLnBIOS
+  2665                                  ; Ident printStrBIOS
+  2666                                  ; Ident str
+  2667                                  ; Ident printStrHastaBIOS
+  2668                                  ; Ident n
+  2669                                  ; Ident lleno
+  2670                                  ; Ident printDecBIOS
+  2671                                  ; Ident num
+  2672                                  ; Ident l
+  2673                                  ; Ident printLDecBIOS
+  2674                                  ; Ident printIntBIOS
+  2675                                  ; Ident printLIntBIOS
+  2676                                  ; Ident printHexBIOS
+  2677                                  ; Ident printLHexBIOS
+  2678                                  ; Ident printBinBIOS
+  2679                                  ; Ident printLBinBIOS
+  2680                                  ; Ident printPtrBIOS
+  2681                                  ; Ident printByteBIOS
+  2682                                  ; Ident b
+  2683                                  ; Ident printWordBIOS
+  2684                                  ; Ident w
+  2685                                  ; Ident printCadBIOS
+  2686                                  ; Ident cad
+  2687                                  ; Ident esperarTicsBIOS
+  2688                                  ; Ident tics
+  2689                                  ; Ident modoDeVideo
+  2690                                  ; Ident establecerModoDeVideo
+  2691                                  ; Ident modo
+  2692                                  ; Ident paginaActiva
+  2693                                  ; Ident establecerPaginaActiva
+  2694                                  ; Ident numPagsVideo
+  2695                                  ; Ident scrollPagBDA
+  2696                                  ; Ident numLineas
+  2697                                  ; Ident scrollPagBIOS
+  2698                                  ; Ident scrollBIOS
+  2699                                  ; Ident goToXYPag
+  2700                                  ; Ident fila
+  2701                                  ; Ident columna
+  2702                                  ; Ident goToXYBIOS
+  2703                                  ; Ident setCursorBIOS
+  2704                                  ; Ident linea1
+  2705                                  ; Ident linea2
+  2706                                  ; Ident ocultaCursorBIOS
+  2707                                  ; Ident readXYPagBIOS
+  2708                                  ; Ident readXYBIOS
+  2709                                  ; Ident memBIOS
+  2710                                  ; Ident enviarBIOS
+  2711                                  ; Ident recibirBIOS
+  2712                                  ; Ident hayApmBIOS
+  2713                                  ; Ident version
+  2714                                  ; Ident connectApmBIOS
+  2715                                  ; Ident disconnectApmBIOS
+  2716                                  ; Ident cpuIdleBIOS
+  2717                                  ; Ident cpuBusyBIOS
+  2718                                  ; Ident finProgDOS
+  2719                                  ; Ident error
+  2720                                  ; Ident ffblk
+  2721                                  ; Ident ff_reserved
+  2722                                  ; Ident ff_attrib
+  2723                                  ; Ident ff_ftime
+  2724                                  ; Ident ff_fdate
+  2725                                  ; Ident ff_fsize
+  2726                                  ; Ident ff_name
+  2727                                  ; Ident hayMSDOS
+  2728                                  ; Ident hayDOSBox
+  2729                                  ; Ident hayWindowsNT
+  2730                                  ; Ident segPSP
+  2731                                  ; Ident versionMSDOS
+  2732                                  ; Ident entornoMSDOS
+  2733                                  ; Ident valorMSDOS
+  2734                                  ; Ident argcMSDOS
+  2735                                  ; Ident getArgvMSDOS
+  2736                                  ; Ident openDOS
+  2737                                  ; Ident nombre
+  2738                                  ; Ident extendedOpenDOS
+  2739                                  ; Ident accion
+  2740                                  ; Ident closeDOS
+  2741                                  ; Ident df
+  2742                                  ; Ident commitFileDOS
+  2743                                  ; Ident createDOS
+  2744                                  ; Ident atributo
+  2745                                  ; Ident readDOS
+  2746                                  ; Ident buf
+  2747                                  ; Ident writeDOS
+  2748                                  ; Ident lseekDOS
+  2749                                  ; Ident pos
+  2750                                  ; Ident whence
+  2751                                  ; Ident getdiskDOS
+  2752                                  ; Ident setdiskDOS
+  2753                                  ; Ident drive
+  2754                                  ; Ident getcurdirDOS
+  2755                                  ; Ident direc
+  2756                                  ; Ident chdirDOS
+  2757                                  ; Ident path
+  2758                                  ; Ident findfirstDOS
+  2759                                  ; Ident pathname
+  2760                                  ; Ident attrib
+  2761                                  ; Ident findnextDOS
+  2762                                  ; Ident size_t
+  2763                                  ; Ident memset
+  2764                                  ; Ident memcpy
+  2765                                  ; Ident memmove
+  2766                                  ; Ident memchr
+  2767                                  ; Ident memcmp
+  2768                                  ; Ident strcpy
+  2769                                  ; Ident strncpy
+  2770                                  ; Ident strxfrm
+  2771                                  ; Ident strcat
+  2772                                  ; Ident strncat
+  2773                                  ; Ident strlen
+  2774                                  ; Ident strchr
+  2775                                  ; Ident strrchr
+  2776                                  ; Ident strstr
+  2777                                  ; Ident strspn
+  2778                                  ; Ident strcspn
+  2779                                  ; Ident strpbrk
+  2780                                  ; Ident strtok
+  2781                                  ; Ident strcmp
+  2782                                  ; Ident strncmp
+  2783                                  ; Ident strcoll
+  2784                                  ; Ident strerror
+  2785                                  ; Ident exitCode
+  2786                                  ; Ident directorio
+  2787                                  ; Bytes used: 2228/16384
+  2788                                  
+  2789                                  ; Next label number: 199
+  2790                                  ; Compilation succeeded.

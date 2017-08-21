@@ -1,0 +1,616 @@
+     1                                  bits 16
+     2                                  
+     3                                  ; glb intptr_t : int
+     4                                  ; glb uintptr_t : unsigned
+     5                                  ; glb intmax_t : int
+     6                                  ; glb uintmax_t : unsigned
+     7                                  ; glb int8_t : signed char
+     8                                  ; glb int_least8_t : signed char
+     9                                  ; glb int_fast8_t : signed char
+    10                                  ; glb uint8_t : unsigned char
+    11                                  ; glb uint_least8_t : unsigned char
+    12                                  ; glb uint_fast8_t : unsigned char
+    13                                  ; glb int16_t : short
+    14                                  ; glb int_least16_t : short
+    15                                  ; glb int_fast16_t : short
+    16                                  ; glb uint16_t : unsigned short
+    17                                  ; glb uint_least16_t : unsigned short
+    18                                  ; glb uint_fast16_t : unsigned short
+    19                                  ; glb int32_t : int
+    20                                  ; glb int_least32_t : int
+    21                                  ; glb int_fast32_t : int
+    22                                  ; glb uint32_t : unsigned
+    23                                  ; glb uint_least32_t : unsigned
+    24                                  ; glb uint_fast32_t : unsigned
+    25                                  ; glb imaxdiv_t : struct <something>
+    26                                  ; glb bool_t : int
+    27                                  ; glb pointer_t : * unsigned char
+    28                                  ; glb funcion_t : * (
+    29                                  ; prm     <something> : * void
+    30                                  ;     ) * void
+    31                                  ; glb manejador_t : * (void) void
+    32                                  ; glb rti_t : * (void) void
+    33                                  ; glb isr_t : * (void) void
+    34                                  ; glb handler_t : * (void) void
+    35                                  ; glb retardarThread_t : * (void) int
+    36                                  ; glb ptrTVI_t : * * (void) void
+    37                                  ; glb modoSO1_t : int
+    38                                  ; glb lh_t : struct <something>
+    39                                  ; glb address_t : struct <something>
+    40                                  ; glb uPtrAdr_t : union <something>
+    41                                  ; glb pid_t : int
+    42                                  ; glb tid_t : int
+    43                                  ; glb uid_t : int
+    44                                  ; glb gid_t : int
+    45                                  ; glb pindx_t : int
+    46                                  ; glb tindx_t : int
+    47                                  ; glb df_t : int
+    48                                  ; glb dfs_t : int
+    49                                  ; glb rindx_t : int
+    50                                  ; glb printCarVideo : (
+    51                                  ; prm     car : char
+    52                                  ;     ) int
+    53                                  ; glb printLnVideo : (void) int
+    54                                  ; glb printStrVideo : (
+    55                                  ; prm     str : * char
+    56                                  ;     ) int
+    57                                  ; glb printStrHastaVideo : (
+    58                                  ; prm     str : * char
+    59                                  ; prm     n : unsigned short
+    60                                  ; prm     lleno : int
+    61                                  ;     ) int
+    62                                  ; glb printDecVideo : (
+    63                                  ; prm     num : unsigned short
+    64                                  ; prm     l : unsigned short
+    65                                  ;     ) int
+    66                                  ; glb printLDecVideo : (
+    67                                  ; prm     num : unsigned
+    68                                  ; prm     l : unsigned short
+    69                                  ;     ) int
+    70                                  ; glb printIntVideo : (
+    71                                  ; prm     num : int
+    72                                  ; prm     l : unsigned short
+    73                                  ;     ) int
+    74                                  ; glb printLIntVideo : (
+    75                                  ; prm     num : int
+    76                                  ; prm     l : unsigned short
+    77                                  ;     ) int
+    78                                  ; glb printHexVideo : (
+    79                                  ; prm     num : unsigned short
+    80                                  ; prm     l : unsigned short
+    81                                  ;     ) int
+    82                                  ; glb printLHexVideo : (
+    83                                  ; prm     num : unsigned
+    84                                  ; prm     l : unsigned short
+    85                                  ;     ) int
+    86                                  ; glb printBinVideo : (
+    87                                  ; prm     num : unsigned short
+    88                                  ; prm     l : unsigned short
+    89                                  ;     ) int
+    90                                  ; glb printLBinVideo : (
+    91                                  ; prm     num : unsigned
+    92                                  ; prm     l : unsigned short
+    93                                  ;     ) int
+    94                                  ; glb printPtrVideo : (
+    95                                  ; prm     ptr : * unsigned char
+    96                                  ;     ) int
+    97                                  ; glb printByteVideo : (
+    98                                  ; prm     b : unsigned char
+    99                                  ;     ) int
+   100                                  ; glb printWordVideo : (
+   101                                  ; prm     w : unsigned short
+   102                                  ;     ) int
+   103                                  ; glb printCadVideo : (
+   104                                  ; prm     cad : * char
+   105                                  ;     ) int
+   106                                  ; glb _start__text : char
+   107                                  ; glb _stop__text : char
+   108                                  ; glb _start__rodata : char
+   109                                  ; glb _stop__rodata : char
+   110                                  ; glb _start__data : char
+   111                                  ; glb _stop__data : char
+   112                                  ; glb _start__bss : char
+   113                                  ; glb _stop__bss : char
+   114                                  ; glb _start_allcode__ : char
+   115                                  ; glb _stop_allcode__ : char
+   116                                  ; glb _start_alldata__ : char
+   117                                  ; glb _stop_alldata__ : char
+   118                                  ; glb mostrarSeccion : (
+   119                                  ; prm     start : unsigned
+   120                                  ; prm     stop : unsigned
+   121                                  ; prm     descripcion : * char
+   122                                  ;     ) void
+   123                                  ; glb mostrarSecciones : (void) void
+   124                                  ; glb mostrarSeccion : (
+   125                                  ; prm     start : unsigned
+   126                                  ; prm     stop : unsigned
+   127                                  ; prm     descripcion : * char
+   128                                  ;     ) void
+   129                                  section .text
+   130                                  	global	_mostrarSeccion
+   131                                  _mostrarSeccion:
+   132 00000000 6655                    	push	ebp
+   133 00000002 660FB7EC                	movzx	ebp, sp
+   134                                  	;sub	sp,          0
+   135                                  ; loc     start : (@8): unsigned
+   136                                  ; loc     stop : (@12): unsigned
+   137                                  ; loc     descripcion : (@16): * char
+   138                                  
+   139                                  section .rodata
+   140                                  L3:
+   141 00000000 20                      	db	" "
+   142 00000001 00                      	times	1 db 0
+   143                                  
+   144                                  section .text
+   145                                  ; RPN'ized expression: "( L3 printStrVideo ) "
+   146                                  ; Expanded expression: " L3  printStrVideo ()4 "
+   147                                  ; Fused expression:    "( L3 , printStrVideo )4 "
+   148                                  section .relod
+   149 00000000 [08000000]              	dd	L4
+   150                                  section .text
+   151 00000006 6668                    	db	0x66, 0x68
+   152                                  L4:
+   153 00000008 [00000000]              	dd	L3
+   154 0000000C 9A                      	db	0x9A
+   155                                  section .relot
+   156 00000000 [0D000000]              	dd	L5
+   157                                  section .text
+   158                                  L5:
+   159 0000000D [00000000]              	dd	_printStrVideo
+   160 00000011 83ECFC                  	sub	sp, -4
+   161                                  ; RPN'ized expression: "( 8 , start printLHexVideo ) "
+   162                                  ; Expanded expression: " 8  (@8) *(4)  printLHexVideo ()8 "
+   163                                  ; Fused expression:    "( 8 , *(4) (@8) , printLHexVideo )8 "
+   164 00000014 666A08                  	push	dword 8
+   165 00000017 66FF7608                	push	dword [bp+8]
+   166 0000001B 9A                      	db	0x9A
+   167                                  section .relot
+   168 00000004 [1C000000]              	dd	L6
+   169                                  section .text
+   170                                  L6:
+   171 0000001C [00000000]              	dd	_printLHexVideo
+   172 00000020 83ECF8                  	sub	sp, -8
+   173                                  
+   174                                  section .rodata
+   175                                  L7:
+   176 00000002 202D20                  	db	" - "
+   177 00000005 00                      	times	1 db 0
+   178                                  
+   179                                  section .text
+   180                                  ; RPN'ized expression: "( L7 printStrVideo ) "
+   181                                  ; Expanded expression: " L7  printStrVideo ()4 "
+   182                                  ; Fused expression:    "( L7 , printStrVideo )4 "
+   183                                  section .relod
+   184 00000004 [25000000]              	dd	L8
+   185                                  section .text
+   186 00000023 6668                    	db	0x66, 0x68
+   187                                  L8:
+   188 00000025 [02000000]              	dd	L7
+   189 00000029 9A                      	db	0x9A
+   190                                  section .relot
+   191 00000008 [2A000000]              	dd	L9
+   192                                  section .text
+   193                                  L9:
+   194 0000002A [00000000]              	dd	_printStrVideo
+   195 0000002E 83ECFC                  	sub	sp, -4
+   196                                  ; RPN'ized expression: "( 8 , stop 1 - printLHexVideo ) "
+   197                                  ; Expanded expression: " 8  (@12) *(4) 1 -  printLHexVideo ()8 "
+   198                                  ; Fused expression:    "( 8 , - *(@12) 1 , printLHexVideo )8 "
+   199 00000031 666A08                  	push	dword 8
+   200 00000034 668B460C                	mov	eax, [bp+12]
+   201 00000038 6648                    	dec	eax
+   202 0000003A 6650                    	push	eax
+   203 0000003C 9A                      	db	0x9A
+   204                                  section .relot
+   205 0000000C [3D000000]              	dd	L10
+   206                                  section .text
+   207                                  L10:
+   208 0000003D [00000000]              	dd	_printLHexVideo
+   209 00000041 83ECF8                  	sub	sp, -8
+   210                                  ; RPN'ized expression: "( descripcion printStrVideo ) "
+   211                                  ; Expanded expression: " (@16) *(4)  printStrVideo ()4 "
+   212                                  ; Fused expression:    "( *(4) (@16) , printStrVideo )4 "
+   213 00000044 66FF7610                	push	dword [bp+16]
+   214 00000048 9A                      	db	0x9A
+   215                                  section .relot
+   216 00000010 [49000000]              	dd	L11
+   217                                  section .text
+   218                                  L11:
+   219 00000049 [00000000]              	dd	_printStrVideo
+   220 0000004D 83ECFC                  	sub	sp, -4
+   221                                  L1:
+   222 00000050 66                      	db	0x66
+   223 00000051 C9                      	leave
+   224 00000052 CB                      	retf
+   225                                  L12:
+   226                                  
+   227                                  section .fxnsz noalloc
+   228 00000000 53000000                	dd	L12 - _mostrarSeccion
+   229                                  
+   230                                  ; glb mostrarSecciones : (void) void
+   231                                  section .text
+   232                                  	global	_mostrarSecciones
+   233                                  _mostrarSecciones:
+   234 00000053 6655                    	push	ebp
+   235 00000055 660FB7EC                	movzx	ebp, sp
+   236                                  	;sub	sp,          0
+   237                                  ; RPN'ized expression: "( printLnVideo ) "
+   238                                  ; Expanded expression: " printLnVideo ()0 "
+   239                                  ; Fused expression:    "( printLnVideo )0 "
+   240 00000059 9A                      	db	0x9A
+   241                                  section .relot
+   242 00000014 [5A000000]              	dd	L15
+   243                                  section .text
+   244                                  L15:
+   245 0000005A [00000000]              	dd	_printLnVideo
+   246                                  
+   247                                  section .rodata
+   248                                  L16:
+   249 00000006 20616C6C20636F6465-     	db	" all code: ",10
+   249 0000000F 3A200A             
+   250 00000012 00                      	times	1 db 0
+   251                                  
+   252                                  section .text
+   253                                  ; RPN'ized expression: "( L16 , _stop_allcode__ &u , _start_allcode__ &u mostrarSeccion ) "
+   254                                  ; Expanded expression: " L16  _stop_allcode__  _start_allcode__  mostrarSeccion ()12 "
+   255                                  ; Fused expression:    "( L16 , _stop_allcode__ , _start_allcode__ , mostrarSeccion )12 "
+   256                                  section .relod
+   257 00000008 [60000000]              	dd	L17
+   258                                  section .text
+   259 0000005E 6668                    	db	0x66, 0x68
+   260                                  L17:
+   261 00000060 [06000000]              	dd	L16
+   262                                  section .relod
+   263 0000000C [66000000]              	dd	L18
+   264                                  section .text
+   265 00000064 6668                    	db	0x66, 0x68
+   266                                  L18:
+   267 00000066 [00000000]              	dd	__stop_allcode__
+   268                                  section .relod
+   269 00000010 [6C000000]              	dd	L19
+   270                                  section .text
+   271 0000006A 6668                    	db	0x66, 0x68
+   272                                  L19:
+   273 0000006C [00000000]              	dd	__start_allcode__
+   274 00000070 9A                      	db	0x9A
+   275                                  section .relot
+   276 00000018 [71000000]              	dd	L20
+   277                                  section .text
+   278                                  L20:
+   279 00000071 [00000000]              	dd	_mostrarSeccion
+   280 00000075 83ECF4                  	sub	sp, -12
+   281                                  
+   282                                  section .rodata
+   283                                  L21:
+   284 00000013 2020202E7465787420-     	db	"   .text   ",10
+   284 0000001C 20200A             
+   285 0000001F 00                      	times	1 db 0
+   286                                  
+   287                                  section .text
+   288                                  ; RPN'ized expression: "( L21 , _stop__text &u , _start__text &u mostrarSeccion ) "
+   289                                  ; Expanded expression: " L21  _stop__text  _start__text  mostrarSeccion ()12 "
+   290                                  ; Fused expression:    "( L21 , _stop__text , _start__text , mostrarSeccion )12 "
+   291                                  section .relod
+   292 00000014 [7A000000]              	dd	L22
+   293                                  section .text
+   294 00000078 6668                    	db	0x66, 0x68
+   295                                  L22:
+   296 0000007A [13000000]              	dd	L21
+   297                                  section .relod
+   298 00000018 [80000000]              	dd	L23
+   299                                  section .text
+   300 0000007E 6668                    	db	0x66, 0x68
+   301                                  L23:
+   302 00000080 [00000000]              	dd	__stop__text
+   303                                  section .relod
+   304 0000001C [86000000]              	dd	L24
+   305                                  section .text
+   306 00000084 6668                    	db	0x66, 0x68
+   307                                  L24:
+   308 00000086 [00000000]              	dd	__start__text
+   309 0000008A 9A                      	db	0x9A
+   310                                  section .relot
+   311 0000001C [8B000000]              	dd	L25
+   312                                  section .text
+   313                                  L25:
+   314 0000008B [00000000]              	dd	_mostrarSeccion
+   315 0000008F 83ECF4                  	sub	sp, -12
+   316                                  
+   317                                  section .rodata
+   318                                  L26:
+   319 00000020 20616C6C2064617461-     	db	" all data: ",10
+   319 00000029 3A200A             
+   320 0000002C 00                      	times	1 db 0
+   321                                  
+   322                                  section .text
+   323                                  ; RPN'ized expression: "( L26 , _stop_alldata__ &u , _start_alldata__ &u mostrarSeccion ) "
+   324                                  ; Expanded expression: " L26  _stop_alldata__  _start_alldata__  mostrarSeccion ()12 "
+   325                                  ; Fused expression:    "( L26 , _stop_alldata__ , _start_alldata__ , mostrarSeccion )12 "
+   326                                  section .relod
+   327 00000020 [94000000]              	dd	L27
+   328                                  section .text
+   329 00000092 6668                    	db	0x66, 0x68
+   330                                  L27:
+   331 00000094 [20000000]              	dd	L26
+   332                                  section .relod
+   333 00000024 [9A000000]              	dd	L28
+   334                                  section .text
+   335 00000098 6668                    	db	0x66, 0x68
+   336                                  L28:
+   337 0000009A [00000000]              	dd	__stop_alldata__
+   338                                  section .relod
+   339 00000028 [A0000000]              	dd	L29
+   340                                  section .text
+   341 0000009E 6668                    	db	0x66, 0x68
+   342                                  L29:
+   343 000000A0 [00000000]              	dd	__start_alldata__
+   344 000000A4 9A                      	db	0x9A
+   345                                  section .relot
+   346 00000020 [A5000000]              	dd	L30
+   347                                  section .text
+   348                                  L30:
+   349 000000A5 [00000000]              	dd	_mostrarSeccion
+   350 000000A9 83ECF4                  	sub	sp, -12
+   351                                  
+   352                                  section .rodata
+   353                                  L31:
+   354 0000002D 2020202E726F646174-     	db	"   .rodata ",10
+   354 00000036 61200A             
+   355 00000039 00                      	times	1 db 0
+   356                                  
+   357                                  section .text
+   358                                  ; RPN'ized expression: "( L31 , _stop__rodata &u , _start__rodata &u mostrarSeccion ) "
+   359                                  ; Expanded expression: " L31  _stop__rodata  _start__rodata  mostrarSeccion ()12 "
+   360                                  ; Fused expression:    "( L31 , _stop__rodata , _start__rodata , mostrarSeccion )12 "
+   361                                  section .relod
+   362 0000002C [AE000000]              	dd	L32
+   363                                  section .text
+   364 000000AC 6668                    	db	0x66, 0x68
+   365                                  L32:
+   366 000000AE [2D000000]              	dd	L31
+   367                                  section .relod
+   368 00000030 [B4000000]              	dd	L33
+   369                                  section .text
+   370 000000B2 6668                    	db	0x66, 0x68
+   371                                  L33:
+   372 000000B4 [00000000]              	dd	__stop__rodata
+   373                                  section .relod
+   374 00000034 [BA000000]              	dd	L34
+   375                                  section .text
+   376 000000B8 6668                    	db	0x66, 0x68
+   377                                  L34:
+   378 000000BA [00000000]              	dd	__start__rodata
+   379 000000BE 9A                      	db	0x9A
+   380                                  section .relot
+   381 00000024 [BF000000]              	dd	L35
+   382                                  section .text
+   383                                  L35:
+   384 000000BF [00000000]              	dd	_mostrarSeccion
+   385 000000C3 83ECF4                  	sub	sp, -12
+   386                                  
+   387                                  section .rodata
+   388                                  L36:
+   389 0000003A 2020202E6461746120-     	db	"   .data   ",10
+   389 00000043 20200A             
+   390 00000046 00                      	times	1 db 0
+   391                                  
+   392                                  section .text
+   393                                  ; RPN'ized expression: "( L36 , _stop__data &u , _start__data &u mostrarSeccion ) "
+   394                                  ; Expanded expression: " L36  _stop__data  _start__data  mostrarSeccion ()12 "
+   395                                  ; Fused expression:    "( L36 , _stop__data , _start__data , mostrarSeccion )12 "
+   396                                  section .relod
+   397 00000038 [C8000000]              	dd	L37
+   398                                  section .text
+   399 000000C6 6668                    	db	0x66, 0x68
+   400                                  L37:
+   401 000000C8 [3A000000]              	dd	L36
+   402                                  section .relod
+   403 0000003C [CE000000]              	dd	L38
+   404                                  section .text
+   405 000000CC 6668                    	db	0x66, 0x68
+   406                                  L38:
+   407 000000CE [00000000]              	dd	__stop__data
+   408                                  section .relod
+   409 00000040 [D4000000]              	dd	L39
+   410                                  section .text
+   411 000000D2 6668                    	db	0x66, 0x68
+   412                                  L39:
+   413 000000D4 [00000000]              	dd	__start__data
+   414 000000D8 9A                      	db	0x9A
+   415                                  section .relot
+   416 00000028 [D9000000]              	dd	L40
+   417                                  section .text
+   418                                  L40:
+   419 000000D9 [00000000]              	dd	_mostrarSeccion
+   420 000000DD 83ECF4                  	sub	sp, -12
+   421                                  
+   422                                  section .rodata
+   423                                  L41:
+   424 00000047 2020202E6273732020-     	db	"   .bss    ",10
+   424 00000050 20200A             
+   425 00000053 00                      	times	1 db 0
+   426                                  
+   427                                  section .text
+   428                                  ; RPN'ized expression: "( L41 , _stop__bss &u , _start__bss &u mostrarSeccion ) "
+   429                                  ; Expanded expression: " L41  _stop__bss  _start__bss  mostrarSeccion ()12 "
+   430                                  ; Fused expression:    "( L41 , _stop__bss , _start__bss , mostrarSeccion )12 "
+   431                                  section .relod
+   432 00000044 [E2000000]              	dd	L42
+   433                                  section .text
+   434 000000E0 6668                    	db	0x66, 0x68
+   435                                  L42:
+   436 000000E2 [47000000]              	dd	L41
+   437                                  section .relod
+   438 00000048 [E8000000]              	dd	L43
+   439                                  section .text
+   440 000000E6 6668                    	db	0x66, 0x68
+   441                                  L43:
+   442 000000E8 [00000000]              	dd	__stop__bss
+   443                                  section .relod
+   444 0000004C [EE000000]              	dd	L44
+   445                                  section .text
+   446 000000EC 6668                    	db	0x66, 0x68
+   447                                  L44:
+   448 000000EE [00000000]              	dd	__start__bss
+   449 000000F2 9A                      	db	0x9A
+   450                                  section .relot
+   451 0000002C [F3000000]              	dd	L45
+   452                                  section .text
+   453                                  L45:
+   454 000000F3 [00000000]              	dd	_mostrarSeccion
+   455 000000F7 83ECF4                  	sub	sp, -12
+   456                                  L13:
+   457 000000FA 66                      	db	0x66
+   458 000000FB C9                      	leave
+   459 000000FC CB                      	retf
+   460                                  L46:
+   461                                  
+   462                                  section .fxnsz
+   463 00000004 AA000000                	dd	L46 - _mostrarSecciones
+   464                                  
+   465                                  
+   466                                  	extern	_printStrVideo
+   467                                  	extern	_printLHexVideo
+   468                                  	extern	_printLnVideo
+   469                                  	extern	__stop_allcode__
+   470                                  	extern	__start_allcode__
+   471                                  	extern	__stop__text
+   472                                  	extern	__start__text
+   473                                  	extern	__stop_alldata__
+   474                                  	extern	__start_alldata__
+   475                                  	extern	__stop__rodata
+   476                                  	extern	__start__rodata
+   477                                  	extern	__stop__data
+   478                                  	extern	__start__data
+   479                                  	extern	__stop__bss
+   480                                  	extern	__start__bss
+   481                                  
+   482                                  ; Syntax/declaration table/stack:
+   483                                  ; Bytes used: 1900/40960
+   484                                  
+   485                                  
+   486                                  ; Macro table:
+   487                                  ; Macro __SMALLER_C__ = `0x0100`
+   488                                  ; Macro __SMALLER_C_32__ = ``
+   489                                  ; Macro __HUGE__ = ``
+   490                                  ; Macro __SMALLER_C_SCHAR__ = ``
+   491                                  ; Bytes used: 74/5120
+   492                                  
+   493                                  
+   494                                  ; Identifier table:
+   495                                  ; Ident __floatsisf
+   496                                  ; Ident __floatunsisf
+   497                                  ; Ident __fixsfsi
+   498                                  ; Ident __fixunssfsi
+   499                                  ; Ident __addsf3
+   500                                  ; Ident __subsf3
+   501                                  ; Ident __negsf2
+   502                                  ; Ident __mulsf3
+   503                                  ; Ident __divsf3
+   504                                  ; Ident __lesf2
+   505                                  ; Ident __gesf2
+   506                                  ; Ident intptr_t
+   507                                  ; Ident uintptr_t
+   508                                  ; Ident intmax_t
+   509                                  ; Ident uintmax_t
+   510                                  ; Ident int8_t
+   511                                  ; Ident int_least8_t
+   512                                  ; Ident int_fast8_t
+   513                                  ; Ident uint8_t
+   514                                  ; Ident uint_least8_t
+   515                                  ; Ident uint_fast8_t
+   516                                  ; Ident int16_t
+   517                                  ; Ident int_least16_t
+   518                                  ; Ident int_fast16_t
+   519                                  ; Ident uint16_t
+   520                                  ; Ident uint_least16_t
+   521                                  ; Ident uint_fast16_t
+   522                                  ; Ident int32_t
+   523                                  ; Ident int_least32_t
+   524                                  ; Ident int_fast32_t
+   525                                  ; Ident uint32_t
+   526                                  ; Ident uint_least32_t
+   527                                  ; Ident uint_fast32_t
+   528                                  ; Ident <something>
+   529                                  ; Ident quot
+   530                                  ; Ident rem
+   531                                  ; Ident imaxdiv_t
+   532                                  ; Ident FALSE
+   533                                  ; Ident TRUE
+   534                                  ; Ident bool_t
+   535                                  ; Ident pointer_t
+   536                                  ; Ident funcion_t
+   537                                  ; Ident manejador_t
+   538                                  ; Ident rti_t
+   539                                  ; Ident isr_t
+   540                                  ; Ident handler_t
+   541                                  ; Ident retardarThread_t
+   542                                  ; Ident ptrTVI_t
+   543                                  ; Ident modoSO1_Bin
+   544                                  ; Ident modoSO1_Exe
+   545                                  ; Ident modoSO1_Bs
+   546                                  ; Ident modoSO1_t
+   547                                  ; Ident lo
+   548                                  ; Ident hi
+   549                                  ; Ident lh_t
+   550                                  ; Ident offset
+   551                                  ; Ident segment
+   552                                  ; Ident address_t
+   553                                  ; Ident ptr
+   554                                  ; Ident adr
+   555                                  ; Ident uPtrAdr_t
+   556                                  ; Ident pid_t
+   557                                  ; Ident tid_t
+   558                                  ; Ident uid_t
+   559                                  ; Ident gid_t
+   560                                  ; Ident pindx_t
+   561                                  ; Ident tindx_t
+   562                                  ; Ident df_t
+   563                                  ; Ident dfs_t
+   564                                  ; Ident rindx_t
+   565                                  ; Ident printCarVideo
+   566                                  ; Ident car
+   567                                  ; Ident printLnVideo
+   568                                  ; Ident printStrVideo
+   569                                  ; Ident str
+   570                                  ; Ident printStrHastaVideo
+   571                                  ; Ident n
+   572                                  ; Ident lleno
+   573                                  ; Ident printDecVideo
+   574                                  ; Ident num
+   575                                  ; Ident l
+   576                                  ; Ident printLDecVideo
+   577                                  ; Ident printIntVideo
+   578                                  ; Ident printLIntVideo
+   579                                  ; Ident printHexVideo
+   580                                  ; Ident printLHexVideo
+   581                                  ; Ident printBinVideo
+   582                                  ; Ident printLBinVideo
+   583                                  ; Ident printPtrVideo
+   584                                  ; Ident printByteVideo
+   585                                  ; Ident b
+   586                                  ; Ident printWordVideo
+   587                                  ; Ident w
+   588                                  ; Ident printCadVideo
+   589                                  ; Ident cad
+   590                                  ; Ident _start__text
+   591                                  ; Ident _stop__text
+   592                                  ; Ident _start__rodata
+   593                                  ; Ident _stop__rodata
+   594                                  ; Ident _start__data
+   595                                  ; Ident _stop__data
+   596                                  ; Ident _start__bss
+   597                                  ; Ident _stop__bss
+   598                                  ; Ident _start_allcode__
+   599                                  ; Ident _stop_allcode__
+   600                                  ; Ident _start_alldata__
+   601                                  ; Ident _stop_alldata__
+   602                                  ; Ident mostrarSeccion
+   603                                  ; Ident start
+   604                                  ; Ident stop
+   605                                  ; Ident descripcion
+   606                                  ; Ident mostrarSecciones
+   607                                  ; Bytes used: 1247/16384
+   608                                  
+   609                                  ; Next label number: 47
+   610                                  ; Compilation succeeded.

@@ -1,0 +1,52 @@
+     1                                  bits 16
+     2                                  
+     3                                  %define NUM_MATRICULA 0x0123
+     4                                  ; glb matrix : (void) void
+     5                                  section .text
+     6                                  	global	_matrix
+     7                                  _matrix:
+     8 00000000 6655                    	push	ebp
+     9 00000002 660FB7EC                	movzx	ebp, sp
+    10                                  	;sub	sp,          0
+    11 00000006 2301<rept>               times NUM_MATRICULA dw NUM_MATRICULA
+    12                                  L1:
+    13 0000024C 66                      	db	0x66
+    14 0000024D C9                      	leave
+    15 0000024E CB                      	retf
+    16                                  L3:
+    17                                  
+    18                                  section .fxnsz noalloc
+    19 00000000 4F020000                	dd	L3 - _matrix
+    20                                  
+    21                                  
+    22                                  
+    23                                  ; Syntax/declaration table/stack:
+    24                                  ; Bytes used: 80/40960
+    25                                  
+    26                                  
+    27                                  ; Macro table:
+    28                                  ; Macro __SMALLER_C__ = `0x0100`
+    29                                  ; Macro __SMALLER_C_32__ = ``
+    30                                  ; Macro __HUGE__ = ``
+    31                                  ; Macro __SMALLER_C_SCHAR__ = ``
+    32                                  ; Bytes used: 74/5120
+    33                                  
+    34                                  
+    35                                  ; Identifier table:
+    36                                  ; Ident __floatsisf
+    37                                  ; Ident __floatunsisf
+    38                                  ; Ident __fixsfsi
+    39                                  ; Ident __fixunssfsi
+    40                                  ; Ident __addsf3
+    41                                  ; Ident __subsf3
+    42                                  ; Ident __negsf2
+    43                                  ; Ident __mulsf3
+    44                                  ; Ident __divsf3
+    45                                  ; Ident __lesf2
+    46                                  ; Ident __gesf2
+    47                                  ; Ident matrix
+    48                                  ; Ident <something>
+    49                                  ; Bytes used: 142/16384
+    50                                  
+    51                                  ; Next label number: 4
+    52                                  ; Compilation succeeded.
