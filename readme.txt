@@ -1,6 +1,6 @@
 
 SO1H is a small operating system for the 80386+ architecture.
-It is written in C using the Smaller C compiler of Alexei Frunze
+It is written in C using the Smaller C compiler of Alexey Frunze
 (http://github.com/alexfru/SmallerC/wiki). Smaller C generates 16 
 bits code for NASM that can be assembled and linked to generate
 binary executable files of SO1H. The model of programming used 
